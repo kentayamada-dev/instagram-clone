@@ -1,0 +1,28 @@
+{
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**", "storybook/**"]
+    },
+    "cspell":{
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "format": {
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    },
+    "prod": {
+      "cache": false
+    },
+    "test": {
+      "outputs": ["coverage/**"]
+    },
+    "type-check": {
+      "outputs": ["tsconfig.tsbuildinfo"]
+    }
+  }
+}

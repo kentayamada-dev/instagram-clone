@@ -1,1 +1,1 @@
-# instagram-clone
+# instagram

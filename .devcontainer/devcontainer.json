@@ -1,0 +1,25 @@
+{
+  "name": "Instagram Clone",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "material-icon-theme.activeIconPack": "nest",
+    "typescript.tsdk": "node_modules/typescript/lib"
+  },
+  "extensions": [
+    "esbenp.prettier-vscode",
+    "Exelord.git-commits",
+    "albert.TabOut",
+    "Fooxly.themeswitch",
+    "richie5um2.vscode-sort-json",
+    "dbaeumer.vscode-eslint",
+    "Prisma.prisma",
+    "pflannery.vscode-versionlens",
+    "kamikillerto.vscode-colorize"
+  ],
+  "postCreateCommand": "make clean && yarn install"
+}

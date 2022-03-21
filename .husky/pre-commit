@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+exec git diff --cached --name-only | yarn cspell --no-summary --no-progress --no-must-find-files --file-list stdin
+yarn lint-staged
