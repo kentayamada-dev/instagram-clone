@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth, @typescript-eslint/indent */
 import {
   Table,
   TableCaption,
@@ -58,5 +57,3 @@ const About: NextPage<Props> = ({ data }) => (
 );
 
 export default About;
-
-/* eslint-enable react/jsx-max-depth, @typescript-eslint/indent  */

@@ -4,9 +4,6 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "settings": {
-    "editor.formatOnPaste": false,
-    "editor.formatOnSave": false,
-    "editor.formatOnType": false,
     "material-icon-theme.activeIconPack": "nest",
     "typescript.tsdk": "node_modules/typescript/lib"
   },
@@ -19,7 +16,8 @@
     "dbaeumer.vscode-eslint",
     "Prisma.prisma",
     "pflannery.vscode-versionlens",
-    "kamikillerto.vscode-colorize"
+    "kamikillerto.vscode-colorize",
+    "styled-components.vscode-styled-components"
   ],
   "postCreateCommand": "make clean && yarn install"
 }

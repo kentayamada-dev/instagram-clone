@@ -30,11 +30,11 @@ const generateUsers = (numberOfUsers: number): Prisma.UserCreateInput[] =>
   });
 
 const initDB = async () => {
-  const tablenames = await prisma.$queryRaw<
+  const tableNames = await prisma.$queryRaw<
     Array<{ tablename: string }>
   >`SELECT tablename FROM pg_tables WHERE schemaname='public'`;
 
-  for (const { tablename } of tablenames) {
+  for (const { tablename } of tableNames) {
     if (tablename !== "_prisma_migrations") {
       try {
         await prisma.$executeRawUnsafe(

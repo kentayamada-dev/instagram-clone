@@ -25,6 +25,20 @@ module.exports = {
       rules: {
         "import/no-default-export": "off"
       }
+    },
+    {
+      files: ["src/libs/chakra/index.ts"],
+      rules: {
+        "sort-keys": "off",
+        "@typescript-eslint/naming-convention": "off"
+      }
+    },
+    {
+      files: ["src/components/**/index.stories.tsx"],
+      rules: {
+        "new-cap": "off",
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ],
   extends: [
@@ -119,7 +133,7 @@ module.exports = {
         allowCallbacks: "never",
         allowConditionalTypes: "never",
         allowConstructors: "never",
-        allowGenerics: "never",
+        allowGenerics: "always",
         allowLiterals: "always",
         allowMappedTypes: "never",
         allowTupleTypes: "never"
@@ -127,6 +141,14 @@ module.exports = {
     ],
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
+    "@typescript-eslint/space-before-function-paren": [
+      "error",
+      {
+        anonymous: "always",
+        named: "never",
+        asyncArrow: "always"
+      }
+    ],
     // eslint-plugin-react
     "react/jsx-max-depth": ["error", { max: 5 }],
     "react/jsx-one-expression-per-line": ["error", { allow: "single-child" }],

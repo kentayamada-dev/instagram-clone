@@ -3,7 +3,7 @@
     "build": {
       "outputs": ["dist/**", "storybook/**"]
     },
-    "cspell":{
+    "cspell": {
       "outputs": []
     },
     "dev": {
@@ -12,8 +12,11 @@
     "format": {
       "outputs": []
     },
-    "lint": {
+    "eslint": {
       "outputs": []
+    },
+    "lint": {
+      "outputs": ["tsconfig.tsbuildinfo"]
     },
     "prod": {
       "cache": false

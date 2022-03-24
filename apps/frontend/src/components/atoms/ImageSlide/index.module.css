@@ -1,0 +1,60 @@
+.slide_1 {
+  opacity: 0;
+  animation: change-img-anim 40s infinite;
+  animation: change-img-anim-first 40s infinite;
+  animation-delay: 0s;
+}
+
+.slide_2 {
+  opacity: 0;
+  animation: change-img-anim 40s infinite;
+  animation-delay: 10s;
+}
+
+.slide_3 {
+  opacity: 0;
+  animation: change-img-anim 40s infinite;
+  animation-delay: 20s;
+}
+
+.slide_4 {
+  opacity: 0;
+  animation: change-img-anim 40s infinite;
+  animation-delay: 30s;
+}
+
+@keyframes change-img-anim-first {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes change-img-anim {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

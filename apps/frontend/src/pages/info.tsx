@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth, @typescript-eslint/indent */
 import {
   Button,
   Table,
@@ -69,5 +68,3 @@ const Info: NextPage<Props> = ({ data }) => {
 };
 
 export default Info;
-
-/* eslint-enable react/jsx-max-depth, @typescript-eslint/indent  */
