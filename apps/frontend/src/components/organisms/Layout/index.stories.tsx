@@ -13,3 +13,7 @@ const LayoutTemplate: ComponentStory<typeof Layout> = (args) => (
 );
 
 export const layout = LayoutTemplate.bind({});
+
+layout.args = {
+  title: "layout"
+};

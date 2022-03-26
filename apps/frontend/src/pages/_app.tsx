@@ -1,16 +1,25 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { appWithTranslation } from "next-i18next";
-import { Layout } from "../components/organisms/Layout";
 import { customizedTheme } from "../libs/chakra";
+import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => (
-  <ChakraProvider theme={customizedTheme}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  </ChakraProvider>
-);
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type NextPageWithLayout<T = {}> = NextPage<T> & {
+  getLayout?: (page: JSX.Element) => JSX.Element;
+};
 
-export default appWithTranslation(MyApp);
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout): JSX.Element => {
+  const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
+
+  return (
+    <ChakraProvider theme={customizedTheme}>
+      {getLayout(<Component {...pageProps} />)}
+    </ChakraProvider>
+  );
+};
+
+export default MyApp;

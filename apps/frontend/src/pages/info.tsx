@@ -10,7 +10,9 @@ import {
   Tr,
   useColorMode
 } from "@chakra-ui/react";
-import type { GetStaticProps, NextPage } from "next";
+import { Layout } from "../components/organisms/Layout";
+import type { NextPageWithLayout } from "./_app";
+import type { GetStaticProps } from "next";
 
 type Res = {
   count: number;
@@ -35,7 +37,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   };
 };
 
-const Info: NextPage<Props> = ({ data }) => {
+const Info: NextPageWithLayout<Props> = ({ data }) => {
   const { colorMode, toggleColorMode: handleColorMode } = useColorMode();
 
   return (
@@ -66,5 +68,7 @@ const Info: NextPage<Props> = ({ data }) => {
     </>
   );
 };
+
+Info.getLayout = (page): JSX.Element => <Layout title="info">{page}</Layout>;
 
 export default Info;

@@ -1,9 +1,8 @@
 import type { ImageProps } from "next/image";
 
-export type ImageLinkColorModeProps = {
+export type ImageColorModeProps = {
   height: number;
   width: number;
-  href: string;
   lightImg: {
     src: ImageProps["src"];
     alt: string;

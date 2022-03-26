@@ -12,7 +12,7 @@ module.exports = {
     "dist/*",
     "next-env.d.ts",
     "next.config.js",
-    "next-i18next.config.js"
+    "i18n.js"
   ],
   settings: {
     react: {
@@ -20,6 +20,27 @@ module.exports = {
     }
   },
   overrides: [
+    {
+      files: ["src/libs/chakra/index.ts"],
+      rules: {
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "id-length": "off"
+      }
+    },
+    {
+      files: ["src/pages/_app.tsx"],
+      rules: {
+        "@typescript-eslint/naming-convention": "off"
+      }
+    },
+    {
+      files: ["src/libs/next_translate/types.ts"],
+      rules: {
+        "@typescript-eslint/prefer-ts-expect-error": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/indent": "off"
+      }
+    },
     {
       files: ["src/pages/*", "src/components/**/index.stories.tsx"],
       rules: {
@@ -60,7 +81,8 @@ module.exports = {
     "max-len": [
       "error",
       {
-        ignoreComments: true
+        ignoreComments: true,
+        ignorePattern: "^import .*"
       }
     ],
     "max-lines-per-function": "off",
@@ -131,7 +153,7 @@ module.exports = {
       {
         allowAliases: "always",
         allowCallbacks: "never",
-        allowConditionalTypes: "never",
+        allowConditionalTypes: "always",
         allowConstructors: "never",
         allowGenerics: "always",
         allowLiterals: "always",

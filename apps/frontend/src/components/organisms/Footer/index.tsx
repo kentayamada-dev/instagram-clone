@@ -1,7 +1,7 @@
 import { Flex, VStack, Text, Divider, Box } from "@chakra-ui/react";
 import React from "react";
 import { ImageLink } from "../../atoms/ImageLink";
-import { ImageLinkColorMode } from "../../atoms/ImageLinkColorMode";
+import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 
 export const Footer = (): JSX.Element => {
   const darkImg = React.useMemo(

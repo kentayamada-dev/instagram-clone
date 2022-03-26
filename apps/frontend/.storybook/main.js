@@ -9,7 +9,8 @@ module.exports = {
     "@chakra-ui/storybook-addon",
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
-    "storybook-addon-next-router"
+    "storybook-addon-next-router",
+    "@storybook/preset-scss"
   ],
   framework: "@storybook/react",
   core: {

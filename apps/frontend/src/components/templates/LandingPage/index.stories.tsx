@@ -1,4 +1,4 @@
-import { header } from "../../molecules/Header/index.stories";
+import { header } from "../../organisms/Header/index.stories";
 import { Layout } from "../../organisms/Layout";
 import { LandingPage } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";

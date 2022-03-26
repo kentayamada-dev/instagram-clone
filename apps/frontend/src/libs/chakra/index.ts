@@ -1,18 +1,41 @@
 import { extendTheme } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools";
+import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
 
 export const customizedTheme = extendTheme({
-  colors: {
-    brand: {
-      "50": "#E8F2FC",
-      "100": "#C0DBF7",
-      "200": "#97C4F2",
-      "300": "#6FADEC",
-      "400": "#4696E7",
-      "500": "#1D7FE2",
-      "600": "#1766B5",
-      "700": "#124C87",
-      "800": "#0C335A",
-      "900": "#06192D"
+  components: {
+    Button: {
+      variants: {
+        "with-shadow": {
+          bg: "DODGER_BLUE",
+          color: "WHITE",
+          _hover: {
+            opacity: 0.8
+          }
+        }
+      }
     }
+  },
+  styles: {
+    global: (props: StyleFunctionProps) => ({
+      body: {
+        bg: mode("SNOW", "BUNKER")(props)
+      },
+      a: {
+        color: "#2081E2 !important",
+        textDecoration: "none !important",
+        _hover: {
+          opacity: 0.8
+        }
+      }
+    })
+  },
+  colors: {
+    // https://www.htmlcsscolor.com/
+    SNOW: "#FAFAFA",
+    BUNKER: "#202225",
+    BLACK_PEARL: "#04111D",
+    DODGER_BLUE: "#2081E2",
+    WHITE: "#FFFFFF"
   }
 });

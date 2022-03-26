@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 export const ImageSlide = (): JSX.Element => (
   <Box pos="relative">
@@ -16,7 +16,7 @@ export const ImageSlide = (): JSX.Element => (
       <Image
         alt="Image Slide 1"
         // eslint-disable-next-line react/forbid-component-props
-        className={styles["s"]}
+        className={styles["slide_1"]}
         height={465}
         objectFit="contain"
         quality={100}
