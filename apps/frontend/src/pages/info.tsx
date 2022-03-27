@@ -8,7 +8,8 @@ import {
   Th,
   Thead,
   Tr,
-  useColorMode
+  useColorMode,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { Layout } from "../components/organisms/Layout";
 import type { NextPageWithLayout } from "./_app";
@@ -38,12 +39,13 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 };
 
 const Info: NextPageWithLayout<Props> = ({ data }) => {
-  const { colorMode, toggleColorMode: handleColorMode } = useColorMode();
+  const { toggleColorMode: handleColorMode } = useColorMode();
+  const colorModeText = useColorModeValue("Dark", "Light");
 
   return (
     <>
       <Button colorScheme="brand" onClick={handleColorMode}>
-        {colorMode === "light" ? "Dark" : "Light"}
+        {colorModeText}
       </Button>
       <Table colorScheme="teal" variant="striped">
         <TableCaption>Imperial to metric conversion factors</TableCaption>

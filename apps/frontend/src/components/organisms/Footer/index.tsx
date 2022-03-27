@@ -1,4 +1,4 @@
-import { Flex, VStack, Text, Divider, Box } from "@chakra-ui/react";
+import { Flex, VStack, Text, Divider, Center } from "@chakra-ui/react";
 import React from "react";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
@@ -21,36 +21,38 @@ export const Footer = (): JSX.Element => {
   );
 
   return (
-    <Box minH="8vh" w="100%">
+    <VStack minH="8vh" w="100%">
       <Divider m="0 auto" width="80%" />
-      <Flex align="center" justify="space-around">
+      <Flex justify="space-around" w="100%">
         <VStack>
           <Text fontSize="xs">Created by</Text>
-          <Text fontSize="md" fontWeight="extrabold">
-            Kenta Yamada
-          </Text>
+          <Center>
+            <Text fontSize="md" fontWeight="extrabold">
+              Kenta Yamada
+            </Text>
+          </Center>
         </VStack>
         <VStack>
           <Text fontSize="xs">Referenced to</Text>
           <ImageLink
             alt="Instagram"
-            height={30}
+            height={25}
             href="https://www.instagram.com/"
             src="/static/instagram/text.svg"
-            width={100}
+            width={90}
           />
         </VStack>
         <VStack>
           <Text fontSize="xs">Hosting by</Text>
           <ImageLinkColorMode
             darkImg={darkImg}
-            height={30}
+            height={25}
             href="https://vercel.com/"
             lightImg={lightImg}
-            width={100}
+            width={90}
           />
         </VStack>
       </Flex>
-    </Box>
+    </VStack>
   );
 };

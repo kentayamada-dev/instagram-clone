@@ -1,28 +1,41 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
+import { COLORS } from "../../constants";
 import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
+
+const { DODGER_BLUE, BUNKER, SNOW, WHITE } = COLORS;
 
 export const customizedTheme = extendTheme({
   components: {
     Button: {
       variants: {
-        "with-shadow": {
-          bg: "DODGER_BLUE",
-          color: "WHITE",
+        primary: {
+          bg: DODGER_BLUE,
+          color: WHITE,
           _hover: {
             opacity: 0.8
           }
         }
       }
     }
+    /* eslint-disable multiline-comment-style, capitalized-comments */
+    // Box: {
+    //   variants: {
+    //     primary: (props: StyleFunctionProps) => ({
+    //       bg: mode("gray.800", "whiteAlpha.900")(props)
+    //     })
+    //   }
+    // }
+    /* eslint-enable multiline-comment-style, capitalized-comments  */
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
       body: {
-        bg: mode("SNOW", "BUNKER")(props)
+        bg: mode(SNOW, BUNKER)(props)
       },
       a: {
         color: "#2081E2 !important",
+        fontWeight: "bold",
         textDecoration: "none !important",
         _hover: {
           opacity: 0.8
@@ -30,12 +43,5 @@ export const customizedTheme = extendTheme({
       }
     })
   },
-  colors: {
-    // https://www.htmlcsscolor.com/
-    SNOW: "#FAFAFA",
-    BUNKER: "#202225",
-    BLACK_PEARL: "#04111D",
-    DODGER_BLUE: "#2081E2",
-    WHITE: "#FFFFFF"
-  }
+  colors: COLORS
 });

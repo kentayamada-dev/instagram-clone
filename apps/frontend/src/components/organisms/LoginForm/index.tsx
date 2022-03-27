@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth */
 import {
   Button,
   Center,
@@ -8,12 +7,14 @@ import {
   Stack,
   VStack,
   Text,
-  Link
+  Link,
+  useColorModeValue
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import NextLink from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { COLORS } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
 import type { SubmitHandler } from "react-hook-form";
@@ -27,6 +28,8 @@ const Form = styled.form`
   width: 100%;
 `;
 
+const { BLACK_PEARL, WHITE, EBONY } = COLORS;
+
 export const LoginForm = (): JSX.Element => {
   const {
     register,
@@ -36,7 +39,8 @@ export const LoginForm = (): JSX.Element => {
   const { t } = useTypeSafeTranslation("login");
   // eslint-disable-next-line no-console
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
-
+  const bgColor = useColorModeValue(WHITE, EBONY);
+  const borderColor = useColorModeValue("", BLACK_PEARL);
   const darkImg = React.useMemo(
     () => ({
       alt: "Instagram Text Dark",
@@ -57,6 +61,8 @@ export const LoginForm = (): JSX.Element => {
     <VStack minH="500px" spacing={4}>
       <Stack
         align="center"
+        bgColor={bgColor}
+        borderColor={borderColor}
         borderWidth="1px"
         p="30px"
         spacing={10}
@@ -74,11 +80,13 @@ export const LoginForm = (): JSX.Element => {
             <InputGroup>
               <Stack spacing={3} w="100%">
                 <Input
+                  id="email"
                   placeholder={t("email")}
                   type="email"
                   {...register("email")}
                 />
                 <Input
+                  id="password"
                   placeholder={t("password")}
                   type="password"
                   {...register("password")}
@@ -86,7 +94,7 @@ export const LoginForm = (): JSX.Element => {
                 <Button
                   isLoading={isSubmitting}
                   type="submit"
-                  variant="with-shadow"
+                  variant="primary"
                 >
                   {t("login")}
                 </Button>
@@ -95,14 +103,19 @@ export const LoginForm = (): JSX.Element => {
           </FormControl>
         </Form>
       </Stack>
-      <Center borderWidth="1px" h="60px" w="100%">
+      <Center
+        bgColor={bgColor}
+        borderColor={borderColor}
+        borderWidth="1px"
+        gap={2}
+        h="60px"
+        w="100%"
+      >
         <Text fontSize="sm">{t("noAccount")}</Text>
         <NextLink href="/signup" passHref>
-          <Link>Home</Link>
+          <Link>{t("signUp")}</Link>
         </NextLink>
       </Center>
     </VStack>
   );
 };
-
-/* eslint-enable react/jsx-max-depth */

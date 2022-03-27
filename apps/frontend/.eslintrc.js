@@ -21,6 +21,19 @@ module.exports = {
   },
   overrides: [
     {
+      files: ["src/constants/index.ts"],
+      rules: {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            selector: "variable",
+            modifiers: ["const"],
+            format: ["UPPER_CASE"]
+          }
+        ]
+      }
+    },
+    {
       files: ["src/libs/chakra/index.ts"],
       rules: {
         "@typescript-eslint/no-unsafe-assignment": "off",
@@ -81,6 +94,7 @@ module.exports = {
     "max-len": [
       "error",
       {
+        ignoreStrings: true,
         ignoreComments: true,
         ignorePattern: "^import .*"
       }
@@ -172,7 +186,7 @@ module.exports = {
       }
     ],
     // eslint-plugin-react
-    "react/jsx-max-depth": ["error", { max: 5 }],
+    "react/jsx-max-depth": ["error", { max: 10 }],
     "react/jsx-one-expression-per-line": ["error", { allow: "single-child" }],
     "react/jsx-no-bind": [
       "error",
