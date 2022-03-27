@@ -3,6 +3,7 @@ import { ApolloDriver } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { PostResolver } from "./post/post.resolver";
 import { PrismaService } from "./prisma/prisma.service";
 import { UserResolver } from "./user/user.resolver";
@@ -19,7 +20,9 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
       debug: true,
       driver: ApolloDriver,
       introspection: true,
-      playground: false
+      playground: false,
+      // eslint-disable-next-line new-cap
+      plugins: [ApolloServerPluginLandingPageLocalDefault()]
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "client") })
   ],
