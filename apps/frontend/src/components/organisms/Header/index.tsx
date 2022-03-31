@@ -12,12 +12,14 @@ import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
-import { COLORS, LINKS } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 import { MemorizedHeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 
-const { APOLLO_LINK, GITHUB_LINK, STORYBOOK_LINK } = LINKS;
-const { BLACK_PEARL } = COLORS;
+const {
+  COLORS: { BLACK_PEARL },
+  LINKS: { STORYBOOK_LINK, GITHUB_LINK, APOLLO_LINK }
+} = CONSTANTS;
 
 // eslint-disable-next-line max-statements
 export const Header = (): JSX.Element => {

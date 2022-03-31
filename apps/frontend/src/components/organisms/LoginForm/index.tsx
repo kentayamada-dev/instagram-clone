@@ -14,7 +14,7 @@ import styled from "@emotion/styled";
 import NextLink from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { COLORS } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
 import type { SubmitHandler } from "react-hook-form";
@@ -28,7 +28,9 @@ const Form = styled.form`
   width: 100%;
 `;
 
-const { BLACK_PEARL, WHITE, EBONY } = COLORS;
+const {
+  COLORS: { WHITE, EBONY, BLACK_PEARL }
+} = CONSTANTS;
 
 export const LoginForm = (): JSX.Element => {
   const {

@@ -1,9 +1,11 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { COLORS } from "../../constants";
+import { CONSTANTS } from "../../constants";
 import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
 
-const { DODGER_BLUE, BUNKER, SNOW, WHITE } = COLORS;
+const {
+  COLORS: { DODGER_BLUE, WHITE, SNOW, BUNKER }
+} = CONSTANTS;
 
 export const customizedTheme = extendTheme({
   components: {
@@ -43,5 +45,5 @@ export const customizedTheme = extendTheme({
       }
     })
   },
-  colors: COLORS
+  colors: CONSTANTS.COLORS
 });

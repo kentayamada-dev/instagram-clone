@@ -10,14 +10,16 @@ import {
   VStack
 } from "@chakra-ui/react";
 import React from "react";
-import { COLORS, LINKS } from "../../../constants";
+import { CONSTANTS } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../ImageLinkColorMode";
 import type { HeaderDrawerProps } from "./index.types";
 
-const { APOLLO_LINK, GITHUB_LINK, STORYBOOK_LINK } = LINKS;
-const { SNOW, EBONY } = COLORS;
+const {
+  COLORS: { SNOW, EBONY },
+  LINKS: { GITHUB_LINK, APOLLO_LINK, STORYBOOK_LINK }
+} = CONSTANTS;
 
 const HeaderDrawer = ({
   isOpen,
