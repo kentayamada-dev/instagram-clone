@@ -4,4 +4,4 @@ clean:
 
 .PHONY: log
 log:
-	heroku logs --tail -a instagram-api-server
+	heroku logs --tail -a instagram-clone-api-server
