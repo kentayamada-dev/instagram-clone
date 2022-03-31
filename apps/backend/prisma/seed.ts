@@ -1,33 +1,50 @@
 import { PrismaClient, Prisma } from "@prisma/client";
+import { faker } from "@faker-js/faker";
+import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
+const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+
+const NUM_USERS = 5;
+const MAX_NUM_POSTS = 5;
+const SALT_ROUNDS = 10;
 
 const generatePosts = (
-  numberOfPosts: number,
-  name: string
+  numberOfPosts: number
 ): Prisma.PostCreateWithoutUserInput[] =>
-  [...Array(numberOfPosts)].map(
-    (_, index): Prisma.PostCreateWithoutUserInput => {
-      const title = `${name}_title[${index}]`;
-
-      return {
-        title
-      };
-    }
-  );
-
-const generateUsers = (numberOfUsers: number): Prisma.UserCreateInput[] =>
-  [...Array(numberOfUsers)].map((_, index): Prisma.UserCreateInput => {
-    const name = `user[${index}]`;
-    const generatedPosts = generatePosts(5, name);
+  [...Array(numberOfPosts)].map((): Prisma.PostCreateWithoutUserInput => {
+    const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+    const caption = !getRandomInt(2) && faker.lorem.words();
+    const imageUrl = faker.image.imageUrl();
 
     return {
-      name,
-      posts: {
-        create: [...generatedPosts]
-      }
+      ...(caption ? { caption: caption } : {}),
+      imageUrl
     };
   });
+
+const generateUsers = async (
+  numberOfUsers: number
+): Promise<Prisma.UserCreateInput[]> =>
+  await Promise.all(
+    [...Array(numberOfUsers)].map(async (): Promise<Prisma.UserCreateInput> => {
+      const name = faker.name.findName();
+      const generatedPosts = generatePosts(getRandomInt(MAX_NUM_POSTS));
+      const email = faker.internet.email();
+      const imageUrl = faker.image.imageUrl();
+      const password = await hash(email, SALT_ROUNDS);
+
+      return {
+        imageUrl,
+        name,
+        email,
+        posts: {
+          create: [...generatedPosts]
+        },
+        password
+      };
+    })
+  );
 
 const initDB = async () => {
   const tableNames = await prisma.$queryRaw<
@@ -50,16 +67,15 @@ const initDB = async () => {
 const seedData = async (userData: Prisma.UserCreateInput[]) => {
   console.log("Start seeding ...");
   for (const user of userData) {
-    const createdUser = await prisma.user.create({
+    await prisma.user.create({
       data: user
     });
-    console.log(`Created user with id: ${createdUser.id}`);
   }
   console.log("Seeding finished.");
 };
 
 (async () => {
-  const generatedUsers = generateUsers(5);
+  const generatedUsers = await generateUsers(NUM_USERS);
   const userData: Prisma.UserCreateInput[] = [...generatedUsers];
 
   try {

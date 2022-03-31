@@ -106,6 +106,17 @@ module.exports = {
       "error",
       { onlyOneSimpleParam: true, allowParens: true }
     ],
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["src/*"],
+            message: "Please use relative import instead."
+          }
+        ]
+      }
+    ],
     "object-property-newline": [
       "error",
       { allowAllPropertiesOnSameLine: true }
