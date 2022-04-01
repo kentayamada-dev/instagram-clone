@@ -1,16 +1,17 @@
 import { join } from "path";
 import { ApolloDriver } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ThrottlerModule } from "@nestjs/throttler";
-import { configSchema } from "./config/configuration.schema";
+import { configSchema } from "./config/config.schema";
 import { GqlThrottlerGuard } from "./libs/throttler/gql-throttler.guard";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";
+import type { ConfigSchema } from "./config/config.schema";
 import type { ApolloDriverConfig } from "@nestjs/apollo";
 
 @Module({
@@ -25,21 +26,26 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
     PrismaModule,
     UserModule,
     PostModule,
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      autoSchemaFile: true,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      context: ({ req, res }) => ({ req, res }),
-      cors: {
-        credentials: true,
-        origin: [
-          "https://studio.apollographql.com",
-          "https://instagram-clone-kentayamada-dev.vercel.app"
-        ]
-      },
-      debug: true,
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      introspection: true,
-      playground: false
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+      useFactory: (configService: ConfigService<ConfigSchema>) => ({
+        autoSchemaFile: true,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/explicit-function-return-type
+        context: ({ req, res }) => ({ req, res }),
+        cors: {
+          credentials: true,
+          origin: [
+            "https://studio.apollographql.com",
+            configService.get("FRONTEND_ORIGIN")
+          ]
+        },
+        debug: false,
+        introspection: true,
+        playground: false
+      })
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "client") })
   ],

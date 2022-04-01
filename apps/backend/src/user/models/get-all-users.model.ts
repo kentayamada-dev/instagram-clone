@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { ObjectType, Field } from "@nestjs/graphql";
-import { Paginated } from "../../common/pagination.model";
+import { Paginated } from "../../pagination/pagination.model";
 import { GetUserModel } from "./get-user.model";
 import type { StrictPropertyCheck } from "../../types";
 

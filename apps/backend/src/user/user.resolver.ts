@@ -6,7 +6,7 @@ import { AuthService } from "../auth/auth.service";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gql-auth.guard";
 import { JwtModel } from "../auth/jwt.model";
-import { PaginationArgs } from "../common/pagination.args";
+import { PaginationArgs } from "../pagination/pagination.args";
 import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
 import { PrismaService } from "../prisma/prisma.service";
 import { LoginInput } from "./dto/login.input";
@@ -20,7 +20,7 @@ import {
   isPropertyExactlySameAsGetCurrentUserModel
 } from "./models/get-current-user.model";
 import type { JwtToken } from "../auth/auth.types";
-import type { Edge } from "../common/pagination.model";
+import type { Edge } from "../pagination/pagination.model";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
 
 const SALT_ROUNDS = 10;

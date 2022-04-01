@@ -9,20 +9,6 @@ module.exports = {
     "plugin:@typescript-eslint/all",
     "plugin:eslint-comments/recommended"
   ],
-  overrides: [
-    {
-      files: ["src/config/configuration.schema.ts"],
-      rules: {
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            selector: "property",
-            format: ["UPPER_CASE"]
-          }
-        ]
-      }
-    }
-  ],
   rules: {
     // eslint
     "max-lines-per-function": "off",

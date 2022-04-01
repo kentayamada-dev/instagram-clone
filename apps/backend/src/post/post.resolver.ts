@@ -1,12 +1,12 @@
 import { Resolver, Query, Args } from "@nestjs/graphql";
-import { PaginationArgs } from "../common/pagination.args";
+import { PaginationArgs } from "../pagination/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 import { isPropertyExactlySameAsGetUserModel } from "../user/models/get-user.model";
 import {
   isPropertyExactlySameAsGetAllPostsModel,
   PaginatedGetAllPostsModel
 } from "./models/get-all-posts.model";
-import type { Edge } from "../common/pagination.model";
+import type { Edge } from "../pagination/pagination.model";
 import type { GetAllPostsModel } from "./models/get-all-posts.model";
 
 @Resolver()
