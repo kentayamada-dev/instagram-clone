@@ -12,10 +12,10 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { Layout } from "../components/organisms/Layout";
-import type { NextPageWithLayout } from "./_app";
+import type { NextPageWithLayout } from "../types/pages";
 import type { GetStaticProps } from "next";
 
-type Res = {
+type ResType = {
   count: number;
   next: string;
   previous: string;
@@ -26,12 +26,12 @@ type Res = {
 };
 
 type Props = {
-  data: Res;
+  data: ResType;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const res = await fetch("https://pokeapi.co/api/v2/pokemon/?limit=151");
-  const data = (await res.json()) as Res;
+  const data = (await res.json()) as ResType;
 
   return {
     props: { data }

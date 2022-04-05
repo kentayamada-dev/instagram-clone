@@ -7,3 +7,5 @@ export type ImageLinkProps = {
   height: number;
   width: number;
 };
+
+export type ImageLinkType = (props: ImageLinkProps) => JSX.Element;

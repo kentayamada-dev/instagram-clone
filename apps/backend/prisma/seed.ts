@@ -30,7 +30,7 @@ const generateUsers = async (
     [...Array(numberOfUsers)].map(async (): Promise<Prisma.UserCreateInput> => {
       const name = faker.name.findName();
       const generatedPosts = generatePosts(getRandomInt(MAX_NUM_POSTS));
-      const email = faker.internet.email();
+      const email = faker.internet.email().toLowerCase();
       const imageUrl = faker.image.imageUrl();
       const password = await hash(email, SALT_ROUNDS);
 

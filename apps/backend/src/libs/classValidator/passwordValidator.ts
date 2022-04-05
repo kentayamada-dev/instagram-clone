@@ -1,4 +1,3 @@
-import { passwordStrength } from "check-password-strength";
 import { ValidatorConstraint } from "class-validator";
 import type { ValidatorConstraintInterface } from "class-validator";
 
@@ -11,13 +10,15 @@ import type { ValidatorConstraintInterface } from "class-validator";
  */
 @ValidatorConstraint({ async: false, name: "passwordValidator" })
 export class PasswordValidator implements ValidatorConstraintInterface {
-  private result = "";
+  private readonly strongPasswordRegEx =
+    // eslint-disable-next-line max-len
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u;
+
   private isValid = false;
   private readonly defaultErrorMessage = "Something went wrong";
 
   public validate(text: string): boolean {
-    this.result = passwordStrength(text).value;
-    this.isValid = !(this.result === "Weak" || this.result === "Too weak");
+    this.isValid = this.strongPasswordRegEx.test(text);
 
     return this.isValid;
   }

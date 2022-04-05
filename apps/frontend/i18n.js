@@ -5,7 +5,8 @@ module.exports = {
   defaultLocale: "en",
   pages: {
     "*": ["common"],
-    "/": ["login"]
+    "/": ["form"],
+    "/signup": ["form"]
   },
   staticsHoc: hoistNonReactStatics,
   loadLocaleFrom: (lang, ns) =>

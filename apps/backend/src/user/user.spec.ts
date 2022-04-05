@@ -16,7 +16,6 @@ describe("AppController (e2e)", () => {
     await app.init();
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   it("/ (GET)", async () => request(app.getHttpServer()).get("/").expect(404));
 
   afterAll(async () => {

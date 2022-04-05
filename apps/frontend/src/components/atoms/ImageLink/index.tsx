@@ -1,15 +1,9 @@
 import { Link } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
-import type { ImageLinkProps } from "./index.types";
+import type { ImageLinkType } from "./index.types";
 
-export const ImageLink = ({
-  href,
-  height,
-  width,
-  src,
-  alt
-}: ImageLinkProps): JSX.Element => (
+export const ImageLink: ImageLinkType = ({ href, height, width, src, alt }) => (
   <NextLink href={href} passHref>
     <Link h={height}>
       <Image

@@ -8,13 +8,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { IconContext } from "react-icons";
 import { HiSearch } from "react-icons/hi";
+import type { FormType, SearchBoxType } from "./index.types";
 import type { SubmitHandler } from "react-hook-form";
 
-type Inputs = {
-  query: string;
-};
-
-export const SearchBox = (): JSX.Element => {
+export const SearchBox: SearchBoxType = () => {
   const iconContextValue = React.useMemo(
     () => ({
       className: "global-class-name",
@@ -26,10 +23,10 @@ export const SearchBox = (): JSX.Element => {
     }),
     []
   );
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<FormType>();
 
   // eslint-disable-next-line no-console
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormType> = (data) => console.log(data);
 
   return (
     <IconContext.Provider value={iconContextValue}>

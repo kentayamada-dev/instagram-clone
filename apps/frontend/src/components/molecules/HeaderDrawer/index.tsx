@@ -10,21 +10,18 @@ import {
   VStack
 } from "@chakra-ui/react";
 import React from "react";
-import { CONSTANTS } from "../../../constants";
+import { constants } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../ImageLinkColorMode";
-import type { HeaderDrawerProps } from "./index.types";
+import type { HeaderDrawerType } from "./index.types";
 
 const {
   COLORS: { SNOW, EBONY },
   LINKS: { GITHUB_LINK, APOLLO_LINK, STORYBOOK_LINK }
-} = CONSTANTS;
+} = constants;
 
-const HeaderDrawer = ({
-  isOpen,
-  handleClose
-}: HeaderDrawerProps): JSX.Element => {
+const HeaderDrawer: HeaderDrawerType = ({ isOpen, handleClose }) => {
   const { t } = useTypeSafeTranslation("common");
   const githubDarkImg = React.useMemo(
     () => ({

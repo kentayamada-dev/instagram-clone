@@ -7,12 +7,11 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "import"],
   ignorePatterns: [
-    ".eslintrc.js",
     "coverage/*",
+    "src/generated/*",
     "dist/*",
     "next-env.d.ts",
-    "next.config.js",
-    "i18n.js"
+    "**/*.js"
   ],
   settings: {
     react: {
@@ -21,50 +20,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["src/constants/index.ts"],
-      rules: {
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            selector: "variable",
-            modifiers: ["const"],
-            format: ["UPPER_CASE"]
-          }
-        ]
-      }
-    },
-    {
-      files: ["src/libs/chakra/index.ts"],
-      rules: {
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "id-length": "off"
-      }
-    },
-    {
-      files: ["src/pages/_app.tsx"],
-      rules: {
-        "@typescript-eslint/naming-convention": "off"
-      }
-    },
-    {
-      files: ["src/libs/next_translate/types.ts"],
-      rules: {
-        "@typescript-eslint/prefer-ts-expect-error": "off",
-        "@typescript-eslint/ban-ts-comment": "off",
-        "@typescript-eslint/indent": "off"
-      }
-    },
-    {
-      files: ["src/pages/*", "src/components/**/index.stories.tsx"],
+      files: ["src/pages/**/*", "src/components/**/index.stories.tsx"],
       rules: {
         "import/no-default-export": "off"
-      }
-    },
-    {
-      files: ["src/libs/chakra/index.ts"],
-      rules: {
-        "sort-keys": "off",
-        "@typescript-eslint/naming-convention": "off"
       }
     },
     {
@@ -86,10 +44,13 @@ module.exports = {
   ],
   rules: {
     // eslint
+    "max-statements": "off",
+    "prefer-destructuring": ["error", { object: true, array: false }],
+    "id-length": ["error", { exceptions: ["_", "t"] }],
+    "dot-location": ["error", "property"],
     "array-element-newline": ["error", "consistent"],
     "function-call-argument-newline": ["error", "consistent"],
     "function-paren-newline": ["error", "consistent"],
-    "id-length": ["error", { exceptions: ["t"] }],
     "implicit-arrow-linebreak": "off",
     "max-len": [
       "error",
@@ -132,6 +93,7 @@ module.exports = {
     "sort-imports": "off",
     // typescript-eslint
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-confusing-void-expression": [
       "error",
       {
@@ -139,9 +101,15 @@ module.exports = {
         ignoreVoidOperator: false
       }
     ],
-    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/indent": ["error", 2, { MemberExpression: "off" }],
     "@typescript-eslint/naming-convention": [
       "error",
+      {
+        selector: "typeProperty",
+        format: ["PascalCase"],
+        types: ["boolean"],
+        prefix: ["is"]
+      },
       {
         selector: "variable",
         types: ["boolean"],
@@ -154,7 +122,8 @@ module.exports = {
       },
       {
         selector: "parameter",
-        format: ["camelCase"]
+        format: ["camelCase"],
+        leadingUnderscore: "allow"
       },
       {
         selector: "memberLike",
@@ -162,7 +131,11 @@ module.exports = {
       },
       {
         selector: "typeLike",
-        format: ["PascalCase"]
+        format: ["PascalCase"],
+        custom: {
+          regex: "^(T|U)$|(Type|Props)$",
+          match: true
+        }
       }
     ],
     "@typescript-eslint/no-extra-parens": [
@@ -177,13 +150,13 @@ module.exports = {
       "error",
       {
         allowAliases: "always",
-        allowCallbacks: "never",
+        allowCallbacks: "always",
         allowConditionalTypes: "always",
         allowConstructors: "never",
         allowGenerics: "always",
         allowLiterals: "always",
         allowMappedTypes: "never",
-        allowTupleTypes: "never"
+        allowTupleTypes: "always"
       }
     ],
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
@@ -196,6 +169,10 @@ module.exports = {
         asyncArrow: "always"
       }
     ],
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     // eslint-plugin-react
     "react/jsx-max-depth": ["error", { max: 10 }],
     "react/jsx-one-expression-per-line": ["error", { allow: "single-child" }],
@@ -204,13 +181,6 @@ module.exports = {
       {
         allowArrowFunctions: true,
         allowFunctions: false
-      }
-    ],
-    "react/boolean-prop-naming": [
-      "error",
-      {
-        propTypeNames: ["bool", "mutuallyExclusiveTrueProps"],
-        validateNested: true
       }
     ],
     "react/destructuring-assignment": ["error", "always"],

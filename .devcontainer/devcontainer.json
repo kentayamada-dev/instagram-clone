@@ -5,7 +5,8 @@
   "workspaceFolder": "/workspace",
   "settings": {
     "material-icon-theme.activeIconPack": "nest",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "graphql-config.load.rootDir": "apps/frontend",
   },
   "extensions": [
     "esbenp.prettier-vscode",
@@ -17,7 +18,8 @@
     "Prisma.prisma",
     "pflannery.vscode-versionlens",
     "kamikillerto.vscode-colorize",
-    "styled-components.vscode-styled-components"
+    "styled-components.vscode-styled-components",
+    "GraphQL.vscode-graphql"
   ],
-  "postCreateCommand": "make clean && yarn install"
+  "postCreateCommand": "make clean && yarn install && cd apps/backend && yarn prisma:init"
 }

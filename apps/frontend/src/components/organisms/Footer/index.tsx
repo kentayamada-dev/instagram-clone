@@ -2,8 +2,9 @@ import { Flex, VStack, Text, Divider, Center } from "@chakra-ui/react";
 import React from "react";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
+import type { FooterType } from "./index.types";
 
-export const Footer = (): JSX.Element => {
+export const Footer: FooterType = () => {
   const darkImg = React.useMemo(
     () => ({
       alt: "Vercel Logo Dark",
@@ -21,8 +22,8 @@ export const Footer = (): JSX.Element => {
   );
 
   return (
-    <VStack minH="8vh" w="100%">
-      <Divider m="0 auto" width="80%" />
+    <VStack justify="space-around" minH="10vh" w="100%">
+      <Divider w="80%" />
       <Flex justify="space-around" w="100%">
         <VStack>
           <Text fontSize="xs">Created by</Text>

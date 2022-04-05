@@ -6,12 +6,12 @@ import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ThrottlerModule } from "@nestjs/throttler";
-import { configSchema } from "./config/config.schema";
 import { GqlThrottlerGuard } from "./libs/throttler/gql-throttler.guard";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";
-import type { ConfigSchema } from "./config/config.schema";
+import { configSchema } from "./utils/config/config.schema";
+import type { ConfigSchema } from "./utils/config/config.schema";
 import type { ApolloDriverConfig } from "@nestjs/apollo";
 
 @Module({

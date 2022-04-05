@@ -1,0 +1,13 @@
+overwrite: true
+generates:
+  src/generated/graphql.ts:
+    schema: "http://localhost:5001/graphql"
+    documents: "src/**/*.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+      - plugin-typescript-swr
+config:
+  rawRequest: false
+  autogenSWRKey: true

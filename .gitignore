@@ -22,3 +22,6 @@ storybook
 
 # storybook
 apps/frontend/.storybook/static
+
+# schema
+schema.graphql

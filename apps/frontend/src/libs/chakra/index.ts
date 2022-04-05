@@ -1,22 +1,29 @@
+/* eslint @typescript-eslint/naming-convention: "off", @typescript-eslint/no-unsafe-assignment: "off", id-length: "off" */
+
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { CONSTANTS } from "../../constants";
+import { constants } from "../../constants";
 import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
 
 const {
   COLORS: { DODGER_BLUE, WHITE, SNOW, BUNKER }
-} = CONSTANTS;
+} = constants;
 
 export const customizedTheme = extendTheme({
+  colors: constants.COLORS,
   components: {
     Button: {
       variants: {
         primary: {
-          bg: DODGER_BLUE,
-          color: WHITE,
           _hover: {
+            _disabled: {
+              bg: DODGER_BLUE,
+              opacity: 0.4
+            },
             opacity: 0.8
-          }
+          },
+          bg: DODGER_BLUE,
+          color: WHITE
         }
       }
     }
@@ -32,18 +39,17 @@ export const customizedTheme = extendTheme({
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
-      body: {
-        bg: mode(SNOW, BUNKER)(props)
-      },
       a: {
-        color: "#2081E2 !important",
-        fontWeight: "bold",
-        textDecoration: "none !important",
         _hover: {
           opacity: 0.8
-        }
+        },
+        color: "#2081E2 !important",
+        fontWeight: "bold",
+        textDecoration: "none !important"
+      },
+      body: {
+        bg: mode(SNOW, BUNKER)(props)
       }
     })
-  },
-  colors: CONSTANTS.COLORS
+  }
 });

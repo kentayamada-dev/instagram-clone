@@ -1,6 +1,6 @@
-import type React from "react";
-
 export type LayoutProps = {
-  children: React.ReactNode;
+  children: JSX.Element;
   title: string;
 };
+
+export type LayoutType = (props: LayoutProps) => JSX.Element;

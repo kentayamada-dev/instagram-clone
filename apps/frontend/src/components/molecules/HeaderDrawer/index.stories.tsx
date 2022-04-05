@@ -2,7 +2,8 @@ import { MemorizedHeaderDrawer } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
-  component: MemorizedHeaderDrawer
+  component: MemorizedHeaderDrawer,
+  title: "molecules/Header Drawer"
 } as ComponentMeta<typeof MemorizedHeaderDrawer>;
 
 export const headerDrawer: ComponentStoryObj<typeof MemorizedHeaderDrawer> = {

@@ -1,8 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import styles from "./index.module.scss";
+import type { ImageSlideType } from "./index.types";
 
-export const ImageSlide = (): JSX.Element => (
+export const ImageSlide: ImageSlideType = () => (
   <Box pos="relative">
     <Image
       alt="Image Slide Base"

@@ -1,4 +1,6 @@
-export const Favicon = (): JSX.Element => (
+import type { FaviconType } from "./index.types";
+
+export const Favicon: FaviconType = () => (
   <>
     <link
       href="/favicon/apple-touch-icon.png"

@@ -1,13 +1,13 @@
 import { Box, useColorMode } from "@chakra-ui/react";
 import Image from "next/image";
-import type { ImageColorModeProps } from "./index.types";
+import type { ImageColorModeType } from "./index.types";
 
-export const ImageColorMode = ({
+export const ImageColorMode: ImageColorModeType = ({
   height,
   width,
   darkImg,
   lightImg
-}: ImageColorModeProps): JSX.Element => {
+}) => {
   const { colorMode } = useColorMode();
 
   return (

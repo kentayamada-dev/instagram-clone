@@ -8,35 +8,39 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { setCookie } from "nookies";
 import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
-import { CONSTANTS } from "../../../constants";
+import { constants } from "../../../constants";
+import { useLocale } from "../../../libs/next_router";
 import { MemorizedHeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
+import type { HeaderType } from "./index.types";
 
 const {
-  COLORS: { BLACK_PEARL },
   LINKS: { STORYBOOK_LINK, GITHUB_LINK, APOLLO_LINK }
-} = CONSTANTS;
+} = constants;
 
-// eslint-disable-next-line max-statements
-export const Header = (): JSX.Element => {
+export const Header: HeaderType = () => {
   const { toggleColorMode } = useColorMode();
   const router = useRouter();
-  const { pathname, asPath, query, locale } = router;
+  const { pathname, asPath, query } = router;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleOpen = (): void => onOpen();
   const handleClose = React.useCallback(() => onClose(), [onClose]);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
-  const bgColor = useColorModeValue("", BLACK_PEARL);
-  const getValueByLocale = <T, U>(valueT: T, valueU: U): T | U =>
-    locale === "ja" ? valueT : valueU;
-  const handleChangeLocale = async (): Promise<boolean> =>
-    router.push({ pathname, query }, asPath, {
-      locale: getValueByLocale("en", "ja")
+  const localeEn = useLocale("ja", "en");
+  const localeJa = useLocale("A", "あ");
+  const handleChangeLocale = async (): Promise<void> => {
+    setCookie(null, "NEXT_LOCALE", localeEn, {
+      path: "/"
     });
+    await router.push({ pathname, query }, asPath, {
+      locale: localeEn
+    });
+  };
   const handleOpenStorybook = async (): Promise<boolean> =>
     router.push(STORYBOOK_LINK);
   const handleOpenGithub = async (): Promise<boolean> =>
@@ -62,16 +66,18 @@ export const Header = (): JSX.Element => {
   );
 
   return (
-    <>
+    <Box minH="8vh">
       <Flex
         align="center"
-        bgColor={bgColor}
+        backdropFilter="blur(10px)"
         justify="space-between"
         minH="8vh"
         pl="10px"
+        position="fixed"
         pr="10px"
         shadow="lg"
         w="100%"
+        zIndex="1"
       >
         <ImageLinkColorMode
           darkImg={instagramDarkImg}
@@ -88,7 +94,7 @@ export const Header = (): JSX.Element => {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onClick={handleChangeLocale}
           >
-            {getValueByLocale("A", "あ")}
+            {localeJa}
           </Button>
           <IconButton
             aria-label="Toggle Dark Mode"
@@ -142,6 +148,6 @@ export const Header = (): JSX.Element => {
         </Flex>
       </Flex>
       <MemorizedHeaderDrawer handleClose={handleClose} isOpen={isOpen} />
-    </>
+    </Box>
   );
 };

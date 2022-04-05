@@ -37,6 +37,6 @@
     // completeness
     "skipLibCheck": true
   },
-  "include": ["next-env.d.ts", "src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["dist", "**/*.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

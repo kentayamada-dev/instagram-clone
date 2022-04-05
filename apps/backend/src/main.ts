@@ -10,7 +10,7 @@ async function bootstrap(): Promise<void> {
   const port = PORT ?? DEV_PORT;
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   await app.listen(port, "0.0.0.0");
 }
 

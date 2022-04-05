@@ -1,6 +1,7 @@
+/* eslint @typescript-eslint/naming-convention: ["error", {selector: "property", format: ["UPPER_CASE"] } ]*/
+
 import Joi from "joi";
 
-/* eslint @typescript-eslint/naming-convention: ["error",{selector:"property",format:["UPPER_CASE"]}]*/
 export interface ConfigSchema {
   readonly FRONTEND_ORIGIN: string;
   readonly JWT_SECRET: string;

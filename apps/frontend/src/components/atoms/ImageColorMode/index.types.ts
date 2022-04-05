@@ -12,3 +12,5 @@ export type ImageColorModeProps = {
     alt: string;
   };
 };
+
+export type ImageColorModeType = (props: ImageColorModeProps) => JSX.Element;

@@ -1,7 +1,9 @@
+/* eslint @typescript-eslint/naming-convention: "off", @typescript-eslint/prefer-ts-expect-error: "off", @typescript-eslint/ban-ts-comment: "off", @typescript-eslint/indent:"off"*/
+
 // @ts-ignore
 import type common from "../../../public/locales/en/common.json";
 // @ts-ignore
-import type login from "../../../public/locales/en/login.json";
+import type form from "../../../public/locales/en/form.json";
 import type { I18n, Translate } from "next-translate";
 
 type Join<S1, S2> = S1 extends string
@@ -18,7 +20,7 @@ type Paths<T> = {
 
 export type TranslationKeys = {
   common: Paths<typeof common>;
-  login: Paths<typeof login>;
+  form: Paths<typeof form>;
 };
 
 type Tail<T> = T extends [unknown, ...infer Rest] ? Rest : never;

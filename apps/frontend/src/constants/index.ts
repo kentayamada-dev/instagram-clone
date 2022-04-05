@@ -1,4 +1,10 @@
-export const CONSTANTS = {
+/* eslint @typescript-eslint/naming-convention: ["error", {selector: "property", format: ["UPPER_CASE"] } ]*/
+
+export const constants = {
+  CLOUDINARY: {
+    API_URL: "https://api.cloudinary.com/v1_1/kentayamada/image/upload",
+    UPLOAD_PRESET: "instagram-clone"
+  },
   COLORS: {
     // https://www.htmlcsscolor.com/
     BLACK_PEARL: "#04111D",
@@ -8,6 +14,7 @@ export const CONSTANTS = {
     SNOW: "#FAFAFA",
     WHITE: "#FFFFFF"
   },
+  JWT_TOKEN_COOKIE_NAME: "jwtToken",
   LINKS: {
     APOLLO_LINK:
       "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",

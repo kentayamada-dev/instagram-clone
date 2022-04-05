@@ -62,6 +62,7 @@ module.exports = {
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
     // typescript-eslint
+    "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-type-alias": [
       "error",
       {
