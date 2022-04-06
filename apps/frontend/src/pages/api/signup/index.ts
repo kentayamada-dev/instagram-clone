@@ -1,48 +1,32 @@
-import cookie from "cookie";
-import { constants } from "../../../constants";
+import { getSerializedJwtCookie } from "../../../libs/cookie";
 import { sdk } from "../../../libs/graphql_request";
-import type { ErrorResponseType } from "../../../libs/graphql_request/types";
+import { apiErrorHandler } from "../../../utils/handleApiError";
+import type { ErrorObjectType } from "../../../utils/handleApiError/types";
 import type { SignupHandlerType } from "./types";
 
-const { JWT_TOKEN_COOKIE_NAME } = constants;
-
 const signupHandler: SignupHandlerType = async (req, res) => {
-  let responseErrorMessage = "";
-  const oneDay = 60 * 60 * 24;
   let status = 200;
   let jwtToken = "";
+  let errorObject: ErrorObjectType = {};
 
   try {
     jwtToken = await sdk
       .signup({ signupData: req.body })
       .then((response) => response.signup.accessToken);
   } catch (error) {
-    const { message, status: errorStatus } = (error as ErrorResponseType)
-      .response.errors[0].extensions.exception;
-    responseErrorMessage = message;
+    const { errorObject: apiErrorObject, errorStatus } = apiErrorHandler(error);
     status = errorStatus;
+    errorObject = apiErrorObject;
   }
-  /* eslint-disable camelcase, @typescript-eslint/naming-convention */
-  const success = !responseErrorMessage;
-  const errorObject = responseErrorMessage
-    ? { error_message: responseErrorMessage }
-    : {};
-  /* eslint-enable camelcase, @typescript-eslint/naming-convention */
+
+  const responseStatus = res.status(status);
 
   if (jwtToken) {
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize(JWT_TOKEN_COOKIE_NAME, jwtToken, {
-        httpOnly: true,
-        maxAge: oneDay,
-        path: "/",
-        sameSite: "strict",
-        secure: process.env.NODE_ENV !== "development"
-      })
-    );
+    res.setHeader("Set-Cookie", getSerializedJwtCookie(jwtToken));
+    responseStatus.end();
+  } else {
+    responseStatus.json({ ...errorObject });
   }
-
-  res.status(status).json({ success, ...errorObject });
 };
 
 export default signupHandler;
