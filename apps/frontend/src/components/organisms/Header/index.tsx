@@ -7,8 +7,8 @@ import {
   Box,
   useColorModeValue
 } from "@chakra-ui/react";
+import cookie from "js-cookie";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
 import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
@@ -34,9 +34,7 @@ export const Header: HeaderType = () => {
   const localeEn = useLocale("ja", "en");
   const localeJa = useLocale("A", "あ");
   const handleChangeLocale = async (): Promise<void> => {
-    setCookie(null, "NEXT_LOCALE", localeEn, {
-      path: "/"
-    });
+    cookie.set("NEXT_LOCALE", localeEn);
     await router.push({ pathname, query }, asPath, {
       locale: localeEn
     });
