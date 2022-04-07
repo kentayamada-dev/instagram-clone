@@ -1,4 +1,7 @@
-import type { FormDtoType, FormInputProps } from "../../index.types";
+import type {
+  FormInputProps,
+  MyFormType
+} from "../../../../../hooks/useForm/types";
 import type {
   UseFormClearErrors,
   UseFormSetError,
@@ -6,9 +9,9 @@ import type {
 } from "react-hook-form";
 
 type ImageSelectProps = FormInputProps & {
-  clearErrors: UseFormClearErrors<FormDtoType>;
-  setError: UseFormSetError<FormDtoType>;
-  setValue: UseFormSetValue<FormDtoType>;
+  clearErrors: UseFormClearErrors<MyFormType>;
+  setError: UseFormSetError<MyFormType>;
+  setValue: UseFormSetValue<MyFormType>;
 };
 
 export type ImageSelectType = (props: ImageSelectProps) => JSX.Element;

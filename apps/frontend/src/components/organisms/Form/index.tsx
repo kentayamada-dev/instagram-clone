@@ -10,21 +10,17 @@ import {
   FormErrorMessage
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import axios from "axios";
 import NextLink from "next/link";
 import React from "react";
-import { useForm } from "react-hook-form";
 import { constants } from "../../../constants";
-import { useLocale } from "../../../libs/next_router";
+import { useMyForm } from "../../../hooks/useForm";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
-import { getImageUrl } from "../../../utils/getImageUrl";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
 import { EmailInput } from "./components/EmailInput";
 import { ImageSelect } from "./components/ImageSelect";
 import { NameInput } from "./components/NameInput";
 import { PasswordInput } from "./components/PasswordInput";
-import type { FormType, FormDtoType } from "./index.types";
-import type { SubmitHandler } from "react-hook-form";
+import type { FormType } from "./index.types";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -34,69 +30,20 @@ const {
   COLORS: { WHITE, EBONY, BLACK_PEARL }
 } = constants;
 
-export const Form: FormType = ({ loginHandler, signUpHandler, isSignup }) => {
+export const Form: FormType = ({ isSignup }) => {
   const {
-    register,
-    handleSubmit,
-    setError,
     clearErrors,
+    register,
+    setError,
     setValue,
-    formState: { isSubmitting, errors }
-  } = useForm<FormDtoType>({ mode: "onSubmit" });
-  const [errorMessage, setErrorMessage] = React.useState("");
+    errorMessage,
+    submitHandler,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useMyForm({ isSignup });
   const { t } = useTypeSafeTranslation("form");
   const getValueByAuthMode = <T, U>(valueT: T, valueU: U): T | U =>
     isSignup ? valueT : valueU;
-  const emailAlreadyExistsErrorMessage = useLocale(
-    "The email address you entered is already in use",
-    "入力されたメールアドレスは既に使用されています"
-  );
-  const emailErrorMessage = useLocale(
-    "Invalid Email or Password",
-    "メールアドレスまたはパスワードが違います"
-  );
-  const unexpectedErrorMessage = useLocale(
-    "An unexpected error has occurred. Please wait a few minutes and try again",
-    "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
-  );
-  const imageBlankErrorMessage = useLocale(
-    "Please select image",
-    "画像を選択してください"
-  );
-  const onSubmit: SubmitHandler<FormDtoType> = async (data) => {
-    const { file, ...signUpProps } = data;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { name, ...loginProps } = signUpProps;
-
-    try {
-      if (isSignup) {
-        if (file instanceof Blob) {
-          const imageUrl = await getImageUrl({ file });
-          await signUpHandler({
-            ...signUpProps,
-            imageUrl
-          });
-        } else {
-          setError("file", {
-            message: imageBlankErrorMessage,
-            type: "custom"
-          });
-        }
-      } else {
-        await loginHandler({ ...loginProps });
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          setErrorMessage(emailErrorMessage);
-        } else {
-          setErrorMessage(emailAlreadyExistsErrorMessage);
-        }
-      } else {
-        setErrorMessage(unexpectedErrorMessage);
-      }
-    }
-  };
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
   const darkImg = React.useMemo(
@@ -139,7 +86,7 @@ export const Form: FormType = ({ loginHandler, signUpHandler, isSignup }) => {
           width={175}
         />
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <StyledForm onSubmit={handleSubmit(submitHandler)}>
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
               {isSignup && (

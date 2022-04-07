@@ -6,7 +6,7 @@ export type NextPageWithLayout<T = {}> = NextPage<T> & {
   getLayout?: (page: JSX.Element) => JSX.Element;
 };
 
-export type MyAppPropsWithLayout = AppProps & {
+type MyAppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 

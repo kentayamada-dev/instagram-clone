@@ -1,17 +1,10 @@
-import type { ErrorResponseType } from "../../libs/graphql_request/types";
-import type { ErrorObjectType, ApiErrorHandlerType } from "./types";
+import type { ApiErrorResponseType } from "./types";
 
-export const apiErrorHandler: ApiErrorHandlerType = (error) => {
-  const { message, status } = (error as ErrorResponseType).response.errors[0]
-    .extensions.exception;
+type ObjectType<T> = { [P in keyof T]?: unknown };
 
-  const errorObject: ErrorObjectType = {
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    error_message: message
-  };
+const isObject = <T extends Record<string, unknown>>(
+  value: unknown
+): value is ObjectType<T> => typeof value === "object" && value !== null;
 
-  return {
-    errorObject,
-    errorStatus: status
-  };
-};
+export const isApiError = (error: unknown): error is ApiErrorResponseType =>
+  isObject(error) && "response" in error;

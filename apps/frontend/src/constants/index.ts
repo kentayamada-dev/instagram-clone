@@ -14,11 +14,11 @@ export const constants = {
     SNOW: "#FAFAFA",
     WHITE: "#FFFFFF"
   },
-  JWT_TOKEN_COOKIE_NAME: "jwtToken",
   LINKS: {
     APOLLO_LINK:
       "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",
     STORYBOOK_LINK: "/storybook"
-  }
+  },
+  TOKEN_NAME: "token"
 };

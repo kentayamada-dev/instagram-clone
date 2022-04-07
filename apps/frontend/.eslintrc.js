@@ -146,19 +146,7 @@ module.exports = {
         enforceForArrowConditionals: false
       }
     ],
-    "@typescript-eslint/no-type-alias": [
-      "error",
-      {
-        allowAliases: "always",
-        allowCallbacks: "always",
-        allowConditionalTypes: "always",
-        allowConstructors: "never",
-        allowGenerics: "always",
-        allowLiterals: "always",
-        allowMappedTypes: "never",
-        allowTupleTypes: "always"
-      }
-    ],
+    "@typescript-eslint/no-type-alias": "off",
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/space-before-function-paren": [

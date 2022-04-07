@@ -15,3 +15,17 @@ type ApiErrorHandlerResponseType = {
 export type ApiErrorHandlerType = (
   error: unknown
 ) => ApiErrorHandlerResponseType;
+
+export type ApiErrorResponseType = {
+  response: {
+    errors: [
+      {
+        extensions: {
+          exception: {
+            status: number;
+          };
+        };
+      }
+    ];
+  };
+};
