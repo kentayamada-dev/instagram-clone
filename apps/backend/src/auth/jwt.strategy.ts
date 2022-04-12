@@ -3,7 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import type { ConfigSchema } from "../utils/config/config.schema";
-import type { Cookies } from "./auth.types";
+import type { JwtToken } from "./auth.types";
 import type { Request } from "express";
 
 @Injectable()
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromExtractors([
         // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
         (request: Request): string | null => {
-          const { access_token: accessToken } = request.cookies as Cookies;
+          const { accessToken } = request.cookies as JwtToken;
 
           if (!accessToken) {
             return null;

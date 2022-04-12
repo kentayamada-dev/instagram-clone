@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -28,7 +29,10 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const handleCompleted = (): void => router.reload();
+  const setToken = async (accessToken: string): Promise<void> =>
+    axios.post("/api/token/", {
+      token: accessToken
+    });
   const imageBlankErrorMessage = useLocale(
     "Please select image",
     "画像を選択してください"
@@ -57,7 +61,11 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         if (file instanceof Blob) {
           const imageUrl = await getImageUrl({ file });
           await signup({
-            onCompleted: handleCompleted,
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onCompleted: async (value) => {
+              await setToken(value.signup.accessToken);
+              router.reload();
+            },
             onError: handleError,
             variables: {
               signupData: {
@@ -71,7 +79,11 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         }
       } else {
         await login({
-          onCompleted: handleCompleted,
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onCompleted: async (value) => {
+            await setToken(value.login.accessToken);
+            router.reload();
+          },
           onError: handleError,
           variables: {
             loginData: loginProps

@@ -1,12 +1,11 @@
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
-import { Args, Resolver, Query, Mutation, Context } from "@nestjs/graphql";
+import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
 import { hash, compare } from "bcrypt";
-import { Response } from "express";
 import { CurrentUser } from "../auth/auth.decorator";
 import { AuthModel } from "../auth/auth.model";
 import { AuthService } from "../auth/auth.service";
-import { JwtPayload, JwtType } from "../auth/auth.types";
+import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gql-auth.guard";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
@@ -29,13 +28,10 @@ import {
   GetUserModel,
   isPropertyExactlySameAsGetUserModel
 } from "./models/get-user.model";
-import type { CookiesKey } from "../auth/auth.types";
 import type { Edge } from "../pagination/pagination.model";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
 
 const SALT_ROUNDS = 10;
-
-const accessTokenKey: CookiesKey = "access_token";
 
 @Resolver()
 export class UserResolver {
@@ -128,10 +124,8 @@ export class UserResolver {
   /* eslint-disable @typescript-eslint/indent */
   @Mutation(() => AuthModel, { description: "Signup" })
   protected async signup(
-    @Args("signupData") signupData: SignupInput,
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    @Context("res") res: Response
-  ): Promise<JwtType> {
+    @Args("signupData") signupData: SignupInput
+  ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         id: true
@@ -153,21 +147,14 @@ export class UserResolver {
     };
     await this.prismaService.user.create({ data });
     const { accessToken } = this.authService.getJwtToken(data.email);
-    res.cookie(accessTokenKey, accessToken, {
-      httpOnly: true,
-      sameSite: "strict",
-      secure: process.env["NODE_ENV"] !== "development"
-    });
 
-    return { message: "access_token cookie has been set successfully!" };
+    return { accessToken };
   }
 
   @Mutation(() => AuthModel, { description: "Login" })
   protected async login(
-    @Args("loginData") loginData: LoginInput,
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    @Context("res") res: Response
-  ): Promise<JwtType> {
+    @Args("loginData") loginData: LoginInput
+  ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         email: true,
@@ -190,31 +177,10 @@ export class UserResolver {
     }
 
     const { accessToken } = this.authService.getJwtToken(foundUser.email);
-    res.cookie(accessTokenKey, accessToken, {
-      httpOnly: true,
-      sameSite: "strict",
-      secure: process.env["NODE_ENV"] !== "development"
-    });
 
-    return { message: "access_token cookie has been set successfully!" };
+    return { accessToken };
   }
   /* eslint-enable @typescript-eslint/indent */
-
-  // eslint-disable-next-line class-methods-use-this
-  @Mutation(() => AuthModel, { description: "Logout" })
-  protected logout(
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-    @Context("res") res: Response
-  ): JwtType {
-    res.cookie(accessTokenKey, "", {
-      httpOnly: true,
-      maxAge: 0,
-      sameSite: "strict",
-      secure: process.env["NODE_ENV"] !== "development"
-    });
-
-    return { message: "access_token cookie has been removed successfully!" };
-  }
 
   @Query(() => GetUserModel, { description: "Get Current User" })
   @UseGuards(GqlAuthGuard)

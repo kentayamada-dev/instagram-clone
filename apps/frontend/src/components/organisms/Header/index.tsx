@@ -11,10 +11,7 @@ import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
 import { useHeader } from "../../../hooks/useHeader";
 import { useLocale } from "../../../libs/next_router";
-import {
-  useGetCurrentUserQuery,
-  useLogoutMutation
-} from "../../../types/generated/types";
+import { useGetCurrentUserQuery } from "../../../types/generated/types";
 import { AvatarPopover } from "../../molecules/AvatarPopover";
 import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
@@ -23,12 +20,8 @@ import type { HeaderType } from "./index.types";
 export const Header: HeaderType = () => {
   const router = useRouter();
   const { data: currentUser } = useGetCurrentUserQuery();
-  const [logout] = useLogoutMutation();
   const isAuthenticated = Boolean(currentUser);
-  const handleLogout = async (): Promise<void> => {
-    await logout();
-    router.reload();
-  };
+  const handleLogout = (): void => router.reload();
   const {
     handleChangeLocale,
     handleCloseDrawer,

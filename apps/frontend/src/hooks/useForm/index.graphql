@@ -1,17 +1,11 @@
 mutation Login($loginData: LoginInput!) {
   login(loginData: $loginData) {
-    message
+    accessToken
   }
 }
 
 mutation Signup($signupData: SignupInput!) {
   signup(signupData: $signupData) {
-    message
-  }
-}
-
-mutation Logout {
-  logout {
-    message
+    accessToken
   }
 }
