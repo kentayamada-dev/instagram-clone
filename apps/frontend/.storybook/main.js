@@ -10,7 +10,8 @@ module.exports = {
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
     "storybook-addon-next-router",
-    "@storybook/preset-scss"
+    "@storybook/preset-scss",
+    "storybook-addon-apollo-client"
   ],
   framework: "@storybook/react",
   core: {

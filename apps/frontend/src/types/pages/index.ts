@@ -11,3 +11,10 @@ type MyAppPropsWithLayout = AppProps & {
 };
 
 export type MyAppType = (props: MyAppPropsWithLayout) => JSX.Element;
+
+/* eslint-disable @typescript-eslint/indent */
+export type MyPathsType<T> = {
+  locale: "en" | "ja";
+  params: T;
+};
+/* eslint-enable @typescript-eslint/indent */

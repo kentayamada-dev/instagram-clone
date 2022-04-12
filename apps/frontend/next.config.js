@@ -7,7 +7,8 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    domains: ["images.unsplash.com"]
   },
   async rewrites() {
     return [

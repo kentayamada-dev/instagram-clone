@@ -7,7 +7,7 @@ export const AuthTemplate: AuthTemplateType = (props) => {
   const { isSignup } = props;
 
   return (
-    <Center minH="82vh">
+    <Center>
       {!isSignup && (
         <Box
           display={{

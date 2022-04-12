@@ -9,7 +9,7 @@ const {
   COLORS: { DODGER_BLUE, WHITE, SNOW, BUNKER }
 } = constants;
 
-export const customizedTheme = extendTheme({
+export const myTheme = extendTheme({
   colors: constants.COLORS,
   components: {
     Button: {
@@ -39,16 +39,22 @@ export const customizedTheme = extendTheme({
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
-      a: {
-        _hover: {
-          opacity: 0.8
-        },
-        color: "#2081E2 !important",
-        fontWeight: "bold",
-        textDecoration: "none !important"
+      /*
+       * "a": {
+       *   _hover: {
+       *     opacity: 0.8
+       *   },
+       *   color: "#2081E2 !important",
+       *   fontWeight: "bold",
+       *   textDecoration: "none !important"
+       * },
+       */
+      "body": {
+        bg: mode(SNOW, BUNKER)(props),
+        height: "100%"
       },
-      body: {
-        bg: mode(SNOW, BUNKER)(props)
+      "html, #__next": {
+        height: "100%"
       }
     })
   }

@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { AuthGuard } from "@nestjs/passport";
+import type { GqlContext } from "./auth.types";
 import type { ExecutionContext } from "@nestjs/common";
 
 @Injectable()
@@ -9,7 +10,6 @@ export class GqlAuthGuard extends AuthGuard("jwt") {
   protected getRequest(context: ExecutionContext): unknown {
     const ctx = GqlExecutionContext.create(context);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return ctx.getContext().req;
+    return ctx.getContext<GqlContext>().req;
   }
 }

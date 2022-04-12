@@ -1,15 +1,22 @@
+import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
-import { customizedTheme } from "../libs/chakra";
+import { useApollo } from "../libs/apollo";
+import { myTheme } from "../libs/chakra";
 import type { MyAppType } from "../types/pages";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp: MyAppType = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
+  const apolloClient = useApollo(pageProps);
 
   return (
-    <ChakraProvider theme={customizedTheme}>
-      {getLayout(<Component {...pageProps} />)}
-    </ChakraProvider>
+    <ApolloProvider client={apolloClient}>
+      <ChakraProvider theme={myTheme}>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-expect-error */}
+        {getLayout(<Component {...pageProps} />)}
+      </ChakraProvider>
+    </ApolloProvider>
   );
 };
 

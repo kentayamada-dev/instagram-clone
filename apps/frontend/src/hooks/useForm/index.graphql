@@ -1,10 +1,17 @@
-mutation signup($signupData: SignupInput!) {
-  signup(signupData: $signupData) {
-    accessToken
+mutation Login($loginData: LoginInput!) {
+  login(loginData: $loginData) {
+    message
   }
 }
-mutation login($loginData: LoginInput!) {
-  login(loginData: $loginData) {
-    accessToken
+
+mutation Signup($signupData: SignupInput!) {
+  signup(signupData: $signupData) {
+    message
+  }
+}
+
+mutation Logout {
+  logout {
+    message
   }
 }

@@ -16,12 +16,12 @@ type UseMyFormProps = {
   isSignup: boolean;
 };
 
-export type UseMyFormType = (
-  props: UseMyFormProps
-) => UseFormReturn<MyFormType> & {
+type UseMyFormReturnType = UseFormReturn<MyFormType> & {
   submitHandler: SubmitHandler<MyFormType>;
   errorMessage: string;
 };
+
+export type UseMyFormType = (props: UseMyFormProps) => UseMyFormReturnType;
 
 export type FormInputProps = {
   register: UseFormRegister<MyFormType>;

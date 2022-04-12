@@ -20,5 +20,5 @@ export const constants = {
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",
     STORYBOOK_LINK: "/storybook"
   },
-  TOKEN_NAME: "token"
+  TOKEN_NAME: "access_token"
 };

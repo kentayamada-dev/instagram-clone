@@ -6,10 +6,16 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  FormControl,
+  FormLabel,
+  Select,
+  Switch,
+  useColorMode,
   useColorModeValue,
   VStack
 } from "@chakra-ui/react";
-import React from "react";
+import { useRouter } from "next/router";
+import { setCookie } from "nookies";
 import { constants } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageLink } from "../../atoms/ImageLink";
@@ -21,43 +27,50 @@ const {
   LINKS: { GITHUB_LINK, APOLLO_LINK, STORYBOOK_LINK }
 } = constants;
 
-const HeaderDrawer: HeaderDrawerType = ({ isOpen, handleClose }) => {
+export const HeaderDrawer: HeaderDrawerType = ({
+  handleCloseDrawer,
+  isAuthenticated,
+  isDrawerOpen
+}) => {
+  const router = useRouter();
+  const { locale, asPath, pathname, query } = router;
+  const { colorMode, toggleColorMode } = useColorMode();
+  const handleColorMode = (): void => toggleColorMode();
   const { t } = useTypeSafeTranslation("common");
-  const githubDarkImg = React.useMemo(
-    () => ({
-      alt: "Github Text Dark",
-      src: "/static/github/text_dark.svg"
-    }),
-    []
-  );
+  const handleChangeLocale = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): Promise<void> => {
+    const localeValue = event.target.value;
+    setCookie(null, "NEXT_LOCALE", localeValue, {
+      path: "/"
+    });
+    await router.push({ pathname, query }, asPath, {
+      locale: localeValue
+    });
+  };
+  const githubDarkImg = {
+    alt: "Github Text Dark",
+    src: "/static/github/text_dark.svg"
+  };
 
-  const githubLightImg = React.useMemo(
-    () => ({
-      alt: "Github Text Light",
-      src: "/static/github/text_light.svg"
-    }),
-    []
-  );
+  const githubLightImg = {
+    alt: "Github Text Light",
+    src: "/static/github/text_light.svg"
+  };
 
-  const apolloDarkImg = React.useMemo(
-    () => ({
-      alt: "Apollo Text Dark",
-      src: "/static/apollo/text_dark.svg"
-    }),
-    []
-  );
+  const apolloDarkImg = {
+    alt: "Apollo Text Dark",
+    src: "/static/apollo/text_dark.svg"
+  };
 
-  const apolloLightImg = React.useMemo(
-    () => ({
-      alt: "Apollo Text Light",
-      src: "/static/apollo/text_light.svg"
-    }),
-    []
-  );
+  const apolloLightImg = {
+    alt: "Apollo Text Light",
+    src: "/static/apollo/text_light.svg"
+  };
   const bgColor = useColorModeValue(SNOW, EBONY);
 
   return (
-    <Drawer isOpen={isOpen} onClose={handleClose}>
+    <Drawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
       <DrawerOverlay />
       <DrawerContent bgColor={bgColor}>
         <DrawerCloseButton />
@@ -93,9 +106,37 @@ const HeaderDrawer: HeaderDrawerType = ({ isOpen, handleClose }) => {
             </Button>
           </VStack>
         </DrawerBody>
+        {isAuthenticated && (
+          <>
+            <DrawerHeader>{t("settings")}</DrawerHeader>
+            <DrawerBody>
+              <VStack spacing={4}>
+                <FormControl>
+                  <FormLabel htmlFor="color-mode">{t("darkMode")}</FormLabel>
+                  <Switch
+                    id="color-mode"
+                    isChecked={colorMode === "dark"}
+                    onChange={handleColorMode}
+                    size="lg"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="locale">{t("language")}</FormLabel>
+                  <Select
+                    defaultValue={locale}
+                    id="locale"
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onChange={handleChangeLocale}
+                  >
+                    <option value="ja">日本語</option>
+                    <option value="en">English</option>
+                  </Select>
+                </FormControl>
+              </VStack>
+            </DrawerBody>
+          </>
+        )}
       </DrawerContent>
     </Drawer>
   );
 };
-
-export const MemorizedHeaderDrawer = React.memo(HeaderDrawer);

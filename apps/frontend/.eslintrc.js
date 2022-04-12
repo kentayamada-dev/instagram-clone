@@ -8,7 +8,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "import"],
   ignorePatterns: [
     "coverage/*",
-    "src/generated/*",
+    "src/types/generated/*",
     "dist/*",
     "next-env.d.ts",
     "**/*.js"
@@ -114,7 +114,7 @@ module.exports = {
         selector: "variable",
         types: ["boolean"],
         format: ["PascalCase"],
-        prefix: ["is"]
+        prefix: ["is", "has"]
       },
       {
         selector: "variable",

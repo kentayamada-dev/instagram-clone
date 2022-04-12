@@ -1,0 +1,30 @@
+query GetAllPostsIdAndUserId {
+  getAllPostsIdAndUserId {
+    id
+    user {
+      id
+    }
+  }
+}
+
+query GetAllPosts($first: Float!, $after: String) {
+  getAllPosts(first: $first, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        caption
+        createdAt
+        imageUrl
+        user {
+          id
+          name
+          imageUrl
+        }
+      }
+    }
+  }
+}

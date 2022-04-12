@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { ThrottlerGuard } from "@nestjs/throttler";
+import type { GqlContext } from "../../auth/auth.types";
 import type { ExecutionContext } from "@nestjs/common";
 
 type GetRequestResponse = ReturnType<ThrottlerGuard["getRequestResponse"]>;
@@ -13,9 +14,9 @@ export class GqlThrottlerGuard extends ThrottlerGuard {
   ): GetRequestResponse {
     const gqlCtx = GqlExecutionContext.create(context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const ctx = gqlCtx.getContext();
+    const { req, res } = gqlCtx.getContext<GqlContext>();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-    return { req: ctx.req, res: ctx.res };
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    return { req, res };
   }
 }

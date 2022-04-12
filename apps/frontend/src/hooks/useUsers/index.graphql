@@ -1,0 +1,21 @@
+query GetAllUsersId {
+  getAllUsersId {
+    id
+  }
+}
+
+query GetAllUsers($first: Float!, $after: String) {
+  getAllUsers(first: $first, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        id
+        name
+        imageUrl
+      }
+    }
+  }
+}

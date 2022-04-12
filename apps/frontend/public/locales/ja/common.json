@@ -1,3 +1,7 @@
 {
-  "links": "リンク"
+  "settings": "設定",
+  "links": "リンク",
+  "darkMode": "ダークモード",
+  "language": "言語",
+  "logout": "ログアウト"
 }

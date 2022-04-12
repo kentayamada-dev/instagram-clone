@@ -1,3 +1,7 @@
 {
-  "links": "Links"
+  "settings": "Settings",
+  "links": "Links",
+  "darkMode": "Dark Mode",
+  "language": "Language",
+  "logout": "Log Out"
 }

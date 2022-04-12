@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import NextLink from "next/link";
-import React from "react";
 import { constants } from "../../../constants";
 import { useMyForm } from "../../../hooks/useForm";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
@@ -46,21 +45,15 @@ export const Form: FormType = ({ isSignup }) => {
     isSignup ? valueT : valueU;
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
-  const darkImg = React.useMemo(
-    () => ({
-      alt: "Instagram Text Dark",
-      src: "/static/instagram/text_dark.svg"
-    }),
-    []
-  );
+  const darkImg = {
+    alt: "Instagram Text Dark",
+    src: "/static/instagram/text_dark.svg"
+  };
 
-  const lightImg = React.useMemo(
-    () => ({
-      alt: "Instagram Text Light",
-      src: "/static/instagram/text_light.svg"
-    }),
-    []
-  );
+  const lightImg = {
+    alt: "Instagram Text Light",
+    src: "/static/instagram/text_light.svg"
+  };
 
   return (
     <VStack minH="500px" spacing={4}>

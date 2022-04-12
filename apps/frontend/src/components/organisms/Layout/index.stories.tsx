@@ -1,19 +1,12 @@
-import { Box } from "@chakra-ui/react";
 import { Layout } from ".";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 
 export default {
   component: Layout
 } as ComponentMeta<typeof Layout>;
 
-const LayoutTemplate: ComponentStory<typeof Layout> = (args) => (
-  <Layout {...args}>
-    <Box minH="84vh" />
-  </Layout>
-);
-
-export const layout = LayoutTemplate.bind({});
-
-layout.args = {
-  title: "layout"
+export const layout: ComponentStoryObj<typeof Layout> = {
+  args: {
+    title: "title"
+  }
 };

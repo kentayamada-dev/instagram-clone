@@ -1,14 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType } from "@nestjs/graphql";
 import { Paginated } from "../../pagination/pagination.model";
 import { GetUserModel } from "./get-user.model";
 import type { StrictPropertyCheck } from "../../types";
 
 @ObjectType()
-export class GetAllUsersModel extends GetUserModel {
-  @Field({ description: "Created Date" })
-  public readonly createdAt!: Date;
-}
+export class GetAllUsersModel extends GetUserModel {}
 
 @ObjectType()
 export class PaginatedGetAllUsersModel extends Paginated(GetAllUsersModel) {}

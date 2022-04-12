@@ -1,0 +1,13 @@
+query GetPost($getPostId: String!) {
+  getPost(id: $getPostId) {
+    id
+    caption
+    createdAt
+    user {
+      id
+      name
+      imageUrl
+    }
+    imageUrl
+  }
+}

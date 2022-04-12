@@ -1,20 +1,34 @@
-import { Box } from "@chakra-ui/react";
 import Head from "next/head";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 import type { LayoutType } from "./index.types";
 
 export const Layout: LayoutType = ({ children, title }) => (
-  <Box>
+  <>
     <Head>
       <title>{title}</title>
     </Head>
-    <header>
+    <header
+      style={{
+        height: 60
+      }}
+    >
       <Header />
     </header>
-    <main>{children}</main>
-    <footer>
+    <main
+      style={{
+        display: "grid",
+        minHeight: "calc(100% - 120px)"
+      }}
+    >
+      {children}
+    </main>
+    <footer
+      style={{
+        height: 60
+      }}
+    >
       <Footer />
     </footer>
-  </Box>
+  </>
 );

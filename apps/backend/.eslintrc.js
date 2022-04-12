@@ -11,6 +11,7 @@ module.exports = {
   ],
   rules: {
     // eslint
+    "camelcase": ["error", { ignoreDestructuring: true }],
     "max-lines-per-function": "off",
     "no-confusing-arrow": "off",
     "array-element-newline": ["error", "consistent"],
