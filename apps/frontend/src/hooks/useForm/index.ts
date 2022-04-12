@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { constants } from "../../constants";
 import { useLocale } from "../../libs/next_router";
 import {
   useLoginMutation,
@@ -11,6 +12,8 @@ import { getImageUrl } from "../../utils/getImageUrl";
 import type { MyFormType, UseMyFormType } from "./types";
 import type { ApolloError } from "@apollo/client";
 import type { SubmitHandler } from "react-hook-form";
+
+const { ACCESS_TOKEN_KEY_NAME } = constants;
 
 export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const emailAlreadyExistsErrorMessage = useLocale(
@@ -29,9 +32,10 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const setToken = async (accessToken: string): Promise<void> =>
-    axios.post("/api/token/", {
-      token: accessToken
+  const saveAccessToken = async (accessToken: string): Promise<void> =>
+    axios.post("/api/cookie/", {
+      key: ACCESS_TOKEN_KEY_NAME,
+      value: accessToken
     });
   const imageBlankErrorMessage = useLocale(
     "Please select image",
@@ -63,7 +67,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
           await signup({
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onCompleted: async (value) => {
-              await setToken(value.signup.accessToken);
+              await saveAccessToken(value.signup.accessToken);
               router.reload();
             },
             onError: handleError,
@@ -81,7 +85,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         await login({
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onCompleted: async (value) => {
-            await setToken(value.login.accessToken);
+            await saveAccessToken(value.login.accessToken);
             router.reload();
           },
           onError: handleError,

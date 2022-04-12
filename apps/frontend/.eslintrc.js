@@ -101,7 +101,11 @@ module.exports = {
         ignoreVoidOperator: false
       }
     ],
-    "@typescript-eslint/indent": ["error", 2, { MemberExpression: "off" }],
+    "@typescript-eslint/indent": [
+      "error",
+      2,
+      { MemberExpression: "off", SwitchCase: 1 }
+    ],
     "@typescript-eslint/naming-convention": [
       "error",
       {

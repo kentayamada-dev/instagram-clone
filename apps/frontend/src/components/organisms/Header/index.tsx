@@ -5,10 +5,12 @@ import {
   Box,
   useColorModeValue
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
+import { constants } from "../../../constants";
 import { useHeader } from "../../../hooks/useHeader";
 import { useLocale } from "../../../libs/next_router";
 import { useGetCurrentUserQuery } from "../../../types/generated/types";
@@ -17,11 +19,21 @@ import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import type { HeaderType } from "./index.types";
 
+const { ACCESS_TOKEN_KEY_NAME } = constants;
+
 export const Header: HeaderType = () => {
   const router = useRouter();
   const { data: currentUser } = useGetCurrentUserQuery();
   const isAuthenticated = Boolean(currentUser);
-  const handleLogout = (): void => router.reload();
+  const handleLogout = async (): Promise<void> => {
+    await axios.delete("/api/cookie/", {
+      data: {
+        key: ACCESS_TOKEN_KEY_NAME,
+        value: ""
+      }
+    });
+    router.reload();
+  };
   const {
     handleChangeLocale,
     handleCloseDrawer,

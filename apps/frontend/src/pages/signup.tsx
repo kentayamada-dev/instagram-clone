@@ -1,7 +1,5 @@
-import nookies from "nookies";
 import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
-import { constants } from "../constants";
 import { initializeApollo, addApolloState } from "../libs/apollo";
 import { GetCurrentUserDocument } from "../types/generated/types";
 import type { GetCurrentUserQuery } from "../types/generated/types";
@@ -11,8 +9,6 @@ import type {
   GetAuthServerSideProps,
   GetAuthServerSidePropsResultType
 } from "../types/pages/auth/types";
-
-const { TOKEN_NAME } = constants;
 
 export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
   const apolloClient = initializeApollo();
@@ -37,10 +33,7 @@ export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
 
     return addApolloState(apolloClient, pageProps);
   } catch (error) {
-    nookies.set(ctx, TOKEN_NAME, "", {
-      maxAge: 0,
-      path: "/"
-    });
+    // Do nothing
   }
 
   const pageProps: GetAuthServerSidePropsResultType = {

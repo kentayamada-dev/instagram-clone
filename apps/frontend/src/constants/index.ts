@@ -1,6 +1,7 @@
 /* eslint @typescript-eslint/naming-convention: ["error", {selector: "property", format: ["UPPER_CASE"] } ]*/
 
 export const constants = {
+  ACCESS_TOKEN_KEY_NAME: "accessToken",
   CLOUDINARY: {
     API_URL: "https://api.cloudinary.com/v1_1/kentayamada/image/upload",
     UPLOAD_PRESET: "instagram-clone"
@@ -19,6 +20,5 @@ export const constants = {
       "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",
     STORYBOOK_LINK: "/storybook"
-  },
-  TOKEN_NAME: "access_token"
+  }
 };

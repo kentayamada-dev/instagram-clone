@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type ApiHandlerType<
+export type ApiHandlerType<
   QueryType = unknown,
   BodyType = unknown,
   ResponseType = unknown
@@ -11,15 +11,3 @@ type ApiHandlerType<
   },
   res: NextApiResponse<ResponseType>
 ) => Promise<void> | void;
-
-export type TokenBodyType = {
-  token: string;
-};
-
-/* eslint-disable @typescript-eslint/indent */
-export type TokenHandlerType = ApiHandlerType<
-  Record<string, unknown>,
-  TokenBodyType,
-  Record<string, unknown>
->;
-/* eslint-enable @typescript-eslint/indent */

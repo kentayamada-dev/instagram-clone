@@ -8,7 +8,7 @@ const nextConfig = {
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    domains: ["images.unsplash.com"]
+    domains: ["images.unsplash.com", "res.cloudinary.com"]
   },
   async rewrites() {
     return [
