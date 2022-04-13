@@ -42,3 +42,4 @@
   - Monorepo (Turborepo)
   - husky
   - ESLint
+  - GraphQL Code Generator
