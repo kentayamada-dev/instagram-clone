@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
 import { initializeApollo } from "../../libs/apollo";
@@ -76,9 +77,15 @@ export const getStaticProps: GetUserStaticProps = async ({ params }) => {
 
 /* eslint-enable @typescript-eslint/indent */
 
-const User: NextUserPageWithLayoutType = ({ data }) => (
-  <UserDetailTemplate data={data} />
-);
+const User: NextUserPageWithLayoutType = ({ data }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  return <UserDetailTemplate data={data} />;
+};
 
 User.getLayout = (page): JSX.Element => (
   <Layout title="Instagram">{page}</Layout>

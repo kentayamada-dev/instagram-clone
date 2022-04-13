@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
 import { initializeApollo } from "../../libs/apollo";
@@ -79,9 +80,15 @@ export const getStaticProps: GetPostStaticProps = async ({ params }) => {
 };
 /* eslint-enable @typescript-eslint/indent */
 
-const Post: NextPostPageWithLayoutType = ({ data }) => (
-  <PostDetailTemplate data={data} />
-);
+const Post: NextPostPageWithLayoutType = ({ data }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  return <PostDetailTemplate data={data} />;
+};
 
 Post.getLayout = (page): JSX.Element => (
   <Layout title="Instagram">{page}</Layout>
