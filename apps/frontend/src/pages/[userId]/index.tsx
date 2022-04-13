@@ -19,9 +19,13 @@ import type {
 
 export const getStaticPaths: GetUserStaticPathsType = async () => {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query<GetAllUsersIdQuery>({
+  const { data, error } = await apolloClient.query<GetAllUsersIdQuery>({
     query: GetAllUsersIdDocument
   });
+
+  if (error) {
+    throw new Error(`Failed to fetch user, ${error.message}`);
+  }
 
   const enPaths = data.getAllUsersId.map(
     (node): UserPathsType => ({
@@ -44,7 +48,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
   const paths = enPaths.concat(jaPaths);
 
   return {
-    fallback: false,
+    fallback: true,
     paths
   };
 };
@@ -52,7 +56,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
 /* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetUserStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
-  const { data: user } = await apolloClient.query<
+  const { data: userData, error } = await apolloClient.query<
     GetUserQuery,
     GetUserQueryVariables
   >({
@@ -60,8 +64,13 @@ export const getStaticProps: GetUserStaticProps = async ({ params }) => {
     variables: { getUserId: params?.userId ?? "" }
   });
 
+  if (error) {
+    throw new Error(`Failed to fetch users, ${error.message}`);
+  }
+
   return {
-    props: { data: user.getUser }
+    props: { data: userData.getUser },
+    revalidate: 1
   };
 };
 

@@ -19,9 +19,15 @@ import type {
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query<GetAllPostsIdAndUserIdQuery>({
-    query: GetAllPostsIdAndUserIdDocument
-  });
+  const { data, error } = await apolloClient.query<GetAllPostsIdAndUserIdQuery>(
+    {
+      query: GetAllPostsIdAndUserIdDocument
+    }
+  );
+
+  if (error) {
+    throw new Error(`Failed to fetch post, ${error.message}`);
+  }
 
   const enPaths = data.getAllPostsIdAndUserId.map(
     (node): PostPathsType => ({
@@ -46,7 +52,7 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
   const paths = enPaths.concat(jaPaths);
 
   return {
-    fallback: false,
+    fallback: true,
     paths
   };
 };
@@ -54,7 +60,7 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
 /* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetPostStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
-  const { data: post } = await apolloClient.query<
+  const { data: postData, error } = await apolloClient.query<
     GetPostQuery,
     GetPostQueryVariables
   >({
@@ -62,8 +68,13 @@ export const getStaticProps: GetPostStaticProps = async ({ params }) => {
     variables: { getPostId: params?.postId ?? "" }
   });
 
+  if (error) {
+    throw new Error(`Failed to fetch posts, ${error.message}`);
+  }
+
   return {
-    props: { data: post.getPost }
+    props: { data: postData.getPost },
+    revalidate: 1
   };
 };
 /* eslint-enable @typescript-eslint/indent */
