@@ -11,6 +11,7 @@ import { Feed } from "../../organisms/Feed";
 import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
+  const { data: currentUserData } = useGetCurrentUserQuery();
   const {
     data: postsData,
     fetchMore: fetchMorePosts,
@@ -19,9 +20,8 @@ export const HomeTemplate: HomeTemplateType = () => {
     variables: { first: 5 }
   });
   const { data: usersData } = useGetAllUsersQuery({
-    variables: { first: 5 }
+    variables: { first: 5, userId: currentUserData?.getCurrentUser.id ?? "" }
   });
-  const { data: currentUserData } = useGetCurrentUserQuery();
   const toast = useToast();
   const tooManyRequestsErrorMessage = useLocale(
     "Please try again after some time",

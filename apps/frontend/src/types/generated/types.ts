@@ -202,6 +202,7 @@ export type QueryGetAllPostsArgs = {
 export type QueryGetAllUsersArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first: Scalars["Float"];
+  userId?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryGetPostArgs = {
@@ -351,6 +352,7 @@ export type GetAllUsersIdQuery = {
 export type GetAllUsersQueryVariables = Exact<{
   first: Scalars["Float"];
   after?: InputMaybe<Scalars["String"]>;
+  userId?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type GetAllUsersQuery = {
@@ -830,8 +832,8 @@ export type GetAllUsersIdQueryResult = Apollo.QueryResult<
   GetAllUsersIdQueryVariables
 >;
 export const GetAllUsersDocument = gql`
-  query GetAllUsers($first: Float!, $after: String) {
-    getAllUsers(first: $first, after: $after) {
+  query GetAllUsers($first: Float!, $after: String, $userId: String) {
+    getAllUsers(first: $first, after: $after, userId: $userId) {
       pageInfo {
         hasNextPage
         endCursor
@@ -861,6 +863,7 @@ export const GetAllUsersDocument = gql`
  *   variables: {
  *      first: // value for 'first'
  *      after: // value for 'after'
+ *      userId: // value for 'userId'
  *   },
  * });
  */

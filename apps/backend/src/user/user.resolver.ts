@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-extra-parens, @typescript-eslint/indent */
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
 import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
@@ -7,9 +8,9 @@ import { AuthModel } from "../auth/auth.model";
 import { AuthService } from "../auth/auth.service";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gql-auth.guard";
-import { PaginationArgs } from "../pagination/pagination.args";
 import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
 import { PrismaService } from "../prisma/prisma.service";
+import { GetAllUsersArgs } from "./dto/get-all-users.args";
 import { LoginInput } from "./dto/login.input";
 import { SignupInput } from "./dto/signup.input";
 import {
@@ -61,11 +62,10 @@ export class UserResolver {
 
   @Query(() => PaginatedGetAllUsersModel, { description: "Get All Users" })
   protected async getAllUsers(
-    @Args() { first, after }: PaginationArgs
+    @Args() { first, after, userId }: GetAllUsersArgs
   ): Promise<PaginatedGetAllUsersModel> {
     const foundUsers = await this.prismaService.user
       .findMany({
-        // eslint-disable-next-line @typescript-eslint/no-extra-parens
         ...(after ? { cursor: { id: after }, skip: 1 } : {}),
         orderBy: {
           createdAt: "desc"
@@ -75,7 +75,19 @@ export class UserResolver {
           imageUrl: true,
           name: true
         },
-        take: first
+        take: first,
+        ...(userId
+          ? {
+              where: {
+                // eslint-disable-next-line @typescript-eslint/naming-convention
+                NOT: {
+                  id: {
+                    equals: userId
+                  }
+                }
+              }
+            }
+          : {})
       })
       .then((usersData) => {
         const [firstUser] = usersData;
@@ -121,7 +133,6 @@ export class UserResolver {
     };
   }
 
-  /* eslint-disable @typescript-eslint/indent */
   @Mutation(() => AuthModel, { description: "Signup" })
   protected async signup(
     @Args("signupData") signupData: SignupInput
@@ -167,7 +178,6 @@ export class UserResolver {
 
     if (
       !foundUser ||
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       !(await compare(loginData.password, foundUser.password))
     ) {
       throw new HttpException(
@@ -180,7 +190,6 @@ export class UserResolver {
 
     return { accessToken };
   }
-  /* eslint-enable @typescript-eslint/indent */
 
   @Query(() => GetUserModel, { description: "Get Current User" })
   @UseGuards(GqlAuthGuard)
@@ -263,3 +272,5 @@ export class UserResolver {
     return foundUser;
   }
 }
+
+/* eslint-enable @typescript-eslint/indent, @typescript-eslint/no-extra-parens*/

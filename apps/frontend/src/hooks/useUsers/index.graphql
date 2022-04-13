@@ -4,8 +4,8 @@ query GetAllUsersId {
   }
 }
 
-query GetAllUsers($first: Float!, $after: String) {
-  getAllUsers(first: $first, after: $after) {
+query GetAllUsers($first: Float!, $after: String, $userId: String) {
+  getAllUsers(first: $first, after: $after, userId: $userId) {
     pageInfo {
       hasNextPage
       endCursor
