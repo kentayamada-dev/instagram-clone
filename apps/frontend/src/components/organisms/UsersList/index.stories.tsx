@@ -33,15 +33,8 @@ const usersEdge: UsersListProps["usersEdge"] = new Array(5)
   .fill(null)
   .map((_, index) => ({ node: user(index) }));
 
-const currentUser: UsersListProps["currentUser"] = {
-  id: "currentUserId",
-  imageUrl: "/static/landingPage/slide/1.png",
-  name: faker.name.firstName()
-};
-
 export const usersList: ComponentStoryObj<typeof UsersList> = {
   args: {
-    currentUser,
     usersEdge
   }
 };

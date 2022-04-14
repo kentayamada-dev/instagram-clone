@@ -3,5 +3,11 @@
   "links": "Links",
   "darkMode": "Dark Mode",
   "language": "Language",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "createNewPost": "Create new post",
+  "selectFromComputer": "Select from computer",
+  "writeCaption": "Write a caption...",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "recommend": "Recommend"
 }

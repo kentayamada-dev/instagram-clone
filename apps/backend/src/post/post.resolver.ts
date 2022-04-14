@@ -1,9 +1,14 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { Resolver, Query, Args } from "@nestjs/graphql";
+/* eslint-disable @typescript-eslint/indent */
+import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
+import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
+import { CurrentUser } from "../auth/auth.decorator";
+import { JwtPayload } from "../auth/auth.types";
+import { GqlAuthGuard } from "../auth/gql-auth.guard";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 import { isPropertyExactlySameAsGetUserModel } from "../user/models/get-user.model";
+import { PostInput } from "./dto/post.input";
 import {
   GetAllPostsIdAndUserId,
   isPropertyExactlySameAsGetAllPostsIdAndUserId
@@ -13,6 +18,7 @@ import {
   isPropertyExactlySameAsGetAllPostsModel,
   PaginatedGetAllPostsModel
 } from "./models/get-all-posts.model";
+import { GetPostModel } from "./models/get-post.model";
 import type { Edge } from "../pagination/pagination.model";
 
 @Resolver()
@@ -162,4 +168,30 @@ export class PostResolver {
       }
     };
   }
+
+  @Mutation(() => GetPostModel, { description: "Post" })
+  @UseGuards(GqlAuthGuard)
+  protected async post(
+    @CurrentUser() user: JwtPayload,
+    @Args("postInput") postInput: PostInput
+  ): Promise<GetPostModel> {
+    const createdPost = await this.prismaService.post.create({
+      data: {
+        imageUrl: postInput.imageUrl,
+        // eslint-disable-next-line @typescript-eslint/no-extra-parens
+        ...(postInput.caption ? { caption: postInput.caption } : {}),
+        userId: user.id
+      },
+      select: {
+        caption: true,
+        createdAt: true,
+        id: true,
+        imageUrl: true
+      }
+    });
+
+    return createdPost;
+  }
 }
+
+/* eslint-enable @typescript-eslint/indent */

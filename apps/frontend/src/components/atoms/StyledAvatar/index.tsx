@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Skeleton } from "@chakra-ui/react";
 import Image from "next/image";
 import type { StyledAvatarType } from "./index.types";
 
@@ -10,6 +10,16 @@ export const StyledAvatar: StyledAvatarType = ({ size, src, alt }) => (
     pos="relative"
     w={`${size}px`}
   >
-    <Image alt={alt} layout="fill" objectFit="cover" quality={100} src={src} />
+    {src ? (
+      <Image
+        alt={alt}
+        layout="fill"
+        objectFit="cover"
+        quality={100}
+        src={src}
+      />
+    ) : (
+      <Skeleton h="100%" w="100%" />
+    )}
   </Box>
 );

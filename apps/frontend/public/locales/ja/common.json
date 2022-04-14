@@ -3,5 +3,11 @@
   "links": "リンク",
   "darkMode": "ダークモード",
   "language": "言語",
-  "logout": "ログアウト"
+  "logout": "ログアウト",
+  "createNewPost": "新規投稿を作成",
+  "selectFromComputer": "コンピューターから選択",
+  "writeCaption": "キャプションを入力...",
+  "cancel": "キャンセル",
+  "submit": "送信",
+  "recommend": "おすすめ"
 }

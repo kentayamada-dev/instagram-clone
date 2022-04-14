@@ -156,8 +156,14 @@ export class UserResolver {
       ...rest,
       password: hashedPassword
     };
-    await this.prismaService.user.create({ data });
-    const { accessToken } = this.authService.getJwtToken(data.email);
+    const createdUser = await this.prismaService.user.create({
+      data,
+      select: {
+        email: true,
+        id: true
+      }
+    });
+    const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
     return { accessToken };
   }
@@ -169,6 +175,7 @@ export class UserResolver {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         email: true,
+        id: true,
         password: true
       },
       where: {
@@ -186,7 +193,7 @@ export class UserResolver {
       );
     }
 
-    const { accessToken } = this.authService.getJwtToken(foundUser.email);
+    const { accessToken } = this.authService.getJwtToken(foundUser.id);
 
     return { accessToken };
   }
@@ -204,7 +211,7 @@ export class UserResolver {
           name: true
         },
         where: {
-          email: user.email
+          id: user.id
         }
       })
       .then((userData) => {

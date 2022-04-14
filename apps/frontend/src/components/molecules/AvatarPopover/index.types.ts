@@ -1,7 +1,7 @@
+import type { StyledAvatarProps } from "../../atoms/StyledAvatar/index.types";
 import type { MouseEventHandler } from "react";
 
-export type AvatarPopoverProps = {
-  imageSrc: string;
+export type AvatarPopoverProps = StyledAvatarProps & {
   handleLogout: MouseEventHandler<HTMLButtonElement>;
 };
 

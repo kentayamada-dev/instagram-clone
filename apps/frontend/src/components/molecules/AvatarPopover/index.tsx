@@ -10,16 +10,18 @@ import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { AvatarPopoverType } from "./index.types";
 
 export const AvatarPopover: AvatarPopoverType = ({
-  imageSrc,
-  handleLogout
+  handleLogout,
+  alt,
+  size,
+  src
 }) => {
   const { t } = useTypeSafeTranslation("common");
 
   return (
     <Popover placement="bottom-end">
       <PopoverTrigger>
-        <Button borderRadius="full" p="unset">
-          <StyledAvatar alt="Avatar Image" size={35} src={imageSrc} />
+        <Button borderRadius="full" p="0px">
+          <StyledAvatar alt={alt} size={size} src={src} />
         </Button>
       </PopoverTrigger>
       <PopoverContent w="48">

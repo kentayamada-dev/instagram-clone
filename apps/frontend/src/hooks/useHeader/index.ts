@@ -1,4 +1,5 @@
 import { useColorMode, useDisclosure } from "@chakra-ui/react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "nookies";
 import React from "react";
@@ -7,15 +8,22 @@ import { useLocale } from "../../libs/next_router";
 import type { UseHeaderType } from "./type";
 
 const {
+  ACCESS_TOKEN_KEY_NAME,
   LINKS: { STORYBOOK_LINK, GITHUB_LINK, APOLLO_LINK }
 } = constants;
 
 export const useHeader: UseHeaderType = () => {
   const router = useRouter();
+  const {
+    isOpen: isPostModalOpen,
+    onOpen: handleOpenPostModal,
+    onClose: handleClosePostModal
+  } = useDisclosure();
   const { pathname, asPath, query } = router;
   const localeEn = useLocale("ja", "en");
   const { toggleColorMode } = useColorMode();
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
+
   const handleOpenDrawer = (): void => onOpen();
   const handleCloseDrawer = React.useCallback(() => onClose(), [onClose]);
   const handleOpenStorybook = async (): Promise<boolean> =>
@@ -33,15 +41,28 @@ export const useHeader: UseHeaderType = () => {
       locale: localeEn
     });
   };
+  const handleLogout = async (): Promise<void> => {
+    await axios.delete("/api/cookie/", {
+      data: {
+        key: ACCESS_TOKEN_KEY_NAME,
+        value: ""
+      }
+    });
+    router.reload();
+  };
 
   return {
     handleChangeLocale,
     handleCloseDrawer,
+    handleClosePostModal,
     handleColorMode,
+    handleLogout,
     handleOpenApolloGraphQL,
     handleOpenDrawer,
     handleOpenGithub,
+    handleOpenPostModal,
     handleOpenStorybook,
-    isDrawerOpen
+    isDrawerOpen,
+    isPostModalOpen
   };
 };

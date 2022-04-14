@@ -1,4 +1,5 @@
 import { Center } from "@chakra-ui/react";
+import { styledAvatar } from "../../atoms/StyledAvatar/index.stories";
 import { AvatarPopover } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -10,6 +11,6 @@ export default {
 
 export const avatarPopover: ComponentStoryObj<typeof AvatarPopover> = {
   args: {
-    imageSrc: "/static/landingPage/slide/3.png"
+    ...styledAvatar.args
   }
 };

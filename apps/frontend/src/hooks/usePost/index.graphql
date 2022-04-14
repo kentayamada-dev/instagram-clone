@@ -11,3 +11,12 @@ query GetPost($getPostId: String!) {
     imageUrl
   }
 }
+
+mutation Post($postInput: PostInput!) {
+  post(postInput: $postInput) {
+    id
+    caption
+    createdAt
+    imageUrl
+  }
+}

@@ -5,35 +5,23 @@ import {
   Box,
   useColorModeValue
 } from "@chakra-ui/react";
-import axios from "axios";
-import { useRouter } from "next/router";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
-import { constants } from "../../../constants";
+import { VscAdd } from "react-icons/vsc";
 import { useHeader } from "../../../hooks/useHeader";
+import { usePost } from "../../../hooks/usePost";
 import { useLocale } from "../../../libs/next_router";
 import { useGetCurrentUserQuery } from "../../../types/generated/types";
 import { AvatarPopover } from "../../molecules/AvatarPopover";
 import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
+import { PostModal } from "../../molecules/PostModal";
 import type { HeaderType } from "./index.types";
 
-const { ACCESS_TOKEN_KEY_NAME } = constants;
-
 export const Header: HeaderType = () => {
-  const router = useRouter();
   const { data: currentUser } = useGetCurrentUserQuery();
   const isAuthenticated = Boolean(currentUser);
-  const handleLogout = async (): Promise<void> => {
-    await axios.delete("/api/cookie/", {
-      data: {
-        key: ACCESS_TOKEN_KEY_NAME,
-        value: ""
-      }
-    });
-    router.reload();
-  };
   const {
     handleChangeLocale,
     handleCloseDrawer,
@@ -42,8 +30,20 @@ export const Header: HeaderType = () => {
     handleOpenGithub,
     handleOpenStorybook,
     isDrawerOpen,
-    handleOpenDrawer
+    handleOpenDrawer,
+    handleClosePostModal,
+    handleOpenPostModal,
+    isPostModalOpen,
+    handleLogout
   } = useHeader();
+  const {
+    handleCancelPost,
+    handleChangeCaption,
+    handleChangeImage,
+    handleSubmitPost,
+    imageSrc,
+    isPostLoading
+  } = usePost();
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("A", "あ");
   const instagramDarkImg = {
@@ -78,12 +78,24 @@ export const Header: HeaderType = () => {
           width={150}
         />
         <Flex align="center" gap={5}>
-          {currentUser && (
-            <AvatarPopover
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              handleLogout={handleLogout}
-              imageSrc={currentUser.getCurrentUser.imageUrl}
-            />
+          {isAuthenticated && (
+            <>
+              <IconButton
+                aria-label="Post"
+                icon={<VscAdd />}
+                minH="48px"
+                minW="48px"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={handleOpenPostModal}
+              />
+              <AvatarPopover
+                alt="Avatar Image"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                handleLogout={handleLogout}
+                size={35}
+                src={currentUser?.getCurrentUser.imageUrl}
+              />
+            </>
           )}
           <Box
             display={{
@@ -155,6 +167,18 @@ export const Header: HeaderType = () => {
         handleCloseDrawer={handleCloseDrawer}
         isAuthenticated={isAuthenticated}
         isDrawerOpen={isDrawerOpen}
+      />
+      <PostModal
+        currentUserAvatarUrl={currentUser?.getCurrentUser.imageUrl}
+        currentUserName={currentUser?.getCurrentUser.name}
+        handleCancel={handleCancelPost}
+        handleChangeCaption={handleChangeCaption}
+        handleChangeImage={handleChangeImage}
+        handleClose={handleClosePostModal}
+        handleSubmit={handleSubmitPost}
+        imagePreviewSrc={imageSrc}
+        isLoading={isPostLoading}
+        isOpen={isPostModalOpen}
       />
     </>
   );

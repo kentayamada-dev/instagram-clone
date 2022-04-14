@@ -1,11 +1,11 @@
 import type { ImageProps } from "next/image";
 
-export type ImageLinkProps = {
-  src: ImageProps["src"];
+/* eslint-disable @typescript-eslint/indent */
+type ImageLinkProps = Pick<ImageProps, "alt" | "src"> & {
   href: string;
-  alt: string;
   height: number;
   width: number;
 };
+/* eslint-enable @typescript-eslint/indent */
 
 export type ImageLinkType = (props: ImageLinkProps) => JSX.Element;

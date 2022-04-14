@@ -3,7 +3,7 @@ export interface JwtToken {
 }
 
 export interface JwtPayload {
-  readonly email: string;
+  readonly id: string;
 }
 
 export interface GqlContext {

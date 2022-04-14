@@ -5,11 +5,11 @@ export type ImageColorModeProps = {
   width: number;
   lightImg: {
     src: ImageProps["src"];
-    alt: string;
+    alt: ImageProps["alt"];
   };
   darkImg: {
     src: ImageProps["src"];
-    alt: string;
+    alt: ImageProps["alt"];
   };
 };
 

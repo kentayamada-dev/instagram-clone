@@ -9,8 +9,8 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  public getJwtToken(email: string): JwtToken {
-    const payload: JwtPayload = { email };
+  public getJwtToken(id: string): JwtToken {
+    const payload: JwtPayload = { id };
 
     return {
       accessToken: this.jwtService.sign(payload)
