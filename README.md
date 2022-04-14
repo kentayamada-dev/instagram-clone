@@ -8,6 +8,7 @@
   - React (Next.js)
   - Storybook
   - Atomic Design
+  - Fully Responsive 
   - Chakra UI
   - Apollo Client
   - TypeScript
