@@ -44,3 +44,4 @@
   - husky
   - ESLint
   - GraphQL Code Generator
+  - Prettier
