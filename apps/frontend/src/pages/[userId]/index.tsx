@@ -74,7 +74,6 @@ export const getStaticProps: GetUserStaticProps = async ({ params }) => {
     revalidate: 1
   };
 };
-
 /* eslint-enable @typescript-eslint/indent */
 
 const User: NextUserPageWithLayoutType = ({ data }) => {
