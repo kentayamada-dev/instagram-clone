@@ -12,8 +12,8 @@ query GetPost($getPostId: String!) {
   }
 }
 
-mutation Post($postInput: PostInput!) {
-  post(postInput: $postInput) {
+mutation Post($postArgs: PostArgs!) {
+  post(postArgs: $postArgs) {
     id
     caption
     createdAt

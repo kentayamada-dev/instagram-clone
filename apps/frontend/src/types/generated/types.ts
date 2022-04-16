@@ -133,7 +133,7 @@ export type GetUserModel = {
   name: Scalars["String"];
 };
 
-export type LoginInput = {
+export type LoginArgs = {
   /** Email */
   email: Scalars["String"];
   /** Password */
@@ -151,15 +151,15 @@ export type Mutation = {
 };
 
 export type MutationLoginArgs = {
-  loginData: LoginInput;
+  loginArgs: LoginArgs;
 };
 
 export type MutationPostArgs = {
-  postInput: PostInput;
+  postArgs: PostArgs;
 };
 
 export type MutationSignupArgs = {
-  signupData: SignupInput;
+  signupArgs: SignupArgs;
 };
 
 export type PaginatedGetAllPostsModel = {
@@ -182,7 +182,7 @@ export type PaginatedGetAllUsersModel = {
   pageInfo: GetAllUsersModelPageInfo;
 };
 
-export type PostInput = {
+export type PostArgs = {
   /** Caption */
   caption?: InputMaybe<Scalars["String"]>;
   /** Image URL */
@@ -226,7 +226,7 @@ export type QueryGetUserArgs = {
   id: Scalars["String"];
 };
 
-export type SignupInput = {
+export type SignupArgs = {
   /** Email */
   email: Scalars["String"];
   /** Image Url */
@@ -250,7 +250,7 @@ export type GetCurrentUserQuery = {
 };
 
 export type LoginMutationVariables = Exact<{
-  loginData: LoginInput;
+  loginArgs: LoginArgs;
 }>;
 
 export type LoginMutation = {
@@ -259,7 +259,7 @@ export type LoginMutation = {
 };
 
 export type SignupMutationVariables = Exact<{
-  signupData: SignupInput;
+  signupArgs: SignupArgs;
 }>;
 
 export type SignupMutation = {
@@ -289,7 +289,7 @@ export type GetPostQuery = {
 };
 
 export type PostMutationVariables = Exact<{
-  postInput: PostInput;
+  postArgs: PostArgs;
 }>;
 
 export type PostMutation = {
@@ -464,8 +464,8 @@ export type GetCurrentUserQueryResult = Apollo.QueryResult<
   GetCurrentUserQueryVariables
 >;
 export const LoginDocument = gql`
-  mutation Login($loginData: LoginInput!) {
-    login(loginData: $loginData) {
+  mutation Login($loginArgs: LoginArgs!) {
+    login(loginArgs: $loginArgs) {
       accessToken
     }
   }
@@ -488,7 +488,7 @@ export type LoginMutationFn = Apollo.MutationFunction<
  * @example
  * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
- *      loginData: // value for 'loginData'
+ *      loginArgs: // value for 'loginArgs'
  *   },
  * });
  */
@@ -511,8 +511,8 @@ export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutationVariables
 >;
 export const SignupDocument = gql`
-  mutation Signup($signupData: SignupInput!) {
-    signup(signupData: $signupData) {
+  mutation Signup($signupArgs: SignupArgs!) {
+    signup(signupArgs: $signupArgs) {
       accessToken
     }
   }
@@ -535,7 +535,7 @@ export type SignupMutationFn = Apollo.MutationFunction<
  * @example
  * const [signupMutation, { data, loading, error }] = useSignupMutation({
  *   variables: {
- *      signupData: // value for 'signupData'
+ *      signupArgs: // value for 'signupArgs'
  *   },
  * });
  */
@@ -614,8 +614,8 @@ export type GetPostQueryResult = Apollo.QueryResult<
   GetPostQueryVariables
 >;
 export const PostDocument = gql`
-  mutation Post($postInput: PostInput!) {
-    post(postInput: $postInput) {
+  mutation Post($postArgs: PostArgs!) {
+    post(postArgs: $postArgs) {
       id
       caption
       createdAt
@@ -641,7 +641,7 @@ export type PostMutationFn = Apollo.MutationFunction<
  * @example
  * const [postMutation, { data, loading, error }] = usePostMutation({
  *   variables: {
- *      postInput: // value for 'postInput'
+ *      postArgs: // value for 'postArgs'
  *   },
  * });
  */

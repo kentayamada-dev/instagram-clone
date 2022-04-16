@@ -8,7 +8,7 @@ import { GqlAuthGuard } from "../auth/gql-auth.guard";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { PrismaService } from "../prisma/prisma.service";
 import { isPropertyExactlySameAsGetUserModel } from "../user/models/get-user.model";
-import { PostInput } from "./dto/post.input";
+import { PostArgs } from "./dto/post.args";
 import {
   GetAllPostsIdAndUserId,
   isPropertyExactlySameAsGetAllPostsIdAndUserId
@@ -173,13 +173,13 @@ export class PostResolver {
   @UseGuards(GqlAuthGuard)
   protected async post(
     @CurrentUser() user: JwtPayload,
-    @Args("postInput") postInput: PostInput
+    @Args("postArgs") { caption, imageUrl }: PostArgs
   ): Promise<GetPostModel> {
     const createdPost = await this.prismaService.post.create({
       data: {
-        imageUrl: postInput.imageUrl,
+        imageUrl,
         // eslint-disable-next-line @typescript-eslint/no-extra-parens
-        ...(postInput.caption ? { caption: postInput.caption } : {}),
+        ...(caption ? { caption } : {}),
         userId: user.id
       },
       select: {

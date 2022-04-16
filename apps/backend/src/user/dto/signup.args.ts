@@ -1,9 +1,9 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { IsUrl, IsNotEmpty } from "class-validator";
-import { LoginInput } from "./login.input";
+import { LoginArgs } from "./login.args";
 
 @InputType()
-export class SignupInput extends LoginInput {
+export class SignupArgs extends LoginArgs {
   @Field({ description: "Name" })
   @IsNotEmpty()
   public readonly name!: string;

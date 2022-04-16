@@ -56,7 +56,7 @@ export const usePost: UsePostType = () => {
         },
         refetchQueries: [GetAllPostsDocument],
         variables: {
-          postInput: {
+          postArgs: {
             caption,
             imageUrl
           }

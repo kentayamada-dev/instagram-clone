@@ -11,8 +11,8 @@ import { GqlAuthGuard } from "../auth/gql-auth.guard";
 import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
 import { PrismaService } from "../prisma/prisma.service";
 import { GetAllUsersArgs } from "./dto/get-all-users.args";
-import { LoginInput } from "./dto/login.input";
-import { SignupInput } from "./dto/signup.input";
+import { LoginArgs } from "./dto/login.args";
+import { SignupArgs } from "./dto/signup.args";
 import {
   GetAllUsersId,
   isPropertyExactlySameAsGetAllUsersId
@@ -135,14 +135,14 @@ export class UserResolver {
 
   @Mutation(() => AuthModel, { description: "Signup" })
   protected async signup(
-    @Args("signupData") signupData: SignupInput
+    @Args("signupArgs") signupArgs: SignupArgs
   ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         id: true
       },
       where: {
-        email: signupData.email
+        email: signupArgs.email
       }
     });
 
@@ -150,9 +150,9 @@ export class UserResolver {
       throw new HttpException("Email already exists", HttpStatus.CONFLICT);
     }
 
-    const { password, ...rest } = signupData;
+    const { password, ...rest } = signupArgs;
     const hashedPassword = await hash(password, SALT_ROUNDS);
-    const data: SignupInput = {
+    const data: SignupArgs = {
       ...rest,
       password: hashedPassword
     };
@@ -170,7 +170,7 @@ export class UserResolver {
 
   @Mutation(() => AuthModel, { description: "Login" })
   protected async login(
-    @Args("loginData") loginData: LoginInput
+    @Args("loginArgs") { email, password }: LoginArgs
   ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
@@ -179,14 +179,11 @@ export class UserResolver {
         password: true
       },
       where: {
-        email: loginData.email
+        email
       }
     });
 
-    if (
-      !foundUser ||
-      !(await compare(loginData.password, foundUser.password))
-    ) {
+    if (!foundUser || !(await compare(password, foundUser.password))) {
       throw new HttpException(
         "Incorrect email or password",
         HttpStatus.UNAUTHORIZED

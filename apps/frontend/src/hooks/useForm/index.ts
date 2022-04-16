@@ -72,7 +72,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
             },
             onError: handleError,
             variables: {
-              signupData: {
+              signupArgs: {
                 ...signUpProps,
                 imageUrl
               }
@@ -90,7 +90,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
           },
           onError: handleError,
           variables: {
-            loginData: loginProps
+            loginArgs: loginProps
           }
         });
       }
