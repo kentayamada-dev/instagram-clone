@@ -2,6 +2,7 @@
 ### 🥳 [Website is here!](https://instagram-clone-kentayamada-dev.vercel.app/)
 ### 📓 [Storybook is here!](https://instagram-clone-kentayamada-dev.vercel.app/storybook/)
 ### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
+##### ℹ️ Sometimes, it will take a while to open
 ## 🛠️ Tech stack
 
 - Frontend
