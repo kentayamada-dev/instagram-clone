@@ -22,9 +22,9 @@ jobs:
     needs: [Backend]
     steps:
       - uses: actions/checkout@v2
-      - uses: amondnet/vercel-action@v20
+      - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-args: '--prod'
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_FRONTEND_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: "apps/frontend"
