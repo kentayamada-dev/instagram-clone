@@ -4,9 +4,12 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "settings": {
+    "files.associations": {
+      "devcontainer.json": "json"
+    },
     "material-icon-theme.activeIconPack": "nest",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "graphql-config.load.rootDir": "apps/frontend",
+    "graphql-config.load.rootDir": "apps/frontend"
   },
   "extensions": [
     "esbenp.prettier-vscode",
