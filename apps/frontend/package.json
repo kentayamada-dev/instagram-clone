@@ -2,7 +2,7 @@
   "license": "MIT",
   "name": "frontend",
   "packageManager": "yarn@1.22.17",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "prettier": {
     "trailingComma": "none",
     "quoteProps": "consistent"
