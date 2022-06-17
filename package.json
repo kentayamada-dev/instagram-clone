@@ -4,6 +4,9 @@
   "packageManager": "yarn@1.22.17",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "16.14.2"
+  },
   "workspaces": {
     "packages": [
       "apps/*"
