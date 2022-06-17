@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "name": "shared-package",
+  "name": "app",
   "packageManager": "yarn@1.22.17",
   "private": true,
   "version": "0.0.0",
@@ -20,6 +20,7 @@
     "turbo": "^1.1.6"
   },
   "scripts": {
+    "heroku-postbuild": "if [ $FRONTEND_ENV ]; then yarn turbo run build --scope=frontend --include-dependencies --no-deps; elif [ $BACKEND_ENV ]; then yarn turbo run build --scope=backend --include-dependencies --no-deps; else echo no environment detected, please set FRONTEND_ENV or BACKEND_ENV; fi",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "format": "turbo run format --parallel --continue=false",
