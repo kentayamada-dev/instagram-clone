@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-extra-parens, @typescript-eslint/indent */
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
-import { Args, Resolver, Query, Mutation } from "@nestjs/graphql";
+import { Args, Resolver, Query, Mutation, Context } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
 import { hash, compare } from "bcrypt";
+import { Response } from "express";
 import { CurrentUser } from "../auth/auth.decorator";
 import { AuthModel } from "../auth/auth.model";
 import { AuthService } from "../auth/auth.service";
@@ -33,6 +34,7 @@ import type { Edge } from "../pagination/pagination.model";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
 
 const SALT_ROUNDS = 10;
+const ACCESS_TOKEN_KEY = "accessToken";
 
 @Resolver()
 export class UserResolver {
@@ -135,7 +137,9 @@ export class UserResolver {
 
   @Mutation(() => AuthModel, { description: "Signup" })
   protected async signup(
-    @Args("signupArgs") signupArgs: SignupArgs
+    @Args("signupArgs") signupArgs: SignupArgs,
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    @Context("res") res: Response
   ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
@@ -165,12 +169,20 @@ export class UserResolver {
     });
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
+    res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env["NODE_ENV"] !== "development"
+    });
+
     return { accessToken };
   }
 
   @Mutation(() => AuthModel, { description: "Login" })
   protected async login(
-    @Args("loginArgs") { email, password }: LoginArgs
+    @Args("loginArgs") { email, password }: LoginArgs,
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+    @Context("res") res: Response
   ): Promise<AuthModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
@@ -191,6 +203,12 @@ export class UserResolver {
     }
 
     const { accessToken } = this.authService.getJwtToken(foundUser.id);
+
+    res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env["NODE_ENV"] !== "development"
+    });
 
     return { accessToken };
   }

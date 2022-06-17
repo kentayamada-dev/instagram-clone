@@ -8,7 +8,6 @@ import { useLocale } from "../../libs/next_router";
 import type { UseHeaderType } from "./type";
 
 const {
-  ACCESS_TOKEN_KEY_NAME,
   LINKS: { STORYBOOK_LINK, GITHUB_LINK, APOLLO_LINK }
 } = constants;
 
@@ -44,7 +43,7 @@ export const useHeader: UseHeaderType = () => {
   const handleLogout = async (): Promise<void> => {
     await axios.delete("/api/cookie/", {
       data: {
-        key: ACCESS_TOKEN_KEY_NAME,
+        key: "accessToken",
         value: ""
       }
     });

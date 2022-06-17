@@ -1,8 +1,6 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { constants } from "../../constants";
 import { useLocale } from "../../libs/next_router";
 import {
   useLoginMutation,
@@ -12,8 +10,6 @@ import { getImageUrl } from "../../utils/getImageUrl";
 import type { MyFormType, UseMyFormType } from "./types";
 import type { ApolloError } from "@apollo/client";
 import type { SubmitHandler } from "react-hook-form";
-
-const { ACCESS_TOKEN_KEY_NAME } = constants;
 
 export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const emailAlreadyExistsErrorMessage = useLocale(
@@ -32,11 +28,6 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const saveAccessToken = async (accessToken: string): Promise<void> =>
-    axios.post("/api/cookie/", {
-      key: ACCESS_TOKEN_KEY_NAME,
-      value: accessToken
-    });
   const imageBlankErrorMessage = useLocale(
     "Please select image",
     "画像を選択してください"
@@ -65,11 +56,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         if (file instanceof Blob) {
           const imageUrl = await getImageUrl({ file });
           await signup({
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onCompleted: async (value) => {
-              await saveAccessToken(value.signup.accessToken);
-              router.reload();
-            },
+            onCompleted: () => router.reload(),
             onError: handleError,
             variables: {
               signupArgs: {
@@ -83,11 +70,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         }
       } else {
         await login({
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onCompleted: async (value) => {
-            await saveAccessToken(value.login.accessToken);
-            router.reload();
-          },
+          onCompleted: () => router.reload(),
           onError: handleError,
           variables: {
             loginArgs: loginProps
