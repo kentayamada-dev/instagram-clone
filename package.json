@@ -23,6 +23,7 @@
     "turbo": "^1.1.6"
   },
   "scripts": {
+    "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "format": "turbo run format --parallel --continue=false",

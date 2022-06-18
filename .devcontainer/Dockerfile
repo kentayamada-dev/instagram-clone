@@ -8,3 +8,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # Install global node modules
 RUN su node -c "npm install -g rimraf"
+
+# Install the Heroku CLI
+RUN curl https://cli-assets.heroku.com/install.sh | sh
