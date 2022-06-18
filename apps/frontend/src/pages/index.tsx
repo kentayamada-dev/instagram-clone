@@ -26,6 +26,9 @@ export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
     // Do nothing
   }
 
+  // eslint-disable-next-line no-console
+  console.log("currentUser", currentUser);
+
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: currentUser
@@ -36,6 +39,9 @@ export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
 };
 
 const Home: NextAuthPageWithLayoutType = ({ data }) => {
+  // eslint-disable-next-line no-console
+  console.log("data", data);
+
   if (data === null) {
     return <AuthTemplate isSignup={false} />;
   }
