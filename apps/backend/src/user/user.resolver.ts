@@ -171,7 +171,7 @@ export class UserResolver {
 
     res.cookie(ACCESS_TOKEN_KEY, accessToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: process.env["NODE_ENV"] !== "development"
     });
 
@@ -206,7 +206,7 @@ export class UserResolver {
 
     res.cookie(ACCESS_TOKEN_KEY, accessToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: process.env["NODE_ENV"] !== "development"
     });
 
