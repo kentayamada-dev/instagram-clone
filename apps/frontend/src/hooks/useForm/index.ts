@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useLocale } from "../../libs/next_router";
@@ -23,6 +24,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
     "An unexpected error has occurred. Please wait a few minutes and try again",
     "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
   );
+  const router = useRouter();
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -54,6 +56,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         if (file instanceof Blob) {
           const imageUrl = await getImageUrl({ file });
           await signup({
+            onCompleted: () => router.reload(),
             onError: handleError,
             variables: {
               signupArgs: {
@@ -67,6 +70,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         }
       } else {
         await login({
+          onCompleted: () => router.reload(),
           onError: handleError,
           variables: {
             loginArgs: loginProps
