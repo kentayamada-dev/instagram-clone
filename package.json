@@ -3,7 +3,7 @@
   "name": "app",
   "packageManager": "yarn@1.22.17",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "engines": {
     "node": "16.x"
   },
