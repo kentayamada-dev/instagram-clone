@@ -78,7 +78,7 @@ export const Header: HeaderType = () => {
           width={150}
         />
         <Flex align="center" gap={5}>
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <>
               <IconButton
                 aria-label="Post"
@@ -96,7 +96,7 @@ export const Header: HeaderType = () => {
                 src={currentUser?.getCurrentUser.imageUrl}
               />
             </>
-          )}
+          ) : null}
           <Box
             display={{
               base: isAuthenticated ? "none" : "contents"

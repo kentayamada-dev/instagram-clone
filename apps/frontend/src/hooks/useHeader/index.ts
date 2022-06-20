@@ -1,7 +1,7 @@
 import { useColorMode, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
 import React from "react";
 import { constants } from "../../constants";
 import { useLocale } from "../../libs/next_router";
@@ -33,9 +33,7 @@ export const useHeader: UseHeaderType = () => {
     router.push(APOLLO_LINK);
   const handleColorMode = (): void => toggleColorMode();
   const handleChangeLocale = async (): Promise<void> => {
-    setCookie(null, "NEXT_LOCALE", localeEn, {
-      path: "/"
-    });
+    Cookies.set("NEXT_LOCALE", localeEn, { path: "/" });
     await router.push({ pathname, query }, asPath, {
       locale: localeEn
     });

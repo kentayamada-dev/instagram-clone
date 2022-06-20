@@ -12,8 +12,6 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={apolloClient}>
       <ChakraProvider theme={myTheme}>
-        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-        {/* @ts-expect-error */}
         {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
     </ApolloProvider>

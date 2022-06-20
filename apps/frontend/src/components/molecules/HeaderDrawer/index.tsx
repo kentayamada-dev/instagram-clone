@@ -14,8 +14,8 @@ import {
   useColorModeValue,
   VStack
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { setCookie } from "nookies";
 import { constants } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageLink } from "../../atoms/ImageLink";
@@ -41,9 +41,7 @@ export const HeaderDrawer: HeaderDrawerType = ({
     event: React.ChangeEvent<HTMLSelectElement>
   ): Promise<void> => {
     const localeValue = event.target.value;
-    setCookie(null, "NEXT_LOCALE", localeValue, {
-      path: "/"
-    });
+    Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });
     await router.push({ pathname, query }, asPath, {
       locale: localeValue
     });
@@ -106,7 +104,7 @@ export const HeaderDrawer: HeaderDrawerType = ({
             </Button>
           </VStack>
         </DrawerBody>
-        {isAuthenticated && (
+        {isAuthenticated ? (
           <>
             <DrawerHeader>{t("settings")}</DrawerHeader>
             <DrawerBody>
@@ -135,7 +133,7 @@ export const HeaderDrawer: HeaderDrawerType = ({
               </VStack>
             </DrawerBody>
           </>
-        )}
+        ) : null}
       </DrawerContent>
     </Drawer>
   );

@@ -57,7 +57,7 @@ export const PostModal: PostModalType = ({
                   size={30}
                   src={currentUserAvatarUrl}
                 />
-                <Text fontWeight="bold" isTruncated>
+                <Text fontWeight="bold" noOfLines={1}>
                   {currentUserName}
                 </Text>
               </HStack>

@@ -82,7 +82,7 @@ export const Form: FormType = ({ isSignup }) => {
         <StyledForm onSubmit={handleSubmit(submitHandler)}>
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
-              {isSignup && (
+              {isSignup ? (
                 <>
                   <ImageSelect
                     clearErrors={clearErrors}
@@ -93,7 +93,7 @@ export const Form: FormType = ({ isSignup }) => {
                   />
                   <NameInput errors={errors} register={register} />
                 </>
-              )}
+              ) : null}
               <EmailInput errors={errors} register={register} />
               <PasswordInput errors={errors} register={register} />
               <Button

@@ -63,6 +63,12 @@ module.exports = {
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
     // typescript-eslint
+    "@typescript-eslint/parameter-properties": [
+      "error",
+      {
+        allow: ["private readonly", "protected readonly"]
+      }
+    ],
     "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-type-alias": [
       "error",

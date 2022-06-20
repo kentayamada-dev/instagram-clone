@@ -51,12 +51,12 @@ export const PostCard: PostCardType = ({
           <Skeleton h="100%" w="100%" />
         )}
       </Box>
-      {caption && (
+      {caption ? (
         <HStack p="3" w="100%">
           <Text fontWeight="bold">{userName}</Text>
-          <Text isTruncated>{caption}</Text>
+          <Text noOfLines={1}>{caption}</Text>
         </HStack>
-      )}
+      ) : null}
     </VStack>
   );
 };

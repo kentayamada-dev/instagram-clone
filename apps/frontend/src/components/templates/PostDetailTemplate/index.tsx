@@ -74,7 +74,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
         {data.caption !== null && (
           <HStack p="3" w="100%">
             <Text fontWeight="bold">{data.user.name}</Text>
-            <Text isTruncated>{data.caption}</Text>
+            <Text noOfLines={1}>{data.caption}</Text>
           </HStack>
         )}
       </Box>
