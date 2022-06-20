@@ -1,8 +1,8 @@
 {
   "license": "MIT",
   "name": "backend",
-  "packageManager": "yarn@1.22.17",
   "version": "1.0.0",
+  "packageManager": "yarn@1.22.17",
   "prettier": {
     "trailingComma": "none",
     "quoteProps": "consistent"
