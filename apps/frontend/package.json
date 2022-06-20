@@ -63,6 +63,7 @@
     "predev:next": "run-s kill-port:next",
     "predev:storybook": "run-s kill-port:storybook copy-static",
     "prelint": "run-p format",
+    "postlint": "run-p format",
     "prod": "next start",
     "type-check": "tsc --noEmit"
   },

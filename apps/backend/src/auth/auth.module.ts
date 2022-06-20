@@ -18,8 +18,7 @@ import type { ConfigSchema } from "../utils/config/config.schema";
       inject: [ConfigService],
       // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
       useFactory: (configService: ConfigService<ConfigSchema>) => ({
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        secret: configService.get("JWT_SECRET")!,
+        secret: configService.get("JWT_SECRET") ?? "",
         signOptions: { expiresIn: "1d" }
       })
     })

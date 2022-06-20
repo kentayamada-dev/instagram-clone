@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-extra-parens, @typescript-eslint/indent */
+/* eslint-disable @typescript-eslint/no-extra-parens, @typescript-eslint/indent, max-lines */
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { Args, Resolver, Query, Mutation, Context } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
 import { hash, compare } from "bcrypt";
@@ -31,6 +32,7 @@ import {
   isPropertyExactlySameAsGetUserModel
 } from "./models/get-user.model";
 import type { Edge } from "../pagination/pagination.model";
+import type { ConfigSchema } from "../utils/config/config.schema";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
 
 const SALT_ROUNDS = 10;
@@ -38,11 +40,20 @@ const ACCESS_TOKEN_KEY = "accessToken";
 
 @Resolver()
 export class UserResolver {
+  private readonly isDevelopment: boolean;
+  private readonly domain: string;
   /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
   public constructor(
     private readonly prismaService: PrismaService,
-    private readonly authService: AuthService
-  ) {}
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService<ConfigSchema>
+  ) {
+    const urlObject = new URL(this.configService.get("FRONTEND_ORIGIN") ?? "");
+    const hostName = urlObject.hostname;
+    const domainName = hostName.replace(/^[^.]+\./gu, "");
+    this.domain = `.${domainName}`;
+    this.isDevelopment = process.env["NODE_ENV"] === "development";
+  }
   /* eslint-enable @typescript-eslint/prefer-readonly-parameter-types */
 
   @SkipThrottle()
@@ -135,6 +146,7 @@ export class UserResolver {
     };
   }
 
+  /* eslint-disable max-statements */
   @Mutation(() => AuthModel, { description: "Signup" })
   protected async signup(
     @Args("signupArgs") signupArgs: SignupArgs,
@@ -170,13 +182,15 @@ export class UserResolver {
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
     res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+      ...(this.isDevelopment ? {} : { domain: this.domain }),
       httpOnly: true,
-      sameSite: "none",
-      secure: process.env["NODE_ENV"] !== "development"
+      sameSite: "strict",
+      secure: !this.isDevelopment
     });
 
     return { accessToken };
   }
+  /* eslint-enable max-statements */
 
   @Mutation(() => AuthModel, { description: "Login" })
   protected async login(
@@ -205,9 +219,10 @@ export class UserResolver {
     const { accessToken } = this.authService.getJwtToken(foundUser.id);
 
     res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+      ...(this.isDevelopment ? {} : { domain: this.domain }),
       httpOnly: true,
-      sameSite: "none",
-      secure: process.env["NODE_ENV"] !== "development"
+      sameSite: "strict",
+      secure: !this.isDevelopment
     });
 
     return { accessToken };
@@ -295,4 +310,4 @@ export class UserResolver {
   }
 }
 
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/no-extra-parens*/
+/* eslint-enable @typescript-eslint/indent, @typescript-eslint/no-extra-parens, max-lines*/

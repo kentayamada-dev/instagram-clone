@@ -9,7 +9,9 @@
     },
     "material-icon-theme.activeIconPack": "nest",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "graphql-config.load.rootDir": "apps/frontend"
+    "graphql-config.load.rootDir": "apps/frontend",
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.importModuleSpecifier": "relative"
   },
   "extensions": [
     "esbenp.prettier-vscode",

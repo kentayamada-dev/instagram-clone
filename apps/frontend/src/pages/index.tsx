@@ -18,16 +18,20 @@ export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
 
   try {
     const { data } = await apolloClient.query<GetCurrentUserQuery>({
-      context: { headers: { cookie } },
+      context: {
+        headers: {
+          /* eslint-disable @typescript-eslint/naming-convention */
+          "Content-Type": "application/json",
+          "Cookie": cookie
+          /* eslint-enable @typescript-eslint/naming-convention */
+        }
+      },
       query: GetCurrentUserDocument
     });
     currentUser = data.getCurrentUser;
   } catch (error) {
     // Do nothing
   }
-
-  // eslint-disable-next-line no-console
-  console.log("currentUser", currentUser);
 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
@@ -39,9 +43,6 @@ export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
 };
 
 const Home: NextAuthPageWithLayoutType = ({ data }) => {
-  // eslint-disable-next-line no-console
-  console.log("data", data);
-
   if (data === null) {
     return <AuthTemplate isSignup={false} />;
   }

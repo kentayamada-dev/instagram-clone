@@ -1,6 +1,5 @@
-# Node.js version
-ARG VARIANT=16-bullseye
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+# Install Node 16-bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-16-bullseye
 
 # Install OS packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -11,3 +10,7 @@ RUN su node -c "npm install -g rimraf"
 
 # Install the Heroku CLI
 RUN curl https://cli-assets.heroku.com/install.sh | sh
+
+# Install cloudflared
+RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb \
+    && dpkg -i cloudflared-linux-amd64.deb && rm cloudflared-linux-amd64.deb
