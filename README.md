@@ -1,6 +1,6 @@
 # 📸 Instagram Clone
-### 🥳 [Website is here!](https://instagram-clone-kentayamada-dev.vercel.app/)
-### 📓 [Storybook is here!](https://instagram-clone-kentayamada-dev.vercel.app/storybook/)
+### 🥳 [Website is here!](https://app.instagram-clone.site/)
+### 📓 [Storybook is here!](https://app.instagram-clone.site/storybook/)
 ### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
 ##### ℹ️ Sometimes, it will take a while to open
 ## 🛠️ Tech stack
@@ -9,7 +9,7 @@
   - React (Next.js)
   - Storybook
   - Atomic Design
-  - Fully Responsive 
+  - Fully Responsive
   - Chakra UI
   - Apollo Client
   - TypeScript
@@ -17,7 +17,7 @@
   - Internationalized Routing
   - Authentication
   - Cookie
-  
+
 - Backend
   - Node.js (NestJS)
   - Authentication
