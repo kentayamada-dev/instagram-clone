@@ -4,9 +4,6 @@
   "packageManager": "yarn@1.22.17",
   "private": true,
   "version": "1.0.0",
-  "engines": {
-    "node": "16.x"
-  },
   "workspaces": {
     "packages": [
       "apps/*"
@@ -23,7 +20,6 @@
     "turbo": "^1.1.6"
   },
   "scripts": {
-    "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "format": "turbo run format --parallel --continue=false",
