@@ -1,3 +1,4 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { initializeApollo, addApolloState } from "../libs/apollo";
@@ -10,7 +11,12 @@ import type {
   GetAuthServerSidePropsResultType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({
+  req,
+  locale,
+  defaultLocale
+}) => {
+  const initialLocale = locale ?? defaultLocale ?? "en";
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
   const { cookie } = req.headers;
@@ -45,7 +51,9 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ req }) => {
 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
-      data: null
+      data: null,
+      // eslint-disable-next-line @typescript-eslint/no-extra-parens
+      ...(await serverSideTranslations(initialLocale, ["form"]))
     }
   };
 
