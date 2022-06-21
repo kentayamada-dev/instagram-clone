@@ -20,7 +20,6 @@
     "turbo": "^1.1.6"
   },
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev --parallel --no-cache",
     "format": "turbo run format --parallel --continue=false",
     "kill-port:backend": "kill-port 5001",
@@ -32,7 +31,6 @@
     "prelint": "run-p format",
     "prepare": "husky install",
     "preprod": "run-p kill-port:*",
-    "prod": "turbo run prod --parallel --no-cache",
     "test": "turbo run test --parallel --continue=false"
   }
 }

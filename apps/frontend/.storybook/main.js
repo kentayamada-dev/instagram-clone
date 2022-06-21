@@ -13,9 +13,16 @@ module.exports = {
     "@storybook/preset-scss",
     "storybook-addon-apollo-client"
   ],
+  features: {
+    storyStoreV7: true
+  },
   framework: "@storybook/react",
   core: {
-    builder: "webpack5"
+    builder: "webpack5",
+    lazyCompilation: true,
+    options: {
+      fsCache: true
+    }
   },
   refs: {
     "@chakra-ui/react": { disable: true }
