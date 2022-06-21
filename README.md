@@ -15,12 +15,9 @@
   - TypeScript
   - Light/Dark Modes
   - Internationalized Routing
-  - Authentication
-  - Cookie
 
 - Backend
   - Node.js (NestJS)
-  - Authentication
   - Apollo
   - Prisma
   - TypeScript
@@ -28,9 +25,9 @@
   - Helmet
   - CORS
   - Rate Limiting
-  - Cookie
 
 - Auth
+  - Cookie
   - Passport
   - JWT
   - Password hashing (bcrypt)
