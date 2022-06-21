@@ -11,10 +11,10 @@ import type {
   NextAuthPageWithLayoutType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async (ctx) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({ req }) => {
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
-  const { cookie } = ctx.req.headers;
+  const { cookie } = req.headers;
 
   try {
     const { data } = await apolloClient.query<GetCurrentUserQuery>({

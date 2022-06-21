@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslation } from "next-i18next";
 import type { TranslationKeys, TypeSafeTranslate } from "./types";
 
 export const useTypeSafeTranslation = <T extends keyof TranslationKeys>(

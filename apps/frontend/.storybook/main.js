@@ -20,5 +20,12 @@ module.exports = {
   refs: {
     "@chakra-ui/react": { disable: true }
   },
-  staticDirs: ["."]
+  staticDirs: ["."],
+  webpackFinal: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "next-i18next": "react-i18next"
+    };
+    return config;
+  }
 };

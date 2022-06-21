@@ -7,6 +7,7 @@
     "files.associations": {
       "devcontainer.json": "json"
     },
+    "eslint.workingDirectories": [{ "mode": "auto" }],
     "material-icon-theme.activeIconPack": "nest",
     "typescript.tsdk": "node_modules/typescript/lib",
     "graphql-config.load.rootDir": "apps/frontend",

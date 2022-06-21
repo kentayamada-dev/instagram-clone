@@ -70,7 +70,9 @@ export const getStaticProps: GetUserStaticProps = async ({ params }) => {
   }
 
   return {
-    props: { data: userData.getUser },
+    props: {
+      data: userData.getUser
+    },
     revalidate: 1
   };
 };
