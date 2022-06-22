@@ -93,7 +93,7 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
 };
 
 Post.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram">{page}</Layout>
+  <Layout title="Instagram Clone">{page}</Layout>
 );
 
 export default Post;

@@ -63,7 +63,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
 Signup.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram">{page}</Layout>
+  <Layout title="Instagram Clone">{page}</Layout>
 );
 
 export default Signup;

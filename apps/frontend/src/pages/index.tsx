@@ -59,7 +59,7 @@ const Home: NextAuthPageWithLayoutType = ({ data }) => {
 };
 
 Home.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram">{page}</Layout>
+  <Layout title="Instagram Clone">{page}</Layout>
 );
 
 export default Home;

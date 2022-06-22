@@ -89,7 +89,7 @@ const User: NextUserPageWithLayoutType = ({ data }) => {
 };
 
 User.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram">{page}</Layout>
+  <Layout title="Instagram Clone">{page}</Layout>
 );
 
 export default User;
