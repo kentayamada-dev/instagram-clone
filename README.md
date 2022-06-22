@@ -1,6 +1,6 @@
 # 📸 Instagram Clone
-### 🥳 [Website is here!](https://app.instagram-clone.site/)
-### 📓 [Storybook is here!](https://app.instagram-clone.site/storybook/)
+### 🥳 [Website is here!](https://app.instagram-clone.net/)
+### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
 ### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
 ##### ℹ️ Sometimes, it will take a while to open
 ## 🛠️ Tech stack
