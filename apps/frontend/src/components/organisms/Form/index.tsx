@@ -83,7 +83,7 @@ export const Form: FormType = ({ isSignup }) => {
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
               <Text color="red" fontSize="sm" fontWeight="bold">
-                {t("warning")}
+                {t("warningMessage")}
               </Text>
               {isSignup ? (
                 <>
