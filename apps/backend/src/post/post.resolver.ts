@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
 import { SkipThrottle } from "@nestjs/throttler";
@@ -23,10 +22,8 @@ import type { Edge } from "../pagination/pagination.model";
 
 @Resolver()
 export class PostResolver {
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   public constructor(private readonly prismaService: PrismaService) {}
 
-  @SkipThrottle()
   @Query(() => [GetAllPostsIdAndUserId], {
     description: "Get All Posts ID and Related User ID"
   })
@@ -101,7 +98,6 @@ export class PostResolver {
   ): Promise<PaginatedGetAllPostsModel> {
     const posts = await this.prismaService.post
       .findMany({
-        // eslint-disable-next-line @typescript-eslint/no-extra-parens
         ...(after ? { cursor: { id: after }, skip: 1 } : {}),
         orderBy: {
           createdAt: "desc"
@@ -178,7 +174,6 @@ export class PostResolver {
     const createdPost = await this.prismaService.post.create({
       data: {
         imageUrl,
-        // eslint-disable-next-line @typescript-eslint/no-extra-parens
         ...(caption ? { caption } : {}),
         userId: user.id
       },
@@ -193,5 +188,3 @@ export class PostResolver {
     return createdPost;
   }
 }
-
-/* eslint-enable @typescript-eslint/indent */

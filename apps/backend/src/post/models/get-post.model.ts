@@ -16,7 +16,6 @@ export class GetPostModel {
   public readonly imageUrl!: string;
 }
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetPostModel<T extends GetPostModel>(
   _: StrictPropertyCheck<
     T,
@@ -27,5 +26,3 @@ export function isPropertyExactlySameAsGetPostModel<T extends GetPostModel>(
 ): boolean {
   return true;
 }
-
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */

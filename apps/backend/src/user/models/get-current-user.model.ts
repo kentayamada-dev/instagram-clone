@@ -9,7 +9,6 @@ export class GetCurrentUserModel extends GetUserModel {
   public readonly posts!: GetPostModel[];
 }
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetCurrentUserModel<
   T extends GetCurrentUserModel
 >(
@@ -22,4 +21,3 @@ export function isPropertyExactlySameAsGetCurrentUserModel<
 ): boolean {
   return true;
 }
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */

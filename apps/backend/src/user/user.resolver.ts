@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-extra-parens, @typescript-eslint/indent, max-lines */
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Args, Resolver, Query, Mutation, Context } from "@nestjs/graphql";
@@ -6,10 +5,10 @@ import { SkipThrottle } from "@nestjs/throttler";
 import { hash, compare } from "bcrypt";
 import { Response } from "express";
 import { CurrentUser } from "../auth/auth.decorator";
-import { AuthModel } from "../auth/auth.model";
 import { AuthService } from "../auth/auth.service";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gql-auth.guard";
+import { MessageModel } from "../common/message.model";
 import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
 import { PrismaService } from "../prisma/prisma.service";
 import { GetAllUsersArgs } from "./dto/get-all-users.args";
@@ -35,14 +34,12 @@ import type { Edge } from "../pagination/pagination.model";
 import type { ConfigSchema } from "../utils/config/config.schema";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
 
-const SALT_ROUNDS = 10;
-const ACCESS_TOKEN_KEY = "accessToken";
-
 @Resolver()
 export class UserResolver {
   private readonly isDevelopment: boolean;
   private readonly domain: string;
-  /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+  private readonly saltRounds = 10;
+  private readonly accessTokenKey = "accessToken";
   public constructor(
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
@@ -54,9 +51,7 @@ export class UserResolver {
     this.domain = `.${domainName}`;
     this.isDevelopment = process.env["NODE_ENV"] === "development";
   }
-  /* eslint-enable @typescript-eslint/prefer-readonly-parameter-types */
 
-  @SkipThrottle()
   @Query(() => [GetAllUsersId], { description: "Get All Users ID" })
   protected async getAllUsersId(): Promise<GetAllUsersId[]> {
     const foundUsers = await this.prismaService.user
@@ -146,13 +141,11 @@ export class UserResolver {
     };
   }
 
-  /* eslint-disable max-statements */
-  @Mutation(() => AuthModel, { description: "Signup" })
+  @Mutation(() => MessageModel, { description: "Signup" })
   protected async signup(
     @Args("signupArgs") signupArgs: SignupArgs,
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     @Context("res") res: Response
-  ): Promise<AuthModel> {
+  ): Promise<MessageModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         id: true
@@ -167,7 +160,7 @@ export class UserResolver {
     }
 
     const { password, ...rest } = signupArgs;
-    const hashedPassword = await hash(password, SALT_ROUNDS);
+    const hashedPassword = await hash(password, this.saltRounds);
     const data: SignupArgs = {
       ...rest,
       password: hashedPassword
@@ -181,23 +174,21 @@ export class UserResolver {
     });
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
-    res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+    res.cookie(this.accessTokenKey, accessToken, {
       ...(this.isDevelopment ? {} : { domain: this.domain }),
       httpOnly: true,
       sameSite: "strict",
       secure: !this.isDevelopment
     });
 
-    return { accessToken };
+    return { message: "Cookie has been set successfully" };
   }
-  /* eslint-enable max-statements */
 
-  @Mutation(() => AuthModel, { description: "Login" })
+  @Mutation(() => MessageModel, { description: "Login" })
   protected async login(
     @Args("loginArgs") { email, password }: LoginArgs,
-    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
     @Context("res") res: Response
-  ): Promise<AuthModel> {
+  ): Promise<MessageModel> {
     const foundUser = await this.prismaService.user.findUnique({
       select: {
         email: true,
@@ -218,14 +209,27 @@ export class UserResolver {
 
     const { accessToken } = this.authService.getJwtToken(foundUser.id);
 
-    res.cookie(ACCESS_TOKEN_KEY, accessToken, {
+    res.cookie(this.accessTokenKey, accessToken, {
       ...(this.isDevelopment ? {} : { domain: this.domain }),
       httpOnly: true,
       sameSite: "strict",
       secure: !this.isDevelopment
     });
 
-    return { accessToken };
+    return { message: "Cookie has been set successfully" };
+  }
+
+  @Mutation(() => MessageModel, { description: "Logout" })
+  protected logout(@Context("res") res: Response): MessageModel {
+    res.cookie(this.accessTokenKey, "", {
+      ...(this.isDevelopment ? {} : { domain: this.domain }),
+      httpOnly: true,
+      maxAge: -1,
+      sameSite: "strict",
+      secure: !this.isDevelopment
+    });
+
+    return { message: "Cookie has been deleted successfully" };
   }
 
   @Query(() => GetUserModel, { description: "Get Current User" })
@@ -309,5 +313,3 @@ export class UserResolver {
     return foundUser;
   }
 }
-
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/no-extra-parens, max-lines*/

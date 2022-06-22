@@ -13,7 +13,6 @@ export class GetUserModel {
   public readonly imageUrl!: string;
 }
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetUserModel<T extends GetUserModel>(
   _: StrictPropertyCheck<
     T,
@@ -24,5 +23,3 @@ export function isPropertyExactlySameAsGetUserModel<T extends GetUserModel>(
 ): boolean {
   return true;
 }
-
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */

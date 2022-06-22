@@ -10,7 +10,6 @@ export class GetAllUsersModel extends GetUserModel {}
 @ObjectType()
 export class PaginatedGetAllUsersModel extends Paginated(GetAllUsersModel) {}
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetAllUsersModel<
   T extends GetAllUsersModel
 >(
@@ -23,6 +22,5 @@ export function isPropertyExactlySameAsGetAllUsersModel<
 ): boolean {
   return true;
 }
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 
 /* eslint-enable max-classes-per-file */

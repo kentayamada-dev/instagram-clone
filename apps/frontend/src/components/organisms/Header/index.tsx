@@ -43,7 +43,7 @@ export const Header: HeaderType = () => {
     handleSubmitPost,
     imageSrc,
     isPostLoading
-  } = usePost();
+  } = usePost({ handleClosePostModal });
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("A", "あ");
   const instagramDarkImg = {

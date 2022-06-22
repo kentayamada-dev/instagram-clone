@@ -16,7 +16,6 @@ import type { ConfigSchema } from "../utils/config/config.schema";
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
       useFactory: (configService: ConfigService<ConfigSchema>) => ({
         secret: configService.get("JWT_SECRET") ?? "",
         signOptions: { expiresIn: "1d" }

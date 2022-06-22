@@ -11,3 +11,9 @@ query GetUser($getUserId: String!) {
     }
   }
 }
+
+mutation Logout {
+  logout {
+    message
+  }
+}

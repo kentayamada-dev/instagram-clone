@@ -1,15 +1,19 @@
 import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 import { useLocale } from "../../libs/next_router";
 import {
   GetAllPostsDocument,
+  useLogoutMutation,
   usePostMutation
 } from "../../types/generated/types";
 import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
 import { getImageUrl } from "../../utils/getImageUrl";
 import type { UsePostType } from "./types";
 
-export const usePost: UsePostType = () => {
+export const usePost: UsePostType = ({ handleClosePostModal }) => {
+  const router = useRouter();
+  const [logout] = useLogoutMutation();
   const [postImageFile, setPostImageFile] = React.useState<Blob>();
   const [imageSrc, setImageSrc] = React.useState("");
   const [caption, setCaption] = React.useState("");
@@ -30,6 +34,7 @@ export const usePost: UsePostType = () => {
   const handleCancelPost = (): void => {
     setImageSrc("");
     setCaption("");
+    handleClosePostModal();
   };
 
   const handleSubmitPost = async (): Promise<void> => {
@@ -54,6 +59,11 @@ export const usePost: UsePostType = () => {
             title: postSuccessMessage
           });
         },
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onError: async () =>
+          logout({
+            onCompleted: () => router.reload()
+          }),
         refetchQueries: [GetAllPostsDocument],
         variables: {
           postArgs: {

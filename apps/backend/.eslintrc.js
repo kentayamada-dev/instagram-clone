@@ -11,6 +11,7 @@ module.exports = {
   ],
   rules: {
     // eslint
+    "max-lines": "off",
     "camelcase": ["error", { ignoreDestructuring: true }],
     "max-lines-per-function": "off",
     "no-confusing-arrow": "off",
@@ -63,6 +64,7 @@ module.exports = {
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
     // typescript-eslint
+    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/parameter-properties": [
       "error",
       {
@@ -102,7 +104,7 @@ module.exports = {
         allowNullableString: true
       }
     ],
-    "@typescript-eslint/indent": ["error", 2, { MemberExpression: "off" }],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/lines-between-class-members": [
       "error",
       "always",
@@ -135,14 +137,7 @@ module.exports = {
       }
     ],
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
-    "@typescript-eslint/prefer-readonly-parameter-types": [
-      "error",
-      {
-        checkParameterProperties: true,
-        ignoreInferredTypes: true,
-        treatMethodsAsReadonly: true
-      }
-    ],
+    "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/space-before-function-paren": [
       "error",
       {

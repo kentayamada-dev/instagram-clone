@@ -1,10 +1,10 @@
 import { useColorMode, useDisclosure } from "@chakra-ui/react";
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
 import { constants } from "../../constants";
 import { useLocale } from "../../libs/next_router";
+import { useLogoutMutation } from "../../types/generated/types";
 import type { UseHeaderType } from "./type";
 
 const {
@@ -22,7 +22,7 @@ export const useHeader: UseHeaderType = () => {
   const localeEn = useLocale("ja", "en");
   const { toggleColorMode } = useColorMode();
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
-
+  const [logout] = useLogoutMutation();
   const handleOpenDrawer = (): void => onOpen();
   const handleCloseDrawer = React.useCallback(() => onClose(), [onClose]);
   const handleOpenStorybook = async (): Promise<boolean> =>
@@ -39,13 +39,9 @@ export const useHeader: UseHeaderType = () => {
     });
   };
   const handleLogout = async (): Promise<void> => {
-    await axios.delete("/api/cookie/", {
-      data: {
-        key: "accessToken",
-        value: ""
-      }
+    await logout({
+      onCompleted: () => router.reload()
     });
-    router.reload();
   };
 
   return {

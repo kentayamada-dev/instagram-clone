@@ -15,7 +15,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       ignoreExpiration: false,
       jwtFromRequest: ExtractJwt.fromExtractors([
-        // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
         (request: Request): string | null => {
           const { accessToken } = request.cookies as JwtToken;
 

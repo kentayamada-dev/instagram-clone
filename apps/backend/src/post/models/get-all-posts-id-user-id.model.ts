@@ -11,7 +11,6 @@ export class GetAllPostsIdAndUserId {
   public readonly user!: GetAllUsersId;
 }
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetAllPostsIdAndUserId<
   T extends GetAllPostsIdAndUserId
 >(
@@ -24,4 +23,3 @@ export function isPropertyExactlySameAsGetAllPostsIdAndUserId<
 ): boolean {
   return true;
 }
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */

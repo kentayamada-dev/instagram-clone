@@ -9,4 +9,8 @@ export type UsePostReturnType = {
   imageSrc: string;
 };
 
-export type UsePostType = () => UsePostReturnType;
+type UsePostProps = {
+  handleClosePostModal: () => void;
+};
+
+export type UsePostType = (props: UsePostProps) => UsePostReturnType;

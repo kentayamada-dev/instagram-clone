@@ -37,7 +37,6 @@ export const PostModal: PostModalType = ({
   const { t } = useTypeSafeTranslation("common");
   const handleSubmitPost = async (): Promise<void> => {
     await handleSubmit();
-    handleClose();
   };
 
   return (

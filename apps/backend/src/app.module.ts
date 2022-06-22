@@ -21,6 +21,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
       ttl: 60
     }),
     ConfigModule.forRoot({
+      cache: true,
       validationSchema: configSchema
     }),
     PrismaModule,
@@ -30,7 +31,6 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
       driver: ApolloDriver,
       imports: [ConfigModule],
       inject: [ConfigService],
-      // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
       useFactory: (configService: ConfigService<ConfigSchema>) => ({
         autoSchemaFile: true,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/explicit-function-return-type

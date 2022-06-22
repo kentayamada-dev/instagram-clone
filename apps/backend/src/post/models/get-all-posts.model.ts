@@ -14,7 +14,6 @@ export class GetAllPostsModel extends GetPostModel {
 @ObjectType()
 export class PaginatedGetAllPostsModel extends Paginated(GetAllPostsModel) {}
 
-/* eslint-disable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 export function isPropertyExactlySameAsGetAllPostsModel<
   T extends GetAllPostsModel
 >(
@@ -27,6 +26,5 @@ export function isPropertyExactlySameAsGetAllPostsModel<
 ): boolean {
   return true;
 }
-/* eslint-enable @typescript-eslint/indent, @typescript-eslint/prefer-readonly-parameter-types */
 
 /* eslint-enable max-classes-per-file */
