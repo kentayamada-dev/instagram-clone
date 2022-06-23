@@ -13,6 +13,7 @@
     "noUnusedParameters": true,
     "strict": true,
     // Modules
+    "baseUrl": "./",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

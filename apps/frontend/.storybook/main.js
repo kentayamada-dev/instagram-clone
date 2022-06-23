@@ -9,9 +9,8 @@ module.exports = {
     "@chakra-ui/storybook-addon",
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
-    "storybook-addon-next-router",
-    "@storybook/preset-scss",
-    "storybook-addon-apollo-client"
+    "storybook-addon-apollo-client",
+    "storybook-addon-next"
   ],
   features: {
     storyStoreV7: true
