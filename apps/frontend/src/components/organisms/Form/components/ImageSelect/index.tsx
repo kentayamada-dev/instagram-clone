@@ -64,7 +64,8 @@ export const ImageSelect: ImageSelectType = ({
     }
   };
   const handleClick = (): void => inputRef.current?.click();
-  // @ts-expect-error any error
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
+  // @ts-ignore
   const errorMessage = errors.file?.message;
 
   return (

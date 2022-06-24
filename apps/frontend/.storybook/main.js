@@ -6,6 +6,8 @@ module.exports = {
     }
   ],
   addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-interactions",
     "@chakra-ui/storybook-addon",
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
@@ -18,7 +20,7 @@ module.exports = {
   },
   framework: "@storybook/react",
   core: {
-    builder: "webpack5",
+    builder: "@storybook/builder-webpack5",
     lazyCompilation: true,
     options: {
       fsCache: true
