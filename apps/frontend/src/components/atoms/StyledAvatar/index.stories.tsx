@@ -1,10 +1,8 @@
-import { Center } from "@chakra-ui/react";
 import { StyledAvatar } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
   component: StyledAvatar,
-  decorators: [(Story): JSX.Element => <Center h="100vh">{Story()}</Center>],
   title: "atoms/Styled Avatar"
 } as ComponentMeta<typeof StyledAvatar>;
 

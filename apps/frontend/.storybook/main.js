@@ -27,7 +27,7 @@ module.exports = {
   refs: {
     "@chakra-ui/react": { disable: true }
   },
-  staticDirs: ["."],
+  staticDirs: ["../public"],
   webpackFinal: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

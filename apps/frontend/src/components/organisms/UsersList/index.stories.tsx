@@ -1,4 +1,3 @@
-import { Center } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import { UsersList } from ".";
 import type { GetAllUsersModel } from "../../../types/generated/types";
@@ -7,19 +6,6 @@ import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
   component: UsersList,
-  decorators: [
-    (Story): JSX.Element => (
-      <Center>
-        <div
-          style={{
-            width: 600
-          }}
-        >
-          {Story()}
-        </div>
-      </Center>
-    )
-  ],
   title: "organisms/Users List"
 } as ComponentMeta<typeof UsersList>;
 

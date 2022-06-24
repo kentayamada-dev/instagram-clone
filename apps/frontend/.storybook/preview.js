@@ -21,7 +21,7 @@ export const parameters = {
   apolloClient: {
     MockedProvider
   },
-  layout: "fullscreen",
+  layout: "centered",
   actions: { argTypesRegex: "^handle[A-Z].*" },
   chakra: {
     theme: myTheme

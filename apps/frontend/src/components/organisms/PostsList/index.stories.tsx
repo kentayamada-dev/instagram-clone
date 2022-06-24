@@ -1,4 +1,3 @@
-import { Center } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import { PostsList } from ".";
 import type { GetAllPostsModel } from "../../../types/generated/types";
@@ -7,19 +6,6 @@ import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
   component: PostsList,
-  decorators: [
-    (Story): JSX.Element => (
-      <Center>
-        <div
-          style={{
-            width: 600
-          }}
-        >
-          {Story()}
-        </div>
-      </Center>
-    )
-  ],
   title: "organisms/Posts List"
 } as ComponentMeta<typeof PostsList>;
 

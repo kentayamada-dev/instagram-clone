@@ -1,16 +1,8 @@
-import { Center } from "@chakra-ui/react";
 import { UserCard } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
   component: UserCard,
-  decorators: [
-    (Story): JSX.Element => (
-      <Center h="100%" w="100%">
-        {Story()}
-      </Center>
-    )
-  ],
   title: "molecules/User Card"
 } as ComponentMeta<typeof UserCard>;
 

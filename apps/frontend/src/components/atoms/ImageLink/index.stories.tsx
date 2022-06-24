@@ -1,10 +1,8 @@
-import { Center } from "@chakra-ui/react";
 import { ImageLink } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
 export default {
   component: ImageLink,
-  decorators: [(Story): JSX.Element => <Center h="100vh">{Story()}</Center>],
   title: "atoms/Image Link"
 } as ComponentMeta<typeof ImageLink>;
 
