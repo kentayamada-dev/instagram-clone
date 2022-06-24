@@ -1,6 +1,6 @@
 import type { ImageColorModeProps } from "../../atoms/ImageColorMode/index.types";
 
-export type ImageLinkColorModeProps = ImageColorModeProps & {
+type ImageLinkColorModeProps = ImageColorModeProps & {
   href: string;
 };
 

@@ -1,8 +1,7 @@
 import type { UseHeaderReturnType } from "../../../hooks/useHeader/type";
 
 /* eslint-disable @typescript-eslint/indent */
-
-export type HeaderDrawerProps = Pick<
+type HeaderDrawerProps = Pick<
   UseHeaderReturnType,
   "handleCloseDrawer" | "isDrawerOpen"
 > & {

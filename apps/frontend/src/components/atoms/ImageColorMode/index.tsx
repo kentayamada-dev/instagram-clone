@@ -12,7 +12,13 @@ export const ImageColorMode: ImageColorModeType = ({
 
   return (
     <Box h={height} pos="relative" w={width}>
-      <Box h="inherit" pos="absolute">
+      <Box
+        alignItems="center"
+        display="flex"
+        h="inherit"
+        justifyContent="center"
+        pos="absolute"
+      >
         <Image
           alt={lightImg.alt}
           height={height}
@@ -23,7 +29,13 @@ export const ImageColorMode: ImageColorModeType = ({
           width={width}
         />
       </Box>
-      <Box h="inherit" pos="absolute">
+      <Box
+        alignItems="center"
+        display="flex"
+        h="inherit"
+        justifyContent="center"
+        pos="absolute"
+      >
         <Image
           alt={darkImg.alt}
           height={height}

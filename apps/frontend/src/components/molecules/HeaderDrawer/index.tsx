@@ -1,5 +1,4 @@
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -18,8 +17,8 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { constants } from "../../../constants";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
-import { ImageLink } from "../../atoms/ImageLink";
-import { ImageLinkColorMode } from "../ImageLinkColorMode";
+import { ButtonLink } from "../ButtonLink";
+import { ButtonLinkColorMode } from "../ButtonLinkColorMode";
 import type { HeaderDrawerType } from "./index.types";
 
 const {
@@ -75,33 +74,27 @@ export const HeaderDrawer: HeaderDrawerType = ({
         <DrawerHeader>{t("links")}</DrawerHeader>
         <DrawerBody>
           <VStack spacing={4}>
-            <Button h="50px" w="100%">
-              <ImageLinkColorMode
-                darkImg={githubDarkImg}
-                height={30}
-                href={GITHUB_LINK}
-                lightImg={githubLightImg}
-                width={100}
-              />
-            </Button>
-            <Button h="50px" w="100%">
-              <ImageLinkColorMode
-                darkImg={apolloDarkImg}
-                height={30}
-                href={APOLLO_LINK}
-                lightImg={apolloLightImg}
-                width={100}
-              />
-            </Button>
-            <Button h="50px" w="100%">
-              <ImageLink
-                alt="Storybook"
-                height={30}
-                href={STORYBOOK_LINK}
-                src="/static/storybookLogo/logo.svg"
-                width={100}
-              />
-            </Button>
+            <ButtonLinkColorMode
+              darkImg={githubDarkImg}
+              height={50}
+              href={GITHUB_LINK}
+              lightImg={githubLightImg}
+              width={250}
+            />
+            <ButtonLinkColorMode
+              darkImg={apolloDarkImg}
+              height={50}
+              href={APOLLO_LINK}
+              lightImg={apolloLightImg}
+              width={250}
+            />
+            <ButtonLink
+              alt="Storybook"
+              height={50}
+              href={STORYBOOK_LINK}
+              src="/static/storybookLogo/logo.svg"
+              width={250}
+            />
           </VStack>
         </DrawerBody>
         {isAuthenticated ? (
