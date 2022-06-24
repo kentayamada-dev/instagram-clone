@@ -10,7 +10,8 @@ module.exports = {
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
     "storybook-addon-apollo-client",
-    "storybook-addon-next"
+    "storybook-addon-next",
+    "storybook-react-i18next"
   ],
   features: {
     storyStoreV7: true
