@@ -9,6 +9,7 @@ import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
 import { VscAdd } from "react-icons/vsc";
+import { constants } from "../../../constants";
 import { useHeader } from "../../../hooks/useHeader";
 import { usePost } from "../../../hooks/usePost";
 import { useLocale } from "../../../libs/next_router";
@@ -18,6 +19,10 @@ import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import { PostModal } from "../../molecules/PostModal";
 import type { HeaderType } from "./index.types";
+
+const {
+  COLORS: { SNOW, EBONY }
+} = constants;
 
 export const Header: HeaderType = () => {
   const { data: currentUser } = useGetCurrentUserQuery();
@@ -44,6 +49,7 @@ export const Header: HeaderType = () => {
     imageSrc,
     isPostLoading
   } = usePost({ handleClosePostModal });
+  const bgColor = useColorModeValue(SNOW, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("A", "あ");
   const instagramDarkImg = {
@@ -60,7 +66,7 @@ export const Header: HeaderType = () => {
     <>
       <Flex
         align="center"
-        backdropFilter="blur(10px)"
+        bgColor={bgColor}
         h="inherit"
         justify="space-between"
         pl="10px"

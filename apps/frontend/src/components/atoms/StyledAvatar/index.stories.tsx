@@ -9,7 +9,7 @@ export default {
 export const styledAvatar: ComponentStoryObj<typeof StyledAvatar> = {
   args: {
     alt: "Image Alt",
-    size: 50,
-    src: "/static/landingPage/slide/3.png"
+    size: 70,
+    src: "/static/landingPage/slide/4.png"
   }
 };

@@ -7,8 +7,9 @@ export default {
     (Story): JSX.Element => (
       <div
         style={{
-          height: 60,
-          width: 500
+          alignItems: "flex-end",
+          display: "flex",
+          minHeight: "100vh"
         }}
       >
         {Story()}
@@ -17,4 +18,8 @@ export default {
   ]
 } as ComponentMeta<typeof Footer>;
 
-export const footer: ComponentStoryObj<typeof Footer> = {};
+export const footer: ComponentStoryObj<typeof Footer> = {
+  parameters: {
+    layout: "fullscreen"
+  }
+};

@@ -9,9 +9,9 @@ export default {
 export const imageLink: ComponentStoryObj<typeof ImageLink> = {
   args: {
     alt: "alt",
-    height: 35,
+    height: 70,
     href: "href",
     src: "/static/instagram/text.svg",
-    width: 100
+    width: 200
   }
 };
