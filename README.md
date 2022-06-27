@@ -40,6 +40,7 @@
 - Misc
   - Monorepo (Turborepo)
   - husky
+  - lint-staged
   - ESLint
   - GraphQL Code Generator
   - Prettier
