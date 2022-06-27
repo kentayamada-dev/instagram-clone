@@ -38,6 +38,6 @@
     // completeness
     "skipLibCheck": true
   },
-  "exclude": ["dist", "**/*.js"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

@@ -8,7 +8,7 @@ coverage
 dist
 storybook
 
-# misc
+# mac
 .DS_Store
 
 # turbo
@@ -25,3 +25,6 @@ apps/frontend/.storybook/static
 
 # schema
 schema.graphql
+
+# eslint
+.eslintcache

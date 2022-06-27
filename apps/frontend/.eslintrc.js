@@ -14,6 +14,9 @@ module.exports = {
     "**/*.js"
   ],
   settings: {
+    next: {
+      rootDir: "apps/frontend"
+    },
     react: {
       version: "detect"
     }

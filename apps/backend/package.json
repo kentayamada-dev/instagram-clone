@@ -33,7 +33,6 @@
       "datasource",
       "cuid",
       "tablename",
-      "Fastify",
       "schemaname"
     ]
   },
@@ -44,7 +43,7 @@
     "cspell": "cspell '**/*'",
     "dev": "run-p dev:nest",
     "dev:nest": "nest start --watch",
-    "eslint": "TIMING=1 eslint 'src/**/*' --fix",
+    "eslint": "eslint 'src/**/*' --fix --cache",
     "format": "prettier --cache --write .",
     "kill-port:nest": "kill-port 5001",
     "lint": "run-p eslint cspell type-check",
