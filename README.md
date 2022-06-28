@@ -5,7 +5,7 @@
 ##### ℹ️ Sometimes, it will take a while to open
 
 # ⚡ Playground
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 
 # 🛠️ Tech stack
 - Frontend
