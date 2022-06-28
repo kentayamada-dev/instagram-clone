@@ -3,8 +3,11 @@
 ### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
 ### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
 ##### ℹ️ Sometimes, it will take a while to open
-## 🛠️ Tech stack
 
+# ⚡ Playground
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/https://github.com/kentayamada-dev/instagram-clone)
+
+# 🛠️ Tech stack
 - Frontend
   - React (Next.js)
   - Storybook
