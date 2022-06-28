@@ -4,10 +4,10 @@
 ### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
 ##### ℹ️ Sometimes, it will take a while to open
 
-# ⚡ Playground
+## ⚡ Playground
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 
-# 🛠️ Tech stack
+## 🛠️ Tech stack
 - Frontend
   - React (Next.js)
   - Storybook
