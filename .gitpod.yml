@@ -18,7 +18,9 @@ tasks:
       cd apps/backend &&
       yarn prisma:init
     env:
+      DATABASE_URL: "postgresql://gitpod@localhost"
       JWT_SECRET: "jwt_secret"
       FRONTEND_ORIGIN: "http://localhost:3002"
-      DATABASE_URL: "postgresql://gitpod@localhost"
+      NODE_ENV: "development"
+      NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: "http://localhost:5001/graphql"
     command: yarn dev
