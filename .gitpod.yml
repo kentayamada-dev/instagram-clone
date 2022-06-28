@@ -13,7 +13,9 @@ ports:
     onOpen: ignore
 
 tasks:
-  - init: yarn
+  - init: >
+      yarn install &&
+      yarn prisma:init
     env:
       JWT_SECRET: "jwt_secret"
       FRONTEND_ORIGIN: "http://localhost:3002"
