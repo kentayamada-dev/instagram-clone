@@ -15,6 +15,7 @@ ports:
 tasks:
   - init: >
       yarn install &&
+      cd apps/backend &&
       yarn prisma:init
     env:
       JWT_SECRET: "jwt_secret"
