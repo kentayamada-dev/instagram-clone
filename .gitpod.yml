@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  # frontend
+  - port: 3002
+    onOpen: open-preview
+  # backend
+  - port: 5001
+    onOpen: ignore
+  # PostgreSQL
+  - port: 5432
+    onOpen: ignore
+
+tasks:
+  - init: yarn
+    env:
+      JWT_SECRET: "jwt_secret"
+      FRONTEND_ORIGIN: "http://localhost:3002"
+      DATABASE_URL: "postgresql://gitpod@localhost"
+    command: yarn dev
