@@ -17,13 +17,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "rootDir": "./src",
     // Emit
     "declaration": true,
     "declarationDir": "./dist/types",
     "declarationMap": true,
     "inlineSources": true,
-    "newLine": "lf",
     "outDir": "dist",
     "preserveConstEnums": true,
     "removeComments": true,
