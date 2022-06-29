@@ -1,0 +1,13 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["nestjs", "datasource", "cuid", "tablename", "schemaname"],
+  "ignorePaths": [
+    "package.json",
+    "*.tsbuildinfo",
+    "dist",
+    "prisma/migrations",
+    "cspell.json",
+    ".eslintrc.js"
+  ]
+}

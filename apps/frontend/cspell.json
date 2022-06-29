@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "chakra",
+    "vercel",
+    "Vercel",
+    "Kenta",
+    "Chakra",
+    "msapplication",
+    "signup",
+    "camelcase",
+    "Cloudinary",
+    "CLOUDINARY",
+    "Apollographql",
+    "scroller",
+    "Dimentions",
+    "deepmerge"
+  ],
+  "ignorePaths": [
+    "package.json",
+    "*.tsbuildinfo",
+    "frontend-words.txt",
+    "dist",
+    "public/{storybook,static,favicon}",
+    "*.yml",
+    "src/types/generated/*",
+    "cspell.json"
+  ]
+}

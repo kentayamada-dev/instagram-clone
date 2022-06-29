@@ -3,42 +3,6 @@
   "name": "frontend",
   "version": "1.0.0",
   "packageManager": "yarn@1.22.17",
-  "engines": {
-    "node": "16.x"
-  },
-  "prettier": {
-    "trailingComma": "none",
-    "quoteProps": "consistent"
-  },
-  "cspell": {
-    "language": "en",
-    "version": "0.2",
-    "ignorePaths": [
-      "package.json",
-      "*.tsbuildinfo",
-      "frontend-words.txt",
-      "dist",
-      "public/{storybook,static,favicon}",
-      "*.yml",
-      "src/types/generated/*"
-    ],
-    "words": [
-      "chakra",
-      "vercel",
-      "Vercel",
-      "Kenta",
-      "Chakra",
-      "msapplication",
-      "signup",
-      "camelcase",
-      "Cloudinary",
-      "CLOUDINARY",
-      "Apollographql",
-      "scroller",
-      "Dimentions",
-      "deepmerge"
-    ]
-  },
   "scripts": {
     "build": "run-p build:*",
     "build:next": "next build",

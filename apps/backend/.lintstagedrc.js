@@ -4,15 +4,15 @@ module.exports = {
     return [
       `eslint --fix ${joinedAbsolutePaths}`,
       `prettier --write ${joinedAbsolutePaths}`,
-      `cspell ${joinedAbsolutePaths}`,
+      `cspell ${joinedAbsolutePaths} --no-must-find-files`,
       `tsc -p ${process.cwd()}/apps/backend/tsconfig.json --noEmit`
     ];
   },
-  "!(.eslintrc).{js,json}": (absolutePaths) => {
+  "*.!(ts)": (absolutePaths) => {
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [
       `prettier --write ${joinedAbsolutePaths}`,
-      `cspell ${joinedAbsolutePaths}`
+      `cspell ${joinedAbsolutePaths} --no-must-find-files`
     ];
   }
 };
