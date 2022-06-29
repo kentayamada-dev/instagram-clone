@@ -22,6 +22,7 @@
     "lint-staged": "^13.0.3"
   },
   "scripts": {
+    "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
     "dev": "turbo run dev --parallel --no-cache",
     "format": "turbo run format --parallel --continue=false",
     "kill-port:backend": "kill-port 5001",
