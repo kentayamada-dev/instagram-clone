@@ -10,6 +10,5 @@
   "noAccount": "Don't have an account?",
   "haveAccount": "Have an account?",
   "name": "Name",
-  "namePlaceholder": "Please enter your name",
-  "warningMessage": "WARNING: This is an instagram clone site. DO NOT USE the email address/password that you actually use on Instagram."
+  "namePlaceholder": "Please enter your name"
 }

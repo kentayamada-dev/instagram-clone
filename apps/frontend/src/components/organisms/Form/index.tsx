@@ -82,9 +82,6 @@ export const Form: FormType = ({ isSignup }) => {
         <StyledForm onSubmit={handleSubmit(submitHandler)}>
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
-              <Text color="red" fontSize="sm" fontWeight="bold">
-                {t("warningMessage")}
-              </Text>
               {isSignup ? (
                 <>
                   <ImageSelect
