@@ -47,3 +47,4 @@
   - ESLint
   - GraphQL Code Generator
   - Prettier
+  - CSpell
