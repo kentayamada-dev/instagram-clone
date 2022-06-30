@@ -36,6 +36,7 @@ jobs:
 
   Build-Frontend:
     if: ${{ needs.Changes.outputs.frontend == 'true' && !failure() }}
+    needs: [Build-Backend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,6 +49,7 @@ jobs:
 
   Purge-Cloudflare-Cache:
     if: ${{ success() }}
+    needs: [Build-Frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: jakejarvis/cloudflare-purge-action@master
