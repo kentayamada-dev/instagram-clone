@@ -1,8 +1,9 @@
 const { i18n } = require("./next-i18next.config");
 
 const nextConfig = {
-  reactStrictMode: true,
+  i18n,
   distDir: "dist",
+  reactStrictMode: true,
   trailingSlash: true,
   images: {
     dangerouslyAllowSVG: true,
@@ -16,8 +17,7 @@ const nextConfig = {
         destination: "/storybook/index.html"
       }
     ];
-  },
-  i18n
+  }
 };
 
 module.exports = nextConfig;

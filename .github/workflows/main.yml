@@ -24,7 +24,7 @@ jobs:
 
   Backend:
     if: ${{ needs.Changes.outputs.backend == 'true' }}
-    needs: Changes
+    needs: [Changes]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,7 +48,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 
   Purge-Cloudflare-Cache:
-    needs: [Frontend]
+    needs: [Changes, Frontend]
     runs-on: ubuntu-latest
     steps:
       - uses: jakejarvis/cloudflare-purge-action@master
