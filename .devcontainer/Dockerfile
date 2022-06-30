@@ -10,7 +10,3 @@ RUN su node -c "npm install -g rimraf"
 
 # Install the Heroku CLI
 RUN curl https://cli-assets.heroku.com/install.sh | sh
-
-# Install cloudflared
-RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb \
-    && dpkg -i cloudflared-linux-amd64.deb && rm cloudflared-linux-amd64.deb

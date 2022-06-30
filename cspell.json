@@ -1,5 +1,12 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": ["package.json", "cspell.json", ".github/workflows/main.yml"]
+  "ignorePaths": [
+    "package.json",
+    "cspell.json",
+    ".github/workflows/main.yml",
+    "Makefile",
+    "Dockerfile",
+    "devcontainer.json"
+  ]
 }
