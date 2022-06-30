@@ -82,27 +82,6 @@ module.exports = {
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
     // typescript-eslint
-    "@typescript-eslint/no-extra-parens": "off",
-    "@typescript-eslint/parameter-properties": [
-      "error",
-      {
-        allow: ["private readonly", "protected readonly"]
-      }
-    ],
-    "@typescript-eslint/no-magic-numbers": "off",
-    "@typescript-eslint/no-type-alias": [
-      "error",
-      {
-        allowAliases: "always",
-        allowCallbacks: "never",
-        allowConditionalTypes: "always",
-        allowConstructors: "never",
-        allowGenerics: "always",
-        allowLiterals: "never",
-        allowMappedTypes: "always",
-        allowTupleTypes: "never"
-      }
-    ],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
@@ -116,12 +95,6 @@ module.exports = {
         }
       }
     ],
-    "@typescript-eslint/strict-boolean-expressions": [
-      "error",
-      {
-        allowNullableString: true
-      }
-    ],
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/lines-between-class-members": [
       "error",
@@ -130,6 +103,7 @@ module.exports = {
         exceptAfterSingleLine: true
       }
     ],
+    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/no-extraneous-class": [
       "error",
       {
@@ -139,22 +113,42 @@ module.exports = {
         allowWithDecorator: false
       }
     ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        vars: "all",
-        args: "all",
-        ignoreRestSiblings: true,
-        argsIgnorePattern: "^_"
-      }
-    ],
+    "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-parameter-properties": [
       "error",
       {
         allows: ["private readonly"]
       }
     ],
+    "@typescript-eslint/no-type-alias": [
+      "error",
+      {
+        allowAliases: "always",
+        allowCallbacks: "never",
+        allowConditionalTypes: "always",
+        allowConstructors: "never",
+        allowGenerics: "always",
+        allowLiterals: "never",
+        allowMappedTypes: "always",
+        allowTupleTypes: "never"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+        vars: "all"
+      }
+    ],
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
+    "@typescript-eslint/parameter-properties": [
+      "error",
+      {
+        allow: ["private readonly", "protected readonly"]
+      }
+    ],
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/space-before-function-paren": [
       "error",
@@ -164,9 +158,15 @@ module.exports = {
         named: "never"
       }
     ],
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        allowNullableString: true
+      }
+    ],
     // eslint-plugin-import
-    "import/no-namespace": "error",
     "import/no-default-export": "error",
+    "import/no-namespace": "error",
     "import/no-useless-path-segments": [
       "error",
       {

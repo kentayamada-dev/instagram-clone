@@ -6,13 +6,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"]
   },
-  ignorePatterns: [
-    "coverage/*",
-    "src/types/generated/*",
-    "dist/*",
-    "next-env.d.ts",
-    "**/*.js"
-  ],
+  ignorePatterns: ["coverage/*", "src/types/generated/*", "dist/*", "next-env.d.ts", "**/*.js"],
   settings: {
     next: {
       rootDir: "apps/frontend"
@@ -47,28 +41,34 @@ module.exports = {
   ],
   rules: {
     // eslint
-    "max-statements": "off",
-    "prefer-destructuring": ["error", { object: true, array: false }],
-    "id-length": ["error", { exceptions: ["_", "t"] }],
-    "dot-location": ["error", "property"],
     "array-element-newline": ["error", "consistent"],
+    "dot-location": ["error", "property"],
     "function-call-argument-newline": ["error", "consistent"],
     "function-paren-newline": ["error", "consistent"],
+    "id-length": [
+      "error",
+      {
+        exceptions: ["_", "t"]
+      }
+    ],
     "implicit-arrow-linebreak": "off",
     "max-len": [
       "error",
       {
-        ignoreStrings: true,
         ignoreComments: true,
-        ignorePattern: "^import .*"
+        ignorePattern: "^import .*",
+        ignoreStrings: true
       }
     ],
     "max-lines-per-function": "off",
+    "max-statements": "off",
     "multiline-ternary": "off",
-    "no-ternary": "off",
     "no-confusing-arrow": [
       "error",
-      { onlyOneSimpleParam: true, allowParens: true }
+      {
+        allowParens: true,
+        onlyOneSimpleParam: true
+      }
     ],
     "no-restricted-imports": [
       "error",
@@ -81,28 +81,83 @@ module.exports = {
         ]
       }
     ],
+    "no-ternary": "off",
     "object-property-newline": [
       "error",
-      { allowAllPropertiesOnSameLine: true }
+      {
+        allowAllPropertiesOnSameLine: true
+      }
     ],
     "one-var": ["error", "never"],
     "padded-blocks": ["error", "never"],
     "padding-line-between-statements": [
       "error",
-      { blankLine: "always", prev: "*", next: "return" },
-      { blankLine: "always", prev: "function", next: "function" }
+      {
+        blankLine: "always",
+        next: "return",
+        prev: "*"
+      },
+      {
+        blankLine: "always",
+        next: "function",
+        prev: "function"
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        array: false,
+        object: true
+      }
     ],
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
     // typescript-eslint
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@typescript-eslint/strict-boolean-expressions": [
+    "@typescript-eslint/indent": [
       "error",
+      2,
       {
-        allowNullableString: true
+        MemberExpression: "off",
+        SwitchCase: 1
       }
     ],
-    "@typescript-eslint/no-magic-numbers": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        format: ["PascalCase"],
+        prefix: ["is"],
+        selector: "typeProperty",
+        types: ["boolean"]
+      },
+      {
+        format: ["PascalCase"],
+        prefix: ["is", "has"],
+        selector: "variable",
+        types: ["boolean"]
+      },
+      {
+        format: ["PascalCase", "camelCase", "UPPER_CASE"],
+        selector: "variable"
+      },
+      {
+        format: ["camelCase"],
+        leadingUnderscore: "allow",
+        selector: "parameter"
+      },
+      {
+        format: ["camelCase"],
+        selector: "memberLike"
+      },
+      {
+        custom: {
+          match: true,
+          regex: "^(T|U)$|(Type|Props)$"
+        },
+        format: ["PascalCase"],
+        selector: "typeLike"
+      }
+    ],
     "@typescript-eslint/no-confusing-void-expression": [
       "error",
       {
@@ -110,80 +165,37 @@ module.exports = {
         ignoreVoidOperator: false
       }
     ],
-    "@typescript-eslint/indent": [
-      "error",
-      2,
-      { MemberExpression: "off", SwitchCase: 1 }
-    ],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        selector: "typeProperty",
-        format: ["PascalCase"],
-        types: ["boolean"],
-        prefix: ["is"]
-      },
-      {
-        selector: "variable",
-        types: ["boolean"],
-        format: ["PascalCase"],
-        prefix: ["is", "has"]
-      },
-      {
-        selector: "variable",
-        format: ["PascalCase", "camelCase", "UPPER_CASE"]
-      },
-      {
-        selector: "parameter",
-        format: ["camelCase"],
-        leadingUnderscore: "allow"
-      },
-      {
-        selector: "memberLike",
-        format: ["camelCase"]
-      },
-      {
-        selector: "typeLike",
-        format: ["PascalCase"],
-        custom: {
-          regex: "^(T|U)$|(Type|Props)$",
-          match: true
-        }
-      }
-    ],
     "@typescript-eslint/no-extra-parens": [
       "error",
       "all",
       {
-        ignoreJSX: "all",
-        enforceForArrowConditionals: false
+        enforceForArrowConditionals: false,
+        ignoreJSX: "all"
       }
     ],
+    "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-type-alias": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/space-before-function-paren": [
       "error",
       {
         anonymous: "always",
-        named: "never",
-        asyncArrow: "always"
+        asyncArrow: "always",
+        named: "never"
       }
     ],
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-return": "off",
-    // eslint-plugin-react
-    "react/jsx-max-depth": ["error", { max: 10 }],
-    "react/jsx-one-expression-per-line": ["error", { allow: "single-child" }],
-    "react/jsx-no-bind": [
+    "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {
-        allowArrowFunctions: true,
-        allowFunctions: false
+        allowNullableString: true
       }
     ],
+    // eslint-plugin-react
     "react/destructuring-assignment": ["error", "always"],
     "react/function-component-definition": [
       "error",
@@ -208,14 +220,20 @@ module.exports = {
     "react/jsx-handler-names": [
       "error",
       {
-        eventHandlerPrefix: "handle",
-        eventHandlerPropPrefix: "(handle|on)",
+        checkInlineFunction: true,
         checkLocalVariables: true,
-        checkInlineFunction: true
+        eventHandlerPrefix: "handle",
+        eventHandlerPropPrefix: "(handle|on)"
       }
     ],
     "react/jsx-indent": ["error", 2],
     "react/jsx-indent-props": ["error", 2],
+    "react/jsx-max-depth": [
+      "error",
+      {
+        max: 10
+      }
+    ],
     "react/jsx-max-props-per-line": [
       "error",
       {
@@ -226,6 +244,13 @@ module.exports = {
       "error",
       {
         prevent: true
+      }
+    ],
+    "react/jsx-no-bind": [
+      "error",
+      {
+        allowArrowFunctions: true,
+        allowFunctions: false
       }
     ],
     "react/jsx-no-literals": [
@@ -253,8 +278,8 @@ module.exports = {
     "react/prop-types": "off",
     "react/require-default-props": "off",
     // eslint-plugin-import
-    "import/no-namespace": "error",
     "import/no-default-export": "error",
+    "import/no-namespace": "error",
     "import/no-useless-path-segments": [
       "error",
       {
@@ -267,16 +292,7 @@ module.exports = {
         "alphabetize": {
           order: "asc"
         },
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         "newlines-between": "never"
       }
     ]
