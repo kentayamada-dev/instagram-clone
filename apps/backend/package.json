@@ -1,8 +1,7 @@
 {
-  "version": "1.0.0",
   "license": "MIT",
   "name": "backend",
-  "packageManager": "yarn@1.22.17",
+  "version": "1.0.0",
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed.ts"
   },
