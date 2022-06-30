@@ -22,7 +22,7 @@ jobs:
             frontend:
               - 'apps/frontend/**'
 
-  Backend:
+  Build-Backend:
     if: ${{ needs.Changes.outputs.backend == 'true' }}
     needs: [Changes]
     runs-on: ubuntu-latest
@@ -34,9 +34,8 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
 
-  Frontend:
+  Build-Frontend:
     if: ${{ needs.Changes.outputs.frontend == 'true' && !failure() }}
-    needs: [Changes, Backend]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,8 +47,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 
   Purge-Cloudflare-Cache:
-    if: ${{ needs.Changes.outputs.frontend == 'true' }}
-    needs: [Changes, Frontend]
+    if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
       - uses: jakejarvis/cloudflare-purge-action@master
