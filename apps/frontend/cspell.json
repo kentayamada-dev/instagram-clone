@@ -25,6 +25,7 @@
     "public/{storybook,static,favicon}",
     "*.yml",
     "src/types/generated/*",
-    "cspell.json"
+    "cspell.json",
+    ".eslintrc.js"
   ]
 }

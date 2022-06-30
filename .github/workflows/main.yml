@@ -48,6 +48,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 
   Purge-Cloudflare-Cache:
+    if: ${{ needs.Changes.outputs.frontend == 'true' }}
     needs: [Changes, Frontend]
     runs-on: ubuntu-latest
     steps:

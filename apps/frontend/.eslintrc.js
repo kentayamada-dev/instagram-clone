@@ -1,11 +1,11 @@
 module.exports = {
-  root: true,
   parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint", "import"],
+  root: true,
   parserOptions: {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"]
   },
-  plugins: ["@typescript-eslint", "import"],
   ignorePatterns: [
     "coverage/*",
     "src/types/generated/*",
