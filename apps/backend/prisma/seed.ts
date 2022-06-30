@@ -7,8 +7,8 @@ const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
 
-const NUM_USERS = 30;
-const MAX_NUM_POSTS = 30;
+const NUM_USERS = 5;
+const MAX_NUM_POSTS = 5;
 const SALT_ROUNDS = 10;
 const UNSPLASH_IMAGES = [
   "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
