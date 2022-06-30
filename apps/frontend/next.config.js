@@ -13,8 +13,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/storybook",
-        destination: "/storybook/index.html"
+        destination: "/storybook/index.html",
+        source: "/storybook"
       }
     ];
   }
