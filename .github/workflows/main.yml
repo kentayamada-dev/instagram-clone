@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  Changes:
+  Detect-Changes:
     runs-on: ubuntu-latest
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
@@ -23,8 +23,8 @@ jobs:
               - 'apps/frontend/**'
 
   Build-Backend:
-    if: ${{ needs.Changes.outputs.backend == 'true' }}
-    needs: [Changes]
+    if: needs.Detect-Changes.outputs.backend == 'true'
+    needs: [Detect-Changes]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
 
   Build-Frontend:
-    if: ${{ needs.Changes.outputs.frontend == 'true' && !failure() }}
+    if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
     needs: [Build-Backend]
     runs-on: ubuntu-latest
     steps:
@@ -48,7 +48,7 @@ jobs:
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 
   Purge-Cloudflare-Cache:
-    if: ${{ always() }}
+    if: always() && needs.Build-Frontend.result == 'success'
     needs: [Build-Frontend]
     runs-on: ubuntu-latest
     steps:

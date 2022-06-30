@@ -3,47 +3,48 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: { tsconfigRootDir: __dirname, project: ["./tsconfig.json"] },
   plugins: ["@typescript-eslint", "import", "typescript-sort-keys"],
-  ignorePatterns: [
-    ".eslintrc.js",
-    "coverage/*",
-    "dist/*",
-    "prisma/*",
-    "jest.config.js"
-  ],
-  extends: [
-    "eslint:all",
-    "plugin:@typescript-eslint/all",
-    "plugin:eslint-comments/recommended"
-  ],
+  ignorePatterns: [".eslintrc.js", "coverage/*", "dist/*", "prisma/*", "jest.config.js"],
+  extends: ["eslint:all", "plugin:@typescript-eslint/all", "plugin:eslint-comments/recommended"],
   rules: {
     // eslint
-    "max-lines": "off",
-    "camelcase": ["error", { ignoreDestructuring: true }],
-    "max-lines-per-function": "off",
-    "no-confusing-arrow": "off",
     "array-element-newline": ["error", "consistent"],
+    "camelcase": [
+      "error",
+      {
+        ignoreDestructuring: true
+      }
+    ],
     "dot-location": ["error", "property"],
-    "func-style": ["error", "declaration", { allowArrowFunctions: false }],
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        allowArrowFunctions: false
+      }
+    ],
     "function-call-argument-newline": ["error", "consistent"],
     "function-paren-newline": ["error", "consistent"],
+    "id-length": [
+      "error",
+      {
+        exceptions: ["_"]
+      }
+    ],
     "implicit-arrow-linebreak": "off",
-    "id-length": ["error", { exceptions: ["_"] }],
     "max-len": [
       "error",
       {
-        ignoreStrings: true,
         ignoreComments: true,
-        ignorePattern: "^import .*"
+        ignorePattern: "^import .*",
+        ignoreStrings: true
       }
     ],
+    "max-lines": "off",
+    "max-lines-per-function": "off",
+    "multiline-ternary": "off",
     "new-cap": "off",
     "newline-per-chained-call": "off",
-    "no-void": [
-      "error",
-      {
-        allowAsStatement: true
-      }
-    ],
+    "no-confusing-arrow": "off",
     "no-restricted-imports": [
       "error",
       {
@@ -55,17 +56,28 @@ module.exports = {
         ]
       }
     ],
-    "multiline-ternary": "off",
     "no-ternary": "off",
-    "one-var": ["error", "never"],
+    "no-void": [
+      "error",
+      {
+        allowAsStatement: true
+      }
+    ],
     "object-property-newline": [
       "error",
-      { allowAllPropertiesOnSameLine: true }
+      {
+        allowAllPropertiesOnSameLine: true
+      }
     ],
+    "one-var": ["error", "never"],
     "padded-blocks": ["error", "never"],
     "padding-line-between-statements": [
       "error",
-      { blankLine: "always", prev: "*", next: "return" }
+      {
+        blankLine: "always",
+        next: "return",
+        prev: "*"
+      }
     ],
     "quote-props": ["error", "consistent"],
     "sort-imports": "off",
@@ -167,16 +179,7 @@ module.exports = {
         "alphabetize": {
           order: "asc"
         },
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         "newlines-between": "never"
       }
     ],
