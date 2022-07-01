@@ -1,3 +1,5 @@
+name: Instagram Clone Workflow
+
 on:
   push:
     branches:
@@ -22,7 +24,7 @@ jobs:
             frontend:
               - 'apps/frontend/!(cypress)/**'
             cypress:
-              - 'apps/frontend/cypress/**'
+              - 'apps/frontend/cypress/**/*'
 
   E2E-Test:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
