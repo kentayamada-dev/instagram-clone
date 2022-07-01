@@ -11,6 +11,7 @@ jobs:
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
+      cypress: ${{ steps.filter.outputs.cypress }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -24,7 +25,7 @@ jobs:
             frontend:
               - 'apps/frontend/!(cypress)/**'
             cypress:
-              - 'apps/frontend/cypress/**/*'
+              - 'apps/frontend/cypress/**'
 
   E2E-Test:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
