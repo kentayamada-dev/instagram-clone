@@ -1,15 +1,7 @@
-name: instagram-clone
-
 on:
   push:
     branches:
       - main
-
-env:
-  JWT_SECRET: jwt_secret
-  FRONTEND_ORIGIN: http://localhost:3002
-  NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
 
 jobs:
   Detect-Changes:
@@ -18,8 +10,10 @@ jobs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Filter paths changes
+        uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
@@ -27,9 +21,11 @@ jobs:
               - 'apps/backend/**'
             frontend:
               - 'apps/frontend/!(cypress)/**'
+            cypress:
+              - 'apps/frontend/cypress/**'
 
   E2E-Test:
-    # if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true'
+    if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
     needs: [Detect-Changes]
     runs-on: ubuntu-latest
     steps:
@@ -49,6 +45,10 @@ jobs:
         working-directory: apps/backend
       - name: Start backend app
         run: yarn dev &
+        env:
+          JWT_SECRET: jwt_secret
+          FRONTEND_ORIGIN: http://localhost:3002
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
@@ -56,6 +56,8 @@ jobs:
           browser: chrome
           working-directory: apps/frontend
           start: yarn dev:next
+        env:
+          NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
@@ -68,8 +70,10 @@ jobs:
     needs: [E2E-Test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
@@ -80,8 +84,10 @@ jobs:
     needs: [Build-Backend]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: amondnet/vercel-action@v20
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Deploy to vercel
+        uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-args: "--prod"
@@ -93,7 +99,8 @@ jobs:
     needs: [Build-Frontend]
     runs-on: ubuntu-latest
     steps:
-      - uses: jakejarvis/cloudflare-purge-action@master
+      - name: Purge cloudflare cache
+        uses: jakejarvis/cloudflare-purge-action@master
         env:
           CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}

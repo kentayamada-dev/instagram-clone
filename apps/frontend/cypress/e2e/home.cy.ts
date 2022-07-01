@@ -1,6 +1,6 @@
 describe("Home Test", () => {
   it("open", () => {
     cy.visit("/");
-    cy.wait(3000);
+    cy.wait(5000);
   });
 });
