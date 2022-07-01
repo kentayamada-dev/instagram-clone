@@ -27,14 +27,19 @@ jobs:
     container:
       image: cypress/browsers:latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Chrome Tests
+      - uses: actions/checkout@v2
+      - name: Test Chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
           working-directory: apps/frontend
           start: yarn dev:next
+      - name: Upload Test Videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Cypress Videos
+          path: cypress/videos
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
