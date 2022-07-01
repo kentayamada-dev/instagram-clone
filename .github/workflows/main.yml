@@ -23,6 +23,7 @@ jobs:
               - 'apps/frontend/!(cypress)/**'
 
   E2E-Test:
+    # if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true'
     needs: [Detect-Changes]
     runs-on: ubuntu-latest
     container:
@@ -33,6 +34,12 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          working-directory: apps/frontend
+          start: yarn dev:next
+      - name: Test Firefox
+        uses: cypress-io/github-action@v4
+        with:
+          browser: firefox
           working-directory: apps/frontend
           start: yarn dev:next
       - name: Upload Test Videos
