@@ -45,13 +45,14 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Seed database
         run: yarn prisma:init
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
       - name: Start backend app
         run: yarn dev &
         env:
           JWT_SECRET: jwt_secret
           FRONTEND_ORIGIN: http://localhost:3002
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
