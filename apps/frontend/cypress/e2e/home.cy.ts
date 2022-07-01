@@ -1,5 +1,5 @@
-describe("empty spec", () => {
-  it("passes", () => {
+describe("Home Test", () => {
+  it("open", () => {
     cy.visit("/");
   });
 });
