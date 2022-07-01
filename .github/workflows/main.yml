@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/app
   JWT_SECRET: jwt_secret
   FRONTEND_ORIGIN: http://localhost:3002
   NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
@@ -39,7 +39,6 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
