@@ -34,6 +34,7 @@ jobs:
         with:
           browser: chrome
           working-directory: apps/frontend
+          start: yarn dev:next
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
