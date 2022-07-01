@@ -53,8 +53,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Install packages
         uses: bahmutov/npm-install@v1
-      - name: Seed data to database
-        run: make init
+      - name: Seed database
+        run: yarn prisma:init
+        working-directory: apps/backend
       - name: Start backend app
         run: yarn dev
         working-directory: apps/backend
