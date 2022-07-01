@@ -20,7 +20,7 @@ jobs:
             backend:
               - 'apps/backend/**'
             frontend:
-              - 'apps/frontend/**'
+              - 'apps/frontend/!(cypress)/**'
 
   E2E-TEST:
     runs-on: ubuntu-latest
@@ -33,6 +33,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+          working-directory: apps/frontend
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
