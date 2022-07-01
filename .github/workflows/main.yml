@@ -36,7 +36,6 @@ jobs:
           browser: chrome
           working-directory: apps/frontend
           start: yarn dev:next
-          build: yarn cypress info
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
