@@ -39,15 +39,20 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install root dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Start backend app
+        with:
+          working-directory: apps/backend
+        run: yarn dev &
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          start: |
-            cd apps/backend && yarn dev
-            cd apps/frontend && yarn dev:next
-          wait-on: "http://localhost:3002, http://localhost:5001"
+          working-directory: apps/frontend
+          start: yarn dev:next
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
