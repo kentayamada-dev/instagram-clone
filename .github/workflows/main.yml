@@ -30,18 +30,13 @@ jobs:
       image: cypress/browsers:latest
     steps:
       - uses: actions/checkout@v2
-      - name: Test Chrome
+      - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
           working-directory: apps/frontend
           start: yarn dev:next
-      - name: Test Firefox
-        uses: cypress-io/github-action@v4
-        with:
-          browser: firefox
-          working-directory: apps/frontend
-          start: yarn dev:next
+          build: yarn cypress info
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
