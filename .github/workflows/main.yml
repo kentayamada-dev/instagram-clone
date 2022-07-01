@@ -1,4 +1,4 @@
-name: Deploy
+name: instagram-clone
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
   JWT_SECRET: jwt_secret
   FRONTEND_ORIGIN: http://localhost:3002
   NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
@@ -39,7 +38,6 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
@@ -48,6 +46,8 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/instagram-clone
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
