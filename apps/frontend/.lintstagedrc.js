@@ -1,12 +1,10 @@
 module.exports = {
   "*.ts?(x)": (absolutePaths) => {
-    const joinedAbsolutePaths = absolutePaths.join(" ");
-    if (Boolean(joinedAbsolutePaths.match(/\[[^\]]*]/g))) {
-      joinedAbsolutePaths = joinedAbsolutePaths
-        .replaceAll("/[", "/[[]")
-        .replaceAll("]/", "[]]/")
-        .replaceAll("].", "[]].");
-    }
+    const joinedAbsolutePaths = absolutePaths
+      .join(" ")
+      .replaceAll("/[", "/[[]")
+      .replaceAll("]/", "[]]/")
+      .replaceAll("].", "[]].");
     return [
       `eslint --fix ${joinedAbsolutePaths}`,
       `prettier --write ${joinedAbsolutePaths}`,
@@ -16,9 +14,6 @@ module.exports = {
   },
   "*.!(ts?(x))": (absolutePaths) => {
     const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [
-      `prettier --write ${joinedAbsolutePaths}`,
-      `cspell ${joinedAbsolutePaths} --no-must-find-files`
-    ];
+    return [`prettier --write ${joinedAbsolutePaths}`, `cspell ${joinedAbsolutePaths} --no-must-find-files`];
   }
 };

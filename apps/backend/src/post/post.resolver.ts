@@ -35,10 +35,7 @@ export class PostResolver {
       })
       .then((postsData) => {
         const [firstPost] = postsData;
-        if (
-          firstPost &&
-          isPropertyExactlySameAsGetAllPostsIdAndUserId(firstPost)
-        ) {
+        if (firstPost && isPropertyExactlySameAsGetAllPostsIdAndUserId(firstPost)) {
           return postsData;
         }
 
@@ -93,9 +90,7 @@ export class PostResolver {
   }
 
   @Query(() => PaginatedGetAllPostsModel, { description: "Get All Posts" })
-  protected async getAllPosts(
-    @Args() { first, after }: PaginationArgs
-  ): Promise<PaginatedGetAllPostsModel> {
+  protected async getAllPosts(@Args() { first, after }: PaginationArgs): Promise<PaginatedGetAllPostsModel> {
     const posts = await this.prismaService.post
       .findMany({
         ...(after ? { cursor: { id: after }, skip: 1 } : {}),

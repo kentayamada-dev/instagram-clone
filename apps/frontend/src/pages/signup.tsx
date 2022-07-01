@@ -11,11 +11,7 @@ import type {
   GetAuthServerSidePropsResultType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({
-  req,
-  locale,
-  defaultLocale
-}) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, defaultLocale }) => {
   const initialLocale = locale ?? defaultLocale ?? "en";
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
@@ -62,8 +58,6 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
 
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
-Signup.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram Clone">{page}</Layout>
-);
+Signup.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
 
 export default Signup;

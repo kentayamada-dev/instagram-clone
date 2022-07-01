@@ -12,11 +12,7 @@ import type {
   NextAuthPageWithLayoutType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({
-  locale,
-  req,
-  defaultLocale
-}) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, defaultLocale }) => {
   const initialLocale = locale ?? defaultLocale ?? "en";
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
@@ -58,8 +54,6 @@ const Home: NextAuthPageWithLayoutType = ({ data }) => {
   return <HomeTemplate />;
 };
 
-Home.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram Clone">{page}</Layout>
-);
+Home.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
 
 export default Home;

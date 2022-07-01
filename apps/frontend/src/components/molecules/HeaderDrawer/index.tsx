@@ -26,19 +26,13 @@ const {
   LINKS: { GITHUB_LINK, APOLLO_LINK, STORYBOOK_LINK }
 } = constants;
 
-export const HeaderDrawer: HeaderDrawerType = ({
-  handleCloseDrawer,
-  isAuthenticated,
-  isDrawerOpen
-}) => {
+export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthenticated, isDrawerOpen }) => {
   const router = useRouter();
   const { locale, asPath, pathname, query } = router;
   const { colorMode, toggleColorMode } = useColorMode();
   const handleColorMode = (): void => toggleColorMode();
   const { t } = useTypeSafeTranslation("common");
-  const handleChangeLocale = async (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): Promise<void> => {
+  const handleChangeLocale = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const localeValue = event.target.value;
     Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });
     await router.push({ pathname, query }, asPath, {
@@ -104,12 +98,7 @@ export const HeaderDrawer: HeaderDrawerType = ({
               <VStack spacing={4}>
                 <FormControl>
                   <FormLabel htmlFor="color-mode">{t("darkMode")}</FormLabel>
-                  <Switch
-                    id="color-mode"
-                    isChecked={colorMode === "dark"}
-                    onChange={handleColorMode}
-                    size="lg"
-                  />
+                  <Switch id="color-mode" isChecked={colorMode === "dark"} onChange={handleColorMode} size="lg" />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="locale">{t("language")}</FormLabel>

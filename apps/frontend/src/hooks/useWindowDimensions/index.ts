@@ -2,11 +2,10 @@ import React from "react";
 import type { WindowDimentionsReturnType, WindowDimentionsType } from "./type";
 
 export const useWindowDimensions: WindowDimentionsType = () => {
-  const [windowDimensions, setWindowDimensions] =
-    React.useState<WindowDimentionsReturnType>({
-      height: null,
-      width: null
-    });
+  const [windowDimensions, setWindowDimensions] = React.useState<WindowDimentionsReturnType>({
+    height: null,
+    width: null
+  });
   React.useEffect(() => {
     const handleResize = (): void => {
       setWindowDimensions({

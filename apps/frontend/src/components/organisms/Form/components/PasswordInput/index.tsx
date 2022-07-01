@@ -21,15 +21,10 @@ const {
 
 export const PasswordInput: PasswordInputType = ({ errors, register }) => {
   const { t } = useTypeSafeTranslation("form");
-  const passwordBlankErrorMessage = useLocale(
-    "Please enter password",
-    "パスワードを入力してください"
-  );
+  const passwordBlankErrorMessage = useLocale("Please enter password", "パスワードを入力してください");
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-  const getPasswordVisibleIcon = (): JSX.Element =>
-    isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />;
-  const handleShowPassword = (): void =>
-    setIsPasswordVisible(!isPasswordVisible);
+  const getPasswordVisibleIcon = (): JSX.Element => (isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />);
+  const handleShowPassword = (): void => setIsPasswordVisible(!isPasswordVisible);
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
   const errorMessage = errors.password?.message;
 

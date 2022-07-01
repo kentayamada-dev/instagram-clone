@@ -13,11 +13,7 @@ const {
 
 export const useHeader: UseHeaderType = () => {
   const router = useRouter();
-  const {
-    isOpen: isPostModalOpen,
-    onOpen: handleOpenPostModal,
-    onClose: handleClosePostModal
-  } = useDisclosure();
+  const { isOpen: isPostModalOpen, onOpen: handleOpenPostModal, onClose: handleClosePostModal } = useDisclosure();
   const { pathname, asPath, query } = router;
   const localeEn = useLocale("ja", "en");
   const { toggleColorMode } = useColorMode();
@@ -25,12 +21,9 @@ export const useHeader: UseHeaderType = () => {
   const [logout] = useLogoutMutation();
   const handleOpenDrawer = (): void => onOpen();
   const handleCloseDrawer = React.useCallback(() => onClose(), [onClose]);
-  const handleOpenStorybook = async (): Promise<boolean> =>
-    router.push(STORYBOOK_LINK);
-  const handleOpenGithub = async (): Promise<boolean> =>
-    router.push(GITHUB_LINK);
-  const handleOpenApolloGraphQL = async (): Promise<boolean> =>
-    router.push(APOLLO_LINK);
+  const handleOpenStorybook = async (): Promise<boolean> => router.push(STORYBOOK_LINK);
+  const handleOpenGithub = async (): Promise<boolean> => router.push(GITHUB_LINK);
+  const handleOpenApolloGraphQL = async (): Promise<boolean> => router.push(APOLLO_LINK);
   const handleColorMode = (): void => toggleColorMode();
   const handleChangeLocale = async (): Promise<void> => {
     Cookies.set("NEXT_LOCALE", localeEn, { path: "/" });

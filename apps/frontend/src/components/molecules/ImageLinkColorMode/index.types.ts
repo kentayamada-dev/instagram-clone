@@ -4,6 +4,4 @@ type ImageLinkColorModeProps = ImageColorModeProps & {
   href: string;
 };
 
-export type ImageLinkColorModeType = (
-  props: ImageLinkColorModeProps
-) => JSX.Element;
+export type ImageLinkColorModeType = (props: ImageLinkColorModeProps) => JSX.Element;

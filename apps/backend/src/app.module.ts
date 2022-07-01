@@ -37,10 +37,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
         context: ({ req, res }) => ({ req, res }),
         cors: {
           credentials: true,
-          origin: [
-            "https://studio.apollographql.com",
-            configService.get("FRONTEND_ORIGIN")
-          ]
+          origin: ["https://studio.apollographql.com", configService.get("FRONTEND_ORIGIN")]
         },
         debug: false,
         introspection: true,

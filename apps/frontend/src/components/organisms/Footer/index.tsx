@@ -15,13 +15,7 @@ export const Footer: FooterType = () => {
   };
 
   return (
-    <VStack
-      h="inherit"
-      justify="space-around"
-      overflow="hidden"
-      spacing={0}
-      w="100%"
-    >
+    <VStack h="inherit" justify="space-around" overflow="hidden" spacing={0} w="100%">
       <Divider w="80%" />
       <Flex justify="space-around" w="100%">
         <VStack>
@@ -44,13 +38,7 @@ export const Footer: FooterType = () => {
         </VStack>
         <VStack>
           <Text fontSize="xs">Hosting by</Text>
-          <ImageLinkColorMode
-            darkImg={darkImg}
-            height={25}
-            href="https://vercel.com/"
-            lightImg={lightImg}
-            width={90}
-          />
+          <ImageLinkColorMode darkImg={darkImg} height={25} href="https://vercel.com/" lightImg={lightImg} width={90} />
         </VStack>
       </Flex>
     </VStack>

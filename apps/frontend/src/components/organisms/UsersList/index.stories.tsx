@@ -15,9 +15,7 @@ const user = (index: number): GetAllUsersModel => ({
   name: faker.name.firstName()
 });
 
-const usersEdge: UsersListProps["usersEdge"] = new Array(5)
-  .fill(null)
-  .map((_, index) => ({ node: user(index) }));
+const usersEdge: UsersListProps["usersEdge"] = new Array(5).fill(null).map((_, index) => ({ node: user(index) }));
 
 export const usersList: ComponentStoryObj<typeof UsersList> = {
   args: {

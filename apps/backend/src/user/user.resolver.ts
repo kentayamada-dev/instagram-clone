@@ -14,22 +14,10 @@ import { PrismaService } from "../prisma/prisma.service";
 import { GetAllUsersArgs } from "./dto/get-all-users.args";
 import { LoginArgs } from "./dto/login.args";
 import { SignupArgs } from "./dto/signup.args";
-import {
-  GetAllUsersId,
-  isPropertyExactlySameAsGetAllUsersId
-} from "./models/get-all-users-posts-id.model";
-import {
-  isPropertyExactlySameAsGetAllUsersModel,
-  PaginatedGetAllUsersModel
-} from "./models/get-all-users.model";
-import {
-  GetCurrentUserModel,
-  isPropertyExactlySameAsGetCurrentUserModel
-} from "./models/get-current-user.model";
-import {
-  GetUserModel,
-  isPropertyExactlySameAsGetUserModel
-} from "./models/get-user.model";
+import { GetAllUsersId, isPropertyExactlySameAsGetAllUsersId } from "./models/get-all-users-posts-id.model";
+import { isPropertyExactlySameAsGetAllUsersModel, PaginatedGetAllUsersModel } from "./models/get-all-users.model";
+import { GetCurrentUserModel, isPropertyExactlySameAsGetCurrentUserModel } from "./models/get-current-user.model";
+import { GetUserModel, isPropertyExactlySameAsGetUserModel } from "./models/get-user.model";
 import type { Edge } from "../pagination/pagination.model";
 import type { ConfigSchema } from "../utils/config/config.schema";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
@@ -69,9 +57,7 @@ export class UserResolver {
   }
 
   @Query(() => PaginatedGetAllUsersModel, { description: "Get All Users" })
-  protected async getAllUsers(
-    @Args() { first, after, userId }: GetAllUsersArgs
-  ): Promise<PaginatedGetAllUsersModel> {
+  protected async getAllUsers(@Args() { first, after, userId }: GetAllUsersArgs): Promise<PaginatedGetAllUsersModel> {
     const foundUsers = await this.prismaService.user
       .findMany({
         ...(after ? { cursor: { id: after }, skip: 1 } : {}),
@@ -201,10 +187,7 @@ export class UserResolver {
     });
 
     if (!foundUser || !(await compare(password, foundUser.password))) {
-      throw new HttpException(
-        "Incorrect email or password",
-        HttpStatus.UNAUTHORIZED
-      );
+      throw new HttpException("Incorrect email or password", HttpStatus.UNAUTHORIZED);
     }
 
     const { accessToken } = this.authService.getJwtToken(foundUser.id);
@@ -234,9 +217,7 @@ export class UserResolver {
 
   @Query(() => GetUserModel, { description: "Get Current User" })
   @UseGuards(GqlAuthGuard)
-  protected async getCurrentUser(
-    @CurrentUser() user: JwtPayload
-  ): Promise<GetUserModel> {
+  protected async getCurrentUser(@CurrentUser() user: JwtPayload): Promise<GetUserModel> {
     const foundUser = await this.prismaService.user
       .findUnique({
         select: {
@@ -265,9 +246,7 @@ export class UserResolver {
 
   @SkipThrottle()
   @Query(() => GetCurrentUserModel, { description: "Get User" })
-  protected async getUser(
-    @Args("id") id: string
-  ): Promise<GetCurrentUserModel> {
+  protected async getUser(@Args("id") id: string): Promise<GetCurrentUserModel> {
     const foundUser = await this.prismaService.user
       .findUnique({
         select: {
@@ -293,10 +272,7 @@ export class UserResolver {
         }
         const [post] = userData.posts;
         if (post) {
-          if (
-            isPropertyExactlySameAsGetCurrentUserModel(userData) &&
-            isPropertyExactlySameAsGetPostModel(post)
-          ) {
+          if (isPropertyExactlySameAsGetCurrentUserModel(userData) && isPropertyExactlySameAsGetPostModel(post)) {
             return userData;
           }
         } else if (isPropertyExactlySameAsGetCurrentUserModel(userData)) {

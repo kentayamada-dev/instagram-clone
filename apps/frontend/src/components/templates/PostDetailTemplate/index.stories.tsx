@@ -20,9 +20,8 @@ const data: PostDetailTemplateProps["data"] = {
   }
 };
 
-export const postDetailTemplate: ComponentStoryObj<typeof PostDetailTemplate> =
-  {
-    args: {
-      data
-    }
-  };
+export const postDetailTemplate: ComponentStoryObj<typeof PostDetailTemplate> = {
+  args: {
+    data
+  }
+};

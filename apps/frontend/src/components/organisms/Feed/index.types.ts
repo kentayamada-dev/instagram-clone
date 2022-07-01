@@ -1,8 +1,4 @@
-import type {
-  GetAllPostsQuery,
-  GetAllUsersQuery,
-  GetCurrentUserQuery
-} from "../../../types/generated/types";
+import type { GetAllPostsQuery, GetAllUsersQuery, GetCurrentUserQuery } from "../../../types/generated/types";
 
 export type FeedProps = {
   loadMorePosts: () => Promise<void>;

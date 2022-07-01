@@ -9,15 +9,8 @@ export class GetCurrentUserModel extends GetUserModel {
   public readonly posts!: GetPostModel[];
 }
 
-export function isPropertyExactlySameAsGetCurrentUserModel<
-  T extends GetCurrentUserModel
->(
-  _: StrictPropertyCheck<
-    T,
-    GetCurrentUserModel,
-    "Only properties of GetCurrentUserModel are allowed"
-  > &
-    T
+export function isPropertyExactlySameAsGetCurrentUserModel<T extends GetCurrentUserModel>(
+  _: StrictPropertyCheck<T, GetCurrentUserModel, "Only properties of GetCurrentUserModel are allowed"> & T
 ): boolean {
   return true;
 }

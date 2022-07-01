@@ -14,15 +14,8 @@ export class GetAllPostsModel extends GetPostModel {
 @ObjectType()
 export class PaginatedGetAllPostsModel extends Paginated(GetAllPostsModel) {}
 
-export function isPropertyExactlySameAsGetAllPostsModel<
-  T extends GetAllPostsModel
->(
-  _: StrictPropertyCheck<
-    T,
-    GetAllPostsModel,
-    "Only properties of GetAllPostsModel are allowed"
-  > &
-    T
+export function isPropertyExactlySameAsGetAllPostsModel<T extends GetAllPostsModel>(
+  _: StrictPropertyCheck<T, GetAllPostsModel, "Only properties of GetAllPostsModel are allowed"> & T
 ): boolean {
   return true;
 }

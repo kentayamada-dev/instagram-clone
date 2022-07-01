@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  AvatarBadge,
-  FormControl,
-  FormErrorMessage,
-  InputGroup
-} from "@chakra-ui/react";
+import { Avatar, AvatarBadge, FormControl, FormErrorMessage, InputGroup } from "@chakra-ui/react";
 import React from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import { constants } from "../../../../../constants";
@@ -16,13 +10,7 @@ const {
   COLORS: { DODGER_BLUE }
 } = constants;
 
-export const ImageSelect: ImageSelectType = ({
-  errors,
-  register,
-  clearErrors,
-  setError,
-  setValue
-}) => {
+export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, setError, setValue }) => {
   const [imagePreviewSrc, setImagePreviewSrc] = React.useState("");
   const fileSizeExceededErrorMessage = useLocale(
     "File size should be less than 10MB",
@@ -36,9 +24,7 @@ export const ImageSelect: ImageSelectType = ({
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ref, onChange, ...rest } = register("file");
-  const handleImageChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const { files } = event.target;
     try {
       const { blobUrl, file } = await getBlobUrlAndFile({

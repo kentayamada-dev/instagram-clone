@@ -10,9 +10,6 @@ module.exports = {
   },
   "*.!(ts)": (absolutePaths) => {
     const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [
-      `prettier --write ${joinedAbsolutePaths}`,
-      `cspell ${joinedAbsolutePaths} --no-must-find-files`
-    ];
+    return [`prettier --write ${joinedAbsolutePaths}`, `cspell ${joinedAbsolutePaths} --no-must-find-files`];
   }
 };

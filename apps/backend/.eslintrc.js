@@ -3,7 +3,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: { tsconfigRootDir: __dirname, project: ["./tsconfig.json"] },
   plugins: ["@typescript-eslint", "import", "typescript-sort-keys"],
-  ignorePatterns: [".eslintrc.js", "coverage/*", "dist/*", "prisma/*", "jest.config.js"],
+  ignorePatterns: [".eslintrc.js", "coverage", "dist", "prisma", "jest.config.js"],
   extends: ["eslint:all", "plugin:@typescript-eslint/all", "plugin:eslint-comments/recommended"],
   rules: {
     // eslint
@@ -36,7 +36,8 @@ module.exports = {
       {
         ignoreComments: true,
         ignorePattern: "^import .*",
-        ignoreStrings: true
+        ignoreStrings: true,
+        code: 120
       }
     ],
     "max-lines": "off",

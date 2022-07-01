@@ -41,11 +41,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
     >
       <HStack align="flex-start" w="100%">
         <Center w="30%">
-          <StyledAvatar
-            alt="Avatar Image"
-            size={avatarSize ?? 90}
-            src={data.imageUrl}
-          />
+          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={data.imageUrl} />
         </Center>
         <Text fontSize="3xl" w="70%">
           {data.name}
@@ -79,14 +75,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
           >
             <NextLink href={`/${data.id}/${post.id}`} passHref>
               <Link>
-                <Image
-                  alt="Post Image"
-                  layout="fill"
-                  objectFit="cover"
-                  priority
-                  quality={100}
-                  src={post.imageUrl}
-                />
+                <Image alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={post.imageUrl} />
               </Link>
             </NextLink>
           </GridItem>

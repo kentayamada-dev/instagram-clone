@@ -41,8 +41,7 @@ export const Form: FormType = ({ isSignup }) => {
     formState: { errors, isSubmitting }
   } = useMyForm({ isSignup });
   const { t } = useTypeSafeTranslation("form");
-  const getValueByAuthMode = <T, U>(valueT: T, valueU: U): T | U =>
-    isSignup ? valueT : valueU;
+  const getValueByAuthMode = <T, U>(valueT: T, valueU: U): T | U => (isSignup ? valueT : valueU);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
   const darkImg = {
@@ -72,12 +71,7 @@ export const Form: FormType = ({ isSignup }) => {
         spacing={10}
         width="350px"
       >
-        <ImageColorMode
-          darkImg={darkImg}
-          height={51}
-          lightImg={lightImg}
-          width={175}
-        />
+        <ImageColorMode darkImg={darkImg} height={51} lightImg={lightImg} width={175} />
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <StyledForm onSubmit={handleSubmit(submitHandler)}>
           <FormControl isInvalid={Boolean(errorMessage)}>
@@ -96,32 +90,16 @@ export const Form: FormType = ({ isSignup }) => {
               ) : null}
               <EmailInput errors={errors} register={register} />
               <PasswordInput errors={errors} register={register} />
-              <Button
-                isLoading={isSubmitting}
-                type="submit"
-                variant="primary"
-                w="100%"
-              >
+              <Button isLoading={isSubmitting} type="submit" variant="primary" w="100%">
                 {getValueByAuthMode(t("signUp"), t("login"))}
               </Button>
             </VStack>
-            <FormErrorMessage justifyContent="center">
-              {errorMessage}
-            </FormErrorMessage>
+            <FormErrorMessage justifyContent="center">{errorMessage}</FormErrorMessage>
           </FormControl>
         </StyledForm>
       </Stack>
-      <Center
-        bgColor={bgColor}
-        borderColor={borderColor}
-        borderWidth="1px"
-        gap={2}
-        h="60px"
-        w="100%"
-      >
-        <Text fontSize="sm">
-          {getValueByAuthMode(t("haveAccount"), t("noAccount"))}
-        </Text>
+      <Center bgColor={bgColor} borderColor={borderColor} borderWidth="1px" gap={2} h="60px" w="100%">
+        <Text fontSize="sm">{getValueByAuthMode(t("haveAccount"), t("noAccount"))}</Text>
         <NextLink href={getValueByAuthMode("/", "/signup")} passHref>
           <Link>{getValueByAuthMode(t("login"), t("signUp"))}</Link>
         </NextLink>

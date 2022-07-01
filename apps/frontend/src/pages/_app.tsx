@@ -13,9 +13,7 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ChakraProvider theme={myTheme}>
-        {getLayout(<Component {...pageProps} />)}
-      </ChakraProvider>
+      <ChakraProvider theme={myTheme}>{getLayout(<Component {...pageProps} />)}</ChakraProvider>
     </ApolloProvider>
   );
 };

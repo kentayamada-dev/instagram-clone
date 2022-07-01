@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
-import {
-  ApolloClient,
-  type NormalizedCacheObject,
-  HttpLink,
-  InMemoryCache
-} from "@apollo/client";
+import { ApolloClient, type NormalizedCacheObject, HttpLink, InMemoryCache } from "@apollo/client";
 import { relayStylePagination } from "@apollo/client/utilities";
 import merge from "deepmerge";
 import isEqual from "lodash/isEqual";
@@ -34,11 +29,8 @@ const createApolloClient = (): ApolloClient<NormalizedCacheObject> =>
     ssrMode: typeof window === "undefined"
   });
 
-export const initializeApollo = (
-  initialState: any = null
-): ApolloClient<NormalizedCacheObject> => {
-  const client: ApolloClient<NormalizedCacheObject> =
-    apolloClient ?? createApolloClient();
+export const initializeApollo = (initialState: any = null): ApolloClient<NormalizedCacheObject> => {
+  const client: ApolloClient<NormalizedCacheObject> = apolloClient ?? createApolloClient();
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (initialState) {
@@ -50,8 +42,7 @@ export const initializeApollo = (
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
         ...destinationArray.filter(
-          (destination) =>
-            sourceArray.every((source) => !isEqual(destination, source))
+          (destination) => sourceArray.every((source) => !isEqual(destination, source))
           // eslint-disable-next-line function-paren-newline
         )
       ]
@@ -68,10 +59,7 @@ export const initializeApollo = (
   return client;
 };
 
-export const addApolloState = (
-  client: ApolloClient<NormalizedCacheObject>,
-  pageProps: any
-): any => {
+export const addApolloState = (client: ApolloClient<NormalizedCacheObject>, pageProps: any): any => {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
@@ -80,9 +68,7 @@ export const addApolloState = (
   return pageProps;
 };
 
-export const useApollo = (
-  pageProps: any
-): ApolloClient<NormalizedCacheObject> => {
+export const useApollo = (pageProps: any): ApolloClient<NormalizedCacheObject> => {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
   const store = React.useMemo(() => initializeApollo(state), [state]);
 

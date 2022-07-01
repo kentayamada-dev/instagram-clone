@@ -14,10 +14,7 @@ export const getImageUrl: GetImageUrlType = async ({ file }) => {
 
   const imageUrl = await axios
     .post(API_URL, data)
-    .then(
-      (response: AxiosResponse<CloudinaryResponseType>) =>
-        response.data.secure_url
-    );
+    .then((response: AxiosResponse<CloudinaryResponseType>) => response.data.secure_url);
 
   return imageUrl;
 };

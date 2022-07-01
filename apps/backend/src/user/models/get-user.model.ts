@@ -14,12 +14,7 @@ export class GetUserModel {
 }
 
 export function isPropertyExactlySameAsGetUserModel<T extends GetUserModel>(
-  _: StrictPropertyCheck<
-    T,
-    GetUserModel,
-    "Only properties of GetUserModel are allowed"
-  > &
-    T
+  _: StrictPropertyCheck<T, GetUserModel, "Only properties of GetUserModel are allowed"> & T
 ): boolean {
   return true;
 }

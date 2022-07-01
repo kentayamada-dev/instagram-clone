@@ -10,8 +10,7 @@ type AuthProps = {
 
 export type GetAuthServerSideProps = GetServerSideProps<AuthProps>;
 
-export type GetAuthServerSidePropsResultType =
-  GetServerSidePropsResult<AuthProps>;
+export type GetAuthServerSidePropsResultType = GetServerSidePropsResult<AuthProps>;
 
 export type NextAuthPageWithLayoutType = NextPageWithLayout<AuthProps>;
 

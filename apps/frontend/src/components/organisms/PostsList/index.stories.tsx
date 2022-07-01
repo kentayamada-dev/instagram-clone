@@ -32,9 +32,7 @@ const post = (index: number): GetAllPostsModel => ({
   }
 });
 
-const postsEdge: PostsListProps["postsEdge"] = new Array(5)
-  .fill(null)
-  .map((_, index) => ({ node: post(index) }));
+const postsEdge: PostsListProps["postsEdge"] = new Array(5).fill(null).map((_, index) => ({ node: post(index) }));
 
 export const postsList: ComponentStoryObj<typeof PostsList> = {
   args: {

@@ -2,10 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useLocale } from "../../libs/next_router";
-import {
-  useLoginMutation,
-  useSignupMutation
-} from "../../types/generated/types";
+import { useLoginMutation, useSignupMutation } from "../../types/generated/types";
 import { getImageUrl } from "../../utils/getImageUrl";
 import type { MyFormType, UseMyFormType } from "./types";
 import type { ApolloError } from "@apollo/client";
@@ -16,10 +13,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
     "The email address you entered is already in use",
     "入力されたメールアドレスは既に使用されています"
   );
-  const emailErrorMessage = useLocale(
-    "Invalid Email or Password",
-    "メールアドレスまたはパスワードが違います"
-  );
+  const emailErrorMessage = useLocale("Invalid Email or Password", "メールアドレスまたはパスワードが違います");
   const unexpectedErrorMessage = useLocale(
     "An unexpected error has occurred. Please wait a few minutes and try again",
     "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
@@ -28,10 +22,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const [login] = useLoginMutation();
   const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const imageBlankErrorMessage = useLocale(
-    "Please select image",
-    "画像を選択してください"
-  );
+  const imageBlankErrorMessage = useLocale("Please select image", "画像を選択してください");
   const { setError, ...rest } = useForm<MyFormType>({ mode: "onSubmit" });
   const handleError = (error: ApolloError): void => {
     const errorStatus: number | undefined =

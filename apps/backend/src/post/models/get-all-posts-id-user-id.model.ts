@@ -11,15 +11,8 @@ export class GetAllPostsIdAndUserId {
   public readonly user!: GetAllUsersId;
 }
 
-export function isPropertyExactlySameAsGetAllPostsIdAndUserId<
-  T extends GetAllPostsIdAndUserId
->(
-  _: StrictPropertyCheck<
-    T,
-    GetAllPostsIdAndUserId,
-    "Only properties of GetAllPostsIdAndUserId are allowed"
-  > &
-    T
+export function isPropertyExactlySameAsGetAllPostsIdAndUserId<T extends GetAllPostsIdAndUserId>(
+  _: StrictPropertyCheck<T, GetAllPostsIdAndUserId, "Only properties of GetAllPostsIdAndUserId are allowed"> & T
 ): boolean {
   return true;
 }

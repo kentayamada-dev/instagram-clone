@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  useColorModeValue
-} from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input, useColorModeValue } from "@chakra-ui/react";
 import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../libs/next_router";
 import { useTypeSafeTranslation } from "../../../../../libs/next_translate";
@@ -16,10 +10,7 @@ const {
 
 export const NameInput: NameInputType = ({ errors, register }) => {
   const { t } = useTypeSafeTranslation("form");
-  const nameBlankErrorMessage = useLocale(
-    "Please enter name",
-    "名前を入力してください"
-  );
+  const nameBlankErrorMessage = useLocale("Please enter name", "名前を入力してください");
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
   const errorMessage = errors.name?.message;
 

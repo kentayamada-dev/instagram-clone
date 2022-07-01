@@ -2,15 +2,8 @@ import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
 import { initializeApollo } from "../../libs/apollo";
-import {
-  GetAllUsersIdDocument,
-  GetUserDocument
-} from "../../types/generated/types";
-import type {
-  GetUserQuery,
-  GetUserQueryVariables,
-  GetAllUsersIdQuery
-} from "../../types/generated/types";
+import { GetAllUsersIdDocument, GetUserDocument } from "../../types/generated/types";
+import type { GetUserQuery, GetUserQueryVariables, GetAllUsersIdQuery } from "../../types/generated/types";
 import type {
   GetUserStaticPathsType,
   GetUserStaticProps,
@@ -57,10 +50,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
 /* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetUserStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
-  const { data: userData, error } = await apolloClient.query<
-    GetUserQuery,
-    GetUserQueryVariables
-  >({
+  const { data: userData, error } = await apolloClient.query<GetUserQuery, GetUserQueryVariables>({
     query: GetUserDocument,
     variables: { getUserId: params?.userId ?? "" }
   });
@@ -88,8 +78,6 @@ const User: NextUserPageWithLayoutType = ({ data }) => {
   return <UserDetailTemplate data={data} />;
 };
 
-User.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram Clone">{page}</Layout>
-);
+User.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
 
 export default User;

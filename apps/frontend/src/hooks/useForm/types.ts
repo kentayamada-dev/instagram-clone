@@ -1,9 +1,4 @@
-import type {
-  FieldErrors,
-  SubmitHandler,
-  UseFormRegister,
-  UseFormReturn
-} from "react-hook-form";
+import type { FieldErrors, SubmitHandler, UseFormRegister, UseFormReturn } from "react-hook-form";
 
 export type MyFormType = {
   email: string;

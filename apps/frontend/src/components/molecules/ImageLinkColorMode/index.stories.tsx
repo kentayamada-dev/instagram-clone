@@ -7,10 +7,9 @@ export default {
   title: "molecules/Image Link Color Mode"
 } as ComponentMeta<typeof ImageLinkColorMode>;
 
-export const imageLinkColorMode: ComponentStoryObj<typeof ImageLinkColorMode> =
-  {
-    args: {
-      ...imageColorMode.args,
-      href: "href"
-    }
-  };
+export const imageLinkColorMode: ComponentStoryObj<typeof ImageLinkColorMode> = {
+  args: {
+    ...imageColorMode.args,
+    href: "href"
+  }
+};

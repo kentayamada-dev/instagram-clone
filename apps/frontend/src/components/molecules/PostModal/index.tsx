@@ -51,20 +51,12 @@ export const PostModal: PostModalType = ({
                 <Image maxH="300px" src={imagePreviewSrc} />
               </Center>
               <HStack mt="6">
-                <StyledAvatar
-                  alt="Avatar Image"
-                  size={30}
-                  src={currentUserAvatarUrl}
-                />
+                <StyledAvatar alt="Avatar Image" size={30} src={currentUserAvatarUrl} />
                 <Text fontWeight="bold" noOfLines={1}>
                   {currentUserName}
                 </Text>
               </HStack>
-              <Input
-                onChange={handleChangeCaption}
-                placeholder={t("writeCaption")}
-                variant="flushed"
-              />
+              <Input onChange={handleChangeCaption} placeholder={t("writeCaption")} variant="flushed" />
             </>
           ) : (
             <>

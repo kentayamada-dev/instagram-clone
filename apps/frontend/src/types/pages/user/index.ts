@@ -10,10 +10,6 @@ export type UserPathsType = MyPathsType<UserUrlQueryType>;
 
 export type GetUserStaticPathsType = GetStaticPaths<UserUrlQueryType>;
 
-export type GetUserStaticProps = GetStaticProps<
-  UserDetailTemplateProps,
-  UserUrlQueryType
->;
+export type GetUserStaticProps = GetStaticProps<UserDetailTemplateProps, UserUrlQueryType>;
 
-export type NextUserPageWithLayoutType =
-  NextPageWithLayout<UserDetailTemplateProps>;
+export type NextUserPageWithLayoutType = NextPageWithLayout<UserDetailTemplateProps>;

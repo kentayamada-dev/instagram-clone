@@ -1,10 +1,4 @@
-import {
-  Flex,
-  IconButton,
-  Button,
-  Box,
-  useColorModeValue
-} from "@chakra-ui/react";
+import { Flex, IconButton, Button, Box, useColorModeValue } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
@@ -41,14 +35,8 @@ export const Header: HeaderType = () => {
     isPostModalOpen,
     handleLogout
   } = useHeader();
-  const {
-    handleCancelPost,
-    handleChangeCaption,
-    handleChangeImage,
-    handleSubmitPost,
-    imageSrc,
-    isPostLoading
-  } = usePost({ handleClosePostModal });
+  const { handleCancelPost, handleChangeCaption, handleChangeImage, handleSubmitPost, imageSrc, isPostLoading } =
+    usePost({ handleClosePostModal });
   const bgColor = useColorModeValue(SNOW, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("A", "あ");
@@ -76,13 +64,7 @@ export const Header: HeaderType = () => {
         w="100%"
         zIndex="1"
       >
-        <ImageLinkColorMode
-          darkImg={instagramDarkImg}
-          height={50}
-          href="/"
-          lightImg={instagramLightImg}
-          width={150}
-        />
+        <ImageLinkColorMode darkImg={instagramDarkImg} height={50} href="/" lightImg={instagramLightImg} width={150} />
         <Flex align="center" gap={5}>
           {isAuthenticated ? (
             <>

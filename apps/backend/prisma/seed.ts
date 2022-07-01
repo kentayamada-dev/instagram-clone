@@ -4,8 +4,7 @@ import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
-const sleep = (msec: number) =>
-  new Promise((resolve) => setTimeout(resolve, msec));
+const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
 
 const NUM_USERS = 5;
 const MAX_NUM_POSTS = 5;
@@ -20,9 +19,7 @@ const UNSPLASH_IMAGES = [
   "https://images.unsplash.com/photo-1649693364265-b4d5af897d99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
 ];
 
-const generatePosts = (
-  numberOfPosts: number
-): Prisma.PostCreateWithoutUserInput[] =>
+const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput[] =>
   [...Array(numberOfPosts)].map((): Prisma.PostCreateWithoutUserInput => {
     const randomBoolean = !getRandomInt(2);
     const caption = randomBoolean && faker.lorem.words();
@@ -33,15 +30,12 @@ const generatePosts = (
     };
   });
 
-const generateUsers = async (
-  numberOfUsers: number
-): Promise<Prisma.UserCreateInput[]> =>
+const generateUsers = async (numberOfUsers: number): Promise<Prisma.UserCreateInput[]> =>
   await Promise.all(
     [...Array(numberOfUsers)].map(async (): Promise<Prisma.UserCreateInput> => {
       const name = faker.name.findName();
       const email = faker.internet.email().toLowerCase();
-      const firstLetterCapitalizedEmail =
-        email.charAt(0).toUpperCase() + email.slice(1);
+      const firstLetterCapitalizedEmail = email.charAt(0).toUpperCase() + email.slice(1);
       const password = firstLetterCapitalizedEmail + 123;
       const hashedPassword = await hash(password, SALT_ROUNDS);
 
@@ -62,9 +56,7 @@ const initDB = async () => {
   for (const { tablename } of tableNames) {
     if (tablename !== "_prisma_migrations") {
       try {
-        await prisma.$executeRawUnsafe(
-          `TRUNCATE TABLE "public"."${tablename}" CASCADE;`
-        );
+        await prisma.$executeRawUnsafe(`TRUNCATE TABLE "public"."${tablename}" CASCADE;`);
       } catch (error) {
         throw new Error(`${error}`);
       }

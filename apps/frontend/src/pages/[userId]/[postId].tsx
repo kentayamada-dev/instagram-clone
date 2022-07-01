@@ -2,15 +2,8 @@ import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
 import { initializeApollo } from "../../libs/apollo";
-import {
-  GetAllPostsIdAndUserIdDocument,
-  GetPostDocument
-} from "../../types/generated/types";
-import type {
-  GetPostQuery,
-  GetPostQueryVariables,
-  GetAllPostsIdAndUserIdQuery
-} from "../../types/generated/types";
+import { GetAllPostsIdAndUserIdDocument, GetPostDocument } from "../../types/generated/types";
+import type { GetPostQuery, GetPostQueryVariables, GetAllPostsIdAndUserIdQuery } from "../../types/generated/types";
 import type {
   PostPathsType,
   GetPostStaticPathsType,
@@ -20,11 +13,9 @@ import type {
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
   const apolloClient = initializeApollo();
-  const { data, error } = await apolloClient.query<GetAllPostsIdAndUserIdQuery>(
-    {
-      query: GetAllPostsIdAndUserIdDocument
-    }
-  );
+  const { data, error } = await apolloClient.query<GetAllPostsIdAndUserIdQuery>({
+    query: GetAllPostsIdAndUserIdDocument
+  });
 
   if (error) {
     throw new Error(`Failed to fetch post, ${error.message}`);
@@ -61,10 +52,7 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
 /* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetPostStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
-  const { data: postData, error } = await apolloClient.query<
-    GetPostQuery,
-    GetPostQueryVariables
-  >({
+  const { data: postData, error } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
     query: GetPostDocument,
     variables: { getPostId: params?.postId ?? "" }
   });
@@ -92,8 +80,6 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
   return <PostDetailTemplate data={data} />;
 };
 
-Post.getLayout = (page): JSX.Element => (
-  <Layout title="Instagram Clone">{page}</Layout>
-);
+Post.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
 
 export default Post;

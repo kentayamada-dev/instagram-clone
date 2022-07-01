@@ -2,11 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useLocale } from "../../libs/next_router";
-import {
-  GetAllPostsDocument,
-  useLogoutMutation,
-  usePostMutation
-} from "../../types/generated/types";
+import { GetAllPostsDocument, useLogoutMutation, usePostMutation } from "../../types/generated/types";
 import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
 import { getImageUrl } from "../../utils/getImageUrl";
 import type { UsePostType } from "./types";
@@ -21,14 +17,8 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     "File size should be less than 10MB",
     "ファイルサイズは10MB以下にしてください"
   );
-  const fileNotSelectedErrorMessage = useLocale(
-    "Please select an image",
-    "画像を選択してください"
-  );
-  const postSuccessMessage = useLocale(
-    "Submission complete!",
-    "投稿が完了しました！"
-  );
+  const fileNotSelectedErrorMessage = useLocale("Please select an image", "画像を選択してください");
+  const postSuccessMessage = useLocale("Submission complete!", "投稿が完了しました！");
   const toast = useToast();
   const [post, { loading: isPostLoading }] = usePostMutation();
   const handleCancelPost = (): void => {
@@ -74,9 +64,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
       });
     }
   };
-  const handleChangeImage = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
+  const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const { files } = event.target;
     try {
       const { blobUrl, file } = await getBlobUrlAndFile({
@@ -101,9 +89,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     // eslint-disable-next-line require-atomic-updates
     event.target.value = "";
   };
-  const handleChangeCaption = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => setCaption(event.target.value);
+  const handleChangeCaption = (event: React.ChangeEvent<HTMLInputElement>): void => setCaption(event.target.value);
 
   return {
     handleCancelPost,

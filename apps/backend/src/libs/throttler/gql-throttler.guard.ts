@@ -9,9 +9,7 @@ type GetRequestResponse = ReturnType<ThrottlerGuard["getRequestResponse"]>;
 @Injectable()
 export class GqlThrottlerGuard extends ThrottlerGuard {
   // eslint-disable-next-line class-methods-use-this
-  protected override getRequestResponse(
-    context: ExecutionContext
-  ): GetRequestResponse {
+  protected override getRequestResponse(context: ExecutionContext): GetRequestResponse {
     const gqlCtx = GqlExecutionContext.create(context);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { req, res } = gqlCtx.getContext<GqlContext>();

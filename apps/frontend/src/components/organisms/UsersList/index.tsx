@@ -11,12 +11,7 @@ export const UsersList: UsersListType = ({ usersEdge }) => {
 
           return (
             <Box key={user.id} w="100%">
-              <UserCard
-                size={35}
-                src={user.imageUrl}
-                userId={user.id}
-                userName={user.name}
-              />
+              <UserCard size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
             </Box>
           );
         })}

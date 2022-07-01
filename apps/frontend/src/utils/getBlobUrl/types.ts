@@ -9,6 +9,4 @@ type GetBlobUrlAndFileReturnType = {
   blobUrl: string;
 };
 
-export type GetBlobUrlAndFileType = (
-  props: GetBlobUrlAndFileProps
-) => Promise<GetBlobUrlAndFileReturnType>;
+export type GetBlobUrlAndFileType = (props: GetBlobUrlAndFileProps) => Promise<GetBlobUrlAndFileReturnType>;

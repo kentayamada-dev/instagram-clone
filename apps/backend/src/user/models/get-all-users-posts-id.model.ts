@@ -8,12 +8,7 @@ export class GetAllUsersId {
 }
 
 export function isPropertyExactlySameAsGetAllUsersId<T extends GetAllUsersId>(
-  _: StrictPropertyCheck<
-    T,
-    GetAllUsersId,
-    "Only properties of GetAllUsersId are allowed"
-  > &
-    T
+  _: StrictPropertyCheck<T, GetAllUsersId, "Only properties of GetAllUsersId are allowed"> & T
 ): boolean {
   return true;
 }

@@ -17,12 +17,7 @@ export class GetPostModel {
 }
 
 export function isPropertyExactlySameAsGetPostModel<T extends GetPostModel>(
-  _: StrictPropertyCheck<
-    T,
-    GetPostModel,
-    "Only properties of GetPostModel are allowed"
-  > &
-    T
+  _: StrictPropertyCheck<T, GetPostModel, "Only properties of GetPostModel are allowed"> & T
 ): boolean {
   return true;
 }

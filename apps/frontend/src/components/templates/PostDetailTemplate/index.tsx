@@ -1,11 +1,4 @@
-import {
-  Box,
-  HStack,
-  Link,
-  VStack,
-  Text,
-  useColorModeValue
-} from "@chakra-ui/react";
+import { Box, HStack, Link, VStack, Text, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { constants } from "../../../constants";
@@ -62,14 +55,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
           pos="relative"
           w="100%"
         >
-          <Image
-            alt="Post Image"
-            layout="fill"
-            objectFit="cover"
-            priority
-            quality={100}
-            src={data.imageUrl}
-          />
+          <Image alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={data.imageUrl} />
         </Box>
         {data.caption !== null && (
           <HStack p="3" w="100%">

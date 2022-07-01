@@ -2,11 +2,7 @@ import { ApolloError } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import React from "react";
 import { useLocale } from "../../../libs/next_router";
-import {
-  useGetAllPostsQuery,
-  useGetAllUsersQuery,
-  useGetCurrentUserQuery
-} from "../../../types/generated/types";
+import { useGetAllPostsQuery, useGetAllUsersQuery, useGetCurrentUserQuery } from "../../../types/generated/types";
 import { Feed } from "../../organisms/Feed";
 import type { HomeTemplateType } from "./index.types";
 
@@ -62,11 +58,6 @@ export const HomeTemplate: HomeTemplateType = () => {
   }, []);
 
   return (
-    <Feed
-      currentUserData={currentUserData}
-      loadMorePosts={loadMorePosts}
-      postsData={postsData}
-      usersData={usersData}
-    />
+    <Feed currentUserData={currentUserData} loadMorePosts={loadMorePosts} postsData={postsData} usersData={usersData} />
   );
 };

@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  useColorModeValue
-} from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input, useColorModeValue } from "@chakra-ui/react";
 import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../libs/next_router";
 import { useTypeSafeTranslation } from "../../../../../libs/next_translate";
@@ -18,10 +12,7 @@ export const EmailInput: EmailInputType = ({ errors, register }) => {
   const { t } = useTypeSafeTranslation("form");
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
   const errorMessage = errors.email?.message;
-  const emailBlankErrorMessage = useLocale(
-    "Please enter email address",
-    "メールアドレスを入力してください"
-  );
+  const emailBlankErrorMessage = useLocale("Please enter email address", "メールアドレスを入力してください");
 
   return (
     <FormControl isInvalid={Boolean(errorMessage)}>

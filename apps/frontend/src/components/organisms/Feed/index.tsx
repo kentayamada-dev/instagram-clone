@@ -6,12 +6,7 @@ import { PostsList } from "../PostsList";
 import { UsersList } from "../UsersList";
 import type { FeedType } from "./index.types";
 
-export const Feed: FeedType = ({
-  postsData,
-  loadMorePosts,
-  currentUserData,
-  usersData
-}) => {
+export const Feed: FeedType = ({ postsData, loadMorePosts, currentUserData, usersData }) => {
   const { t } = useTypeSafeTranslation("common");
 
   return (

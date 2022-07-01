@@ -1,9 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { UserDetailTemplate } from ".";
-import type {
-  GetPostModel,
-  GetUserQuery
-} from "../../../types/generated/types";
+import type { GetPostModel, GetUserQuery } from "../../../types/generated/types";
 import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 
 export default {
@@ -18,18 +15,15 @@ const post = (index: number): GetPostModel => ({
   imageUrl: "/static/landingPage/slide/1.png"
 });
 
-const posts: GetUserQuery["getUser"]["posts"] = new Array(5)
-  .fill(null)
-  .map((_, index) => post(index));
+const posts: GetUserQuery["getUser"]["posts"] = new Array(5).fill(null).map((_, index) => post(index));
 
-export const userDetailTemplate: ComponentStoryObj<typeof UserDetailTemplate> =
-  {
-    args: {
-      data: {
-        id: "userId",
-        imageUrl: "/static/landingPage/slide/2.png",
-        name: "userName",
-        posts
-      }
+export const userDetailTemplate: ComponentStoryObj<typeof UserDetailTemplate> = {
+  args: {
+    data: {
+      id: "userId",
+      imageUrl: "/static/landingPage/slide/2.png",
+      name: "userName",
+      posts
     }
-  };
+  }
+};
