@@ -9,7 +9,7 @@ env:
   JWT_SECRET: jwt_secret
   FRONTEND_ORIGIN: http://localhost:3002
   NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
 
 jobs:
   Detect-Changes:
@@ -32,21 +32,14 @@ jobs:
     # if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true'
     needs: [Detect-Changes]
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
     steps:
+      - name: Setup PostgreSQL
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: "14"
+          postgresql db: postgres
+          postgresql user: postgres
+          postgresql password: postgres
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Install packages
