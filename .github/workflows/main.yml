@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/app
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
   JWT_SECRET: jwt_secret
   FRONTEND_ORIGIN: http://localhost:3002
   NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
@@ -36,9 +36,10 @@ jobs:
       image: cypress/browsers:latest
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
@@ -52,6 +53,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install packages
         uses: bahmutov/npm-install@v1
+      - name: Seed data to database
+        run: make init
       - name: Start backend app
         run: yarn dev
         working-directory: apps/backend
