@@ -47,7 +47,7 @@ jobs:
         ports:
           - 5432:5432
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/instagram-clone
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/instagram-clone
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
