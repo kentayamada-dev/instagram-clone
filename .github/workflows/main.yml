@@ -48,7 +48,7 @@ jobs:
         run: yarn prisma:init
         working-directory: apps/backend
       - name: Start backend app
-        run: yarn dev
+        run: yarn dev &
         working-directory: apps/backend
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
