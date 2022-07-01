@@ -9,7 +9,7 @@ env:
   JWT_SECRET: jwt_secret
   FRONTEND_ORIGIN: http://localhost:3002
   NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
-  DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+  DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
 
 jobs:
   Detect-Changes:
@@ -55,6 +55,8 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Seed database
         run: yarn prisma:init
+        env:
+          DATABASE_URL: "postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres"
         working-directory: apps/backend
       - name: Start backend app
         run: yarn dev
