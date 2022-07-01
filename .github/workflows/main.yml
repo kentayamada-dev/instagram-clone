@@ -22,7 +22,8 @@ jobs:
             frontend:
               - 'apps/frontend/!(cypress)/**'
 
-  Test-E2E:
+  E2E-Test:
+    needs: [Detect-Changes]
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:latest
@@ -43,7 +44,7 @@ jobs:
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
-    needs: [Detect-Changes]
+    needs: [E2E-Test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
