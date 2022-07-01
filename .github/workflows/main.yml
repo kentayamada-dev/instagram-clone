@@ -22,7 +22,7 @@ jobs:
             frontend:
               - 'apps/frontend/!(cypress)/**'
 
-  E2E-TEST:
+  Test-E2E:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:latest
@@ -39,7 +39,7 @@ jobs:
         if: always()
         with:
           name: Cypress Videos
-          path: cypress/videos
+          path: e2e/cypress/videos
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'

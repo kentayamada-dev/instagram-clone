@@ -8,6 +8,7 @@
     "Makefile",
     "Dockerfile",
     "devcontainer.json",
-    "docker-compose.yml"
+    "docker-compose.yml",
+    ".gitignore"
   ]
 }

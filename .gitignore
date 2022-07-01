@@ -28,3 +28,6 @@ schema.graphql
 
 # eslint
 .eslintcache
+
+# cypress
+apps/frontend/cypress/videos

@@ -2,3 +2,4 @@ Dockerfile
 Makefile
 .prettierignore
 yarn.lock
+.gitignore
