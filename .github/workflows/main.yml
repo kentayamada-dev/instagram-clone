@@ -45,8 +45,7 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Start backend app
         run: yarn dev
-        with:
-          working-directory: apps/backend
+        working-directory: apps/backend
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
