@@ -3,6 +3,7 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
+  "forwardPorts": [8080],
   "settings": {
     "files.associations": {
       "devcontainer.json": "json"

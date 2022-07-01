@@ -22,6 +22,18 @@ jobs:
             frontend:
               - 'apps/frontend/**'
 
+  E2E-TEST:
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node12.18.3-chrome87-ff82
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Chrome Tests
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
     needs: [Detect-Changes]

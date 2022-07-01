@@ -20,6 +20,13 @@ services:
       - FRONTEND_ORIGIN=http://localhost:3002
       - NODE_ENV=development
       - NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL=http://localhost:5001/graphql
+      # cypress env
+      - DISPLAY=:14
+      - LIBGL_ALWAYS_INDIRECT=0
+    volumes_from:
+      - x11-bridge:rw
+    depends_on:
+      - x11-bridge
 
   db-dev:
     container_name: "db_dev"
@@ -34,16 +41,19 @@ services:
     ports:
       - 5432:5432
 
-  # db-test:
-  #   container_name: "db_test"
-  #   image: postgres:latest
-  #   restart: always
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_DB: postgres
-  #     POSTGRES_PASSWORD: postgres
-  #   ports:
-  #     - 5433:5432
+  x11-bridge:
+    image: jare/x11-bridge
+    volumes:
+      - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      MODE: tcp
+      XPRA_HTML: "yes"
+      DISPLAY: ":14"
+      XPRA_TCP_PORT: "8080"
+      XPRA_PASSWORD: "0526"
 
 volumes:
   postgres-data:
