@@ -39,7 +39,7 @@ jobs:
         if: always()
         with:
           name: Cypress Videos
-          path: e2e/cypress/videos
+          path: apps/frontend/cypress/videos
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
