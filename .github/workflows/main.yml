@@ -38,6 +38,8 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
