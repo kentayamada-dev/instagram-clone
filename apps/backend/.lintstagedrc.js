@@ -1,5 +1,6 @@
 module.exports = {
   "*.ts": (absolutePaths) => {
+    console.log("apps/backend > *.ts", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [
       `eslint --fix ${joinedAbsolutePaths}`,
@@ -8,7 +9,8 @@ module.exports = {
       `tsc -p ${process.cwd()}/apps/backend/tsconfig.json --noEmit`
     ];
   },
-  "*.!(ts)": (absolutePaths) => {
+  "*.!(*ts)": (absolutePaths) => {
+    console.log("apps/backend > *.!(*ts)", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [`prettier --write ${joinedAbsolutePaths}`, `cspell ${joinedAbsolutePaths} --no-must-find-files`];
   }

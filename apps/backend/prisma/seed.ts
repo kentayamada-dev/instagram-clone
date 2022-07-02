@@ -18,6 +18,13 @@ const UNSPLASH_IMAGES = [
   "https://images.unsplash.com/photo-1649693002660-d63a4ff387ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
   "https://images.unsplash.com/photo-1649693364265-b4d5af897d99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
 ];
+const TEST_USER = {
+  imageUrl:
+    "https://images.unsplash.com/photo-1649693364265-b4d5af897d99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+  name: "Test User",
+  email: "testuser@gmail.com",
+  password: "Test@12345"
+};
 
 const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput[] =>
   [...Array(numberOfPosts)].map((): Prisma.PostCreateWithoutUserInput => {
@@ -90,7 +97,8 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
 
 (async () => {
   const generatedUsers = await generateUsers(NUM_USERS);
-  const userData: Prisma.UserCreateInput[] = [...generatedUsers];
+  const userToBeTested = { ...TEST_USER, password: await hash(TEST_USER.password, SALT_ROUNDS) };
+  const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested];
 
   try {
     await initDB();
