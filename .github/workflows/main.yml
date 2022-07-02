@@ -55,6 +55,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        env:
+          CYPRESS_CACHE_FOLDER: "./node_modules/.cypress"
         run: yarn install
       - name: Seed database
         run: yarn prisma:init
