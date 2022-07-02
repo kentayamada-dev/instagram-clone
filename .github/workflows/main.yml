@@ -49,10 +49,10 @@ jobs:
         uses: actions/cache@v3
         id: node_modules_cache_id
         env:
-          cache-name: cache-node-modules
+          cache-name: node-modules-cache
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install
@@ -71,6 +71,7 @@ jobs:
           JWT_SECRET: jwt_secret
           FRONTEND_ORIGIN: http://localhost:3002
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
