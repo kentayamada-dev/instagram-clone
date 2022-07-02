@@ -65,9 +65,9 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-          start: yarn dev
+          start: "cd .. && yarn dev"
           wait-on: "http://localhost:3002, http://localhost:5001"
-          config-file: apps/frontend/cypress.config.ts
+          working-directory: apps/frontend
         env:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
           JWT_SECRET: jwt_secret
