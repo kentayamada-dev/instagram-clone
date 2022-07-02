@@ -30,5 +30,4 @@
     "GraphQL.vscode-graphql"
   ],
   "postCreateCommand": "make clean && yarn install && make initdb",
-  "remoteUser": "node"
 }

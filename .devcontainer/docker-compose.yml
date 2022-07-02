@@ -15,7 +15,6 @@ services:
       - common-node_modules:/workspace/node_modules
       - ~/.ssh:/root/.ssh
     command: sleep infinity
-    user: node
     network_mode: host
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres?schema=public
