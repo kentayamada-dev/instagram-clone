@@ -19,6 +19,7 @@
   - TypeScript
   - Light/Dark Modes
   - Internationalized Routing
+  - Cypress
 
 - Backend
   - Node.js (NestJS)
@@ -29,6 +30,7 @@
   - Helmet
   - CORS
   - Rate Limiting
+  - Jest
 
 - Auth
   - Cookie
@@ -49,3 +51,4 @@
   - GraphQL Code Generator
   - Prettier
   - CSpell
+  - GitHub Actions
