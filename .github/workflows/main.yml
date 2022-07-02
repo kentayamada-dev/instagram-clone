@@ -61,10 +61,10 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
-      - name: Test On Electron
+      - name: Test On Firefox
         uses: cypress-io/github-action@v4
         with:
-          browser: electron
+          browser: firefox
           start: yarn dev
           wait-on: "http://localhost:3002, http://localhost:5001"
         env:
