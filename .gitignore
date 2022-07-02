@@ -30,4 +30,4 @@ schema.graphql
 .eslintcache
 
 # cypress
-apps/frontend/cypress/videos
+cypress/videos

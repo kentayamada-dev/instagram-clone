@@ -6,15 +6,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ["./tsconfig.json"]
   },
-  ignorePatterns: [
-    "coverage",
-    "src/types/generated",
-    "dist",
-    "next-env.d.ts",
-    "**/*.js",
-    "cypress",
-    "cypress.config.ts"
-  ],
+  ignorePatterns: ["coverage", "src/types/generated", "dist", "next-env.d.ts", "**/*.js"],
   settings: {
     next: {
       rootDir: "apps/frontend"
