@@ -19,7 +19,7 @@
     "prebuild:nest": "run-s clean:nest prisma:generate",
     "predev": "run-p prisma:generate",
     "predev:nest": "run-p kill-port:nest",
-    "prelint": "run-p format",
+    "postlint": "run-p format",
     "pretest": "run-p prisma:generate",
     "prisma:generate": "prisma generate",
     "prisma:init": "run-s prisma:generate prisma:migrate:dev prisma:seed",

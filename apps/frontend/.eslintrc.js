@@ -72,6 +72,7 @@ module.exports = {
     "max-lines-per-function": "off",
     "max-statements": "off",
     "multiline-ternary": "off",
+    "newline-per-chained-call": "off",
     "no-confusing-arrow": [
       "error",
       {

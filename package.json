@@ -34,7 +34,6 @@
     "lint:cspell": "turbo run cspell --parallel --continue=false",
     "lint:eslint": "turbo run eslint --parallel --continue=false",
     "lint:type-check": "turbo run type-check --parallel --continue=false",
-    "prelint": "run-p format",
     "prepare": "husky install",
     "preprod": "run-p kill-port:*",
     "test": "turbo run test --parallel --continue=false"
