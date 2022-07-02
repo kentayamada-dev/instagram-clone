@@ -15,7 +15,7 @@
     "cypress:headless": "cypress run",
     "e2e": "start-server-and-test dev:next http://localhost:3002 cypress",
     "e2e:headless": "start-server-and-test dev:next http://localhost:3002 cypress:headless",
-    "dev": "run-p dev:*",
+    "dev": "run-p dev:next",
     "dev:next": "next dev -p 3002",
     "dev:storybook": "start-storybook -c .storybook -p 6006 --ci",
     "eslint": "next lint --fix",
