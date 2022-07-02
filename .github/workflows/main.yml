@@ -67,14 +67,17 @@ jobs:
           JWT_SECRET: jwt_secret
           FRONTEND_ORIGIN: http://localhost:3002
         working-directory: apps/backend
+      - name: Start frontend app
+        run: yarn dev:next &
+        env:
+          NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
+        working-directory: apps/frontend
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
           working-directory: apps/frontend
           wait-on: "http://localhost:3002, http://localhost:5001"
-        env:
-          NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
