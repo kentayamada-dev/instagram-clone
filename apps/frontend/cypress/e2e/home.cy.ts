@@ -6,5 +6,6 @@ describe("Form Test", () => {
     cy.get('[type="email"]').type(email).should("have.value", email);
     cy.get('[type="password"]').type(password).should("have.value", password);
     cy.get("form").submit();
+    cy.wait(5000);
   });
 });
