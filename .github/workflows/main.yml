@@ -52,8 +52,9 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install packages
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         env:
           CYPRESS_CACHE_FOLDER: "./node_modules/.cypress"
         run: yarn install
@@ -72,6 +73,7 @@ jobs:
         run: yarn e2e:headless
         env:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
+          CYPRESS_CACHE_FOLDER: "./node_modules/.cypress"
         working-directory: apps/frontend
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
