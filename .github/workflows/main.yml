@@ -71,6 +71,7 @@ jobs:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
           JWT_SECRET: jwt_secret
           FRONTEND_ORIGIN: http://localhost:3002
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
