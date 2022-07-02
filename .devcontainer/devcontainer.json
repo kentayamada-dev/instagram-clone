@@ -29,5 +29,5 @@
     "styled-components.vscode-styled-components",
     "GraphQL.vscode-graphql"
   ],
-  "postCreateCommand": "make clean && yarn install && make initdb",
+  "postCreateCommand": "make clean && yarn install && make initdb"
 }

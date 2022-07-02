@@ -1,2 +1,3 @@
 tasks:
-  - command: npm install -g @devcontainers/cli && devcontainer up --workspace-folder .
+  - init: yarn install
+    command: npm install -g @devcontainers/cli && devcontainer up --workspace-folder .
