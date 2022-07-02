@@ -9,6 +9,7 @@
     "Dockerfile",
     "devcontainer.json",
     "docker-compose.yml",
-    ".gitignore"
+    ".gitignore",
+    ".gitpod.yml"
   ]
 }
