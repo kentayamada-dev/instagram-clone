@@ -87,7 +87,7 @@ jobs:
           path: cypress/screenshots
 
   Build-Backend:
-    if: needs.Detect-Changes.outputs.backend == 'true'
+    if: needs.Detect-Changes.outputs.backend == 'true' && !failure()
     needs: [E2E-Test]
     runs-on: ubuntu-latest
     steps:

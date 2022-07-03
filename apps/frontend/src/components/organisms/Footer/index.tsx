@@ -27,7 +27,7 @@ export const Footer: FooterType = () => {
           </Center>
         </VStack>
         <VStack>
-          <Text fontSize="xs">Referring to</Text>
+          <Text fontSize="xs">Inspired by</Text>
           <ImageLink
             alt="Instagram"
             height={25}
