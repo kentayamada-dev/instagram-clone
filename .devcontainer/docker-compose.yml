@@ -55,7 +55,7 @@ services:
       XPRA_HTML: "yes"
       DISPLAY: ":14"
       XPRA_TCP_PORT: "8080"
-      XPRA_PASSWORD: "0526"
+      XPRA_PASSWORD: ""
 
 volumes:
   postgres-data:

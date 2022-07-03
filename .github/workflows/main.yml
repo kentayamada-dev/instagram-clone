@@ -30,7 +30,7 @@ jobs:
   E2E-Test:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
     needs: [Detect-Changes]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Setup PostgreSQL
         uses: harmon758/postgresql-action@v1
