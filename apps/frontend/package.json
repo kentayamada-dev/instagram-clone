@@ -22,12 +22,12 @@
     "kill-port:next": "kill-port 3002",
     "kill-port:storybook": "kill-port 6006",
     "lint": "run-p eslint cspell type-check",
+    "postlint": "run-p format",
     "prebuild:next": "run-p clean:next",
     "prebuild:storybook": "run-s clean:storybook copy-static",
     "precopy-static": "run-p clean:copy-static",
     "predev:next": "run-s kill-port:next",
     "predev:storybook": "run-s kill-port:storybook copy-static",
-    "postlint": "run-p format",
     "prod": "next start",
     "type-check": "tsc --noEmit"
   },
