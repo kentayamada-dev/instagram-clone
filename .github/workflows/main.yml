@@ -62,11 +62,7 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
       - name: Test On Chrome
-        uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          start: yarn dev
-          wait-on: "http://localhost:3002, http://localhost:5001"
+        run: yarn e2e:headless
         env:
           JWT_SECRET: jwt_secret
           FRONTEND_ORIGIN: http://localhost:3002
