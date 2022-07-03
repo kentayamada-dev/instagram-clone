@@ -34,7 +34,7 @@
     "e2e:headless": "start-test dev \"3002|5001\" cypress:headless",
     "format": "run-p format:*",
     "format:apps": "turbo run format --parallel --continue=false",
-    "format:root": "prettier --write .",
+    "format:root": "prettier --write . '!apps/**/*'",
     "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
     "kill-port:backend": "kill-port 5001",
     "kill-port:frontend": "kill-port 3000",

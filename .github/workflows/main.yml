@@ -78,6 +78,12 @@ jobs:
         with:
           name: Cypress Videos
           path: cypress/videos
+      - name: Upload Test Screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Cypress Screenshots
+          path: cypress/screenshots
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'

@@ -31,3 +31,4 @@ schema.graphql
 
 # cypress
 cypress/videos
+cypress/screenshots

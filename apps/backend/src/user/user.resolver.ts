@@ -21,13 +21,16 @@ import { GetUserModel, isPropertyExactlySameAsGetUserModel } from "./models/get-
 import type { Edge } from "../pagination/pagination.model";
 import type { ConfigSchema } from "../utils/config/config.schema";
 import type { GetAllUsersModel } from "./models/get-all-users.model";
+import type { CookieOptions } from "express";
 
 @Resolver()
 export class UserResolver {
-  private readonly isDevelopment: boolean;
-  private readonly domain: string;
   private readonly saltRounds = 10;
   private readonly accessTokenKey = "accessToken";
+  private readonly cookieOptions: CookieOptions = {
+    httpOnly: true
+  };
+
   public constructor(
     private readonly prismaService: PrismaService,
     private readonly authService: AuthService,
@@ -36,8 +39,13 @@ export class UserResolver {
     const urlObject = new URL(this.configService.get("FRONTEND_ORIGIN") ?? "");
     const hostName = urlObject.hostname;
     const domainName = hostName.replace(/^[^.]+\./gu, "");
-    this.domain = `.${domainName}`;
-    this.isDevelopment = process.env["NODE_ENV"] === "development";
+    const isDevelopment = process.env["NODE_ENV"] === "development";
+    this.cookieOptions = {
+      ...this.cookieOptions,
+      ...(isDevelopment ? {} : { domain: `.${domainName}` }),
+      sameSite: "strict",
+      secure: !isDevelopment
+    };
   }
 
   @Query(() => [GetAllUsersId], { description: "Get All Users ID" })
@@ -160,12 +168,7 @@ export class UserResolver {
     });
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
-    res.cookie(this.accessTokenKey, accessToken, {
-      ...(this.isDevelopment ? {} : { domain: this.domain }),
-      httpOnly: true,
-      sameSite: "strict",
-      secure: !this.isDevelopment
-    });
+    res.cookie(this.accessTokenKey, accessToken, this.cookieOptions);
 
     return { message: "Cookie has been set successfully" };
   }
@@ -192,12 +195,7 @@ export class UserResolver {
 
     const { accessToken } = this.authService.getJwtToken(foundUser.id);
 
-    res.cookie(this.accessTokenKey, accessToken, {
-      ...(this.isDevelopment ? {} : { domain: this.domain }),
-      httpOnly: true,
-      sameSite: "strict",
-      secure: !this.isDevelopment
-    });
+    res.cookie(this.accessTokenKey, accessToken, this.cookieOptions);
 
     return { message: "Cookie has been set successfully" };
   }
@@ -205,11 +203,8 @@ export class UserResolver {
   @Mutation(() => MessageModel, { description: "Logout" })
   protected logout(@Context("res") res: Response): MessageModel {
     res.cookie(this.accessTokenKey, "", {
-      ...(this.isDevelopment ? {} : { domain: this.domain }),
-      httpOnly: true,
-      maxAge: -1,
-      sameSite: "strict",
-      secure: !this.isDevelopment
+      ...this.cookieOptions,
+      httpOnly: true
     });
 
     return { message: "Cookie has been deleted successfully" };
