@@ -1,8 +1,8 @@
-import { Box, HStack, Link, VStack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, HStack, VStack, Text, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
-import NextLink from "next/link";
 import { constants } from "../../../constants";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
+import { TextLink } from "../../atoms/TextLink";
 import type { PostDetailTemplateType } from "./index.types";
 
 const {
@@ -41,11 +41,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
       >
         <HStack p="3" w="100%">
           <StyledAvatar alt="Avatar Image" size={35} src={data.user.imageUrl} />
-          <NextLink href={`/${data.user.id}`} passHref>
-            <Link>
-              <Text fontWeight="bold">{data.user.name}</Text>
-            </Link>
-          </NextLink>
+          <TextLink fontWeight="semibold" href={`/${data.user.id}`} text={data.user.name} />
         </HStack>
         <Box
           h={{

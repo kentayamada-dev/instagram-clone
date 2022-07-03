@@ -11,7 +11,7 @@ export const UsersList: UsersListType = ({ usersEdge }) => {
 
           return (
             <Box key={user.id} w="100%">
-              <UserCard size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
+              <UserCard isVisibleUnderline size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
             </Box>
           );
         })}
@@ -24,7 +24,7 @@ export const UsersList: UsersListType = ({ usersEdge }) => {
       {[...Array(5)].map((_, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Box key={index} w="100%">
-          <UserCard size={35} />
+          <UserCard isVisibleUnderline size={35} />
         </Box>
       ))}
     </>

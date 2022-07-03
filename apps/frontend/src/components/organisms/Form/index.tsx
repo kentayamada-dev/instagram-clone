@@ -5,16 +5,15 @@ import {
   Stack,
   VStack,
   Text,
-  Link,
   useColorModeValue,
   FormErrorMessage
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import NextLink from "next/link";
 import { constants } from "../../../constants";
 import { useMyForm } from "../../../hooks/useForm";
 import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
+import { TextLink } from "../../atoms/TextLink";
 import { EmailInput } from "./components/EmailInput";
 import { ImageSelect } from "./components/ImageSelect";
 import { NameInput } from "./components/NameInput";
@@ -26,7 +25,7 @@ const StyledForm = styled.form`
 `;
 
 const {
-  COLORS: { WHITE, EBONY, BLACK_PEARL }
+  COLORS: { WHITE, EBONY, BLACK_PEARL, DODGER_BLUE }
 } = constants;
 
 export const Form: FormType = ({ isSignup }) => {
@@ -100,9 +99,12 @@ export const Form: FormType = ({ isSignup }) => {
       </Stack>
       <Center bgColor={bgColor} borderColor={borderColor} borderWidth="1px" gap={2} h="60px" w="100%">
         <Text fontSize="sm">{getValueByAuthMode(t("haveAccount"), t("noAccount"))}</Text>
-        <NextLink href={getValueByAuthMode("/", "/signup")} passHref>
-          <Link>{getValueByAuthMode(t("login"), t("signUp"))}</Link>
-        </NextLink>
+        <TextLink
+          fontWeight="semibold"
+          href={getValueByAuthMode("/", "/signup")}
+          text={getValueByAuthMode(t("login"), t("signUp"))}
+          textColor={DODGER_BLUE}
+        />
       </Center>
     </VStack>
   );

@@ -5,7 +5,6 @@
     "chakra",
     "vercel",
     "Vercel",
-    "Kenta",
     "Chakra",
     "msapplication",
     "signup",
@@ -15,7 +14,8 @@
     "Apollographql",
     "scroller",
     "Dimentions",
-    "deepmerge"
+    "deepmerge",
+    "semibold"
   ],
   "ignorePaths": [
     "package.json",

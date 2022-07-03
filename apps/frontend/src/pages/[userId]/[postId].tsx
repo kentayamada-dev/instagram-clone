@@ -49,7 +49,6 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
   };
 };
 
-/* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetPostStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
   const { data: postData, error } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
@@ -68,7 +67,6 @@ export const getStaticProps: GetPostStaticProps = async ({ params }) => {
     revalidate: 1
   };
 };
-/* eslint-enable @typescript-eslint/indent */
 
 const Post: NextPostPageWithLayoutType = ({ data }) => {
   const router = useRouter();

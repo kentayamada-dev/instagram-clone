@@ -11,8 +11,6 @@ export type PostPathsType = MyPathsType<PostUrlQueryType>;
 
 export type GetPostStaticPathsType = GetStaticPaths<PostUrlQueryType>;
 
-/* eslint-disable @typescript-eslint/indent */
 export type GetPostStaticProps = GetStaticProps<PostDetailTemplateProps, PostUrlQueryType>;
-/* eslint-enable @typescript-eslint/indent */
 
 export type NextPostPageWithLayoutType = NextPageWithLayout<PostDetailTemplateProps>;

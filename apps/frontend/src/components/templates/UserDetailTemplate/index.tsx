@@ -75,7 +75,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
           >
             <NextLink href={`/${data.id}/${post.id}`} passHref>
               <Link>
-                <Image alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={post.imageUrl} />
+                <Image alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.imageUrl} />
               </Link>
             </NextLink>
           </GridItem>

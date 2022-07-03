@@ -14,7 +14,8 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "graphql-config.load.rootDir": "apps/frontend",
     "javascript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.importModuleSpecifier": "relative"
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.jsxAttributeCompletionStyle": "none"
   },
   "extensions": [
     "esbenp.prettier-vscode",

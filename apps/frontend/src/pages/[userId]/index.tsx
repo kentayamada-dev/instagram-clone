@@ -47,7 +47,6 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
   };
 };
 
-/* eslint-disable @typescript-eslint/indent */
 export const getStaticProps: GetUserStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
   const { data: userData, error } = await apolloClient.query<GetUserQuery, GetUserQueryVariables>({
@@ -66,7 +65,6 @@ export const getStaticProps: GetUserStaticProps = async ({ params }) => {
     revalidate: 1
   };
 };
-/* eslint-enable @typescript-eslint/indent */
 
 const User: NextUserPageWithLayoutType = ({ data }) => {
   const router = useRouter();

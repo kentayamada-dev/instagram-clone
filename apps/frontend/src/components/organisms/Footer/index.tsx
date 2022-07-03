@@ -1,9 +1,17 @@
 import { Flex, VStack, Text, Divider, Center } from "@chakra-ui/react";
+import { constants } from "../../../constants";
+import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageLink } from "../../atoms/ImageLink";
+import { TextLink } from "../../atoms/TextLink";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import type { FooterType } from "./index.types";
 
+const {
+  COLORS: { DODGER_BLUE }
+} = constants;
+
 export const Footer: FooterType = () => {
+  const { t } = useTypeSafeTranslation("common");
   const darkImg = {
     alt: "Vercel Logo Dark",
     src: "/static/vercel/logo_dark.png"
@@ -19,11 +27,14 @@ export const Footer: FooterType = () => {
       <Divider w="80%" />
       <Flex justify="space-around" w="100%">
         <VStack>
-          <Text fontSize="xs">Created by</Text>
+          <Text fontSize="xs">{t("contactSupport")}</Text>
           <Center>
-            <Text fontSize="md" fontWeight="extrabold">
-              Kenta Yamada
-            </Text>
+            <TextLink
+              fontWeight="semibold"
+              href="mailto:user@support@instagram-clone.net"
+              text={t("email")}
+              textColor={DODGER_BLUE}
+            />
           </Center>
         </VStack>
         <VStack>

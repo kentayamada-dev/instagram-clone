@@ -116,14 +116,7 @@ module.exports = {
     "sort-imports": "off",
     // typescript-eslint
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-    "@typescript-eslint/indent": [
-      "error",
-      2,
-      {
-        MemberExpression: "off",
-        SwitchCase: 1
-      }
-    ],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -297,6 +290,8 @@ module.exports = {
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         "newlines-between": "never"
       }
-    ]
+    ],
+    // eslint-plugin-next
+    "@next/next/no-html-link-for-pages": ["error", "src/pages"]
   }
 };
