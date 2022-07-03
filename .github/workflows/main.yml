@@ -30,7 +30,7 @@ jobs:
   E2E-Test:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
     needs: [Detect-Changes]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Setup PostgreSQL
         uses: harmon758/postgresql-action@v1
@@ -61,10 +61,10 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
-      - name: Test On Firefox
+      - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
-          browser: firefox
+          browser: chrome
           start: yarn dev
           wait-on: "http://localhost:3002, http://localhost:5001"
         env:
