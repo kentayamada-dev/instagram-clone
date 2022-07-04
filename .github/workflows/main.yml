@@ -30,10 +30,10 @@ jobs:
   E2E-Test:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
     needs: [Detect-Changes]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
