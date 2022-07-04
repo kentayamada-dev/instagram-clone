@@ -1,5 +1,7 @@
 # 📸 Instagram Clone
 
+## 🔗 Links
+
 ### 🥳 [Website is here!](https://app.instagram-clone.net/)
 
 ### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
@@ -8,9 +10,7 @@
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">Ask me anything!</a>
 
-##### _Sometimes, it will take a while to open_
-
-## ⚡ Playground
+## ⚡ Playgrounds
 
 [![Open in Gitpod](https://user-images.githubusercontent.com/83388735/176985020-ae46023b-27da-4e1b-9bc2-546be5cfef16.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 [![Open in VS Code](https://user-images.githubusercontent.com/83388735/176984885-805a0a4d-41ea-43ef-b258-b522c1cc2846.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
@@ -64,3 +64,4 @@
   - Prettier
   - CSpell
   - GitHub Actions
+  - Cloudflare
