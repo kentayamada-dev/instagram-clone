@@ -1,4 +1,4 @@
-name: Instagram Clone Workflow
+name: Test Deploy
 
 on:
   push:
@@ -8,13 +8,16 @@ on:
 jobs:
   Detect-Changes:
     runs-on: ubuntu-latest
+
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
       cypress: ${{ steps.filter.outputs.cypress }}
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Filter paths changes
         uses: dorny/paths-filter@v2
         id: filter
@@ -31,6 +34,7 @@ jobs:
     if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
     needs: [Detect-Changes]
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:latest
@@ -45,13 +49,16 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Cache node_modules
         uses: actions/cache@v3
         id: node_modules_cache_id
@@ -60,14 +67,17 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+
       - name: Install packages
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install
+
       - name: Seed database
         run: yarn prisma:init
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
         working-directory: apps/backend
+
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
         with:
@@ -80,12 +90,14 @@ jobs:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
           NODE_ENV: development
+
       - name: Upload Test Videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Cypress Videos
           path: cypress/videos
+
       - name: Upload Test Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
@@ -97,9 +109,11 @@ jobs:
     if: needs.Detect-Changes.outputs.backend == 'true' && !failure()
     needs: [E2E-Test]
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -111,9 +125,11 @@ jobs:
     if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
     needs: [Build-Backend]
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Deploy to vercel
         uses: amondnet/vercel-action@v20
         with:
@@ -126,6 +142,7 @@ jobs:
     if: always() && needs.Build-Frontend.result == 'success'
     needs: [Build-Frontend]
     runs-on: ubuntu-latest
+
     steps:
       - name: Purge cloudflare cache
         uses: jakejarvis/cloudflare-purge-action@master

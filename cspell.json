@@ -5,7 +5,7 @@
   "ignorePaths": [
     "package.json",
     "cspell.json",
-    ".github/workflows/main.yml",
+    ".github/workflows",
     "Makefile",
     "Dockerfile",
     "devcontainer.json",
