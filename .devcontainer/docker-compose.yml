@@ -44,7 +44,7 @@ services:
       - 5432:5432
 
   x11-bridge:
-    image: jare/x11-bridge
+    image: jare/x11-bridge:latest
     volumes:
       - "/tmp/.X11-unix:/tmp/.X11-unix:rw"
     ports:
