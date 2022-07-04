@@ -10,8 +10,6 @@
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">Ask me anything!</a>
 
-##### _Sometimes, it will take a while to open_
-
 ## ⚡ Playgrounds
 
 [![Open in Gitpod](https://user-images.githubusercontent.com/83388735/176985020-ae46023b-27da-4e1b-9bc2-546be5cfef16.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
