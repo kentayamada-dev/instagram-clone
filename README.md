@@ -64,3 +64,4 @@
   - Prettier
   - CSpell
   - GitHub Actions
+  - Cloudflare
