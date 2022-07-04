@@ -73,6 +73,18 @@ jobs:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
           NODE_ENV: development
+      - name: Upload Chrome Test Videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Cypress Videos
+          path: cypress/videos
+      - name: Upload Chrome Test Screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Chrome Cypress Screenshots
+          path: cypress/screenshots
       - name: Test On Firefox
         uses: cypress-io/github-action@v4
         with:
@@ -85,17 +97,17 @@ jobs:
           NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
           NODE_ENV: development
-      - name: Upload Test Videos
+      - name: Upload Firefox Test Videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Cypress Videos
           path: cypress/videos
-      - name: Upload Test Screenshots
+      - name: Upload Firefox Test Screenshots
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: Cypress Screenshots
+          name: Firefox Cypress Screenshots
           path: cypress/screenshots
 
   Build-Backend:
