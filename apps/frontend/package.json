@@ -10,12 +10,12 @@
     "clean:next": "rimraf dist",
     "clean:storybook": "rimraf public/storybook",
     "copy-static": "cpx -C 'public/static/**' .storybook/static",
-    "cspell": "cspell '**/*'",
+    "cspell": "cspell --cache --config cspell.json '**'",
     "dev": "run-p dev:next",
     "dev:next": "next dev -p 3002",
     "dev:storybook": "start-storybook -c .storybook -p 6006 --ci",
-    "eslint": "next lint --fix",
-    "format": "prettier --cache --write .",
+    "eslint": "next lint --fix --config .eslintrc.js",
+    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "generate": "run-s generate:schema generate:types",
     "generate:schema": "get-graphql-schema http://localhost:5001/graphql > schema.graphql",
     "generate:types": "graphql-codegen --config codegen.yml",
@@ -29,7 +29,7 @@
     "predev:next": "run-s kill-port:next",
     "predev:storybook": "run-s kill-port:storybook copy-static",
     "prod": "next start",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@apollo/client": "^3.6.8",

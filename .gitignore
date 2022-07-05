@@ -6,7 +6,6 @@ coverage
 
 # build
 dist
-storybook
 
 # mac
 .DS_Store
@@ -17,11 +16,15 @@ storybook
 # typescript
 *.tsbuildinfo
 
+# cspell
+.cspellcache
+
 # env
 .env
 
 # storybook
 apps/frontend/.storybook/static
+apps/frontend/public/storybook
 
 # schema
 schema.graphql

@@ -9,11 +9,11 @@
     "build": "run-p build:*",
     "build:nest": "nest build",
     "clean:nest": "rimraf dist",
-    "cspell": "cspell '**/*'",
+    "cspell": "cspell --cache --config cspell.json '**'",
     "dev": "run-p dev:nest",
     "dev:nest": "nest start --watch",
-    "eslint": "eslint 'src/**/*' --fix --cache",
-    "format": "prettier --cache --write .",
+    "eslint": "eslint --fix --config .eslintrc.js --cache .",
+    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "kill-port:nest": "kill-port 5001",
     "lint": "run-p eslint cspell type-check",
     "postlint": "run-p format",
@@ -29,7 +29,7 @@
     "prisma:studio": "prisma studio",
     "prod": "node dist/main",
     "test": "jest",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.16",
