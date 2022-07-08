@@ -8,14 +8,8 @@
   "settings": {
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "eslint.workingDirectories": [
-      {
-        "mode": "auto"
-      }
-    ],
-    "files.associations": {
-      "*.json": "jsonc"
-    },
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "files.associations": { ".json": "jsonc" },
     "graphql-config.load.rootDir": "apps/frontend",
     "javascript.preferences.importModuleSpecifier": "relative",
     "material-icon-theme.activeIconPack": "nest",

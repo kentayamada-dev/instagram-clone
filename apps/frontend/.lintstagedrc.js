@@ -21,11 +21,6 @@ module.exports = {
   "*.!(*ts?(x))": (absolutePaths) => {
     console.log("apps/frontend-prettier > *.!(*ts?(x))", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [`prettier ${prettierOptions} ${joinedAbsolutePaths}`];
-  },
-  "*.!(*ts?(x))": (absolutePaths) => {
-    console.log("apps/frontend-cspell > *.!(*ts?(x))", absolutePaths);
-    const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [`cspell ${cspellOptions} ${joinedAbsolutePaths}`];
+    return [`prettier ${prettierOptions} ${joinedAbsolutePaths}`, `cspell ${cspellOptions} ${joinedAbsolutePaths}`];
   }
 };
