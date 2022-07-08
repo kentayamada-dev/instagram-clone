@@ -2,6 +2,7 @@
   "extends": "tsconfig/base.json",
   "compilerOptions": {
     // Modules
+    "baseUrl": "./",
     "module": "commonjs",
     // Emit
     "declaration": true,

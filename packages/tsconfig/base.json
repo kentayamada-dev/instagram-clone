@@ -13,8 +13,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    // Modules
-    "baseUrl": "./",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     // Editor Support
