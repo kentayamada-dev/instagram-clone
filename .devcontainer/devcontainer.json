@@ -1,21 +1,30 @@
 {
-  "name": "Instagram Clone",
   "dockerComposeFile": "docker-compose.yml",
+  "forwardPorts": [8080],
+  "name": "Instagram Clone",
+  "postCreateCommand": "make clean && yarn install && make initdb",
   "service": "app",
   "workspaceFolder": "/workspace",
-  "forwardPorts": [8080],
   "settings": {
-    "files.associations": {
-      "devcontainer.json": "json"
-    },
     "colorize.languages": ["typescript"],
-    "eslint.workingDirectories": [{ "mode": "auto" }],
-    "material-icon-theme.activeIconPack": "nest",
-    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.workingDirectories": [
+      {
+        "mode": "auto"
+      }
+    ],
+    "files.associations": {
+      "*.json": "jsonc"
+    },
     "graphql-config.load.rootDir": "apps/frontend",
     "javascript.preferences.importModuleSpecifier": "relative",
+    "material-icon-theme.activeIconPack": "nest",
+    "prettier.configPath": ".devcontainer/.prettierrc.vscode.json",
+    "prettier.ignorePath": ".devcontainer/.prettierignore.vscode",
+    "prettier.requireConfig": true,
     "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.preferences.jsxAttributeCompletionStyle": "none"
+    "typescript.preferences.jsxAttributeCompletionStyle": "none",
+    "typescript.tsdk": "node_modules/typescript/lib"
   },
   "extensions": [
     "esbenp.prettier-vscode",
@@ -29,6 +38,5 @@
     "kamikillerto.vscode-colorize",
     "styled-components.vscode-styled-components",
     "GraphQL.vscode-graphql"
-  ],
-  "postCreateCommand": "make clean && yarn install && make initdb"
+  ]
 }

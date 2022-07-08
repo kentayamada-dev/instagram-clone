@@ -1,9 +1,9 @@
 import type { GetAllPostsQuery, GetAllUsersQuery, GetCurrentUserQuery } from "../../../types/generated/types";
 
 export type FeedProps = {
+  currentUserData: GetCurrentUserQuery | undefined;
   loadMorePosts: () => Promise<void>;
   postsData: GetAllPostsQuery | undefined;
-  currentUserData: GetCurrentUserQuery | undefined;
   usersData: GetAllUsersQuery | undefined;
 };
 

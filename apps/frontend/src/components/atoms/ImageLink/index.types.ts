@@ -1,8 +1,8 @@
 import type { ImageProps } from "next/image";
 
 export type ImageLinkProps = Pick<ImageProps, "alt" | "src"> & {
-  href: string;
   height: number;
+  href: string;
   width: number;
 };
 

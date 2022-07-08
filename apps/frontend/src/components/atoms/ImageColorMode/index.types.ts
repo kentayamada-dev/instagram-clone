@@ -1,16 +1,16 @@
 import type { ImageProps } from "next/image";
 
 export type ImageColorModeProps = {
-  height: number;
-  width: number;
-  lightImg: {
-    src: ImageProps["src"];
-    alt: ImageProps["alt"];
-  };
   darkImg: {
-    src: ImageProps["src"];
     alt: ImageProps["alt"];
+    src: ImageProps["src"];
   };
+  height: number;
+  lightImg: {
+    alt: ImageProps["alt"];
+    src: ImageProps["src"];
+  };
+  width: number;
 };
 
 export type ImageColorModeType = (props: ImageColorModeProps) => JSX.Element;

@@ -1,4 +1,7 @@
 {
   "email": "testuser@gmail.com",
-  "password": "Test@12345"
+  "password": "Test@12345",
+  "errorMessage": "Invalid Email or Password",
+  "invalidEmailMessage": "Entered value does not match email format",
+  "invalidPasswordMessage": "Your password must be more than 10 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character"
 }

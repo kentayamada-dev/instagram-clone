@@ -2,12 +2,8 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { hash } from "bcrypt";
 
-const prisma = new PrismaClient();
-const getRandomInt = (max: number) => Math.floor(Math.random() * max);
-const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
-
 const NUM_USERS = 5;
-const MAX_NUM_POSTS = 5;
+const MAX_NUM_POSTS = 10;
 const SALT_ROUNDS = 10;
 const UNSPLASH_IMAGES = [
   "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
@@ -25,6 +21,10 @@ const TEST_USER = {
   email: "testuser@gmail.com",
   password: "Test@12345"
 };
+
+const prisma = new PrismaClient();
+const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
 
 const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput[] =>
   [...Array(numberOfPosts)].map((): Prisma.PostCreateWithoutUserInput => {

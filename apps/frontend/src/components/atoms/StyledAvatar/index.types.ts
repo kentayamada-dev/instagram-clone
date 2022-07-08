@@ -1,7 +1,7 @@
 export type StyledAvatarProps = {
-  src: string | undefined;
-  size: number;
   alt: string;
+  size: number;
+  src: string | undefined;
 };
 
 export type StyledAvatarType = (props: StyledAvatarProps) => JSX.Element;

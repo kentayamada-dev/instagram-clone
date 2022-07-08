@@ -3,29 +3,26 @@
     "build": {
       "outputs": ["dist/**", "storybook/**"]
     },
-    "cspell": {
-      "outputs": []
-    },
     "dev": {
       "cache": false
+    },
+    "//#format": {
+      "outputs": []
     },
     "format": {
       "outputs": []
     },
-    "eslint": {
+    "//#lint": {
       "outputs": []
     },
     "lint": {
-      "outputs": ["tsconfig.tsbuildinfo"]
+      "outputs": []
     },
     "prod": {
       "cache": false
     },
     "test": {
       "outputs": ["coverage/**"]
-    },
-    "type-check": {
-      "outputs": ["tsconfig.tsbuildinfo"]
     }
   }
 }
