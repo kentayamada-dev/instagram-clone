@@ -48,7 +48,6 @@
     "babel-loader": "^8.2.5",
     "browser-image-compression": "^2.0.0",
     "framer-motion": "^6.3.11",
-    "graphql": "^16.5.0",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.1",
     "js-cookie": "^3.0.1",

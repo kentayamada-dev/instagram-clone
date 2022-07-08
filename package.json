@@ -17,6 +17,22 @@
       "**/@nestjs/**"
     ]
   },
+  "scripts": {
+    "cypress": "cypress open",
+    "dev": "turbo run dev --parallel --no-cache --continue",
+    "e2e": "start-test dev \"3002|5001\" cypress",
+    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
+    "heroku-postbuild": "turbo run build --scope=backend --include-dependencies --no-deps",
+    "lint": "cspell --cache --config cspell.json '**'",
+    "prepare": "husky install",
+    "test": "turbo run test --parallel --continue=false",
+    "turbo:format": "turbo run format --parallel --continue=false",
+    "turbo:lint": "turbo run lint --parallel --continue=false"
+  },
+  "dependencies": {
+    "graphql": "^16.5.0",
+    "typescript": "^4.7.4"
+  },
   "devDependencies": {
     "@kentayamada-dev/eslint-config-base": "^0.0.7",
     "cspell": "^6.1.2",
@@ -30,19 +46,6 @@
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.14.0",
     "turbo": "^1.2.16",
-    "typescript": "^4.7.4",
     "yarn-upgrade-all": "^0.7.1"
-  },
-  "scripts": {
-    "cypress": "cypress open",
-    "dev": "turbo run dev --parallel --no-cache --continue",
-    "e2e": "start-test dev \"3002|5001\" cypress",
-    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
-    "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
-    "lint": "cspell --cache --config cspell.json '**'",
-    "prepare": "husky install",
-    "test": "turbo run test --parallel --continue=false",
-    "turbo:format": "turbo run format --parallel --continue=false",
-    "turbo:lint": "turbo run lint --parallel --continue=false"
   }
 }
