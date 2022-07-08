@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "prisma": {
-    "seed": "ts-node --transpile-only prisma/seed.ts"
+    "seed": "ts-node --transpile-only --skipProject prisma/seed.ts"
   },
   "scripts": {
     "build": "run-p build:*",
