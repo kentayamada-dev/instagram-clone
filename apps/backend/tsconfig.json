@@ -1,22 +1,8 @@
 {
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    // Type Checking
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
     // Modules
-    "baseUrl": "./",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     // Emit
     "declaration": true,
     "declarationDir": "./dist/types",
@@ -26,20 +12,9 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": true,
-    // Editor Support
-    "disableSizeLimit": true,
-    // Interop Constraints
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
     // Language and Environment
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "esnext",
-    // projects
-    "incremental": true,
-    // completeness
-    "skipLibCheck": true
+    "experimentalDecorators": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
