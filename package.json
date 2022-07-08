@@ -29,7 +29,9 @@
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.14.0",
+    "tsconfig": "*",
     "turbo": "^1.2.16",
+    "typescript": "^4.7.4",
     "yarn-upgrade-all": "^0.7.1"
   },
   "scripts": {
