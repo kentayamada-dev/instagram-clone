@@ -12,9 +12,7 @@ module.exports = {
   overrides: [
     {
       files: ["src/pages/**/*", "src/components/**/index.stories.tsx"],
-      rules: {
-        "import/no-default-export": "off"
-      }
+      rules: { "import/no-default-export": "off" }
     },
     {
       files: ["src/components/**/index.stories.tsx"],
