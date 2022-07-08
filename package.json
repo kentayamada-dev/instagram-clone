@@ -17,35 +17,30 @@
     ]
   },
   "devDependencies": {
+    "@kentayamada-dev/eslint-config-base": "^0.0.7",
+    "cspell": "^6.1.2",
     "cypress": "^10.3.0",
+    "eslint": "^8.18.0",
     "husky": "^8.0.1",
     "kill-port": "^2.0.0",
     "lint-staged": "^13.0.3",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "start-server-and-test": "^1.14.0",
     "turbo": "^1.2.16",
     "yarn-upgrade-all": "^0.7.1"
   },
   "scripts": {
     "cypress": "cypress open",
-    "cypress:headless": "cypress run",
-    "dev": "turbo run dev --parallel --no-cache",
+    "dev": "turbo run dev --parallel --no-cache --continue",
     "e2e": "start-test dev \"3002|5001\" cypress",
-    "e2e:headless": "start-test dev \"3002|5001\" cypress:headless",
-    "format": "run-p format:*",
-    "format:apps": "turbo run format --parallel --continue=false",
-    "format:root": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
+    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "heroku-postbuild": "yarn turbo run build --scope=backend --include-dependencies --no-deps",
-    "kill-port:backend": "kill-port 5001",
-    "kill-port:frontend": "kill-port 3000",
-    "lint": "run-p lint:root lint:apps",
-    "lint:apps": "turbo run lint --parallel --continue=false",
-    "lint:cspell": "turbo run cspell --parallel --continue=false",
-    "lint:eslint": "turbo run eslint --parallel --continue=false",
-    "lint:root": "cspell --cache --config cspell.json '**'",
-    "lint:type-check": "turbo run type-check --parallel --continue=false",
+    "lint": "cspell --cache --config cspell.json '**'",
     "prepare": "husky install",
-    "preprod": "run-p kill-port:*",
-    "test": "turbo run test --parallel --continue=false"
+    "test": "turbo run test --parallel --continue=false",
+    "turbo:format": "turbo run format --parallel --continue=false",
+    "turbo:lint": "turbo run lint --parallel --continue=false"
   }
 }

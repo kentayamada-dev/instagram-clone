@@ -1,6 +1,7 @@
 {
   "license": "MIT",
   "name": "frontend",
+  "private": true,
   "version": "1.0.0",
   "scripts": {
     "build": "run-p build:*",
@@ -43,10 +44,6 @@
     "@storybook/builder-webpack5": "^6.5.9",
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/react": "^6.5.9",
-    "@types/js-cookie": "^3.0.2",
-    "@types/node": "^18.0.0",
-    "@types/react": "^18.0.14",
-    "@types/react-infinite-scroller": "^1.2.3",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "browser-image-compression": "^2.0.0",
@@ -68,6 +65,10 @@
     "storybook-addon-next": "^1.6.6",
     "storybook-addon-turbo-build": "^1.1.0",
     "storybook-react-i18next": "^1.1.2",
+    "@types/js-cookie": "^3.0.2",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-infinite-scroller": "^1.2.3",
     "typescript": "^4.7.4"
   },
   "devDependencies": {
@@ -76,19 +77,9 @@
     "@graphql-codegen/typescript-operations": "^2.4.2",
     "@graphql-codegen/typescript-react-apollo": "^3.2.16",
     "@next/eslint-plugin-next": "^12.1.6",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
     "cpx": "^1.5.0",
-    "cspell": "^6.1.2",
-    "eslint": "^8.18.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "get-graphql-schema": "^2.1.2",
-    "kill-port": "^2.0.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2"
+    "get-graphql-schema": "^2.1.2"
   }
 }

@@ -1,20 +1,18 @@
 module.exports = {
-  root: true,
-  parser: "@typescript-eslint/parser",
-  parserOptions: { tsconfigRootDir: __dirname, project: ["./tsconfig.json"] },
-  plugins: ["@typescript-eslint", "import", "typescript-sort-keys"],
+  extends: ["@kentayamada-dev/eslint-config-base"],
   ignorePatterns: [".eslintrc.js", "coverage", "dist", "prisma", "jest.config.js"],
-  extends: ["eslint:all", "plugin:@typescript-eslint/all", "plugin:eslint-comments/recommended"],
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ["./tsconfig.json"]
+  },
   rules: {
     // eslint
-    "array-element-newline": ["error", "consistent"],
     "camelcase": [
       "error",
       {
         ignoreDestructuring: true
       }
     ],
-    "dot-location": ["error", "property"],
     "func-style": [
       "error",
       "declaration",
@@ -22,56 +20,21 @@ module.exports = {
         allowArrowFunctions: false
       }
     ],
-    "function-call-argument-newline": ["error", "consistent"],
-    "function-paren-newline": ["error", "consistent"],
     "id-length": [
       "error",
       {
         exceptions: ["_"]
       }
     ],
-    "implicit-arrow-linebreak": "off",
-    "max-len": [
-      "error",
-      {
-        ignoreComments: true,
-        ignorePattern: "^import .*",
-        ignoreStrings: true,
-        code: 120
-      }
-    ],
     "max-lines": "off",
-    "max-lines-per-function": "off",
-    "multiline-ternary": "off",
     "new-cap": "off",
-    "newline-per-chained-call": "off",
     "no-confusing-arrow": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        patterns: [
-          {
-            group: ["src/*"],
-            message: "Please use relative import instead."
-          }
-        ]
-      }
-    ],
-    "no-ternary": "off",
     "no-void": [
       "error",
       {
         allowAsStatement: true
       }
     ],
-    "object-property-newline": [
-      "error",
-      {
-        allowAllPropertiesOnSameLine: true
-      }
-    ],
-    "one-var": ["error", "never"],
-    "padded-blocks": ["error", "never"],
     "padding-line-between-statements": [
       "error",
       {
@@ -80,8 +43,6 @@ module.exports = {
         prev: "*"
       }
     ],
-    "quote-props": ["error", "consistent"],
-    "sort-imports": "off",
     // typescript-eslint
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
@@ -96,7 +57,6 @@ module.exports = {
         }
       }
     ],
-    "@typescript-eslint/indent": "off",
     "@typescript-eslint/lines-between-class-members": [
       "error",
       "always",
@@ -114,7 +74,6 @@ module.exports = {
         allowWithDecorator: false
       }
     ],
-    "@typescript-eslint/no-magic-numbers": "off",
     "@typescript-eslint/no-parameter-properties": [
       "error",
       {
@@ -143,49 +102,11 @@ module.exports = {
         vars: "all"
       }
     ],
-    "@typescript-eslint/object-curly-spacing": ["error", "always"],
     "@typescript-eslint/parameter-properties": [
       "error",
       {
         allow: ["private readonly", "protected readonly"]
       }
-    ],
-    "@typescript-eslint/prefer-readonly-parameter-types": "off",
-    "@typescript-eslint/space-before-function-paren": [
-      "error",
-      {
-        anonymous: "always",
-        asyncArrow: "always",
-        named: "never"
-      }
-    ],
-    "@typescript-eslint/strict-boolean-expressions": [
-      "error",
-      {
-        allowNullableString: true
-      }
-    ],
-    // eslint-plugin-import
-    "import/no-default-export": "error",
-    "import/no-namespace": "error",
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        noUselessIndex: true
-      }
-    ],
-    "import/order": [
-      "error",
-      {
-        "alphabetize": {
-          order: "asc"
-        },
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
-        "newlines-between": "never"
-      }
-    ],
-    // eslint-plugin-typescript-sort-keys
-    "typescript-sort-keys/interface": "error",
-    "typescript-sort-keys/string-enum": "error"
+    ]
   }
 };
