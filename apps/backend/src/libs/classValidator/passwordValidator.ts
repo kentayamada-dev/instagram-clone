@@ -11,7 +11,6 @@ import type { ValidatorConstraintInterface } from "class-validator";
 @ValidatorConstraint({ async: false, name: "passwordValidator" })
 export class PasswordValidator implements ValidatorConstraintInterface {
   private readonly strongPasswordRegEx =
-    // eslint-disable-next-line max-len
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u;
 
   private isValid = false;

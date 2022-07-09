@@ -10,7 +10,6 @@
     ".devcontainer",
     ".gitignore",
     ".gitpod.yml",
-    "apps",
     "turbo.json",
     "LICENSE"
   ]
