@@ -15,7 +15,7 @@ module.exports = {
     ];
   },
   "*.!(*ts)": (absolutePaths) => {
-    console.log("apps/backend-prettier > *.!(*ts)", absolutePaths);
+    console.log("apps/backend > *.!(*ts)", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [`prettier ${prettierOptions} ${joinedAbsolutePaths}`, `cspell ${cspellOptions} ${joinedAbsolutePaths}`];
   }
