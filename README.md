@@ -1,14 +1,14 @@
 # 📸 Instagram Clone
-[![CI](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
-[![Website](https://img.shields.io/website?label=Website&url=https%3A%2F%2Fapp.instagram-clone.net)](https://app.instagram-clone.net/)
-[![API](https://img.shields.io/website?label=API&url=https%3A%2F%2Fapi.instagram-clone.net)](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
+[![CI](https://img.shields.io/github/workflow/status/kentayamada-dev/instagram-clone/CI?label=CI&logo=GitHub)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
+[![Website](https://img.shields.io/website?label=Website&logo=Vercel&url=https%3A%2F%2Fapp.instagram-clone.net)](https://app.instagram-clone.net/)
+[![API](https://img.shields.io/website?label=API&logo=Heroku&url=https%3A%2F%2Fapi.instagram-clone.net)](https://api.instagram-clone.net/)
 ## 🔗 Links
 
 ### 🥳 [Website is here!](https://app.instagram-clone.net/)
 
 ### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
 
-### 🚀 [API is here!](https://studio.apollographql.com/public/Instagram-Clone-b7jzle/home?variant=current)
+### 🚀 [API is here!](https://api.instagram-clone.net/)
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">Ask me anything!</a>
 
