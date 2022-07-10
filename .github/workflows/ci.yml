@@ -76,13 +76,16 @@ jobs:
         shell: bash
 
   E2E-Test:
-    if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
+    if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
     needs: [Purge-Cloudflare-Cache]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
+      - name: Install Japanese font
+        run: sudo apt install fonts-noto
 
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
