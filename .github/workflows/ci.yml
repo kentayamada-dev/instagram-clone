@@ -26,84 +26,9 @@ jobs:
             cypress:
               - 'cypress/**'
 
-  E2E-Test:
-    if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
-    needs: [Detect-Changes]
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: node_modules_cache_id
-        env:
-          cache-name: node_modules_cache
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install packages
-        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
-        run: yarn install
-
-      - name: Seed database
-        run: yarn prisma:init
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
-        working-directory: apps/backend
-
-      - name: Test On Chrome
-        uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          start: yarn dev
-          wait-on: "http://localhost:3002, http://localhost:5001"
-        env:
-          JWT_SECRET: jwt_secret
-          FRONTEND_ORIGIN: http://localhost:3002
-          NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
-          NODE_ENV: development
-
-      - name: Upload Test Videos
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Cypress Videos
-          path: cypress/videos
-
-      - name: Upload Test Screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: Cypress Screenshots
-          path: cypress/screenshots
-
   Build-Backend:
-    if: needs.Detect-Changes.outputs.backend == 'true' && !failure()
-    needs: [E2E-Test]
+    if: needs.Detect-Changes.outputs.backend == 'true'
+    needs: [Detect-Changes]
     runs-on: ubuntu-latest
 
     steps:
@@ -145,3 +70,35 @@ jobs:
         env:
           CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
           CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+
+      - name: Wait 30 seconds to purge cloudflare cache
+        run: sleep 30s
+        shell: bash
+
+  E2E-Test:
+    if: needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true'
+    needs: [Purge-Cloudflare-Cache]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Test On Chrome
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+
+      - name: Upload Test Videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Cypress Videos
+          path: cypress/videos
+
+      - name: Upload Test Screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: Cypress Screenshots
+          path: cypress/screenshots
