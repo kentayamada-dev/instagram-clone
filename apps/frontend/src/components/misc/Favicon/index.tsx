@@ -64,12 +64,12 @@ export const Favicon: FaviconType = () => (
     <meta content="https://app.instagram-clone.net/" property="og:url" />
     <meta content="Instagram Clone" property="og:title" />
     <meta content="This is an Instagram Clone Site." property="og:description" />
-    <meta content="/static/instagram/image.jpg" property="og:image" />
+    <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="og:image" />
     {/* Twitter */}
     <meta content="summary_large_image" property="twitter:card" />
     <meta content="https://app.instagram-clone.net/" property="twitter:url" />
     <meta content="Instagram Clone" property="twitter:title" />
     <meta content="This is an Instagram Clone Site." property="twitter:description" />
-    <meta content="/static/instagram/image.jpg" property="twitter:image" />
+    <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="twitter:image" />
   </>
 );
