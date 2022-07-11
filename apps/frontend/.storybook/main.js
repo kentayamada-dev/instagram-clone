@@ -1,3 +1,7 @@
+const { merge } = require("webpack-merge");
+
+const prefix = process.env.STORYBOOK_PREFIX ? `/${process.env.STORYBOOK_PREFIX}` : "";
+
 module.exports = {
   stories: [
     {
@@ -27,12 +31,15 @@ module.exports = {
   refs: {
     "@chakra-ui/react": { disable: true }
   },
-  staticDirs: ["."],
   webpackFinal: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       "next-i18next": "react-i18next"
     };
-    return config;
+    return merge(config, {
+      output: {
+        publicPath: `${prefix}/`
+      }
+    });
   }
 };
