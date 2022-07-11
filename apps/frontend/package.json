@@ -12,7 +12,7 @@
     "clean:storybook": "rimraf public/storybook",
     "copy-static": "cpx -C 'public/static/**' .storybook/static",
     "cspell": "cspell --cache --config cspell.json '**'",
-    "dev": "run-p dev:next",
+    "dev": "run-p dev:*",
     "dev:next": "next dev -p 3002",
     "dev:storybook": "start-storybook -c .storybook -p 6006 --ci",
     "eslint": "next lint --fix --config .eslintrc.js",
