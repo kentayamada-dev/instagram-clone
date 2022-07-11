@@ -99,6 +99,9 @@ module.exports = {
       <meta content="Instagram Clone Storybook" property="twitter:title">
       <meta content="This is an Instagram Clone Storybook." property="twitter:description">
       <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="twitter:image">
+      <script>
+        window['PREVIEW_URL'] = '${prefix}/iframe.html';
+      </script>
     `;
   },
   webpackFinal: (config) => {
@@ -106,6 +109,13 @@ module.exports = {
       ...config.resolve.alias,
       "next-i18next": "react-i18next"
     };
+    return merge(config, {
+      output: {
+        publicPath: `${prefix}/`
+      }
+    });
+  },
+  managerWebpack: async (config) => {
     return merge(config, {
       output: {
         publicPath: `${prefix}/`
