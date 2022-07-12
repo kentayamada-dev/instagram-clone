@@ -1,6 +1,3 @@
-const { merge } = require("webpack-merge");
-
-const prefix = process.env.STORYBOOK_PREFIX ? `/${process.env.STORYBOOK_PREFIX}` : "";
 const isDevelopment = process.env.NODE_ENV === "development";
 
 module.exports = {
@@ -109,10 +106,6 @@ module.exports = {
       ...config.resolve.alias,
       "next-i18next": "react-i18next"
     };
-    return merge(config, {
-      output: {
-        publicPath: `${prefix}/`
-      }
-    });
+    return config;
   }
 };
