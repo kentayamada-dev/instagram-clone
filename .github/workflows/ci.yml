@@ -108,7 +108,7 @@ jobs:
         working-directory: apps/backend
 
       - name: Start backend
-        run: yarn dev
+        run: yarn dev &
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
           NODE_ENV: development
