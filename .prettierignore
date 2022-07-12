@@ -1,2 +1,3 @@
 .prettierignore
 .husky/pre-commit
+yarn.lock

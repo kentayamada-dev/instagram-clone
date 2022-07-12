@@ -1,8 +1,10 @@
 const { merge } = require("webpack-merge");
 
 const prefix = process.env.STORYBOOK_PREFIX ? `/${process.env.STORYBOOK_PREFIX}` : "";
+const isDevelopment = process.env.NODE_ENV === "development";
 
 module.exports = {
+  ...(isDevelopment ? { staticDirs: ["../public"] } : {}),
   stories: [
     {
       directory: "../src/components",
@@ -15,7 +17,8 @@ module.exports = {
     "storybook-addon-turbo-build",
     "storybook-addon-apollo-client",
     "storybook-addon-next",
-    "storybook-react-i18next"
+    "storybook-react-i18next",
+    "@storybook/addon-a11y"
   ],
   features: {
     storyStoreV7: true
