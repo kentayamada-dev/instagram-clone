@@ -59,6 +59,44 @@ jobs:
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
 
+  Analyze-Frontend-Bundle:
+    if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
+    needs: [Build-Backend]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: node_modules_cache_id
+        env:
+          cache-name: node_modules_cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install packages
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+        run: yarn install
+
+      - name: Analyze bundle
+        run: ANALYZE=true NODE_ENV=production yarn next build
+        working-directory: apps/frontend
+
+      - name: Upload Bundle Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Bundle Report
+          path: dist/analyze/client.html
+
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
     needs: [Build-Frontend]
