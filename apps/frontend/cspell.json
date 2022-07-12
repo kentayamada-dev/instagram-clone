@@ -15,7 +15,10 @@
     "scroller",
     "Dimentions",
     "deepmerge",
-    "semibold"
+    "semibold",
+    "Insta",
+    "insta",
+    "Kenta"
   ],
   "ignorePaths": [
     "package.json",

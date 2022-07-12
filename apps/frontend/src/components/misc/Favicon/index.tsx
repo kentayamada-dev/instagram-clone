@@ -2,7 +2,6 @@ import type { FaviconType } from "./index.types";
 
 export const Favicon: FaviconType = () => (
   <>
-    {/* Favicons */}
     <meta content="/favicon/site-tile-70x70.png" name="msapplication-square70x70logo" />
     <meta content="/favicon/site-tile-150x150.png" name="msapplication-square150x150logo" />
     <meta content="/favicon/site-tile-310x150.png" name="msapplication-wide310x150logo" />

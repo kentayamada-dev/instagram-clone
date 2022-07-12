@@ -1,1 +1,2 @@
 .prettierignore
+.husky/pre-commit
