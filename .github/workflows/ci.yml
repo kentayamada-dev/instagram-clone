@@ -64,6 +64,21 @@ jobs:
     needs: [Build-Backend]
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -86,16 +101,35 @@ jobs:
         if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install
 
+      - name: Seed database
+        run: yarn prisma:init
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
+        working-directory: apps/backend
+
+      - name: Start backend
+        run: yarn dev
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres?schema=public
+          NODE_ENV: development
+          JWT_SECRET: jwt_secret
+          FRONTEND_ORIGIN: http://localhost:3002
+        working-directory: apps/backend
+
       - name: Analyze bundle
-        run: ANALYZE=true NODE_ENV=production yarn next build
+        run: yarn next build
         working-directory: apps/frontend
+        env:
+          NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL: http://localhost:5001/graphql
+          NODE_ENV: production
+          ANALYZE: true
 
       - name: Upload Bundle Report
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Bundle Report
-          path: dist/analyze/client.html
+          path: apps/frontend/dist/analyze/client.html
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
