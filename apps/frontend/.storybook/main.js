@@ -114,12 +114,5 @@ module.exports = {
         publicPath: `${prefix}/`
       }
     });
-  },
-  managerWebpack: async (config) => {
-    return merge(config, {
-      output: {
-        publicPath: `${prefix}/`
-      }
-    });
   }
 };
