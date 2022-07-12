@@ -11,6 +11,7 @@
     ".gitignore",
     ".gitpod.yml",
     "turbo.json",
-    "LICENSE"
+    "LICENSE",
+    "apps"
   ]
 }
