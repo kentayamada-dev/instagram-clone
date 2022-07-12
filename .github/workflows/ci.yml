@@ -1,5 +1,10 @@
 name: CI
-on: push
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   Detect-Changes:
