@@ -6,6 +6,13 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "settings": {
+    "activitusbar.activeColour": "#8811FF",
+    "activitusbar.alignment": "Right",
+    "activitusbar.inactiveColour": "#8811FF",
+    "activitusbar.views": [
+      { "codicon": "refresh", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
+      { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" }
+    ],
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.workingDirectories": [{ "mode": "auto" }],
@@ -32,6 +39,7 @@
     "kamikillerto.vscode-colorize",
     "styled-components.vscode-styled-components",
     "GraphQL.vscode-graphql",
-    "ms-vscode.live-server"
+    "ms-vscode.live-server",
+    "Gruntfuggly.activitusbar"
   ]
 }
