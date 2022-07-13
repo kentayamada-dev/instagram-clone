@@ -78,5 +78,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "get-graphql-schema": "^2.1.2",
     "tsconfig": "*"
+  },
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "showDetails": true,
+    "buildOutputDirectory": "dist"
   }
 }

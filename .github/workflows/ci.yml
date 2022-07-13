@@ -134,7 +134,7 @@ jobs:
           FRONTEND_ORIGIN: http://localhost:3002
         working-directory: apps/backend
 
-      - name: Analyze bundle
+      - name: Build for bundle analyzing
         run: yarn next build
         working-directory: apps/frontend
         env:
@@ -142,12 +142,50 @@ jobs:
           NODE_ENV: production
           ANALYZE: true
 
+      - name: Analyze bundle
+        run: npx -p nextjs-bundle-analysis report
+        working-directory: apps/frontend
+
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundle
+          path: apps/frontend/dist/analyze/__bundle_analysis.json
+
       - name: Upload Bundle Report
         uses: actions/upload-artifact@v3
-        if: always()
         with:
           name: Bundle Report
           path: apps/frontend/dist/analyze/client.html
+
+      - name: Download bundle stats
+        uses: dawidd6/action-download-artifact@v2
+        if: success()
+        with:
+          workflow: ci.yml
+          path: apps/frontend/dist/analyze/base
+
+      - name: Check previous bundle existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "apps/frontend/dist/analyze/base/bundle/__bundle_analysis.json"
+
+      - name: Compare with previous bundle
+        if: success() && steps.check_files.outputs.files_exists == 'true'
+        run: npx -p nextjs-bundle-analysis compare
+        working-directory: apps/frontend
+
+      - name: Print Result
+        if: success() && steps.check_files.outputs.files_exists == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require("fs");
+            const output = fs.readFileSync("apps/frontend/dist/analyze/__bundle_analysis_comment.txt");
+            await core.summary
+              .addRaw(output)
+              .write()
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
