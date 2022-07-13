@@ -7,6 +7,7 @@ const nextConfig = {
   i18n,
   distDir: "dist",
   reactStrictMode: true,
+  swcMinify: true,
   trailingSlash: true,
   images: {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
