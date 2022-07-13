@@ -6,7 +6,7 @@
   "scripts": {
     "build": "run-p build:*",
     "build:next": "next build",
-    "build:storybook": "STORYBOOK_PREFIX=storybook build-storybook -o ./public/storybook",
+    "build:storybook": "build-storybook -o ./public/storybook",
     "clean:next": "rimraf dist",
     "clean:storybook": "rimraf public/storybook",
     "cspell": "cspell --cache --config cspell.json '**'",
