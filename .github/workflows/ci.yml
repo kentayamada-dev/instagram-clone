@@ -43,7 +43,7 @@ jobs:
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
-    needs: [Detect-Changes]
+    needs: [Detect-Changes, Cancel-Previous-Runs]
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
