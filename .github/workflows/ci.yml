@@ -289,19 +289,21 @@ jobs:
             const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
             const { failedItems, newItems, deletedItems, passedItems } = parsedOutput
             const result = `
-              <h2>VRT Result</h2>
+              <h2>VRT Results</h2>
               <table>
                 <tr>
-                  <th>Changed items 🔴</th>
-                  <th>New items ⚪</th>
-                  <th>Deleted items ⚫</th>
-                  <th>Passed items 🔵</th>
+                  <th>Result</th>
+                  <th>Passed 🔵</th>
+                  <th>Changed 🔴</th>
+                  <th>New ⚪</th>
+                  <th>Deleted ⚫</th>
                 </tr>
                 <tr>
+                  <td>Number of images</td>
+                  <td>${passedItems.length}</td>
                   <td>${failedItems.length}</td>
                   <td>${newItems.length}</td>
                   <td>${deletedItems.length}</td>
-                  <td>${passedItems.length}</td>
                 </tr>
               </table>
               <details><summary>Show Detail</summary>\n
