@@ -240,3 +240,57 @@ jobs:
         with:
           name: Cypress Screenshots
           path: cypress/screenshots
+
+  VRT-Test:
+    if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
+    needs: [Purge-Cloudflare-Cache]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Install packages
+        run: yarn add storycap puppeteer reg-cli
+
+      - name: Save actual screenshots into actualDir
+        run: yarn storycap --delay 5000 --outDir actualDir https://app.instagram-clone.net/storybook/
+
+      - name: Check expected screenshots exsistance
+        uses: dawidd6/action-download-artifact@v2
+        id: download_artifact
+        continue-on-error: true
+        with:
+          workflow: ci.yml
+          name: Expected Screenshots
+          dry_run: true
+
+      - name: Download expected screenshots
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ci.yml
+          path: expectedDir
+          name: Expected Screenshots
+
+      - name: Generate test report
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        run: yarn reg-cli actualDir expectedDir diffDir -R ./report.html
+
+      - name: Compress all generated outputs to vrtReport
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        run: mkdir vrtReport && cp -r actualDir expectedDir diffDir report.html vrtReport
+
+      - name: Upload VRT Report
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: VRT Report
+          path: vrtReport
+
+      - name: Rename actualDir to expectedDir
+        run: rm -rf expectedDir && mv actualDir expectedDir
+
+      - name: Upload expected screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: Expected Screenshots
+          path: expectedDir
