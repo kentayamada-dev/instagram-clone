@@ -152,7 +152,7 @@ jobs:
           name: bundle
           path: apps/frontend/dist/analyze/__bundle_analysis.json
 
-      - name: Upload bundle analysis report Report
+      - name: Upload bundle analysis report
         uses: actions/upload-artifact@v3
         with:
           name: Bundle Analysis Report
@@ -173,7 +173,7 @@ jobs:
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
         with:
           workflow: ci.yml
-          path: apps/frontend/dist/analyze/base
+          path: apps/frontend/dist/analyze/base/bundle
           name: bundle
 
       - name: Compare with previous bundle analysis report
