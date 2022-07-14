@@ -146,38 +146,43 @@ jobs:
         run: npx -p nextjs-bundle-analysis report
         working-directory: apps/frontend
 
-      - name: Upload Bundle
+      - name: Upload bundle analysis report for future comparison
         uses: actions/upload-artifact@v3
         with:
           name: bundle
           path: apps/frontend/dist/analyze/__bundle_analysis.json
 
-      - name: Upload Bundle Report
+      - name: Upload bundle analysis report Report
         uses: actions/upload-artifact@v3
         with:
-          name: Bundle Report
+          name: Bundle Analysis Report
           path: apps/frontend/dist/analyze/client.html
 
-      - name: Download bundle stats
+      - name: Check previous bundle analysis exsistance
         uses: dawidd6/action-download-artifact@v2
+        id: download_artifact
         if: success()
+        continue-on-error: true
+        with:
+          workflow: ci.yml
+          name: bundle
+          dry_run: true
+
+      - name: Download previous bundle analysis report
+        uses: dawidd6/action-download-artifact@v2
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         with:
           workflow: ci.yml
           path: apps/frontend/dist/analyze/base
+          name: bundle
 
-      - name: Check previous bundle existence
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "apps/frontend/dist/analyze/base/bundle/__bundle_analysis.json"
-
-      - name: Compare with previous bundle
-        if: success() && steps.check_files.outputs.files_exists == 'true'
+      - name: Compare with previous bundle analysis report
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         run: npx -p nextjs-bundle-analysis compare
         working-directory: apps/frontend
 
       - name: Print Result
-        if: success() && steps.check_files.outputs.files_exists == 'true'
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/github-script@v6
         with:
           script: |
@@ -215,7 +220,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Japanese font
-        run: sudo apt install fonts-noto
+        run: sudo apt-get install fonts-noto -y
 
       - name: Test On Chrome
         uses: cypress-io/github-action@v4
