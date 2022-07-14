@@ -181,7 +181,7 @@ jobs:
         run: npx -p nextjs-bundle-analysis compare
         working-directory: apps/frontend
 
-      - name: Print Result
+      - name: Print result
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/github-script@v6
         with:
@@ -219,22 +219,22 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Install Japanese font
+      - name: Install japanese font
         run: sudo apt-get install fonts-noto -y
 
-      - name: Test On Chrome
+      - name: Test on chrome
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
 
-      - name: Upload Test Videos
+      - name: Upload test videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Cypress Videos
           path: cypress/videos
 
-      - name: Upload Test Screenshots
+      - name: Upload test screenshots
         uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -248,8 +248,11 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Install chrome
+        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+
       - name: Install packages
-        run: yarn add storycap puppeteer reg-cli
+        run: yarn add storycap reg-cli
 
       - name: Save actual screenshots into actualDir
         run: yarn storycap --delay 5000 --outDir actualDir https://app.instagram-clone.net/storybook/
@@ -273,7 +276,43 @@ jobs:
 
       - name: Generate test report
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
-        run: yarn reg-cli actualDir expectedDir diffDir -R ./report.html
+        run: yarn reg-cli actualDir expectedDir diffDir --report ./report.html --enableAntialias --json ./reg.json --ignoreChange
+
+      - name: Print VRT result
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require("fs")
+            const output = fs.readFileSync("./reg.json")
+            const parsedOutput = JSON.parse(output)
+            const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
+            const { failedItems, newItems, deletedItems, passedItems } = parsedOutput
+            const result = `
+              <h2>VRT Result</h2>
+              <table>
+                <tr>
+                  <th>Changed items 🔴</th>
+                  <th>New items ⚪</th>
+                  <th>Deleted items ⚫</th>
+                  <th>Passed items 🔵</th>
+                </tr>
+                <tr>
+                  <td>${failedItems.length}</td>
+                  <td>${newItems.length}</td>
+                  <td>${deletedItems.length}</td>
+                  <td>${passedItems.length}</td>
+                </tr>
+              </table>
+              <details><summary>Show Detail</summary>\n
+              \`\`\`json\n
+              ${stringifiedOutput}\n
+              \`\`\`\n
+              </details>
+              `
+            await core.summary
+              .addRaw(result)
+              .write()
 
       - name: Compress all generated outputs to vrtReport
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
