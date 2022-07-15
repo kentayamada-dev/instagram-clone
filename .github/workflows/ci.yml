@@ -387,7 +387,7 @@ jobs:
             }
             const parsedOutput = JSON.parse(output)
             const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
-            const getContent = (val) => val > 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/40C057/long-arrow-up.png"/>(${Math.abs(val)})` : val < 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/FA5252/down--v1.png"/>(${Math.abs(val)})` : ''
+            const getContent = (val) => val > 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/40C057/up--v1.png"/>(${Math.abs(val)})` : val < 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/FA5252/down--v1.png"/>(${Math.abs(val)})` : ''
             const diff = (prev, current) => Number(prev) - Number(current)
             const tds = parsedOutput.map((output,index)=>{
               const url = new URL(output.url);
