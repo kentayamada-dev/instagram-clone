@@ -8,7 +8,7 @@ on:
 jobs:
   Cancel-Previous-Runs:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 1
 
     steps:
       - name: Cancel Previous Runs
@@ -18,7 +18,7 @@ jobs:
 
   Detect-Changes:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 1
 
     outputs:
       backend: ${{ steps.filter.outputs.backend }}
@@ -80,7 +80,7 @@ jobs:
     if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
     needs: [Build-Backend]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     services:
       postgres:
@@ -213,7 +213,7 @@ jobs:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
     needs: [Purge-Cloudflare-Cache]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: Check out repository code
@@ -241,11 +241,11 @@ jobs:
           name: Cypress Screenshots
           path: cypress/screenshots
 
-  VRT-Test:
+  Visual-Test:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
     needs: [Purge-Cloudflare-Cache]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: Install chrome
@@ -320,7 +320,7 @@ jobs:
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
         run: mkdir vrtReport && cp -r actualDir expectedDir diffDir report.html vrtReport
 
-      - name: Upload VRT Report
+      - name: Upload VRT report
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/upload-artifact@v3
         with:
@@ -335,3 +335,73 @@ jobs:
         with:
           name: Expected Screenshots
           path: expectedDir
+
+  Lighthouse:
+    if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
+    needs: [Purge-Cloudflare-Cache]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Create output direcotry for Lighthouse
+        run: mkdir lighthouseOutput
+
+      - name: Check Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          outputDirectory: lighthouseOutput
+          urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/"
+          device: all
+
+      - name: Print Lighthouse result
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require("fs")
+            const output = fs.readFileSync("lighthouseOutput/results.json")
+            const parsedOutput = JSON.parse(output)
+            const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
+            const tds = parsedOutput.map((output)=>{
+              const url = new URL(output.url);
+              return `
+            <tr>
+              <td><a href=${output.url}>${url.pathname}</a></td>
+              <td>${output.emulatedFormFactor}</td>
+              <td>${output.scores.performance}</td>
+              <td>${output.scores.accessibility}</td>
+              <td>${output.scores.bestPractices}</td>
+              <td>${output.scores.seo}</td>
+              <td>${output.scores.progressiveWebApp}</td>
+            </tr>
+            `
+            }).join("")
+            const result = `
+            <h2>VRT Results</h2>
+            <table>
+              <tr>
+                <th>Path</th>
+                <th>Device</th>
+                <th>Performance</th>
+                <th>Accessibility</th>
+                <th>Best Practices</th>
+                <th>SEO</th>
+                <th>PWA</th>
+              </tr>
+                ${tds}
+            </table>
+            <details>
+              <summary>Show Detail</summary>\n
+              \`\`\`json\n
+              ${stringifiedOutput}\n
+              \`\`\`\n
+            </details>
+            `
+            await core.summary
+              .addRaw(result)
+              .write()
+
+      - name: Upload Lighthouse reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: Lighthouse Reports
+          path: lighthouseOutput
