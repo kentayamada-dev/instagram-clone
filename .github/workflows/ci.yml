@@ -353,12 +353,15 @@ jobs:
           urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/"
           device: all
 
+      - name: Move results.json to root and rename to lighthouse.json
+        run: mv lighthouseOutput/results.json lighthouse.json
+
       - name: Print Lighthouse result
         uses: actions/github-script@v6
         with:
           script: |
             const fs = require("fs")
-            const output = fs.readFileSync("lighthouseOutput/results.json")
+            const output = fs.readFileSync("./lighthouse.json")
             const parsedOutput = JSON.parse(output)
             const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
             const tds = parsedOutput.map((output)=>{

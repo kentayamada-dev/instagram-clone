@@ -6,9 +6,9 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "settings": {
-    "activitusbar.activeColour": "#8811FF",
+    "activitusbar.activeColour": "#FF0461",
     "activitusbar.alignment": "Right",
-    "activitusbar.inactiveColour": "#8811FF",
+    "activitusbar.inactiveColour": "#FF0461",
     "activitusbar.views": [
       { "codicon": "refresh", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
       { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" }
