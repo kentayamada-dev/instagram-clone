@@ -263,7 +263,7 @@ jobs:
         continue-on-error: true
         with:
           workflow: ci.yml
-          name: Expected Screenshots
+          name: screenshots
           dry_run: true
 
       - name: Download expected screenshots
@@ -272,7 +272,7 @@ jobs:
         with:
           workflow: ci.yml
           path: expectedDir
-          name: Expected Screenshots
+          name: screenshots
 
       - name: Generate test report
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
@@ -333,7 +333,7 @@ jobs:
       - name: Upload expected screenshots
         uses: actions/upload-artifact@v3
         with:
-          name: Expected Screenshots
+          name: screenshots
           path: expectedDir
 
   Lighthouse:
