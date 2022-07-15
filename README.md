@@ -31,6 +31,7 @@
   - Light/Dark Modes
   - Internationalized Routing
   - Cypress
+  - reg-suit
 
 - Backend
 
