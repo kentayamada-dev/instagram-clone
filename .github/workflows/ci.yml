@@ -353,28 +353,60 @@ jobs:
           urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/"
           device: all
 
-      - name: Move results.json to root and rename to lighthouse.json
-        run: mv lighthouseOutput/results.json lighthouse.json
+      - name: Move results.json to root
+        run: mv lighthouseOutput/results.json results.json
+
+      - name: Check previous Lighthouse results exsistance
+        uses: dawidd6/action-download-artifact@v2
+        id: download_artifact
+        continue-on-error: true
+        with:
+          workflow: ci.yml
+          name: lighthouse
+          dry_run: true
+
+      - name: Download previous Lighthouse results
+        if: success() && steps.download_artifact.outputs.dry_run == 'true'
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ci.yml
+          path: lighthouse
+          name: lighthouse
 
       - name: Print Lighthouse result
         uses: actions/github-script@v6
         with:
           script: |
             const fs = require("fs")
-            const output = fs.readFileSync("./lighthouse.json")
+            const output = fs.readFileSync("./results.json")
+            let prevParsedOutputs
+            try{
+              prevParsedOutputs = JSON.parse(fs.readFileSync("lighthouse/results.json"))
+            }catch(error){
+              // do nothing
+            }
             const parsedOutput = JSON.parse(output)
             const stringifiedOutput = JSON.stringify(parsedOutput, null, 2)
-            const tds = parsedOutput.map((output)=>{
+            const getContent = (val) => val > 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/40C057/long-arrow-up.png"/>(${Math.abs(val)})` : val < 0 ? `<img src="https://img.icons8.com/ios-glyphs/13/FA5252/down--v1.png"/>(${Math.abs(val)})` : ''
+            const diff = (prev, current) => Number(prev) - Number(current)
+            const tds = parsedOutput.map((output,index)=>{
               const url = new URL(output.url);
+              const outputScores = output.scores
+              const prevParsedOutputScores = prevParsedOutputs[index].scores
+              const performanceDiff = diff(prevParsedOutputScores.performance, outputScores.performance)
+              const accessibilityDiff = diff(prevParsedOutputScores.accessibility, outputScores.accessibility)
+              const bestPracticesDiff = diff(prevParsedOutputScores.bestPractices, outputScores.bestPractices)
+              const seoDiff = diff(prevParsedOutputScores.seo, outputScores.seo)
+              const pwaDiff = diff(prevParsedOutputScores.progressiveWebApp, outputScores.progressiveWebApp)
               return `
             <tr>
               <td><a href=${output.url}>${url.pathname}</a></td>
               <td>${output.emulatedFormFactor}</td>
-              <td>${output.scores.performance}</td>
-              <td>${output.scores.accessibility}</td>
-              <td>${output.scores.bestPractices}</td>
-              <td>${output.scores.seo}</td>
-              <td>${output.scores.progressiveWebApp}</td>
+              <td>${outputScores.performance} ${getContent(performanceDiff)}</td>
+              <td>${outputScores.accessibility} ${getContent(accessibilityDiff)}</td>
+              <td>${outputScores.bestPractices} ${getContent(bestPracticesDiff)}</td>
+              <td>${outputScores.seo} ${getContent(seoDiff)}</td>
+              <td>${outputScores.progressiveWebApp} ${getContent(pwaDiff)}</td>
             </tr>
             `
             }).join("")
@@ -402,6 +434,12 @@ jobs:
             await core.summary
               .addRaw(result)
               .write()
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse
+          path: results.json
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v3
