@@ -376,7 +376,7 @@ jobs:
             `
             }).join("")
             const result = `
-            <h2>VRT Results</h2>
+            <h2>Lighthouse Results</h2>
             <table>
               <tr>
                 <th>Path</th>
