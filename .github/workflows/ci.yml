@@ -158,10 +158,12 @@ jobs:
           name: Bundle Analysis Report
           path: apps/frontend/dist/analyze/client.html
 
+      - name: Create direcotry for store bundle
+        run: mkdir -p apps/frontend/dist/analyze/base/bundle && echo '{"__global":{"raw":0,"gzip":0}}' >> apps/frontend/dist/analyze/base/bundle/__bundle_analysis.json
+
       - name: Check previous bundle analysis exsistance
         uses: dawidd6/action-download-artifact@v2
         id: download_artifact
-        if: success()
         continue-on-error: true
         with:
           workflow: ci.yml
@@ -177,12 +179,10 @@ jobs:
           name: bundle
 
       - name: Compare with previous bundle analysis report
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         run: npx -p nextjs-bundle-analysis compare
         working-directory: apps/frontend
 
       - name: Print result
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/github-script@v6
         with:
           script: |
@@ -260,6 +260,9 @@ jobs:
       - name: Save actual screenshots into actualDir
         run: storycap --delay 5000 --outDir actualDir https://app.instagram-clone.net/storybook/
 
+      - name: Create direcotry for store expected screenshots
+        run: mkdir expectedDir
+
       - name: Check expected screenshots exsistance
         uses: dawidd6/action-download-artifact@v2
         id: download_artifact
@@ -278,11 +281,9 @@ jobs:
           name: screenshots
 
       - name: Generate test report
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         run: reg-cli actualDir expectedDir diffDir --report ./report.html --enableAntialias --json ./reg.json --ignoreChange
 
       - name: Print VRT result
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/github-script@v6
         with:
           script: |
@@ -290,11 +291,9 @@ jobs:
             await vrt(core)
 
       - name: Compress all generated outputs to vrtReport
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         run: mkdir vrtReport && cp -r actualDir expectedDir diffDir report.html vrtReport
 
       - name: Upload VRT report
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: VRT Report
