@@ -24,7 +24,7 @@ export async function lighthouse(core) {
         seoDiff = diff(prevOutputScores.seo, outputScores.seo);
         pwaDiff = diff(prevOutputScores.progressiveWebApp, outputScores.progressiveWebApp);
       }
-      return `| <a href=${output.url}>${url.pathname}</a> | ${output.emulatedFormFactor} | ${
+      return `\n| <a href=${output.url}>${url.pathname}</a> | ${output.emulatedFormFactor} | ${
         outputScores.performance
       } ${getContent(performanceDiff)} | ${outputScores.accessibility} ${getContent(accessibilityDiff)} | ${
         outputScores.bestPractices
@@ -33,6 +33,6 @@ export async function lighthouse(core) {
       } ${getContent(pwaDiff)} |`;
     })
     .join("");
-  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA< |\n|---|---|---|---|---|---|---|\n${tds}</table><details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA |\n|---|---|---|---|---|---|---|${tds}\n<details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
   await core.summary.addRaw(result).write();
 }
