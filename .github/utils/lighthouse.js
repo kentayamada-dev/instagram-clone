@@ -1,11 +1,12 @@
 import { convertFileContent } from "./common.js";
 
+const getContent = (val) => (val < 0 ? `(🟢 +${Math.abs(val)})` : val > 0 ? `(🔴 -${Math.abs(val)})` : "");
+const diff = (prev, current) => Number(prev) - Number(current);
+
 export async function lighthouse(core) {
   const outputObj = convertFileContent("./results.json");
   const prevOutputObj = convertFileContent("lighthouse/results.json");
   const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
-  const getContent = (val) => (val < 0 ? `(🟢 +${Math.abs(val)})` : val > 0 ? `(🔴 -${Math.abs(val)})` : "");
-  const diff = (prev, current) => Number(prev) - Number(current);
   const tds = outputObj
     .map((output, index) => {
       const url = new URL(output.url);
@@ -23,15 +24,15 @@ export async function lighthouse(core) {
         seoDiff = diff(prevOutputScores.seo, outputScores.seo);
         pwaDiff = diff(prevOutputScores.progressiveWebApp, outputScores.progressiveWebApp);
       }
-      return `<tr><td><a href=${output.url}>${url.pathname}</a></td><td>${output.emulatedFormFactor}</td><td>${
+      return `| <a href=${output.url}>${url.pathname}</a> | ${output.emulatedFormFactor} | ${
         outputScores.performance
-      } ${getContent(performanceDiff)}</td><td>${outputScores.accessibility} ${getContent(accessibilityDiff)}</td><td>${
+      } ${getContent(performanceDiff)} | ${outputScores.accessibility} ${getContent(accessibilityDiff)} | ${
         outputScores.bestPractices
-      } ${getContent(bestPracticesDiff)}</td><td>${outputScores.seo} ${getContent(seoDiff)}</td><td>${
+      } ${getContent(bestPracticesDiff)} | ${outputScores.seo} ${getContent(seoDiff)} | ${
         outputScores.progressiveWebApp
-      } ${getContent(pwaDiff)}</td></tr>`;
+      } ${getContent(pwaDiff)} |`;
     })
     .join("");
-  const result = `<h2>Lighthouse Results</h2><table><tr><th>Path</th><th>Device</th><th>Performance</th><th>Accessibility</th><th>Best Practices</th><th>SEO</th><th>PWA</th></tr>${tds}</table><details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA< |\n|---|---|---|---|---|---|---|\n${tds}</table><details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
   await core.summary.addRaw(result).write();
 }

@@ -2,7 +2,6 @@ import { convertFileContent } from "./common.js";
 import filesize from "filesize";
 
 const getFileSize = filesize.partial({ base: 2, standard: "jedec" });
-
 const getContent = (val) =>
   val < 0 ? `(🔴 +${getFileSize(Math.abs(val))})` : val > 0 ? `(🟢 -${getFileSize(Math.abs(val))})` : "";
 
@@ -57,6 +56,6 @@ export async function analysis(core) {
   const prevGlobalSize = prevOutputObj["__global"]["gzip"];
   const globalSizeDiff = prevGlobalSize - globalSize;
   const global = `| \`global\` | ${getFileSize(globalSize)} ${getContent(globalSizeDiff)} |`;
-  const result = `## 📦 Next.js Bundle Analysis\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n<details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n<details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
   await core.summary.addRaw(result).write();
 }
