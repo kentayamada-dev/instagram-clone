@@ -158,9 +158,6 @@ jobs:
           name: Bundle Analysis Report
           path: apps/frontend/dist/analyze/client.html
 
-      - name: Create direcotry for store bundle
-        run: mkdir -p apps/frontend/dist/analyze/base/bundle && echo '{"__global":{"raw":0,"gzip":0}}' >> apps/frontend/dist/analyze/base/bundle/__bundle_analysis.json
-
       - name: Check previous bundle analysis exsistance
         uses: dawidd6/action-download-artifact@v2
         id: download_artifact
@@ -175,22 +172,19 @@ jobs:
         if: success() && steps.download_artifact.outputs.dry_run == 'true'
         with:
           workflow: ci.yml
-          path: apps/frontend/dist/analyze/base/bundle
+          path: bundle
           name: bundle
 
-      - name: Compare with previous bundle analysis report
-        run: npx -p nextjs-bundle-analysis compare
-        working-directory: apps/frontend
+      - name: Install packages
+        run: yarn install
+        working-directory: .github/utils
 
-      - name: Print result
+      - name: Print bundle analysis report
         uses: actions/github-script@v6
         with:
           script: |
-            const fs = require("fs");
-            const output = fs.readFileSync("apps/frontend/dist/analyze/__bundle_analysis_comment.txt");
-            await core.summary
-              .addRaw(output)
-              .write()
+            const { analysis } = await import('${{ github.workspace }}/.github/utils/analysis.js')
+            await analysis(core)
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'

@@ -10,7 +10,7 @@
     "activitusbar.alignment": "Right",
     "activitusbar.inactiveColour": "#FF0461",
     "activitusbar.views": [
-      { "codicon": "refresh", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
+      { "codicon": "debug-restart", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
       { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" }
     ],
     "colorize.languages": ["typescript"],
