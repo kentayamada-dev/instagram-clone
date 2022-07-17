@@ -4,12 +4,7 @@ export async function lighthouse(core) {
   const outputObj = convertFileContent("./results.json");
   const prevOutputObj = convertFileContent("lighthouse/results.json");
   const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
-  const getContent = (val) =>
-    val < 0
-      ? `<img src="https://img.icons8.com/ios-glyphs/13/40C057/up--v1.png"/>(${Math.abs(val)})`
-      : val > 0
-      ? `<img src="https://img.icons8.com/ios-glyphs/13/FA5252/down--v1.png"/>(${Math.abs(val)})`
-      : "";
+  const getContent = (val) => (val < 0 ? `(🟢 +${Math.abs(val)})` : val > 0 ? `(🔴 -${Math.abs(val)})` : "");
   const diff = (prev, current) => Number(prev) - Number(current);
   const tds = outputObj
     .map((output, index) => {
