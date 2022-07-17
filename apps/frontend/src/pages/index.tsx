@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
@@ -47,6 +48,13 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, 
 };
 
 const Home: NextAuthPageWithLayoutType = ({ data }) => {
+  const users = [
+    { age: 20, name: "google" },
+    { age: 19, name: "apple" },
+    { age: 5, name: "ios" }
+  ];
+  _.sortBy(users, "name");
+
   if (data === null) {
     return <AuthTemplate isSignup={false} />;
   }
