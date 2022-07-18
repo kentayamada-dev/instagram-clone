@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-export function convertFileContent(path) {
+export const convertFileContent = (path) => {
   let content;
   try {
     content = JSON.parse(readFileSync(path));
@@ -9,4 +9,4 @@ export function convertFileContent(path) {
   }
 
   return content;
-}
+};

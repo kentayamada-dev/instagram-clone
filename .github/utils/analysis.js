@@ -1,26 +1,27 @@
 import { convertFileContent } from "./common.js";
 import filesize from "filesize";
 
+const hasProperty = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
 const getFileSize = filesize.partial({ base: 2, standard: "jedec" });
 const getContent = (val) =>
   val < 0 ? `(🔴 +${getFileSize(Math.abs(val))})` : val > 0 ? `(🟢 -${getFileSize(Math.abs(val))})` : "";
 
 const fillObject = (from, to) => {
   for (var key in from) {
-    if (from.hasOwnProperty(key)) {
+    if (hasProperty(from, key)) {
       if (Object.prototype.toString.call(from[key]) === "[object Object]") {
-        if (!to.hasOwnProperty(key)) {
+        if (!hasProperty(to, key)) {
           to[key] = {};
         }
         fillObject(from[key], to[key]);
-      } else if (!to.hasOwnProperty(key)) {
+      } else if (!hasProperty(to, key)) {
         to[key] = from[key];
       }
     }
   }
 };
 
-export async function analysis(core) {
+export const analysis = async (core) => {
   const outputObj = convertFileContent("apps/frontend/dist/analyze/__bundle_analysis.json");
   const prevOutputObj = convertFileContent("bundle/__bundle_analysis.json") ?? {
     __global: { raw: 0, gzip: 0 }
@@ -58,4 +59,4 @@ export async function analysis(core) {
   const global = `| \`global\` | ${getFileSize(globalSize)} ${getContent(globalSizeDiff)} |`;
   const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n<details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
   await core.summary.addRaw(result).write();
-}
+};
