@@ -42,7 +42,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
   const paths = enPaths.concat(jaPaths);
 
   return {
-    fallback: false,
+    fallback: true,
     paths
   };
 };
