@@ -14,9 +14,9 @@ import {
   VStack
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { constants } from "../../../constants";
-import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ButtonLink } from "../ButtonLink";
 import { ButtonLinkColorMode } from "../ButtonLinkColorMode";
 import type { HeaderDrawerType } from "./index.types";
@@ -31,7 +31,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
   const { locale, asPath, pathname, query } = router;
   const { colorMode, toggleColorMode } = useColorMode();
   const handleColorMode = (): void => toggleColorMode();
-  const { t } = useTypeSafeTranslation("common");
+  const { t } = useTranslation("common");
   const handleChangeLocale = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const localeValue = event.target.value;
     Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });

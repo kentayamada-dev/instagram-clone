@@ -1,13 +1,13 @@
 import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import { useTranslation } from "next-i18next";
 import InfiniteScroll from "react-infinite-scroller";
-import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { UserCard } from "../../molecules/userCard";
 import { PostsList } from "../PostsList";
 import { UsersList } from "../UsersList";
 import type { FeedType } from "./index.types";
 
 export const Feed: FeedType = ({ postsData, loadMorePosts, currentUserData, usersData }) => {
-  const { t } = useTypeSafeTranslation("common");
+  const { t } = useTranslation("common");
 
   return (
     <Center>

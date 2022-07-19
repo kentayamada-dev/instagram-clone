@@ -12,8 +12,8 @@ import {
   Text,
   Center
 } from "@chakra-ui/react";
+import { useTranslation } from "next-i18next";
 import React from "react";
-import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { PostModalType } from "./index.types";
 
@@ -34,7 +34,7 @@ export const PostModal: PostModalType = ({
     inputRef.current?.click();
   };
   const isImageSelected = Boolean(imagePreviewSrc);
-  const { t } = useTypeSafeTranslation("common");
+  const { t } = useTranslation("common");
   const handleSubmitPost = async (): Promise<void> => {
     await handleSubmit();
   };

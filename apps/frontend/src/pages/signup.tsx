@@ -49,7 +49,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, 
     props: {
       data: null,
       // eslint-disable-next-line @typescript-eslint/no-extra-parens
-      ...(await serverSideTranslations(initialLocale, ["common", "form"]))
+      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
 

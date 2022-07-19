@@ -1,10 +1,10 @@
 import { Popover, PopoverTrigger, Button, PopoverContent, PopoverArrow } from "@chakra-ui/react";
-import { useTypeSafeTranslation } from "../../../libs/next_translate";
+import { useTranslation } from "next-i18next";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { AvatarPopoverType } from "./index.types";
 
 export const AvatarPopover: AvatarPopoverType = ({ handleLogout, alt, size, src }) => {
-  const { t } = useTypeSafeTranslation("common");
+  const { t } = useTranslation("common");
 
   return (
     <Popover placement="bottom-end">

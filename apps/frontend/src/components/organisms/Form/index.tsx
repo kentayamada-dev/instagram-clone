@@ -9,9 +9,9 @@ import {
   FormErrorMessage
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import { useTranslation } from "next-i18next";
 import { constants } from "../../../constants";
 import { useMyForm } from "../../../hooks/useForm";
-import { useTypeSafeTranslation } from "../../../libs/next_translate";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
 import { TextLink } from "../../atoms/TextLink";
 import { EmailInput } from "./components/EmailInput";
@@ -39,7 +39,7 @@ export const Form: FormType = ({ isSignup }) => {
     handleSubmit,
     formState: { errors, isSubmitting }
   } = useMyForm({ isSignup });
-  const { t } = useTypeSafeTranslation("form");
+  const { t } = useTranslation("form");
   const getValueByAuthMode = <T, U>(valueT: T, valueU: U): T | U => (isSignup ? valueT : valueU);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);

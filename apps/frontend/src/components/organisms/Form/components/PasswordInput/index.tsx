@@ -8,11 +8,11 @@ import {
   InputRightElement,
   useColorModeValue
 } from "@chakra-ui/react";
+import { useTranslation } from "next-i18next";
 import React from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../libs/next_router";
-import { useTypeSafeTranslation } from "../../../../../libs/next_translate";
 import type { PasswordInputType } from "./index.types";
 
 const {
@@ -20,7 +20,7 @@ const {
 } = constants;
 
 export const PasswordInput: PasswordInputType = ({ errors, register }) => {
-  const { t } = useTypeSafeTranslation("form");
+  const { t } = useTranslation("form");
   const passwordBlankErrorMessage = useLocale("Please enter password", "パスワードを入力してください");
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const getPasswordVisibleIcon = (): JSX.Element => (isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />);
