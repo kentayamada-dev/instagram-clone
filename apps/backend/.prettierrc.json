@@ -1,5 +1,1 @@
-{
-  "trailingComma": "none",
-  "quoteProps": "consistent",
-  "printWidth": 120
-}
+{ "trailingComma": "none", "quoteProps": "consistent", "printWidth": 120 }

@@ -21,7 +21,6 @@
     "Kenta"
   ],
   "ignorePaths": [
-    "package.json",
     "*.tsbuildinfo",
     "frontend-words.txt",
     "dist",

@@ -14,9 +14,14 @@ module.exports = {
       `tsc ${tscOptions}`
     ];
   },
-  "*.!(*ts)": (absolutePaths) => {
+  "!(package.json)*.!(*ts)": (absolutePaths) => {
     console.log("apps/backend > *.!(*ts)", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [`prettier ${prettierOptions} ${joinedAbsolutePaths}`, `cspell ${cspellOptions} ${joinedAbsolutePaths}`];
+  },
+  "package.json": (absolutePaths) => {
+    console.log("apps/backend > package.json", absolutePaths);
+    const joinedAbsolutePaths = absolutePaths.join(" ");
+    return [`sort-package-json ${joinedAbsolutePaths}`, `prettier ${prettierOptions} ${joinedAbsolutePaths}`];
   }
 };
