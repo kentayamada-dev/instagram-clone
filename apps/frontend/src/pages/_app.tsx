@@ -13,7 +13,8 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <ChakraProvider theme={myTheme}>{getLayout(<Component {...pageProps} />)}</ChakraProvider>
+      {/* eslint-disable-next-line @typescript-eslint/no-unsafe-argument */}
+      <ChakraProvider theme={myTheme}>{getLayout(<Component {...pageProps} />, pageProps)}</ChakraProvider>
     </ApolloProvider>
   );
 };

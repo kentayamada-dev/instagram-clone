@@ -3315,10 +3315,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kentayamada-dev/eslint-config-base@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@kentayamada-dev/eslint-config-base/-/eslint-config-base-1.0.0.tgz#c44564336579f4761e14b777c63df30676b478a2"
-  integrity sha512-x6Db2Nlfr894BlUcKYdG6XHeaMXZShxRHXY3S9sivT3la4f59yqKbhzqgubVJjcXKMdpuWpOjL0WVZTiAzpG9g==
+"@kentayamada-dev/eslint-config-base@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@kentayamada-dev/eslint-config-base/-/eslint-config-base-1.0.2.tgz#f306a58691cff9f4a1e2da069b0cf20339d99897"
+  integrity sha512-gMPCe30Qy0v1xYSWPseBDMjaWjt3FV+vt6H66SyJMSiUw0Wic6dORjr7Dni7AorPpszEhyzFhx0oH3BJfTLi7g==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.30.5"
     "@typescript-eslint/parser" "^5.30.5"
@@ -12383,6 +12383,18 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
+
+lottie-react@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/lottie-react/-/lottie-react-2.3.1.tgz#697060417bab027edb57ed45bda9d62e920d4040"
+  integrity sha512-8cxd6XZZtECT6LoAhCftRdYrEpHxiouvB5EPiYA+TtCG5LHNYAdMS9IVIHcxKtWnpo7x16QfCLj1XLXZpaN81A==
+  dependencies:
+    lottie-web "^5.9.4"
+
+lottie-web@^5.9.4:
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.9.6.tgz#62ae68563355d3e04aa75d53dec3dd4bea0e57c9"
+  integrity sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA==
 
 loud-rejection@^1.0.0:
   version "1.6.0"

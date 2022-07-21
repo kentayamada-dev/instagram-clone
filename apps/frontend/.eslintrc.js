@@ -103,14 +103,6 @@ module.exports = {
         ignoreVoidOperator: false
       }
     ],
-    "@typescript-eslint/no-extra-parens": [
-      "error",
-      "all",
-      {
-        enforceForArrowConditionals: false,
-        ignoreJSX: "all"
-      }
-    ],
     "@typescript-eslint/no-type-alias": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",

@@ -64,7 +64,6 @@ module.exports = {
         exceptAfterSingleLine: true
       }
     ],
-    "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/no-extraneous-class": [
       "error",
       {

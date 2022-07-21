@@ -1,3 +1,5 @@
+import { Progress } from "@chakra-ui/react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
@@ -47,20 +49,25 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
   };
 };
 
-export const getStaticProps: GetUserStaticProps = async ({ params }) => {
+export const getStaticProps: GetUserStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
+  const initialLocale = locale ?? defaultLocale;
   const apolloClient = initializeApollo();
-  const { data: userData, error } = await apolloClient.query<GetUserQuery, GetUserQueryVariables>({
+  const { data: userData, errors } = await apolloClient.query<GetUserQuery, GetUserQueryVariables>({
+    errorPolicy: "all",
     query: GetUserDocument,
     variables: { getUserId: params?.userId ?? "" }
   });
 
-  if (error) {
-    throw new Error(`Failed to fetch users, ${error.message}`);
+  if (errors) {
+    return {
+      notFound: true
+    };
   }
 
   return {
     props: {
-      data: userData.getUser
+      data: userData.getUser,
+      ...(await serverSideTranslations(initialLocale, ["footer"]))
     },
     revalidate: 1
   };
@@ -70,12 +77,25 @@ const User: NextUserPageWithLayoutType = ({ data }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Progress isIndeterminate size="xs" zIndex={999} />;
   }
 
   return <UserDetailTemplate data={data} />;
 };
 
-User.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
+/* eslint-disable no-underscore-dangle */
+User.getLayout = (page, props): JSX.Element => {
+  let title = "Instagram Clone";
+  if (props.data && props._nextI18Next) {
+    if (props._nextI18Next.initialLocale === "ja") {
+      title = `${props.data.name} • Instagram写真と動画`;
+    } else if (props._nextI18Next.initialLocale === "en") {
+      title = `${props.data.name} • Instagram photos and videos`;
+    }
+  }
+
+  return <Layout title={title}>{page}</Layout>;
+};
+/* eslint-enable no-underscore-dangle */
 
 export default User;

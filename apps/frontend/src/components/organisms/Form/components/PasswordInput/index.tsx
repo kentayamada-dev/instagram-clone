@@ -48,7 +48,7 @@ export const PasswordInput: PasswordInputType = ({ errors, register }) => {
           })}
         />
         <InputRightElement>
-          <Button onClick={handleShowPassword} p="0px" size="sm">
+          <Button aria-label="Toggle Password Visible Button" onClick={handleShowPassword} p="0px" size="sm">
             {getPasswordVisibleIcon()}
           </Button>
         </InputRightElement>

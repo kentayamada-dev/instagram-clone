@@ -41,7 +41,7 @@ export const Footer: FooterType = () => {
         <VStack>
           <Text fontSize="xs">{t("reference")}</Text>
           <ImageLink
-            alt="Instagram"
+            alt="Instagram Text"
             height={25}
             href="https://www.instagram.com/"
             src="/static/instagram/text.svg"

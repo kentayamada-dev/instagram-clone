@@ -1,3 +1,5 @@
+import { Progress } from "@chakra-ui/react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
@@ -49,20 +51,25 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
   };
 };
 
-export const getStaticProps: GetPostStaticProps = async ({ params }) => {
+export const getStaticProps: GetPostStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
+  const initialLocale = locale ?? defaultLocale;
   const apolloClient = initializeApollo();
-  const { data: postData, error } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
+  const { data: postData, errors } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
+    errorPolicy: "all",
     query: GetPostDocument,
     variables: { getPostId: params?.postId ?? "" }
   });
 
-  if (error) {
-    throw new Error(`Failed to fetch posts, ${error.message}`);
+  if (errors) {
+    return {
+      notFound: true
+    };
   }
 
   return {
     props: {
-      data: postData.getPost
+      data: postData.getPost,
+      ...(await serverSideTranslations(initialLocale, ["footer"]))
     },
     revalidate: 1
   };
@@ -72,12 +79,25 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Progress isIndeterminate size="xs" />;
   }
 
   return <PostDetailTemplate data={data} />;
 };
 
-Post.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
+/* eslint-disable no-underscore-dangle */
+Post.getLayout = (page, props): JSX.Element => {
+  let title = "Instagram Clone";
+  if (props.data && props._nextI18Next) {
+    if (props._nextI18Next.initialLocale === "ja") {
+      title = `${props.data.user.name}のInstagram写真`;
+    } else if (props._nextI18Next.initialLocale === "en") {
+      title = `Instagram photo by ${props.data.user.name}`;
+    }
+  }
+
+  return <Layout title={title}>{page}</Layout>;
+};
+/* eslint-enable no-underscore-dangle */
 
 export default Post;

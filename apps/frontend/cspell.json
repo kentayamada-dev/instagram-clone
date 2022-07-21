@@ -18,7 +18,9 @@
     "semibold",
     "Insta",
     "insta",
-    "Kenta"
+    "Kenta",
+    "languagedetector",
+    "Lngs"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

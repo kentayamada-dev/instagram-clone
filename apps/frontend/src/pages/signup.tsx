@@ -11,8 +11,8 @@ import type {
   GetAuthServerSidePropsResultType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, defaultLocale }) => {
-  const initialLocale = locale ?? defaultLocale ?? "en";
+export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, defaultLocale = "en" }) => {
+  const initialLocale = locale ?? defaultLocale;
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
   const { cookie } = req.headers;
@@ -48,7 +48,6 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: null,
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
@@ -58,6 +57,6 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, 
 
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
-Signup.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
+Signup.getLayout = (page): JSX.Element => <Layout>{page}</Layout>;
 
 export default Signup;

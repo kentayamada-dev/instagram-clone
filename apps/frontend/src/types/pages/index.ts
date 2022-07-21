@@ -1,9 +1,10 @@
 /* eslint @typescript-eslint/naming-convention: "off", @typescript-eslint/ban-types: "off"*/
 import type { NextPage } from "next";
+import type { SSRConfig } from "next-i18next";
 import type { AppProps } from "next/app";
 
 export type NextPageWithLayout<T = {}> = NextPage<T> & {
-  getLayout?: (page: JSX.Element) => JSX.Element;
+  getLayout?: (page: JSX.Element, props: Partial<SSRConfig & T>) => JSX.Element;
 };
 
 type MyAppPropsWithLayout = AppProps & {

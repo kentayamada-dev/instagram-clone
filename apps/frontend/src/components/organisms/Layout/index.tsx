@@ -3,7 +3,7 @@ import { Footer } from "../Footer";
 import { Header } from "../Header";
 import type { LayoutType } from "./index.types";
 
-export const Layout: LayoutType = ({ children, title }) => (
+export const Layout: LayoutType = ({ children, title = "Instagram Clone" }) => (
   <>
     <Head>
       <title>{title}</title>

@@ -12,8 +12,8 @@ import type {
   NextAuthPageWithLayoutType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, defaultLocale }) => {
-  const initialLocale = locale ?? defaultLocale ?? "en";
+export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, defaultLocale = "en" }) => {
+  const initialLocale = locale ?? defaultLocale;
   const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
   const { cookie } = req.headers;
@@ -38,7 +38,6 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: currentUser,
-      // eslint-disable-next-line @typescript-eslint/no-extra-parens
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
@@ -54,6 +53,6 @@ const Home: NextAuthPageWithLayoutType = ({ data }) => {
   return <HomeTemplate />;
 };
 
-Home.getLayout = (page): JSX.Element => <Layout title="Instagram Clone">{page}</Layout>;
+Home.getLayout = (page): JSX.Element => <Layout>{page}</Layout>;
 
 export default Home;
