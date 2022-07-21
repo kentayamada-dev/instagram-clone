@@ -39,12 +39,6 @@ describe("Login Page", () => {
     }
   });
 
-  it("Transition To Storybook Page", () => {
-    cy.get('button[aria-label="Open Storybook"]').click();
-    cy.url().should("include", "/storybook/");
-    cy.get("input").should("have.id", "storybook-explorer-searchfield");
-  });
-
   it("Transition To Signup Page", () => {
     cy.get('a[href="/signup/"]').click();
     cy.url().should("eq", Cypress.config().baseUrl + "signup/");

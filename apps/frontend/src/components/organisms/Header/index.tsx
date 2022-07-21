@@ -15,7 +15,8 @@ import { PostModal } from "../../molecules/PostModal";
 import type { HeaderType } from "./index.types";
 
 const {
-  COLORS: { SNOW, EBONY }
+  COLORS: { SNOW, EBONY },
+  LINKS: { APOLLO_LINK, GITHUB_LINK, STORYBOOK_LINK }
 } = constants;
 
 export const Header: HeaderType = () => {
@@ -25,9 +26,6 @@ export const Header: HeaderType = () => {
     handleChangeLocale,
     handleCloseDrawer,
     handleColorMode,
-    handleOpenApolloGraphQL,
-    handleOpenGithub,
-    handleOpenStorybook,
     isDrawerOpen,
     handleOpenDrawer,
     handleClosePostModal,
@@ -114,27 +112,33 @@ export const Header: HeaderType = () => {
             >
               <IconButton
                 aria-label="Open Github"
+                as="a"
+                href={GITHUB_LINK}
                 icon={<SiGithub />}
                 minH="48px"
                 minW="48px"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleOpenGithub}
+                rel="noopener noreferrer"
+                target="_blank"
               />
               <IconButton
                 aria-label="Open Apollo GraphQL"
+                as="a"
+                href={APOLLO_LINK}
                 icon={<SiApollographql />}
                 minH="48px"
                 minW="48px"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleOpenApolloGraphQL}
+                rel="noopener noreferrer"
+                target="_blank"
               />
               <IconButton
                 aria-label="Open Storybook"
+                as="a"
+                href={STORYBOOK_LINK}
                 icon={<SiStorybook />}
                 minH="48px"
                 minW="48px"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleOpenStorybook}
+                rel="noopener noreferrer"
+                target="_blank"
               />
             </Box>
           </Box>

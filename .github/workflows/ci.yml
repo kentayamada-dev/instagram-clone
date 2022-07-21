@@ -220,6 +220,8 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
+        env:
+          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
 
       - name: Upload test videos
         uses: actions/upload-artifact@v3

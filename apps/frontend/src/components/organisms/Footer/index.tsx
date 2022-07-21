@@ -50,7 +50,14 @@ export const Footer: FooterType = () => {
         </VStack>
         <VStack>
           <Text fontSize="xs">{t("hosting")}</Text>
-          <ImageLinkColorMode darkImg={darkImg} height={25} href="https://vercel.com/" lightImg={lightImg} width={90} />
+          <ImageLinkColorMode
+            darkImg={darkImg}
+            height={25}
+            href="https://vercel.com/"
+            isExternal
+            lightImg={lightImg}
+            width={90}
+          />
         </VStack>
       </Flex>
     </VStack>

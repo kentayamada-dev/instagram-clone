@@ -17,6 +17,6 @@ export const constants = {
   LINKS: {
     APOLLO_LINK: "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",
-    STORYBOOK_LINK: "/storybook"
+    STORYBOOK_LINK: "https://app.instagram-clone.net/storybook"
   }
 };

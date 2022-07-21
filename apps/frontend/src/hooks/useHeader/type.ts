@@ -1,14 +1,11 @@
 export type UseHeaderReturnType = {
   handleChangeLocale: () => Promise<void>;
-  handleLogout: () => Promise<void>;
-  handleColorMode: () => void;
-  handleOpenGithub: () => Promise<boolean>;
-  handleOpenApolloGraphQL: () => Promise<boolean>;
-  handleOpenStorybook: () => Promise<boolean>;
-  handleOpenDrawer: () => void;
   handleCloseDrawer: () => void;
-  handleOpenPostModal: () => void;
   handleClosePostModal: () => void;
+  handleColorMode: () => void;
+  handleLogout: () => Promise<void>;
+  handleOpenDrawer: () => void;
+  handleOpenPostModal: () => void;
   isDrawerOpen: boolean;
   isPostModalOpen: boolean;
 };
