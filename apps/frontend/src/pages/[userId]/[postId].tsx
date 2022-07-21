@@ -1,4 +1,3 @@
-import { Progress } from "@chakra-ui/react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
@@ -79,7 +78,7 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <Progress isIndeterminate size="xs" />;
+    return null;
   }
 
   return <PostDetailTemplate data={data} />;

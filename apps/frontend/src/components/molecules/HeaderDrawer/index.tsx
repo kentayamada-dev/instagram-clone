@@ -72,6 +72,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
               darkImg={githubDarkImg}
               height={50}
               href={GITHUB_LINK}
+              isExternal
               lightImg={githubLightImg}
               width={250}
             />
@@ -79,6 +80,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
               darkImg={apolloDarkImg}
               height={50}
               href={APOLLO_LINK}
+              isExternal
               lightImg={apolloLightImg}
               width={250}
             />
@@ -86,6 +88,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
               alt="Storybook"
               height={50}
               href={STORYBOOK_LINK}
+              isExternal
               src="/static/storybookLogo/logo.svg"
               width={250}
             />
