@@ -20,7 +20,8 @@
     "insta",
     "Kenta",
     "languagedetector",
-    "Lngs"
+    "Lngs",
+    "nextjs"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",
