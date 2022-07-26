@@ -1,7 +1,9 @@
 # 📸 Instagram Clone
+
 [![CI](https://img.shields.io/github/workflow/status/kentayamada-dev/instagram-clone/CI?label=CI&logo=GitHub)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/website?label=Website&logo=Vercel&url=https%3A%2F%2Fapp.instagram-clone.net)](https://app.instagram-clone.net/)
 [![API](https://img.shields.io/website?label=API&logo=Heroku&url=https%3A%2F%2Fapi.instagram-clone.net)](https://api.instagram-clone.net/)
+
 ## 🔗 Links
 
 ### 🥳 [Website is here!](https://app.instagram-clone.net/)
@@ -26,7 +28,7 @@
   - Atomic Design
   - Fully Responsive
   - Chakra UI
-  - Apollo Client
+  - SWR
   - TypeScript
   - Light/Dark Modes
   - Internationalized Routing

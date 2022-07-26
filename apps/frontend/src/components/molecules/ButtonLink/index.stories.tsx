@@ -9,6 +9,7 @@ export default {
 
 export const buttonLink: ComponentStoryObj<typeof ButtonLink> = {
   args: {
-    ...imageLink.args
+    ...imageLink.args,
+    isExternal: true
   }
 };

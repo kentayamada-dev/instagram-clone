@@ -10,6 +10,7 @@ export default {
 export const buttonLinkColorMode: ComponentStoryObj<typeof ButtonLinkColorMode> = {
   args: {
     ...imageColorMode.args,
-    href: "href"
+    href: "href",
+    isExternal: true
   }
 };

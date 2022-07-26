@@ -8,6 +8,7 @@ export default {
 
 export const userCard: ComponentStoryObj<typeof UserCard> = {
   args: {
+    isVisibleUnderline: true,
     size: 50,
     src: "/static/landingPage/slide/3.png",
     userId: "userId",

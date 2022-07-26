@@ -23,6 +23,7 @@ export const postCard: ComponentStoryObj<typeof PostCard> = {
   args: {
     ...userCard.args,
     caption: "caption",
-    imageUrl: "/static/landingPage/slide/1.png"
+    imageUrl: "/static/landingPage/slide/1.png",
+    isVisibleUnderline: true
   }
 };

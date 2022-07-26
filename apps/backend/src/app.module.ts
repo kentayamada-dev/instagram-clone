@@ -18,7 +18,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   imports: [
     ThrottlerModule.forRoot({
-      limit: 10,
+      limit: 20,
       ttl: 60
     }),
     ConfigModule.forRoot({
