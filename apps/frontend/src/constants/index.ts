@@ -1,6 +1,7 @@
 /* eslint @typescript-eslint/naming-convention: ["error", {selector: "property", format: ["UPPER_CASE"] } ]*/
 
 export const constants = {
+  API_URL: process.env["NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL"] ?? "",
   CLOUDINARY: {
     API_URL: "https://api.cloudinary.com/v1_1/kentayamada/image/upload",
     UPLOAD_PRESET: "instagram-clone"

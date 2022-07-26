@@ -2,7 +2,7 @@ import { PrismaClient, Prisma } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { hash } from "bcrypt";
 
-const NUM_USERS = 5;
+const NUM_USERS = 10;
 const MAX_NUM_POSTS = 10;
 const SALT_ROUNDS = 10;
 const UNSPLASH_IMAGES = [

@@ -2,9 +2,9 @@ import type { FieldErrors, SubmitHandler, UseFormRegister, UseFormReturn } from 
 
 export type MyFormType = {
   email: string;
-  password: string;
-  name: string;
   file: Blob | FileList;
+  name: string;
+  password: string;
 };
 
 type UseMyFormProps = {
@@ -12,13 +12,13 @@ type UseMyFormProps = {
 };
 
 type UseMyFormReturnType = UseFormReturn<MyFormType> & {
-  submitHandler: SubmitHandler<MyFormType>;
   errorMessage: string;
+  submitHandler: SubmitHandler<MyFormType>;
 };
 
 export type UseMyFormType = (props: UseMyFormProps) => UseMyFormReturnType;
 
 export type FormInputProps = {
-  register: UseFormRegister<MyFormType>;
   errors: FieldErrors<MyFormType>;
+  register: UseFormRegister<MyFormType>;
 };

@@ -21,6 +21,9 @@ const nextConfig = {
         source: "/storybook"
       }
     ];
+  },
+  experimental: {
+    scrollRestoration: true
   }
 };
 

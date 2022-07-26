@@ -2,8 +2,10 @@ import { useColorMode, useDisclosure } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
+import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
-import { useLogoutMutation } from "../../types/generated/types";
+import { LOGOUT_MUTATION } from "../useUser/schema";
+import type { LogoutMutation } from "../../types/generated/types";
 import type { UseHeaderType } from "./type";
 
 export const useHeader: UseHeaderType = () => {
@@ -13,7 +15,6 @@ export const useHeader: UseHeaderType = () => {
   const localeEn = useLocale("ja", "en");
   const { toggleColorMode } = useColorMode();
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
-  const [logout] = useLogoutMutation();
   const handleOpenDrawer = (): void => onOpen();
   const handleCloseDrawer = React.useCallback(() => onClose(), [onClose]);
   const handleColorMode = (): void => toggleColorMode();
@@ -24,9 +25,8 @@ export const useHeader: UseHeaderType = () => {
     });
   };
   const handleLogout = async (): Promise<void> => {
-    await logout({
-      onCompleted: () => router.reload()
-    });
+    await fetcher<LogoutMutation>(LOGOUT_MUTATION);
+    router.reload();
   };
 
   return {

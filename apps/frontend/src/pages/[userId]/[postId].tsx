@@ -2,8 +2,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
-import { initializeApollo } from "../../libs/apollo";
-import { GetAllPostsIdAndUserIdDocument, GetPostDocument } from "../../types/generated/types";
+import { GET_POST_QUERY } from "../../hooks/usePost/schema";
+import { GET_ALL_POSTS_ID_AND_USER_ID_QUERY } from "../../hooks/usePosts/schema";
+import { fetcher } from "../../libs/graphql_request";
 import type { GetPostQuery, GetPostQueryVariables, GetAllPostsIdAndUserIdQuery } from "../../types/generated/types";
 import type {
   PostPathsType,
@@ -13,14 +14,7 @@ import type {
 } from "../../types/pages/post";
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
-  const apolloClient = initializeApollo();
-  const { data, error } = await apolloClient.query<GetAllPostsIdAndUserIdQuery>({
-    query: GetAllPostsIdAndUserIdDocument
-  });
-
-  if (error) {
-    throw new Error(`Failed to fetch post, ${error.message}`);
-  }
+  const data = await fetcher<GetAllPostsIdAndUserIdQuery>(GET_ALL_POSTS_ID_AND_USER_ID_QUERY);
 
   const enPaths = data.getAllPostsIdAndUserId.map(
     (node): PostPathsType => ({
@@ -52,23 +46,12 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
 
 export const getStaticProps: GetPostStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  const apolloClient = initializeApollo();
-  const { data: postData, errors } = await apolloClient.query<GetPostQuery, GetPostQueryVariables>({
-    errorPolicy: "all",
-    query: GetPostDocument,
-    variables: { getPostId: params?.postId ?? "" }
-  });
-
-  if (errors) {
-    return {
-      notFound: true
-    };
-  }
+  const data = await fetcher<GetPostQuery, GetPostQueryVariables>(GET_POST_QUERY, { getPostId: params?.postId ?? "" });
 
   return {
     props: {
-      data: postData.getPost,
-      ...(await serverSideTranslations(initialLocale, ["footer"]))
+      data: data.getPost,
+      ...(await serverSideTranslations(initialLocale, ["footer", "common"]))
     },
     revalidate: 1
   };

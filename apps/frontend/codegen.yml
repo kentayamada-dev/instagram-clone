@@ -1,9 +1,7 @@
-overwrite: true
 generates:
   src/types/generated/types.ts:
     schema: "http://localhost:5001/graphql"
-    documents: "src/**/index.graphql"
+    documents: "src/**/schema.ts"
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-apollo

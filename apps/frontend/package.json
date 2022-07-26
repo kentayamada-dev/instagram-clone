@@ -30,7 +30,6 @@
     "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
     "@babel/core": "^7.18.6",
     "@chakra-ui/react": "^2.2.1",
     "@chakra-ui/storybook-addon": "^4.0.1",
@@ -45,6 +44,7 @@
     "babel-loader": "^8.2.5",
     "browser-image-compression": "^2.0.0",
     "framer-motion": "^6.4.3",
+    "graphql-request": "^4.3.0",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.1",
     "js-cookie": "^3.0.1",
@@ -59,16 +59,15 @@
     "react-infinite-scroller": "^1.2.6",
     "sass": "^1.53.0",
     "sharp": "^0.30.7",
-    "storybook-addon-apollo-client": "^4.0.12",
     "storybook-addon-next": "^1.6.7",
     "storybook-addon-turbo-build": "^1.1.0",
-    "storybook-react-i18next": "^1.1.2"
+    "storybook-react-i18next": "^1.1.2",
+    "swr": "^1.3.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.8.0",
+    "@graphql-codegen/cli": "^2.9.1",
     "@graphql-codegen/typescript": "^2.7.1",
     "@graphql-codegen/typescript-operations": "^2.5.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.1",
     "@next/bundle-analyzer": "^12.2.2",
     "@next/eslint-plugin-next": "^12.2.2",
     "@storybook/addon-a11y": "^6.5.9",

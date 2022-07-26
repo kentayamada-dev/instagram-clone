@@ -1,10 +1,10 @@
 export type UsePostReturnType = {
-  handleChangeImage: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-  handleSubmitPost: () => Promise<void>;
   handleCancelPost: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleChangeCaption: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isPostLoading: boolean;
+  handleChangeImage: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+  handleSubmitPost: () => Promise<void>;
   imageSrc: string;
+  isPostLoading: boolean;
 };
 
 type UsePostProps = {

@@ -1,46 +1,31 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
-import { initializeApollo, addApolloState } from "../libs/apollo";
-import { GetCurrentUserDocument } from "../types/generated/types";
+import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
+import { fetcher } from "../libs/graphql_request";
 import type { GetCurrentUserQuery } from "../types/generated/types";
 import type { NextPageWithLayout } from "../types/pages";
-import type {
-  CurrentUserType,
-  GetAuthServerSideProps,
-  GetAuthServerSidePropsResultType
-} from "../types/pages/auth/types";
+import type { GetAuthServerSideProps, GetAuthServerSidePropsResultType } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({ req, locale, defaultLocale = "en" }) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({
+  req: {
+    headers: { cookie }
+  },
+  locale,
+  defaultLocale = "en"
+}) => {
   const initialLocale = locale ?? defaultLocale;
-  const apolloClient = initializeApollo();
-  let currentUser: CurrentUserType = null;
-  const { cookie } = req.headers;
 
   try {
-    const { data } = await apolloClient.query<GetCurrentUserQuery>({
-      context: {
-        headers: {
-          /* eslint-disable @typescript-eslint/naming-convention */
-          "Content-Type": "application/json",
-          "Cookie": cookie
-          /* eslint-enable @typescript-eslint/naming-convention */
-        }
-      },
-      query: GetCurrentUserDocument
-    });
-    currentUser = data.getCurrentUser;
+    await fetcher<GetCurrentUserQuery>(GET_CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
     const pageProps: GetAuthServerSidePropsResultType = {
-      props: {
-        data: currentUser
-      },
       redirect: {
         destination: "/",
         permanent: true
       }
     };
 
-    return addApolloState(apolloClient, pageProps);
+    return pageProps;
   } catch (error) {
     // Do nothing
   }

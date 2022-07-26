@@ -11,7 +11,6 @@
     "camelcase",
     "Cloudinary",
     "CLOUDINARY",
-    "Apollographql",
     "scroller",
     "Dimentions",
     "deepmerge",
@@ -21,7 +20,13 @@
     "Kenta",
     "languagedetector",
     "Lngs",
-    "nextjs"
+    "nextjs",
+    "predev",
+    "codegen",
+    "postlint",
+    "progressbar",
+    "Apollographql",
+    "unoptimized"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

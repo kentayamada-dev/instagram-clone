@@ -1,10 +1,10 @@
 import type { GetAllPostsQuery, GetAllUsersQuery, GetCurrentUserQuery } from "../../../types/generated/types";
 
 export type FeedProps = {
-  currentUserData: GetCurrentUserQuery | undefined;
+  currentUserData: GetCurrentUserQuery | null;
   loadMorePosts: () => Promise<void>;
-  postsData: GetAllPostsQuery | undefined;
-  usersData: GetAllUsersQuery | undefined;
+  postsData: GetAllPostsQuery | null;
+  usersData: GetAllUsersQuery | null;
 };
 
 export type FeedType = (props: FeedProps) => JSX.Element;

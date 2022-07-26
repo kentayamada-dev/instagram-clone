@@ -1,6 +1,6 @@
 export type WindowDimentionsReturnType = {
-  width: number | null;
   height: number | null;
+  width: number | null;
 };
 
 export type WindowDimentionsType = () => WindowDimentionsReturnType;

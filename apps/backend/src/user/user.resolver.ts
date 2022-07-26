@@ -249,6 +249,9 @@ export class UserResolver {
           imageUrl: true,
           name: true,
           posts: {
+            orderBy: {
+              createdAt: "desc"
+            },
             select: {
               caption: true,
               createdAt: true,

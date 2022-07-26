@@ -2,8 +2,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/organisms/Layout";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
-import { initializeApollo } from "../../libs/apollo";
-import { GetAllUsersIdDocument, GetUserDocument } from "../../types/generated/types";
+import { GET_USER_QUERY } from "../../hooks/useUser/schema";
+import { GET_ALL_USERS_ID_QUERY } from "../../hooks/useUsers/schema";
+import { fetcher } from "../../libs/graphql_request";
 import type { GetUserQuery, GetUserQueryVariables, GetAllUsersIdQuery } from "../../types/generated/types";
 import type {
   GetUserStaticPathsType,
@@ -13,14 +14,7 @@ import type {
 } from "../../types/pages/user";
 
 export const getStaticPaths: GetUserStaticPathsType = async () => {
-  const apolloClient = initializeApollo();
-  const { data, error } = await apolloClient.query<GetAllUsersIdQuery>({
-    query: GetAllUsersIdDocument
-  });
-
-  if (error) {
-    throw new Error(`Failed to fetch user, ${error.message}`);
-  }
+  const data = await fetcher<GetAllUsersIdQuery>(GET_ALL_USERS_ID_QUERY);
 
   const enPaths = data.getAllUsersId.map(
     (node): UserPathsType => ({
@@ -50,23 +44,12 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
 
 export const getStaticProps: GetUserStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  const apolloClient = initializeApollo();
-  const { data: userData, errors } = await apolloClient.query<GetUserQuery, GetUserQueryVariables>({
-    errorPolicy: "all",
-    query: GetUserDocument,
-    variables: { getUserId: params?.userId ?? "" }
-  });
-
-  if (errors) {
-    return {
-      notFound: true
-    };
-  }
+  const data = await fetcher<GetUserQuery, GetUserQueryVariables>(GET_USER_QUERY, { getUserId: params?.userId ?? "" });
 
   return {
     props: {
-      data: userData.getUser,
-      ...(await serverSideTranslations(initialLocale, ["footer"]))
+      data,
+      ...(await serverSideTranslations(initialLocale, ["footer", "common"]))
     },
     revalidate: 1
   };
@@ -87,9 +70,9 @@ User.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
   if (props.data && props._nextI18Next) {
     if (props._nextI18Next.initialLocale === "ja") {
-      title = `${props.data.name} • Instagram写真と動画`;
+      title = `${props.data.getUser.name} • Instagram写真と動画`;
     } else if (props._nextI18Next.initialLocale === "en") {
-      title = `${props.data.name} • Instagram photos and videos`;
+      title = `${props.data.getUser.name} • Instagram photos and videos`;
     }
   }
 

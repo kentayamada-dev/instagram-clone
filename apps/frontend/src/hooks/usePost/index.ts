@@ -1,31 +1,39 @@
 import { useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import React from "react";
+import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
-import { GetAllPostsDocument, useLogoutMutation, usePostMutation } from "../../types/generated/types";
 import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
 import { getImageUrl } from "../../utils/getImageUrl";
-import type { UsePostType } from "./types";
+import { wait } from "../../utils/wait";
+import { useCurrentUser } from "../useCurrentUser";
+import { useAllPosts } from "../usePosts";
+import { useUser } from "../useUser";
+import { POST_MUTATION } from "./schema";
+import type { PostMutation, PostMutationVariables } from "../../types/generated/types";
+import type { UsePostType } from "./type";
 
 export const usePost: UsePostType = ({ handleClosePostModal }) => {
-  const router = useRouter();
-  const [logout] = useLogoutMutation();
   const [postImageFile, setPostImageFile] = React.useState<Blob>();
+  const { currentUser } = useCurrentUser();
+  const { mutate: mutateAllPosts } = useAllPosts();
+  const { mutate: mutateUser } = useUser({ userId: currentUser?.getCurrentUser.id ?? "" });
+  const [isLoading, setIsLoading] = React.useState(false);
   const [imageSrc, setImageSrc] = React.useState("");
   const [caption, setCaption] = React.useState("");
   const fileSizeExceededErrorMessage = useLocale(
     "File size should be less than 10MB",
     "ファイルサイズは10MB以下にしてください"
   );
+  const unexpectedErrorMessage = useLocale("An unexpected error has occurred", "予期しないエラーが発生しました");
   const fileNotSelectedErrorMessage = useLocale("Please select an image", "画像を選択してください");
   const postSuccessMessage = useLocale("Submission complete!", "投稿が完了しました！");
   const toast = useToast();
-  const [post, { loading: isPostLoading }] = usePostMutation();
   const handleCancelPost = (): void => {
     setImageSrc("");
     setCaption("");
     handleClosePostModal();
   };
+  const handleChangeCaption = (event: React.ChangeEvent<HTMLInputElement>): void => setCaption(event.target.value);
 
   const handleSubmitPost = async (): Promise<void> => {
     if (imageSrc === "") {
@@ -37,33 +45,39 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
         title: fileNotSelectedErrorMessage
       });
     } else if (postImageFile instanceof Blob) {
-      const imageUrl = await getImageUrl({ file: postImageFile });
-      await post({
-        onCompleted: () => {
-          handleCancelPost();
-          toast({
-            duration: 10000,
-            isClosable: true,
-            position: "top",
-            status: "success",
-            title: postSuccessMessage
-          });
-        },
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onError: async () =>
-          logout({
-            onCompleted: () => router.reload()
-          }),
-        refetchQueries: [GetAllPostsDocument],
-        variables: {
+      try {
+        setIsLoading(true);
+        await wait(2);
+        const imageUrl = await getImageUrl({ file: postImageFile });
+        await fetcher<PostMutation, PostMutationVariables>(POST_MUTATION, {
           postArgs: {
             caption,
             imageUrl
           }
-        }
-      });
+        });
+        setIsLoading(false);
+        handleCancelPost();
+        toast({
+          duration: 10000,
+          isClosable: true,
+          position: "top",
+          status: "success",
+          title: postSuccessMessage
+        });
+        await mutateAllPosts();
+        await mutateUser();
+      } catch (error) {
+        toast({
+          duration: 10000,
+          isClosable: true,
+          position: "top",
+          status: "error",
+          title: unexpectedErrorMessage
+        });
+      }
     }
   };
+
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const { files } = event.target;
     try {
@@ -75,21 +89,17 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
       setImageSrc(blobUrl);
       setPostImageFile(file);
     } catch (error) {
-      if (error instanceof Error) {
-        toast({
-          duration: 10000,
-          isClosable: true,
-          position: "top",
-          status: "error",
-          title: error.message
-        });
-      }
+      toast({
+        duration: 10000,
+        isClosable: true,
+        position: "top",
+        status: "error",
+        title: unexpectedErrorMessage
+      });
     }
-
     // eslint-disable-next-line require-atomic-updates
     event.target.value = "";
   };
-  const handleChangeCaption = (event: React.ChangeEvent<HTMLInputElement>): void => setCaption(event.target.value);
 
   return {
     handleCancelPost,
@@ -97,6 +107,6 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     handleChangeImage,
     handleSubmitPost,
     imageSrc,
-    isPostLoading
+    isPostLoading: isLoading
   };
 };

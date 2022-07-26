@@ -1,7 +1,0 @@
-query GetCurrentUser {
-  getCurrentUser {
-    id
-    name
-    imageUrl
-  }
-}

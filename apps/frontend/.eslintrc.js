@@ -64,7 +64,7 @@ module.exports = {
       "error",
       {
         format: ["PascalCase"],
-        prefix: ["is"],
+        prefix: ["is", "should"],
         selector: "typeProperty",
         types: ["boolean"]
       },

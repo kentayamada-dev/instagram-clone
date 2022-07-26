@@ -1,12 +1,12 @@
 type GetBlobUrlAndFileProps = {
+  fileSizeExceededErrorMessage: string;
   files: FileList | null;
   maxFileSize: number;
-  fileSizeExceededErrorMessage: string;
 };
 
 type GetBlobUrlAndFileReturnType = {
-  file: Blob;
   blobUrl: string;
+  file: Blob;
 };
 
 export type GetBlobUrlAndFileType = (props: GetBlobUrlAndFileProps) => Promise<GetBlobUrlAndFileReturnType>;

@@ -1,7 +1,6 @@
 import { myTheme } from "../src/libs/chakra";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";
-import { MockedProvider } from "@apollo/client/testing";
 import i18n from "./i18next.js";
 
 const OriginalNextImage = NextImage.default;
@@ -17,9 +16,6 @@ export const parameters = {
   locales: {
     en: "English",
     ja: "日本語"
-  },
-  apolloClient: {
-    MockedProvider
   },
   layout: "centered",
   actions: { argTypesRegex: "^handle[A-Z].*" },

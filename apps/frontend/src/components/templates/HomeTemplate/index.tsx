@@ -1,63 +1,62 @@
-import { ApolloError } from "@apollo/client";
-import { useToast } from "@chakra-ui/react";
 import React from "react";
-import { useLocale } from "../../../libs/next_router";
-import { useGetAllPostsQuery, useGetAllUsersQuery, useGetCurrentUserQuery } from "../../../types/generated/types";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useAllPosts } from "../../../hooks/usePosts";
+import { useAllUsers } from "../../../hooks/useUsers";
+import { wait } from "../../../utils/wait";
 import { Feed } from "../../organisms/Feed";
 import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
-  const { data: currentUserData } = useGetCurrentUserQuery();
+  const { currentUser, isError: isCurrentUserError } = useCurrentUser();
   const {
-    data: postsData,
-    fetchMore: fetchMorePosts,
-    loading: isLoading
-  } = useGetAllPostsQuery({
-    variables: { first: 5 }
+    posts: postsData,
+    loadMorePosts: fetchMorePosts,
+    isLoading: isLoadingPosts,
+    mutate: mutatePosts,
+    isError: isAllPostsError
+  } = useAllPosts();
+  const {
+    users: usersData,
+    mutate: mutateAllUsers,
+    isError: isAllUsersError
+  } = useAllUsers({
+    currentUserId: currentUser?.getCurrentUser.id ?? ""
   });
-  const { data: usersData } = useGetAllUsersQuery({
-    variables: { first: 5, userId: currentUserData?.getCurrentUser.id ?? "" }
-  });
-  const toast = useToast();
-  const tooManyRequestsErrorMessage = useLocale(
-    "Please try again after some time",
-    "時間をおいてから再度お試しください"
-  );
-
+  const isTooManyRequestsErrorOccurred = !isCurrentUserError && !isAllUsersError && !isAllPostsError;
+  const [isLoading, setIsLoading] = React.useState(false);
   const loadMorePosts = async (): Promise<void> => {
-    if (!isLoading) {
-      try {
-        await fetchMorePosts({
-          variables: {
-            after: postsData?.getAllPosts.pageInfo.endCursor,
-            first: 5
-          }
-        });
-      } catch (error) {
-        if (error instanceof ApolloError) {
-          const errorStatus: number | undefined =
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            error.graphQLErrors[0]?.extensions["exception"].status;
-          if (errorStatus === 429) {
-            toast({
-              duration: 10000,
-              isClosable: true,
-              position: "top",
-              status: "error",
-              title: tooManyRequestsErrorMessage
-            });
-          }
-        }
-      }
+    if (!isLoading && !isLoadingPosts && isTooManyRequestsErrorOccurred) {
+      setIsLoading(true);
+      await wait(2);
+      await fetchMorePosts();
+      setIsLoading(false);
     }
   };
 
   React.useEffect(() => {
-    window.history.scrollRestoration = "manual";
-  }, []);
+    // eslint-disable-next-line no-void
+    void (async (): Promise<void> => {
+      if (isTooManyRequestsErrorOccurred) {
+        if (postsData === null) {
+          await mutatePosts();
+        }
+        if (usersData === null) {
+          await mutateAllUsers();
+        }
+      }
+    })();
+  }, [
+    mutatePosts,
+    postsData,
+    usersData,
+    mutateAllUsers,
+    isCurrentUserError,
+    isAllUsersError,
+    isAllPostsError,
+    isTooManyRequestsErrorOccurred
+  ]);
 
   return (
-    <Feed currentUserData={currentUserData} loadMorePosts={loadMorePosts} postsData={postsData} usersData={usersData} />
+    <Feed currentUserData={currentUser} loadMorePosts={loadMorePosts} postsData={postsData} usersData={usersData} />
   );
 };

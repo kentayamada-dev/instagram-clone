@@ -12,7 +12,9 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { constants } from "../../../constants";
+import { useUser } from "../../../hooks/useUser";
 import { useWindowDimensions } from "../../../hooks/useWindowDimensions";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { UserDetailTemplateType } from "./index.types";
@@ -22,6 +24,12 @@ const {
 } = constants;
 
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
+  const router = useRouter();
+  const { user } = useUser({
+    fallbackData: data,
+    shouldRevalidateOnMount: true,
+    userId: router.query["userId"] as string
+  });
   const shadowColor = useColorModeValue(BLACK_PEARL, SNOW);
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
@@ -41,10 +49,10 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
     >
       <HStack align="flex-start" w="100%">
         <Center w="30%">
-          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={data.imageUrl} />
+          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.getUser.imageUrl} />
         </Center>
         <Text fontSize="3xl" w="70%">
-          {data.name}
+          {user?.getUser.name}
         </Text>
       </HStack>
       <Divider />
@@ -56,7 +64,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         templateColumns="repeat(3, 1fr)"
         w="100%"
       >
-        {data.posts.map((post) => (
+        {user?.getUser.posts.map((post) => (
           <GridItem
             _hover={{
               boxShadow: `0 6px 14px ${shadowColor}`,
@@ -73,7 +81,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
             }}
             w="inherit"
           >
-            <NextLink href={`/${data.id}/${post.id}`} passHref>
+            <NextLink href={`/${user.getUser.id}/${post.id}`} passHref>
               <Link>
                 <Image alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.imageUrl} />
               </Link>

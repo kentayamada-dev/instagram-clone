@@ -20,10 +20,12 @@ const posts: GetUserQuery["getUser"]["posts"] = new Array(5).fill(null).map((_, 
 export const userDetailTemplate: ComponentStoryObj<typeof UserDetailTemplate> = {
   args: {
     data: {
-      id: "userId",
-      imageUrl: "/static/landingPage/slide/2.png",
-      name: "userName",
-      posts
+      getUser: {
+        id: "userId",
+        imageUrl: "/static/landingPage/slide/2.png",
+        name: "userName",
+        posts
+      }
     }
   }
 };

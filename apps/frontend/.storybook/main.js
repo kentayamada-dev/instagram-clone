@@ -12,7 +12,6 @@ module.exports = {
     "@chakra-ui/storybook-addon",
     "@storybook/addon-essentials",
     "storybook-addon-turbo-build",
-    "storybook-addon-apollo-client",
     "storybook-addon-next",
     "storybook-react-i18next",
     "@storybook/addon-a11y"

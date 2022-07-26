@@ -2,8 +2,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { HomeTemplate } from "../components/templates/HomeTemplate";
-import { addApolloState, initializeApollo } from "../libs/apollo";
-import { GetCurrentUserDocument } from "../types/generated/types";
+import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
+import { fetcher } from "../libs/graphql_request";
 import type { GetCurrentUserQuery } from "../types/generated/types";
 import type {
   CurrentUserType,
@@ -12,24 +12,18 @@ import type {
   NextAuthPageWithLayoutType
 } from "../types/pages/auth/types";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, defaultLocale = "en" }) => {
+export const getServerSideProps: GetAuthServerSideProps = async ({
+  locale,
+  req: {
+    headers: { cookie }
+  },
+  defaultLocale = "en"
+}) => {
   const initialLocale = locale ?? defaultLocale;
-  const apolloClient = initializeApollo();
   let currentUser: CurrentUserType = null;
-  const { cookie } = req.headers;
 
   try {
-    const { data } = await apolloClient.query<GetCurrentUserQuery>({
-      context: {
-        headers: {
-          /* eslint-disable @typescript-eslint/naming-convention */
-          "Content-Type": "application/json",
-          "Cookie": cookie
-          /* eslint-enable @typescript-eslint/naming-convention */
-        }
-      },
-      query: GetCurrentUserDocument
-    });
+    const data = await fetcher<GetCurrentUserQuery>(GET_CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
     currentUser = data.getCurrentUser;
   } catch (error) {
     // Do nothing
@@ -42,15 +36,15 @@ export const getServerSideProps: GetAuthServerSideProps = async ({ locale, req, 
     }
   };
 
-  return addApolloState(apolloClient, pageProps);
+  return pageProps;
 };
 
 const Home: NextAuthPageWithLayoutType = ({ data }) => {
-  if (data === null) {
-    return <AuthTemplate isSignup={false} />;
+  if (data) {
+    return <HomeTemplate />;
   }
 
-  return <HomeTemplate />;
+  return <AuthTemplate isSignup={false} />;
 };
 
 Home.getLayout = (page): JSX.Element => <Layout>{page}</Layout>;

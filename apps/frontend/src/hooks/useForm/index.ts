@@ -1,12 +1,27 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
-import { useLoginMutation, useSignupMutation } from "../../types/generated/types";
 import { getImageUrl } from "../../utils/getImageUrl";
-import type { MyFormType, UseMyFormType } from "./types";
-import type { ApolloError } from "@apollo/client";
+import { LOGIN_MUTATION, SIGNUP_MUTATION } from "./schema";
+import type {
+  LoginMutation,
+  LoginMutationVariables,
+  SignupMutation,
+  SignupMutationVariables
+} from "../../types/generated/types";
+import type { MyFormType, UseMyFormType } from "./type";
 import type { SubmitHandler } from "react-hook-form";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isGraphQLErrors = (error: any): error is { response: any } => {
+  if ("status" in error.response.errors[0].extensions.exception) {
+    return true;
+  }
+
+  return false;
+};
 
 export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const emailAlreadyExistsErrorMessage = useLocale(
@@ -19,22 +34,25 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
     "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
   );
   const router = useRouter();
-  const [login] = useLoginMutation();
-  const [signup] = useSignupMutation();
   const [errorMessage, setErrorMessage] = React.useState("");
   const imageBlankErrorMessage = useLocale("Please select image", "画像を選択してください");
   const { setError, ...rest } = useForm<MyFormType>({ mode: "onSubmit" });
-  const handleError = (error: ApolloError): void => {
-    const errorStatus: number | undefined =
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      error.graphQLErrors[0]?.extensions["exception"].status;
-    if (errorStatus === 401) {
-      setErrorMessage(emailErrorMessage);
-    } else if (errorStatus === 409) {
-      setErrorMessage(emailAlreadyExistsErrorMessage);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleError = (error: any): void => {
+    if (isGraphQLErrors(error)) {
+      const errorStatus: number | undefined = error.response.errors[0].extensions.exception.status;
+      if (errorStatus === 401) {
+        setErrorMessage(emailErrorMessage);
+      } else if (errorStatus === 409) {
+        setErrorMessage(emailAlreadyExistsErrorMessage);
+      } else {
+        setErrorMessage(unexpectedErrorMessage);
+      }
     } else {
-      setErrorMessage(unexpectedErrorMessage);
+      setError("file", {
+        message: imageBlankErrorMessage,
+        type: "custom"
+      });
     }
   };
   const submitHandler: SubmitHandler<MyFormType> = async (data) => {
@@ -46,33 +64,22 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
       if (isSignup) {
         if (file instanceof Blob) {
           const imageUrl = await getImageUrl({ file });
-          await signup({
-            onCompleted: () => router.reload(),
-            onError: handleError,
-            variables: {
-              signupArgs: {
-                ...signUpProps,
-                imageUrl
-              }
+          await fetcher<SignupMutation, SignupMutationVariables>(SIGNUP_MUTATION, {
+            signupArgs: {
+              ...signUpProps,
+              imageUrl
             }
           });
+          router.reload();
         } else {
           throw new Error("image is not selected");
         }
       } else {
-        await login({
-          onCompleted: () => router.reload(),
-          onError: handleError,
-          variables: {
-            loginArgs: loginProps
-          }
-        });
+        await fetcher<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, { loginArgs: loginProps });
+        router.reload();
       }
     } catch (error) {
-      setError("file", {
-        message: imageBlankErrorMessage,
-        type: "custom"
-      });
+      handleError(error);
     }
   };
 
