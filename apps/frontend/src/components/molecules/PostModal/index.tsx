@@ -35,9 +35,6 @@ export const PostModal: PostModalType = ({
   };
   const isImageSelected = Boolean(imagePreviewSrc);
   const { t } = useTranslation("common");
-  const handleSubmitPost = async (): Promise<void> => {
-    await handleSubmit();
-  };
 
   return (
     <Modal isCentered isOpen={isOpen} onClose={handleClose}>
@@ -83,7 +80,7 @@ export const PostModal: PostModalType = ({
             isLoading={isLoading}
             mr={3}
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={handleSubmitPost}
+            onClick={handleSubmit}
           >
             {t("submit")}
           </Button>

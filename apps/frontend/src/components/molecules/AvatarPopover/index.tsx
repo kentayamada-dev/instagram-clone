@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { AvatarPopoverType } from "./index.types";
 
-export const AvatarPopover: AvatarPopoverType = ({ handleLogout, alt, size, src }) => {
+export const AvatarPopover: AvatarPopoverType = ({ handleLogout, alt, src, size }) => {
   const { t } = useTranslation("common");
 
   return (

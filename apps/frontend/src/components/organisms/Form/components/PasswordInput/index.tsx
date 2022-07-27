@@ -40,9 +40,7 @@ export const PasswordInput: PasswordInputType = ({ errors, register }) => {
           {...register("password", {
             pattern: {
               message: t("passwordValidationMessage"),
-              value:
-                // eslint-disable-next-line max-len
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u
             },
             required: passwordBlankErrorMessage
           })}
