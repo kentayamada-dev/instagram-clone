@@ -9,7 +9,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "
 
   return {
     props: {
-      ...(await serverSideTranslations(initialLocale, ["footer", "notFound"]))
+      ...(await serverSideTranslations(initialLocale, ["footer", "notFound", "common"]))
     }
   };
 };
