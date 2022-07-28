@@ -6,7 +6,6 @@ import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
 import { fetcher } from "../libs/graphql_request";
 import type { GetCurrentUserQuery } from "../types/generated/types";
 import type {
-  CurrentUserType,
   GetAuthServerSideProps,
   GetAuthServerSidePropsResultType,
   NextAuthPageWithLayoutType
@@ -20,18 +19,17 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   defaultLocale = "en"
 }) => {
   const initialLocale = locale ?? defaultLocale;
-  let currentUser: CurrentUserType = null;
+  let data: GetCurrentUserQuery | null = null;
 
   try {
-    const data = await fetcher<GetCurrentUserQuery>(GET_CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
-    currentUser = data.getCurrentUser;
+    data = await fetcher<GetCurrentUserQuery>(GET_CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
   } catch (error) {
     // Do nothing
   }
 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
-      data: currentUser,
+      data: data?.getCurrentUser ?? null,
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };

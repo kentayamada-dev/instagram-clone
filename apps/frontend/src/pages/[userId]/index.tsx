@@ -44,7 +44,17 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
 
 export const getStaticProps: GetUserStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  const data = await fetcher<GetUserQuery, GetUserQueryVariables>(GET_USER_QUERY, { getUserId: params?.userId ?? "" });
+  let data: GetUserQuery | null = null;
+
+  try {
+    data = await fetcher<GetUserQuery, GetUserQueryVariables>(GET_USER_QUERY, {
+      getUserId: params?.userId ?? ""
+    });
+  } catch (error) {
+    return {
+      notFound: true
+    };
+  }
 
   return {
     props: {

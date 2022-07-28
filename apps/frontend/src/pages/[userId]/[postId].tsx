@@ -46,7 +46,15 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
 
 export const getStaticProps: GetPostStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  const data = await fetcher<GetPostQuery, GetPostQueryVariables>(GET_POST_QUERY, { getPostId: params?.postId ?? "" });
+  let data: GetPostQuery | null = null;
+
+  try {
+    data = await fetcher<GetPostQuery, GetPostQueryVariables>(GET_POST_QUERY, { getPostId: params?.postId ?? "" });
+  } catch (error) {
+    return {
+      notFound: true
+    };
+  }
 
   return {
     props: {
