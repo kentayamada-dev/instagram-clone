@@ -8,8 +8,7 @@ const NUM_USERS = 10;
 const MAX_NUM_POSTS = 10;
 const SALT_ROUNDS = 10;
 const TEST_USER = {
-  imageUrl:
-    "https://images.unsplash.com/photo-1649693364265-b4d5af897d99?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80",
+  imageUrl: `https://picsum.photos/id/1000/1000/1000`,
   name: "Test User",
   email: "testuser@gmail.com",
   password: "Test@12345"
@@ -26,13 +25,13 @@ const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput
 
     return {
       ...(caption ? { caption: caption } : {}),
-      imageUrl: `https://picsum.photos/id/${index}/1000/1000`
+      imageUrl: `https://picsum.photos/id/${(index + 1) * 2}/1000/1000`
     };
   });
 
 const generateUsers = async (numberOfUsers: number): Promise<Prisma.UserCreateInput[]> =>
   await Promise.all(
-    [...Array(numberOfUsers)].map(async (): Promise<Prisma.UserCreateInput> => {
+    [...Array(numberOfUsers)].map(async (_, index): Promise<Prisma.UserCreateInput> => {
       const name = faker.name.findName();
       const email = faker.internet.email().toLowerCase();
       const firstLetterCapitalizedEmail = email.charAt(0).toUpperCase() + email.slice(1);
@@ -40,7 +39,7 @@ const generateUsers = async (numberOfUsers: number): Promise<Prisma.UserCreateIn
       const hashedPassword = await hash(password, SALT_ROUNDS);
 
       return {
-        imageUrl: faker.internet.avatar(),
+        imageUrl: `https://picsum.photos/id/${(index + 1) * 3}/1000/1000`,
         name,
         email,
         password: hashedPassword

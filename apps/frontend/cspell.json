@@ -29,7 +29,8 @@
     "unoptimized",
     "mersenne",
     "cilent",
-    "subcomponents"
+    "subcomponents",
+    "picsum"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

@@ -12,7 +12,7 @@ const nextConfig = {
   images: {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     dangerouslyAllowSVG: true,
-    domains: ["images.unsplash.com", "res.cloudinary.com"]
+    domains: ["picsum.photos", "res.cloudinary.com"]
   },
   async rewrites() {
     return [
