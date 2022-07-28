@@ -1,8 +1,10 @@
 import { ChakraProvider, useToast } from "@chakra-ui/react";
 import { appWithTranslation } from "next-i18next";
 import NextNProgress from "nextjs-progressbar";
+import React from "react";
 import { SWRConfig } from "swr";
 import i18nextConfig from "../../next-i18next.config";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 import { myTheme } from "../libs/chakra";
 import { fetcher } from "../libs/graphql_request";
 import { useLocale } from "../libs/next_router";
@@ -13,6 +15,7 @@ const TOO_MANY_REQUESTS_ERROR_MESSAGE = "ThrottlerException: Too Many Requests";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp: MyAppType = ({ Component, pageProps }) => {
+  const { currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
   const toast = useToast();
   const tooManyRequestsErrorMessageTitle = useLocale("Too Many Requests.", "リクエストが多すぎます。");
@@ -35,6 +38,15 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
       });
     }
   };
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-void
+    void (async (): Promise<void> => {
+      if (currentUser === null) {
+        await mutateCurrentUser();
+      }
+    })();
+  }, [currentUser, mutateCurrentUser]);
 
   return (
     <SWRConfig

@@ -2,8 +2,33 @@ import { myTheme } from "../src/libs/chakra";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";
 import i18n from "./i18next.js";
+import { initialize, mswDecorator } from "msw-storybook-addon";
 import { SWRConfig } from "swr";
-import { fetcher } from "../src/libs/graphql_request/index";
+import { request } from "graphql-request";
+
+const fetcher = (query) => request("/", query);
+
+initialize({
+  onUnhandledRequest: "bypass"
+});
+
+export const decorators = [
+  mswDecorator,
+  (Story) => (
+    <SWRConfig
+      value={{
+        fetcher,
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnMount: false,
+        revalidateOnReconnect: false,
+        shouldRetryOnError: false
+      }}
+    >
+      {Story()}
+    </SWRConfig>
+  )
+];
 
 const OriginalNextImage = NextImage.default;
 
@@ -28,20 +53,3 @@ export const parameters = {
     Provider: RouterContext.Provider
   }
 };
-
-export const decorators = [
-  (Story) => (
-    <SWRConfig
-      value={{
-        fetcher,
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnMount: false,
-        revalidateOnReconnect: false,
-        shouldRetryOnError: false
-      }}
-    >
-      <Story />
-    </SWRConfig>
-  )
-];

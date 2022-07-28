@@ -1,6 +1,6 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Layout } from "../components/organisms/Layout";
 import { Custom404Template } from "../components/templates/Custom404Template";
+import { LayoutTemplate } from "../components/templates/LayoutTemplate";
 import type { NextPageWithLayout } from "../types/pages";
 import type { GetStaticProps } from "next";
 
@@ -27,7 +27,7 @@ Custom404.getLayout = (page, props): JSX.Element => {
     }
   }
 
-  return <Layout title={title}>{page}</Layout>;
+  return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
 /* eslint-enable no-underscore-dangle */
 

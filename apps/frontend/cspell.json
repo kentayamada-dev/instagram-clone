@@ -26,7 +26,10 @@
     "postlint",
     "progressbar",
     "Apollographql",
-    "unoptimized"
+    "unoptimized",
+    "mersenne",
+    "cilent",
+    "subcomponents"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

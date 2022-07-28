@@ -1,5 +1,4 @@
 import { Flex, IconButton, Button, Box, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { IoSunny, IoMoon } from "react-icons/io5";
 import { SiStorybook, SiGithub, SiApollographql } from "react-icons/si";
@@ -21,7 +20,7 @@ const {
 } = constants;
 
 export const Header: HeaderType = () => {
-  const { currentUser, mutate: mutateCurrentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
   const isAuthenticated = Boolean(currentUser);
   const {
     handleChangeLocale,
@@ -48,15 +47,6 @@ export const Header: HeaderType = () => {
     alt: "Instagram Text Light",
     src: "/static/instagram/text_light.svg"
   };
-
-  React.useEffect(() => {
-    // eslint-disable-next-line no-void
-    void (async (): Promise<void> => {
-      if (currentUser === null) {
-        await mutateCurrentUser();
-      }
-    })();
-  }, [currentUser, mutateCurrentUser]);
 
   return (
     <>

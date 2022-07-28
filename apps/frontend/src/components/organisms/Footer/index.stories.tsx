@@ -15,11 +15,10 @@ export default {
         {Story()}
       </div>
     )
-  ]
-} as ComponentMeta<typeof Footer>;
-
-export const footer: ComponentStoryObj<typeof Footer> = {
+  ],
   parameters: {
     layout: "fullscreen"
   }
-};
+} as ComponentMeta<typeof Footer>;
+
+export const footer: ComponentStoryObj<typeof Footer> = {};

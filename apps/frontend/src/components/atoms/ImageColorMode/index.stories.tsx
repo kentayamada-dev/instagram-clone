@@ -1,5 +1,5 @@
 import { ImageColorMode } from ".";
-import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 
 export default {
   component: ImageColorMode,

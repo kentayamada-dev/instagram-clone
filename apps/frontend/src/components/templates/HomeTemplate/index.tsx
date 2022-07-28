@@ -12,8 +12,8 @@ import { UsersList } from "../../organisms/UsersList";
 import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
-  const { currentUser, isError: isCurrentUserError } = useCurrentUser();
   const { t } = useTranslation("common");
+  const { currentUser, isError: isCurrentUserError, mutate: mutateCurrentUser } = useCurrentUser();
   const {
     posts: postsData,
     loadMorePosts: fetchMorePosts,
@@ -30,7 +30,7 @@ export const HomeTemplate: HomeTemplateType = () => {
   });
   const isTooManyRequestsErrorOccurred = !isCurrentUserError && !isAllUsersError && !isAllPostsError;
   const [isLoading, setIsLoading] = React.useState(false);
-  const loadMorePosts = async (): Promise<void> => {
+  const handleMorePosts = async (): Promise<void> => {
     if (!isLoading && !isLoadingPosts && isTooManyRequestsErrorOccurred) {
       setIsLoading(true);
       await wait(2);
@@ -49,13 +49,18 @@ export const HomeTemplate: HomeTemplateType = () => {
         if (usersData === null) {
           await mutateAllUsers();
         }
+        if (currentUser === null) {
+          await mutateCurrentUser();
+        }
       }
     })();
   }, [
     mutatePosts,
     postsData,
     usersData,
+    currentUser,
     mutateAllUsers,
+    mutateCurrentUser,
     isCurrentUserError,
     isAllUsersError,
     isAllPostsError,
@@ -79,8 +84,8 @@ export const HomeTemplate: HomeTemplateType = () => {
         >
           <InfiniteScroll
             hasMore={postsData?.getAllPosts.pageInfo.hasNextPage}
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            loadMore={loadMorePosts}
+            // eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/no-misused-promises
+            loadMore={handleMorePosts}
             loader={
               <Center key={0} pb="5" pt="5">
                 <Spinner size="lg" />

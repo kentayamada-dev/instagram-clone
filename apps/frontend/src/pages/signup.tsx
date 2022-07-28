@@ -1,6 +1,6 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Layout } from "../components/organisms/Layout";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
+import { LayoutTemplate } from "../components/templates/LayoutTemplate";
 import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
 import { fetcher } from "../libs/graphql_request";
 import type { GetCurrentUserQuery } from "../types/generated/types";
@@ -42,6 +42,6 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
 
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
-Signup.getLayout = (page): JSX.Element => <Layout>{page}</Layout>;
+Signup.getLayout = (page): JSX.Element => <LayoutTemplate>{page}</LayoutTemplate>;
 
 export default Signup;

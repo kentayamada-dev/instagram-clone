@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { Footer } from "../Footer";
-import { Header } from "../Header";
-import type { LayoutType } from "./index.types";
+import { Footer } from "../../organisms/Footer";
+import { Header } from "../../organisms/Header";
+import type { LayoutTemplateType } from "./index.types";
 
-export const Layout: LayoutType = ({ children, title = "Instagram Clone" }) => (
+export const LayoutTemplate: LayoutTemplateType = ({ children, title = "Instagram Clone" }) => (
   <>
     <Head>
       <title>{title}</title>

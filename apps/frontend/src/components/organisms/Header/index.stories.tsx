@@ -13,11 +13,10 @@ export default {
         {Story()}
       </div>
     )
-  ]
-} as ComponentMeta<typeof Header>;
-
-export const header: ComponentStoryObj<typeof Header> = {
+  ],
   parameters: {
     layout: "fullscreen"
   }
-};
+} as ComponentMeta<typeof Header>;
+
+export const header: ComponentStoryObj<typeof Header> = {};

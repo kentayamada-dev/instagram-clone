@@ -1,6 +1,6 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import { Layout } from "../../components/organisms/Layout";
+import { LayoutTemplate } from "../../components/templates/LayoutTemplate";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
 import { GET_USER_QUERY } from "../../hooks/useUser/schema";
 import { GET_ALL_USERS_ID_QUERY } from "../../hooks/useUsers/schema";
@@ -76,7 +76,7 @@ User.getLayout = (page, props): JSX.Element => {
     }
   }
 
-  return <Layout title={title}>{page}</Layout>;
+  return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
 /* eslint-enable no-underscore-dangle */
 

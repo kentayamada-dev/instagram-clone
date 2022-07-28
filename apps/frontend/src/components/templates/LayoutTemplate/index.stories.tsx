@@ -1,8 +1,8 @@
-import { Layout } from ".";
+import { LayoutTemplate } from ".";
 import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
 
 export default {
-  component: Layout,
+  component: LayoutTemplate,
   decorators: [
     (Story): JSX.Element => (
       <div
@@ -16,14 +16,15 @@ export default {
         {Story()}
       </div>
     )
-  ]
-} as ComponentMeta<typeof Layout>;
-
-export const layout: ComponentStoryObj<typeof Layout> = {
-  args: {
-    title: "title"
-  },
+  ],
   parameters: {
     layout: "fullscreen"
+  },
+  title: "templates/Layout Template"
+} as ComponentMeta<typeof LayoutTemplate>;
+
+export const layoutTemplate: ComponentStoryObj<typeof LayoutTemplate> = {
+  args: {
+    title: "title"
   }
 };

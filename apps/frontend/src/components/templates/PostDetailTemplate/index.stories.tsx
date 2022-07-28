@@ -1,27 +1,22 @@
-import { faker } from "@faker-js/faker";
+import { generatePostData } from "../../../libs/faker";
+import { LayoutTemplate } from "../LayoutTemplate";
 import { PostDetailTemplate } from ".";
-import type { PostDetailTemplateProps } from "./index.types";
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
   component: PostDetailTemplate,
+  parameters: {
+    layout: "fullscreen"
+  },
   title: "templates/Post Detail Template"
 } as ComponentMeta<typeof PostDetailTemplate>;
 
-const data: PostDetailTemplateProps["data"] = {
-  caption: "caption",
-  createdAt: faker.date.past(),
-  id: "postId",
-  imageUrl: "/static/landingPage/slide/1.png",
-  user: {
-    id: "userId",
-    imageUrl: "/static/landingPage/slide/2.png",
-    name: "userName"
-  }
-};
+export const postDetailTemplate: ComponentStory<typeof PostDetailTemplate> = (args) => (
+  <LayoutTemplate>
+    <PostDetailTemplate {...args} />
+  </LayoutTemplate>
+);
 
-export const postDetailTemplate: ComponentStoryObj<typeof PostDetailTemplate> = {
-  args: {
-    data
-  }
+postDetailTemplate.args = {
+  data: generatePostData(1)
 };
