@@ -1,6 +1,6 @@
 {
   "language": "en",
   "version": "0.2",
-  "words": ["nestjs", "datasource", "cuid", "tablename", "schemaname"],
+  "words": ["nestjs", "datasource", "cuid", "tablename", "schemaname", "mersenne"],
   "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js"]
 }
