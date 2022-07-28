@@ -12,8 +12,9 @@ import { UsersList } from "../../organisms/UsersList";
 import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
+  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const { t } = useTranslation("common");
-  const { currentUser, isError: isCurrentUserError, mutate: mutateCurrentUser } = useCurrentUser();
+  const { currentUser, isError: isCurrentUserError } = useCurrentUser();
   const {
     posts: postsData,
     loadMorePosts: fetchMorePosts,
@@ -42,30 +43,17 @@ export const HomeTemplate: HomeTemplateType = () => {
   React.useEffect(() => {
     // eslint-disable-next-line no-void
     void (async (): Promise<void> => {
-      if (isTooManyRequestsErrorOccurred) {
+      if (isTooManyRequestsErrorOccurred && !isInitialDataFetched) {
+        setIsInitialDataFetched(true);
         if (postsData === null) {
           await mutatePosts();
         }
         if (usersData === null) {
           await mutateAllUsers();
         }
-        if (currentUser === null) {
-          await mutateCurrentUser();
-        }
       }
     })();
-  }, [
-    mutatePosts,
-    postsData,
-    usersData,
-    currentUser,
-    mutateAllUsers,
-    mutateCurrentUser,
-    isCurrentUserError,
-    isAllUsersError,
-    isAllPostsError,
-    isTooManyRequestsErrorOccurred
-  ]);
+  }, [isInitialDataFetched, isTooManyRequestsErrorOccurred, mutateAllUsers, mutatePosts, postsData, usersData]);
 
   return (
     <Center>

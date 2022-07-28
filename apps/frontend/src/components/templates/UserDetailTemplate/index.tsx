@@ -27,7 +27,6 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
   const { user } = useUser({
     fallbackData: data,
-    shouldRevalidateOnMount: true,
     userId: router.query["userId"] as string
   });
   const shadowColor = useColorModeValue(BLACK_PEARL, SNOW);

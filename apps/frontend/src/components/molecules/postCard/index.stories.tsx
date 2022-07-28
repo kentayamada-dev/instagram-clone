@@ -23,7 +23,7 @@ export const postCard: ComponentStoryObj<typeof PostCard> = {
   args: {
     ...userCard.args,
     caption: "caption",
-    imageUrl: "/static/landingPage/slide/1.png",
+    imageUrl: "https://picsum.photos/id/100/1000/1000",
     isVisibleUnderline: true
   }
 };

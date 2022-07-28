@@ -10,6 +10,6 @@ export const styledAvatar: ComponentStoryObj<typeof StyledAvatar> = {
   args: {
     alt: "Image Alt",
     size: 70,
-    src: "/static/landingPage/slide/4.png"
+    src: "https://picsum.photos/id/350/1000/1000"
   }
 };

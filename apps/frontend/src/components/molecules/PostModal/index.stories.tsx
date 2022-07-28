@@ -8,9 +8,9 @@ export default {
 
 export const postModal: ComponentStoryObj<typeof PostModal> = {
   args: {
-    currentUserAvatarUrl: "/static/landingPage/slide/3.png",
+    currentUserAvatarUrl: "https://picsum.photos/id/200/1000/1000",
     currentUserName: "Current User Name",
-    imagePreviewSrc: "/static/landingPage/slide/4.png",
+    imagePreviewSrc: "https://picsum.photos/id/400/1000/1000",
     isLoading: false,
     isOpen: true
   }

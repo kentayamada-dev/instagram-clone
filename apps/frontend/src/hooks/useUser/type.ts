@@ -10,7 +10,6 @@ type UseUserReturnType = {
 
 type UseUserProps = {
   fallbackData?: GetUserQuery;
-  shouldRevalidateOnMount?: boolean;
   userId: string;
 };
 
