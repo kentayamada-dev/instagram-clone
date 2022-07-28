@@ -1,7 +1,7 @@
 import useSWRInfinite from "swr/infinite";
 import { GET_ALL_USERS_QUERY } from "./schema";
+import type { GetAllUsersQuery, GetAllUsersQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { GetAllUsersQuery, GetAllUsersQueryVariables } from "../../types/generated/types";
 import type { UseAllUsersReturnType, UseAllUsersType } from "./type";
 
 export const useAllUsers: UseAllUsersType = ({ currentUserId }) => {

@@ -1,5 +1,5 @@
 generates:
-  src/types/generated/types.ts:
+  src/generated/index.ts:
     schema: "http://localhost:5001/graphql"
     documents: "src/**/schema.ts"
     plugins:

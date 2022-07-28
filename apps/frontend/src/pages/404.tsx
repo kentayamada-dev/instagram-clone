@@ -1,7 +1,7 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Custom404Template } from "../components/templates/Custom404Template";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
-import type { NextPageWithLayout } from "../types/pages";
+import type { NextPageWithLayout } from "../libs/next/types";
 import type { GetStaticProps } from "next";
 
 export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "en" }) => {

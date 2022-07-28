@@ -1,7 +1,7 @@
 import useSWRInfinite from "swr/infinite";
 import { GET_ALL_POSTS_QUERY } from "./schema";
+import type { GetAllPostsQuery, GetAllPostsQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { GetAllPostsQuery, GetAllPostsQueryVariables } from "../../types/generated/types";
 import type { UseAllPostsReturnType, UseAllPostsType } from "./type";
 
 export const useAllPosts: UseAllPostsType = () => {

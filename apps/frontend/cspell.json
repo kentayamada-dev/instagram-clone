@@ -37,7 +37,7 @@
     "dist",
     "public/{storybook,static,favicon}",
     "*.yml",
-    "src/types/generated/*",
+    "src/generated/*",
     "cspell.json",
     ".eslintrc.js"
   ]

@@ -7,12 +7,7 @@ import {
 } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
-import type {
-  GetAllPostsQuery,
-  GetAllUsersQuery,
-  GetCurrentUserQuery,
-  GetUserQuery
-} from "../../../types/generated/types";
+import type { GetAllPostsQuery, GetAllUsersQuery, GetCurrentUserQuery, GetUserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {

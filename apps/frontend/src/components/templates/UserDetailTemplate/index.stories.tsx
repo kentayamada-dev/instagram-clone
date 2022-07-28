@@ -2,7 +2,7 @@ import { graphql } from "msw";
 import { generateUserData } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { UserDetailTemplate } from ".";
-import type { GetUserQuery } from "../../../types/generated/types";
+import type { GetUserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {

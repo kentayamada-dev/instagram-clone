@@ -1,4 +1,4 @@
-import type { GetUserQuery } from "../../../types/generated/types";
+import type { GetUserQuery } from "../../../generated";
 
 export type UserDetailTemplateProps = { data: GetUserQuery };
 

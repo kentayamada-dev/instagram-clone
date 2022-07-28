@@ -1,4 +1,4 @@
-import type { GetAllPostsQuery } from "../../types/generated/types";
+import type { GetAllPostsQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
 export type UseAllPostsReturnType = {

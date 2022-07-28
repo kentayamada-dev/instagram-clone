@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { GET_CURRENT_USER_QUERY } from "./schema";
-import type { GetCurrentUserQuery } from "../../types/generated/types";
+import type { GetCurrentUserQuery } from "../../generated";
 import type { UseCurrentUserType } from "./type";
 
 export const useCurrentUser: UseCurrentUserType = () => {

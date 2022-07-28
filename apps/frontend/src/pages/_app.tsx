@@ -8,7 +8,7 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 import { myTheme } from "../libs/chakra";
 import { fetcher } from "../libs/graphql_request";
 import { useLocale } from "../libs/next_router";
-import type { MyAppType } from "../types/pages";
+import type { MyAppType } from "../libs/next/types";
 
 const TOO_MANY_REQUESTS_ERROR_ID = "tooManyRequestsError";
 const TOO_MANY_REQUESTS_ERROR_MESSAGE = "ThrottlerException: Too Many Requests";

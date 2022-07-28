@@ -3,9 +3,9 @@ import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
 import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
 import { fetcher } from "../libs/graphql_request";
-import type { GetCurrentUserQuery } from "../types/generated/types";
-import type { NextPageWithLayout } from "../types/pages";
-import type { GetAuthServerSideProps, GetAuthServerSidePropsResultType } from "../types/pages/auth/types";
+import type { GetCurrentUserQuery } from "../generated";
+import type { GetAuthServerSideProps, GetAuthServerSidePropsResultType } from "../libs/next/pages/auth/types";
+import type { NextPageWithLayout } from "../libs/next/types";
 
 export const getServerSideProps: GetAuthServerSideProps = async ({
   req: {

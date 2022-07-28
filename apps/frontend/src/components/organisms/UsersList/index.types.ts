@@ -1,4 +1,4 @@
-import type { GetAllUsersQuery } from "../../../types/generated/types";
+import type { GetAllUsersQuery } from "../../../generated";
 
 export type UsersListProps = {
   usersEdge: GetAllUsersQuery["getAllUsers"]["edges"] | undefined;

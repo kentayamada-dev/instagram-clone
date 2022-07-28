@@ -1,5 +1,5 @@
-import type { MyPathsType, NextPageWithLayout } from "..";
-import type { UserDetailTemplateProps } from "../../../components/templates/UserDetailTemplate/index.types";
+import type { UserDetailTemplateProps } from "../../../../components/templates/UserDetailTemplate/index.types";
+import type { MyPathsType, NextPageWithLayout } from "../../types";
 import type { GetStaticPaths, GetStaticProps } from "next";
 
 export type UserUrlQueryType = {

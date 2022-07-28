@@ -5,13 +5,13 @@ import { UserDetailTemplate } from "../../components/templates/UserDetailTemplat
 import { GET_USER_QUERY } from "../../hooks/useUser/schema";
 import { GET_ALL_USERS_ID_QUERY } from "../../hooks/useUsers/schema";
 import { fetcher } from "../../libs/graphql_request";
-import type { GetUserQuery, GetUserQueryVariables, GetAllUsersIdQuery } from "../../types/generated/types";
+import type { GetUserQuery, GetUserQueryVariables, GetAllUsersIdQuery } from "../../generated";
 import type {
   GetUserStaticPathsType,
   GetUserStaticProps,
   NextUserPageWithLayoutType,
   UserPathsType
-} from "../../types/pages/user";
+} from "../../libs/next/pages/user";
 
 export const getStaticPaths: GetUserStaticPathsType = async () => {
   const data = await fetcher<GetAllUsersIdQuery>(GET_ALL_USERS_ID_QUERY);

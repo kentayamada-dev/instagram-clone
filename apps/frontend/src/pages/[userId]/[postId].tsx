@@ -5,13 +5,13 @@ import { PostDetailTemplate } from "../../components/templates/PostDetailTemplat
 import { GET_POST_QUERY } from "../../hooks/usePost/schema";
 import { GET_ALL_POSTS_ID_AND_USER_ID_QUERY } from "../../hooks/usePosts/schema";
 import { fetcher } from "../../libs/graphql_request";
-import type { GetPostQuery, GetPostQueryVariables, GetAllPostsIdAndUserIdQuery } from "../../types/generated/types";
+import type { GetPostQuery, GetPostQueryVariables, GetAllPostsIdAndUserIdQuery } from "../../generated";
 import type {
   PostPathsType,
   GetPostStaticPathsType,
   GetPostStaticProps,
   NextPostPageWithLayoutType
-} from "../../types/pages/post";
+} from "../../libs/next/pages/post";
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
   const data = await fetcher<GetAllPostsIdAndUserIdQuery>(GET_ALL_POSTS_ID_AND_USER_ID_QUERY);

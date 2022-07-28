@@ -1,4 +1,4 @@
-import type { GetAllPostsQuery } from "../../../types/generated/types";
+import type { GetAllPostsQuery } from "../../../generated";
 
 export type PostsListProps = {
   postsEdge: GetAllPostsQuery["getAllPosts"]["edges"] | undefined;

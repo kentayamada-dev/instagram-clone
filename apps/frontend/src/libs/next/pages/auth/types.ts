@@ -1,5 +1,5 @@
-import type { NextPageWithLayout } from "..";
-import type { GetCurrentUserQuery } from "../../generated/types";
+import type { GetCurrentUserQuery } from "../../../../generated";
+import type { NextPageWithLayout } from "../../types";
 import type { GetServerSideProps, GetServerSidePropsResult } from "next";
 
 type GetCurrentUserType = GetCurrentUserQuery["getCurrentUser"];
@@ -13,5 +13,3 @@ export type GetAuthServerSideProps = GetServerSideProps<AuthProps>;
 export type GetAuthServerSidePropsResultType = GetServerSidePropsResult<AuthProps>;
 
 export type NextAuthPageWithLayoutType = NextPageWithLayout<AuthProps>;
-
-export type CurrentUserType = GetCurrentUserType | null;

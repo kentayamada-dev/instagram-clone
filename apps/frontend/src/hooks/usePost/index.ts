@@ -9,7 +9,7 @@ import { useCurrentUser } from "../useCurrentUser";
 import { useAllPosts } from "../usePosts";
 import { useUser } from "../useUser";
 import { POST_MUTATION } from "./schema";
-import type { PostMutation, PostMutationVariables } from "../../types/generated/types";
+import type { PostMutation, PostMutationVariables } from "../../generated";
 import type { UsePostType } from "./type";
 
 export const usePost: UsePostType = ({ handleClosePostModal }) => {

@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ["coverage", "src/types/generated", "dist", "next-env.d.ts", "**/*.js"],
+  ignorePatterns: ["coverage", "src/generated", "dist", "next-env.d.ts", "**/*.js"],
   parserOptions: { tsconfigRootDir: __dirname, project: ["./tsconfig.json"] },
   settings: { next: { rootDir: "apps/frontend" }, react: { version: "detect" } },
   extends: [

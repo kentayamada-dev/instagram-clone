@@ -4,12 +4,12 @@ import { HomeTemplate } from "../components/templates/HomeTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
 import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
 import { fetcher } from "../libs/graphql_request";
-import type { GetCurrentUserQuery } from "../types/generated/types";
+import type { GetCurrentUserQuery } from "../generated";
 import type {
   GetAuthServerSideProps,
   GetAuthServerSidePropsResultType,
   NextAuthPageWithLayoutType
-} from "../types/pages/auth/types";
+} from "../libs/next/pages/auth/types";
 
 export const getServerSideProps: GetAuthServerSideProps = async ({
   locale,

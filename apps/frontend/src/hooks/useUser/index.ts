@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { GET_USER_QUERY } from "./schema";
-import type { GetUserQuery } from "../../types/generated/types";
+import type { GetUserQuery } from "../../generated";
 import type { UseUserType } from "./type";
 
 export const useUser: UseUserType = ({ userId, fallbackData, shouldRevalidateOnMount = false }) => {

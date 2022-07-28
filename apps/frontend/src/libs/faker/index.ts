@@ -5,7 +5,7 @@ import type {
   GetAllUsersQuery,
   GetCurrentUserQuery,
   GetUserQuery
-} from "../../types/generated/types";
+} from "../../generated";
 
 faker.mersenne.seed(999);
 

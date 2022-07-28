@@ -5,12 +5,7 @@ import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { LOGIN_MUTATION, SIGNUP_MUTATION } from "./schema";
-import type {
-  LoginMutation,
-  LoginMutationVariables,
-  SignupMutation,
-  SignupMutationVariables
-} from "../../types/generated/types";
+import type { LoginMutation, LoginMutationVariables, SignupMutation, SignupMutationVariables } from "../../generated";
 import type { MyFormType, UseMyFormType } from "./type";
 import type { SubmitHandler } from "react-hook-form";
 

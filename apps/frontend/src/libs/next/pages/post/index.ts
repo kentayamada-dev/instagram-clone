@@ -1,5 +1,5 @@
-import type { MyPathsType, NextPageWithLayout } from "..";
-import type { PostDetailTemplateProps } from "../../../components/templates/PostDetailTemplate/index.types";
+import type { PostDetailTemplateProps } from "../../../../components/templates/PostDetailTemplate/index.types";
+import type { MyPathsType, NextPageWithLayout } from "../../types";
 import type { UserUrlQueryType } from "../user";
 import type { GetStaticPaths, GetStaticProps } from "next";
 

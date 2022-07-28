@@ -5,7 +5,7 @@ import React from "react";
 import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
 import { LOGOUT_MUTATION } from "../useUser/schema";
-import type { LogoutMutation } from "../../types/generated/types";
+import type { LogoutMutation } from "../../generated";
 import type { UseHeaderType } from "./type";
 
 export const useHeader: UseHeaderType = () => {

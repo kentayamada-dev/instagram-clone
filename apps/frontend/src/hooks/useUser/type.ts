@@ -1,4 +1,4 @@
-import type { GetUserQuery } from "../../types/generated/types";
+import type { GetUserQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
 type UseUserReturnType = {
