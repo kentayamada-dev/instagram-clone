@@ -1,6 +1,6 @@
 import type { UsersQuery } from "../../../generated";
 
-export type UsersListProps = {
+type UsersListProps = {
   usersEdge: UsersQuery["users"]["edges"] | undefined;
 };
 

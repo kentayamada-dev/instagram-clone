@@ -1,4 +1,4 @@
-export type UsePostReturnType = {
+type UsePostReturnType = {
   handleCancelPost: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleChangeCaption: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangeImage: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;

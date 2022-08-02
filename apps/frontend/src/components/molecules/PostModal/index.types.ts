@@ -1,4 +1,4 @@
-export type PostModalProps = {
+type PostModalProps = {
   currentUserAvatarUrl: string | undefined;
   currentUserName: string | undefined;
   handleCancel: (event: React.MouseEvent<HTMLButtonElement>) => void;

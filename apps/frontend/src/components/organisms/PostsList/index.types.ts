@@ -1,6 +1,6 @@
 import type { PostsQuery } from "../../../generated";
 
-export type PostsListProps = {
+type PostsListProps = {
   postsEdge: PostsQuery["posts"]["edges"] | undefined;
 };
 

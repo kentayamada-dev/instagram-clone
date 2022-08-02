@@ -1,4 +1,4 @@
-export type LayoutTemplateProps = {
+type LayoutTemplateProps = {
   children: JSX.Element;
   title?: string | undefined;
 };
