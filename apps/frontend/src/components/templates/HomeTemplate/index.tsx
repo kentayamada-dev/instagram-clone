@@ -23,8 +23,9 @@ export const HomeTemplate: HomeTemplateType = () => {
     currentUserId: currentUser?.id ?? ""
   });
   const isTooManyRequestsErrorOccurred = isCurrentUserError && isUsersError && isPostsError;
+
   const handleMorePosts = async (): Promise<void> => {
-    if (!isLoading && !isPostsLoading && isTooManyRequestsErrorOccurred) {
+    if (!isLoading && !isPostsLoading && !isTooManyRequestsErrorOccurred) {
       setIsLoading(true);
       await wait(2);
       await loadMorePosts();
