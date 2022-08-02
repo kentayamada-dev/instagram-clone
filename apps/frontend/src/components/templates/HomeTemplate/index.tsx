@@ -12,15 +12,17 @@ import { UsersList } from "../../organisms/UsersList";
 import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
-  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const { t } = useTranslation("common");
-  const { currentUser, isCurrentUserError } = useCurrentUser();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isAsyncInitialDataReadyToFetch, setIsAsyncInitialDataReadyToFetch] = React.useState(false);
+  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
+  const [isAsyncInitialDataFetched, setIsAsyncInitialDataFetched] = React.useState(false);
+  const { currentUser, isCurrentUserError, mutateCurrentUser } = useCurrentUser();
   const { posts, loadMorePosts, isPostsLoading, mutatePosts: postsMutate, isPostsError } = usePosts();
   const { users, mutateUsers, isUsersError } = useUsers({
     currentUserId: currentUser?.id ?? ""
   });
-  const isTooManyRequestsErrorOccurred = !isCurrentUserError && !isUsersError && !isPostsError;
-  const [isLoading, setIsLoading] = React.useState(false);
+  const isTooManyRequestsErrorOccurred = isCurrentUserError && isUsersError && isPostsError;
   const handleMorePosts = async (): Promise<void> => {
     if (!isLoading && !isPostsLoading && isTooManyRequestsErrorOccurred) {
       setIsLoading(true);
@@ -31,19 +33,44 @@ export const HomeTemplate: HomeTemplateType = () => {
   };
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-void
-    void (async (): Promise<void> => {
-      if (isTooManyRequestsErrorOccurred && !isInitialDataFetched) {
-        setIsInitialDataFetched(true);
-        if (posts === null) {
-          await postsMutate();
-        }
-        if (users === null) {
-          await mutateUsers();
-        }
+    if (!isTooManyRequestsErrorOccurred) {
+      if (!isAsyncInitialDataFetched && isAsyncInitialDataReadyToFetch && !currentUser) {
+        setIsAsyncInitialDataFetched(true);
+        // eslint-disable-next-line no-void
+        void (async (): Promise<void> => {
+          await mutateCurrentUser();
+        })();
       }
-    })();
-  }, [isInitialDataFetched, isTooManyRequestsErrorOccurred, mutateUsers, posts, postsMutate, users]);
+      if (!isInitialDataFetched) {
+        setIsInitialDataFetched(true);
+        // eslint-disable-next-line no-void
+        void (async (): Promise<void> => {
+          if (!posts) {
+            await postsMutate();
+          }
+          if (currentUser?.id && !users) {
+            await mutateUsers();
+          }
+        })();
+      }
+      if (!isAsyncInitialDataReadyToFetch) {
+        setTimeout(() => {
+          setIsAsyncInitialDataReadyToFetch(true);
+        }, 2000);
+      }
+    }
+  }, [
+    currentUser,
+    isAsyncInitialDataFetched,
+    isAsyncInitialDataReadyToFetch,
+    isInitialDataFetched,
+    isTooManyRequestsErrorOccurred,
+    mutateCurrentUser,
+    mutateUsers,
+    posts,
+    postsMutate,
+    users
+  ]);
 
   return (
     <Center>
