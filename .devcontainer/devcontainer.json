@@ -17,6 +17,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.workingDirectories": [{ "mode": "auto" }],
     "files.associations": { ".json": "jsonc" },
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.statusBar.enabled": false,
     "graphql-config.load.rootDir": "apps/frontend",
     "javascript.preferences.importModuleSpecifier": "relative",
     "material-icon-theme.activeIconPack": "nest",
@@ -41,6 +44,7 @@
     "ms-vscode.live-server",
     "Gruntfuggly.activitusbar",
     "formulahendry.auto-rename-tag",
-    "apollographql.vscode-apollo"
+    "apollographql.vscode-apollo",
+    "eamodio.gitlens"
   ]
 }
