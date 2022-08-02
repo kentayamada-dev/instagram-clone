@@ -31,7 +31,8 @@
     "cilent",
     "subcomponents",
     "picsum",
-    "jzle"
+    "jzle",
+    "deadcode"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",
