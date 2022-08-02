@@ -1,13 +1,8 @@
 import { graphql } from "msw";
-import {
-  generateAllPostsData,
-  generateAllUsersData,
-  generateCurrentUserData,
-  generateUserData
-} from "../../../libs/faker";
+import { generateAllPostsData, generateAllUsersData, generateCurrentUserData } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
-import type { PostsQuery, UsersQuery, CurrentUserQuery, UserQuery } from "../../../generated";
+import type { PostsQuery, UsersQuery, CurrentUserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
@@ -17,7 +12,7 @@ export default {
     msw: {
       handlers: [
         graphql.query<PostsQuery>(
-          "GetAllPosts",
+          "Posts",
           (_req, res, ctx) =>
             res(
               ctx.data({
@@ -27,7 +22,7 @@ export default {
           // eslint-disable-next-line function-paren-newline
         ),
         graphql.query<UsersQuery>(
-          "GetAllUsers",
+          "Users",
           (_req, res, ctx) =>
             res(
               ctx.data({
@@ -37,21 +32,11 @@ export default {
           // eslint-disable-next-line function-paren-newline
         ),
         graphql.query<CurrentUserQuery>(
-          "GetCurrentUser",
+          "CurrentUser",
           (_req, res, ctx) =>
             res(
               ctx.data({
                 currentUser: generateCurrentUserData
-              })
-            )
-          // eslint-disable-next-line function-paren-newline
-        ),
-        graphql.query<UserQuery>(
-          "GetUser",
-          (_req, res, ctx) =>
-            res(
-              ctx.data({
-                user: generateUserData
               })
             )
           // eslint-disable-next-line function-paren-newline
