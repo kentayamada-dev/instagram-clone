@@ -78,11 +78,14 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
 /* eslint-disable no-underscore-dangle */
 Post.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
-  if (props.data?.user && props._nextI18Next) {
-    if (props._nextI18Next.initialLocale === "ja") {
-      title = `${props.data.user.name}のInstagram写真`;
-    } else if (props._nextI18Next.initialLocale === "en") {
-      title = `Instagram photo by ${props.data.user.name}`;
+  const userName = props.data?.user.name;
+  const initialLocale = props._nextI18Next?.initialLocale;
+
+  if (userName && initialLocale) {
+    if (initialLocale === "ja") {
+      title = `${userName}のInstagram写真`;
+    } else if (initialLocale === "en") {
+      title = `Instagram photo by ${userName}`;
     }
   }
 

@@ -19,10 +19,12 @@ const Custom404: NextPageWithLayout = () => <Custom404Template />;
 /* eslint-disable no-underscore-dangle */
 Custom404.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
-  if (props._nextI18Next) {
-    if (props._nextI18Next.initialLocale === "ja") {
+  const initialLocale = props._nextI18Next?.initialLocale;
+
+  if (initialLocale) {
+    if (initialLocale === "ja") {
       title = "ページが見つかりません • Instagram Clone";
-    } else if (props._nextI18Next.initialLocale === "en") {
+    } else if (initialLocale === "en") {
       title = "Page not found • Instagram Clone";
     }
   }

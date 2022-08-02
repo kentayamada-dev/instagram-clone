@@ -80,6 +80,7 @@ User.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
   const initialLocale = props._nextI18Next?.initialLocale;
   const userName = props.data?.user.name;
+
   if (userName && initialLocale) {
     if (initialLocale === "ja") {
       title = `${userName} • Instagram写真と動画`;

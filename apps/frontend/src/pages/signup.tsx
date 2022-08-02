@@ -42,6 +42,21 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
 
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
-Signup.getLayout = (page): JSX.Element => <LayoutTemplate>{page}</LayoutTemplate>;
+/* eslint-disable no-underscore-dangle */
+Signup.getLayout = (page, props): JSX.Element => {
+  let title = "Instagram Clone";
+  const initialLocale = props._nextI18Next?.initialLocale;
+
+  if (initialLocale) {
+    if (initialLocale === "ja") {
+      title = "登録 • Instagram";
+    } else if (initialLocale === "en") {
+      title = "Sign up • Instagram";
+    }
+  }
+
+  return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
+};
+/* eslint-enable no-underscore-dangle */
 
 export default Signup;
