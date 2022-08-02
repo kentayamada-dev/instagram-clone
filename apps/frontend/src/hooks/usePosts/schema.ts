@@ -1,19 +1,19 @@
 import { gql } from "graphql-request";
 
-export const GET_ALL_POSTS_ID_AND_USER_ID_QUERY = gql`
-  query GetAllPostsIdAndUserId {
-    getAllPostsIdAndUserId {
-      id
-      user {
+export const POSTS_ID_AND_USERS_ID_QUERY = gql`
+  query PostsIdAndUsersId {
+    posts {
+      nodes {
         id
+        userId
       }
     }
   }
 `;
 
-export const GET_ALL_POSTS_QUERY = gql`
-  query GetAllPosts($first: Float!, $after: String) {
-    getAllPosts(first: $first, after: $after) {
+export const POSTS_QUERY = gql`
+  query Posts($first: Float, $after: String) {
+    posts(first: $first, after: $after) {
       pageInfo {
         hasNextPage
         endCursor
@@ -22,8 +22,8 @@ export const GET_ALL_POSTS_QUERY = gql`
         node {
           id
           caption
-          createdAt
           imageUrl
+          createdAt
           user {
             id
             name

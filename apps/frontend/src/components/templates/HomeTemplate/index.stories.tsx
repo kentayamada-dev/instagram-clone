@@ -7,7 +7,7 @@ import {
 } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
-import type { GetAllPostsQuery, GetAllUsersQuery, GetCurrentUserQuery, GetUserQuery } from "../../../generated";
+import type { PostsQuery, UsersQuery, CurrentUserQuery, UserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
@@ -16,42 +16,42 @@ export default {
     layout: "fullscreen",
     msw: {
       handlers: [
-        graphql.query<GetAllPostsQuery>(
+        graphql.query<PostsQuery>(
           "GetAllPosts",
           (_req, res, ctx) =>
             res(
               ctx.data({
-                getAllPosts: generateAllPostsData
+                posts: generateAllPostsData
               })
             )
           // eslint-disable-next-line function-paren-newline
         ),
-        graphql.query<GetAllUsersQuery>(
+        graphql.query<UsersQuery>(
           "GetAllUsers",
           (_req, res, ctx) =>
             res(
               ctx.data({
-                getAllUsers: generateAllUsersData
+                users: generateAllUsersData
               })
             )
           // eslint-disable-next-line function-paren-newline
         ),
-        graphql.query<GetCurrentUserQuery>(
+        graphql.query<CurrentUserQuery>(
           "GetCurrentUser",
           (_req, res, ctx) =>
             res(
               ctx.data({
-                getCurrentUser: generateCurrentUserData
+                currentUser: generateCurrentUserData
               })
             )
           // eslint-disable-next-line function-paren-newline
         ),
-        graphql.query<GetUserQuery>(
+        graphql.query<UserQuery>(
           "GetUser",
           (_req, res, ctx) =>
             res(
               ctx.data({
-                getUser: generateUserData
+                user: generateUserData
               })
             )
           // eslint-disable-next-line function-paren-newline

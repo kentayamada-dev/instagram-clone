@@ -48,10 +48,10 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
     >
       <HStack align="flex-start" w="100%">
         <Center w="30%">
-          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.getUser.imageUrl} />
+          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.imageUrl} />
         </Center>
         <Text fontSize="3xl" w="70%">
-          {user?.getUser.name}
+          {user?.name}
         </Text>
       </HStack>
       <Divider />
@@ -63,7 +63,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         templateColumns="repeat(3, 1fr)"
         w="100%"
       >
-        {user?.getUser.posts.map((post) => (
+        {user?.posts.nodes.map((post) => (
           <GridItem
             _hover={{
               boxShadow: `0 6px 14px ${shadowColor}`,
@@ -80,7 +80,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
             }}
             w="inherit"
           >
-            <NextLink href={`/${user.getUser.id}/${post.id}`} passHref>
+            <NextLink href={`/${user.id}/${post.id}`} passHref>
               <Link>
                 <Image alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.imageUrl} />
               </Link>

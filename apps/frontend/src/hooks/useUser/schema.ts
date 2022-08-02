@@ -1,16 +1,18 @@
 import { gql } from "graphql-request";
 
-export const GET_USER_QUERY = gql`
-  query GetUser($getUserId: String!) {
-    getUser(id: $getUserId) {
+export const USER_QUERY = gql`
+  query User($userId: String!) {
+    user(userId: $userId) {
       id
       name
       imageUrl
       posts {
-        id
-        caption
-        createdAt
-        imageUrl
+        nodes {
+          id
+          caption
+          imageUrl
+          createdAt
+        }
       }
     }
   }

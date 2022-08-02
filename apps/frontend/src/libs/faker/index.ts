@@ -1,15 +1,9 @@
 import { faker } from "@faker-js/faker";
-import type {
-  GetAllPostsModel,
-  GetAllPostsQuery,
-  GetAllUsersQuery,
-  GetCurrentUserQuery,
-  GetUserQuery
-} from "../../generated";
+import type { PostsQuery, UsersQuery, CurrentUserQuery, UserQuery, PostQuery } from "../../generated";
 
 faker.mersenne.seed(999);
 
-export const generatePostData = (index: number): GetAllPostsModel => ({
+export const generatePostData = (index: number): PostQuery["post"] => ({
   caption: faker.lorem.sentence(),
   createdAt: faker.date.past(),
   id: faker.datatype.uuid(),
@@ -21,15 +15,15 @@ export const generatePostData = (index: number): GetAllPostsModel => ({
   }
 });
 
-const generateAllPostsEdge = (index: number): GetAllPostsQuery["getAllPosts"]["edges"][0] => ({
+const generateAllPostsEdge = (index: number): PostsQuery["posts"]["edges"][0] => ({
   node: generatePostData(index)
 });
 
-export const generateAllPostsEdges: GetAllPostsQuery["getAllPosts"]["edges"] = new Array(5)
+export const generateAllPostsEdges: PostsQuery["posts"]["edges"] = new Array(5)
   .fill(null)
   .map((_, index) => generateAllPostsEdge(index));
 
-export const generateAllPostsData: GetAllPostsQuery["getAllPosts"] = {
+export const generateAllPostsData: PostsQuery["posts"] = {
   edges: generateAllPostsEdges,
   pageInfo: {
     endCursor: faker.datatype.uuid(),
@@ -37,7 +31,7 @@ export const generateAllPostsData: GetAllPostsQuery["getAllPosts"] = {
   }
 };
 
-const generateAllUsersEdge = (): GetAllUsersQuery["getAllUsers"]["edges"][0] => ({
+const generateAllUsersEdge = (): UsersQuery["users"]["edges"][0] => ({
   node: {
     id: faker.datatype.uuid(),
     imageUrl: faker.internet.avatar(),
@@ -45,11 +39,11 @@ const generateAllUsersEdge = (): GetAllUsersQuery["getAllUsers"]["edges"][0] => 
   }
 });
 
-export const generateAllUsersEdges: GetAllUsersQuery["getAllUsers"]["edges"] = new Array(5)
+export const generateAllUsersEdges: UsersQuery["users"]["edges"] = new Array(5)
   .fill(null)
   .map(() => generateAllUsersEdge());
 
-export const generateAllUsersData: GetAllUsersQuery["getAllUsers"] = {
+export const generateAllUsersData: UsersQuery["users"] = {
   edges: generateAllUsersEdges,
   pageInfo: {
     endCursor: faker.datatype.uuid(),
@@ -57,26 +51,26 @@ export const generateAllUsersData: GetAllUsersQuery["getAllUsers"] = {
   }
 };
 
-export const generateCurrentUserData: GetCurrentUserQuery["getCurrentUser"] = {
+export const generateCurrentUserData: CurrentUserQuery["currentUser"] = {
   id: faker.datatype.uuid(),
   imageUrl: faker.internet.avatar(),
   name: faker.name.findName()
 };
 
-const generatePost = (index: number): GetUserQuery["getUser"]["posts"][0] => ({
+const generatePost = (index: number): UserQuery["user"]["posts"]["nodes"][0] => ({
   caption: faker.lorem.sentence(),
   createdAt: faker.date.past(),
   id: faker.datatype.uuid(),
   imageUrl: `https://picsum.photos/id/${index}/1000/1000`
 });
 
-const generatePostsData: GetUserQuery["getUser"]["posts"] = new Array(5)
+const generatePostsData: UserQuery["user"]["posts"]["nodes"] = new Array(5)
   .fill(null)
   .map((_, index) => generatePost(index));
 
-export const generateUserData: GetUserQuery["getUser"] = {
+export const generateUserData: UserQuery["user"] = {
   id: faker.datatype.uuid(),
   imageUrl: faker.internet.avatar(),
   name: faker.name.findName(),
-  posts: generatePostsData
+  posts: { nodes: generatePostsData }
 };

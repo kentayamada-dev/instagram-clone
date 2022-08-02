@@ -1,46 +1,44 @@
 import useSWRInfinite from "swr/infinite";
-import { GET_ALL_POSTS_QUERY } from "./schema";
-import type { GetAllPostsQuery, GetAllPostsQueryVariables } from "../../generated";
+import { POSTS_QUERY } from "./schema";
+import type { PostsQuery, PostsQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { UseAllPostsReturnType, UseAllPostsType } from "./type";
+import type { UsePostsReturnType, UsePostsType } from "./type";
 
-export const useAllPosts: UseAllPostsType = () => {
-  const getKey: GetKeyType<GetAllPostsQuery, GetAllPostsQueryVariables> = (_index, previousPageData) => {
-    const variables: GetAllPostsQueryVariables = {
+export const usePosts: UsePostsType = () => {
+  const getKey: GetKeyType<PostsQuery, PostsQueryVariables> = (_index, previousPageData) => {
+    const variables: PostsQueryVariables = {
       first: 5
     };
 
     if (previousPageData === null) {
-      return [GET_ALL_POSTS_QUERY, variables];
+      return [POSTS_QUERY, variables];
     }
 
-    if (!previousPageData.getAllPosts.pageInfo.hasNextPage) {
+    if (!previousPageData.posts.pageInfo.hasNextPage) {
       return null;
     }
 
-    return [GET_ALL_POSTS_QUERY, { ...variables, after: previousPageData.getAllPosts.pageInfo.endCursor ?? null }];
+    return [POSTS_QUERY, { ...variables, after: previousPageData.posts.pageInfo.endCursor ?? null }];
   };
 
-  const { data, error, size, setSize, mutate } = useSWRInfinite<GetAllPostsQuery, Error>(getKey);
-  let posts: UseAllPostsReturnType["posts"] = null;
+  const { data, error, size, setSize, mutate } = useSWRInfinite<PostsQuery, Error>(getKey);
+  let posts: UsePostsReturnType["posts"] = null;
 
   if (data) {
     const lastElement = data[data.length - 1];
 
     posts = {
-      getAllPosts: {
-        edges: data.map((post) => post.getAllPosts.edges).flat(),
-        pageInfo: {
-          endCursor: lastElement?.getAllPosts.pageInfo.endCursor ?? null,
-          hasNextPage: lastElement?.getAllPosts.pageInfo.hasNextPage ?? false
-        }
+      edges: data.map((post) => post.posts.edges).flat(),
+      pageInfo: {
+        endCursor: lastElement?.posts.pageInfo.endCursor ?? null,
+        hasNextPage: lastElement?.posts.pageInfo.hasNextPage ?? false
       }
     };
   }
 
-  const isError = Boolean(error);
-
+  const isPostsError = Boolean(error);
+  const isPostsLoading = !isPostsError && !posts;
   const loadMorePosts = async (): Promise<unknown[] | undefined> => setSize(size + 1);
 
-  return { isError, isLoading: !isError && !data, loadMorePosts, mutate, posts };
+  return { isPostsError, isPostsLoading, loadMorePosts, mutatePosts: mutate, posts };
 };

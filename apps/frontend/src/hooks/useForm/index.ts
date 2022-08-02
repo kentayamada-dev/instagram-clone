@@ -11,7 +11,7 @@ import type { SubmitHandler } from "react-hook-form";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isGraphQLErrors = (error: any): error is { response: any } => {
-  if ("status" in error.response.errors[0].extensions.exception) {
+  if (Boolean(error?.response) && "status" in error.response.errors[0].extensions.exception) {
     return true;
   }
 
@@ -60,7 +60,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
         if (file instanceof Blob) {
           const imageUrl = await getImageUrl({ file });
           await fetcher<SignupMutation, SignupMutationVariables>(SIGNUP_MUTATION, {
-            signupArgs: {
+            signupInput: {
               ...signUpProps,
               imageUrl
             }
@@ -70,7 +70,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
           throw new Error("image is not selected");
         }
       } else {
-        await fetcher<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, { loginArgs: loginProps });
+        await fetcher<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, { loginInput: loginProps });
         router.reload();
       }
     } catch (error) {

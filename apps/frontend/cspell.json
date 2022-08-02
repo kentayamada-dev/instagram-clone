@@ -30,7 +30,8 @@
     "mersenne",
     "cilent",
     "subcomponents",
-    "picsum"
+    "picsum",
+    "jzle"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

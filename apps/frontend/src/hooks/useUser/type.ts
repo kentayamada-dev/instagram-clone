@@ -1,15 +1,15 @@
-import type { GetUserQuery } from "../../generated";
+import type { UserQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
 type UseUserReturnType = {
-  isError: boolean;
-  isLoading: boolean;
-  mutate: KeyedMutator<GetUserQuery>;
-  user: GetUserQuery | null;
+  isUserError: boolean;
+  isUserLoading: boolean;
+  mutateUser: KeyedMutator<UserQuery>;
+  user: UserQuery["user"] | null;
 };
 
 type UseUserProps = {
-  fallbackData?: GetUserQuery;
+  fallbackData?: UserQuery;
   userId: string;
 };
 

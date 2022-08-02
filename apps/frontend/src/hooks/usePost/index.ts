@@ -6,17 +6,17 @@ import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { wait } from "../../utils/wait";
 import { useCurrentUser } from "../useCurrentUser";
-import { useAllPosts } from "../usePosts";
+import { usePosts } from "../usePosts";
 import { useUser } from "../useUser";
-import { POST_MUTATION } from "./schema";
-import type { PostMutation, PostMutationVariables } from "../../generated";
+import { UPLOAD_MUTATION } from "./schema";
+import type { UploadMutation, UploadMutationVariables } from "../../generated";
 import type { UsePostType } from "./type";
 
 export const usePost: UsePostType = ({ handleClosePostModal }) => {
   const [postImageFile, setPostImageFile] = React.useState<Blob>();
   const { currentUser } = useCurrentUser();
-  const { mutate: mutateAllPosts } = useAllPosts();
-  const { mutate: mutateUser } = useUser({ userId: currentUser?.getCurrentUser.id ?? "" });
+  const { mutatePosts } = usePosts();
+  const { mutateUser } = useUser({ userId: currentUser?.id ?? "" });
   const [isLoading, setIsLoading] = React.useState(false);
   const [imageSrc, setImageSrc] = React.useState("");
   const [caption, setCaption] = React.useState("");
@@ -49,8 +49,8 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
         setIsLoading(true);
         await wait(2);
         const imageUrl = await getImageUrl({ file: postImageFile });
-        await fetcher<PostMutation, PostMutationVariables>(POST_MUTATION, {
-          postArgs: {
+        await fetcher<UploadMutation, UploadMutationVariables>(UPLOAD_MUTATION, {
+          uploadInput: {
             caption,
             imageUrl
           }
@@ -64,7 +64,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
           status: "success",
           title: postSuccessMessage
         });
-        await mutateAllPosts();
+        await mutatePosts();
         await mutateUser();
       } catch (error) {
         toast({

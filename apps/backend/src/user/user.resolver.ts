@@ -1,29 +1,28 @@
-import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
+import { HttpException, HttpStatus } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { Args, Resolver, Query, Mutation, Context } from "@nestjs/graphql";
-import { SkipThrottle } from "@nestjs/throttler";
+import { Args, Resolver, Query, Mutation, Context, ResolveField, Parent } from "@nestjs/graphql";
 import { hash, compare } from "bcrypt";
 import { Response } from "express";
-import { CurrentUser } from "../auth/auth.decorator";
 import { AuthService } from "../auth/auth.service";
-import { JwtPayload } from "../auth/auth.types";
-import { GqlAuthGuard } from "../auth/gql-auth.guard";
-import { MessageModel } from "../common/message.model";
-import { isPropertyExactlySameAsGetPostModel } from "../post/models/get-post.model";
-import { PrismaService } from "../prisma/prisma.service";
-import { GetAllUsersArgs } from "./dto/get-all-users.args";
-import { LoginArgs } from "./dto/login.args";
-import { SignupArgs } from "./dto/signup.args";
-import { GetAllUsersId, isPropertyExactlySameAsGetAllUsersId } from "./models/get-all-users-posts-id.model";
-import { isPropertyExactlySameAsGetAllUsersModel, PaginatedGetAllUsersModel } from "./models/get-all-users.model";
-import { GetCurrentUserModel, isPropertyExactlySameAsGetCurrentUserModel } from "./models/get-current-user.model";
-import { GetUserModel, isPropertyExactlySameAsGetUserModel } from "./models/get-user.model";
+import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { MessageModel } from "../message/message.model";
+import { PaginationArgs } from "../pagination/pagination.args";
+import { PaginatedPostModel } from "../post/models/paginatedBase.model";
+import { PostService } from "../post/post.service";
+import { LoginInput } from "./dto/login.input";
+import { SignupInput } from "./dto/signup.input";
+import { UsersArgs } from "./dto/users.args";
+import { UserModelBase } from "./models/base.model";
+import { PaginatedUserModel } from "./models/paginatedBase.model";
+import { UserService } from "./user.service";
 import type { Edge } from "../pagination/pagination.model";
+import type { PostModelBase } from "../post/models/base.model";
+import type { MapObjectPropertyToBoolean } from "../types";
 import type { ConfigSchema } from "../utils/config/config.schema";
-import type { GetAllUsersModel } from "./models/get-all-users.model";
+import type { Prisma } from "@prisma/client";
 import type { CookieOptions } from "express";
 
-@Resolver()
+@Resolver(UserModelBase)
 export class UserResolver {
   private readonly saltRounds = 10;
   private readonly accessTokenKey = "accessToken";
@@ -31,8 +30,10 @@ export class UserResolver {
     httpOnly: true
   };
 
+  // eslint-disable-next-line max-params
   public constructor(
-    private readonly prismaService: PrismaService,
+    private readonly postService: PostService,
+    private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly configService: ConfigService<ConfigSchema>
   ) {
@@ -48,78 +49,31 @@ export class UserResolver {
     };
   }
 
-  @Query(() => [GetAllUsersId], { description: "Get All Users ID" })
-  protected async getAllUsersId(): Promise<GetAllUsersId[]> {
-    const foundUsers = await this.prismaService.user
-      .findMany({ orderBy: { createdAt: "desc" }, select: { id: true } })
-      .then((usersData) => {
-        const [firstUser] = usersData;
-        if (firstUser && isPropertyExactlySameAsGetAllUsersId(firstUser)) {
-          return usersData;
-        }
+  @Query(() => PaginatedUserModel, { description: "Get Users" })
+  protected async users(
+    @Args() usersArgs: UsersArgs,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+    @FieldMap() fieldMap: any
+  ): Promise<PaginatedUserModel> {
+    /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const {
+      posts: _edgesNodePosts,
+      ...edgesNodeProperties
+    }: { edgesNodeProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = fieldMap?.edges?.node ?? {};
 
-        return [];
-      });
+    const {
+      posts: _userNodesPosts,
+      ...nodesProperties
+    }: { nodesProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = fieldMap?.nodes ?? {};
+    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    return foundUsers;
-  }
-
-  @Query(() => PaginatedGetAllUsersModel, { description: "Get All Users" })
-  protected async getAllUsers(@Args() { first, after, userId }: GetAllUsersArgs): Promise<PaginatedGetAllUsersModel> {
-    const foundUsers = await this.prismaService.user
-      .findMany({
-        ...(after ? { cursor: { id: after }, skip: 1 } : {}),
-        orderBy: {
-          createdAt: "desc"
-        },
-        select: {
-          id: true,
-          imageUrl: true,
-          name: true
-        },
-        take: first,
-        ...(userId
-          ? {
-              where: {
-                // eslint-disable-next-line @typescript-eslint/naming-convention
-                NOT: {
-                  id: {
-                    equals: userId
-                  }
-                }
-              }
-            }
-          : {})
-      })
-      .then((usersData) => {
-        const [firstUser] = usersData;
-        if (firstUser && isPropertyExactlySameAsGetAllUsersModel(firstUser)) {
-          return usersData;
-        }
-
-        return [];
-      });
-
+    const select: Prisma.UserSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
+    const foundUsers = await this.userService.findUsers<UserModelBase[]>(select, usersArgs);
     const lastUser = foundUsers.at(-1);
+    const nextUserId = lastUser ? await this.userService.findNextUserId(lastUser.id) : null;
 
-    const nextUserId = lastUser
-      ? await this.prismaService.user
-          .findMany({
-            cursor: { id: lastUser.id },
-            orderBy: {
-              createdAt: "desc"
-            },
-            select: {
-              id: true
-            },
-            skip: 1,
-            take: 1
-          })
-          .then((value) => value[0]?.id)
-      : [];
-
-    const edges: Edge<GetAllUsersModel>[] = foundUsers.map(
-      (user): Edge<GetAllUsersModel> => ({
+    const edges: Edge<UserModelBase>[] = foundUsers.map(
+      (user): Edge<UserModelBase> => ({
         cursor: user.id,
         node: user
       })
@@ -135,37 +89,66 @@ export class UserResolver {
     };
   }
 
+  @ResolveField(() => PaginatedPostModel, { description: "Get Related Posts" })
+  protected async posts(
+    @Parent() user: UserModelBase,
+    @Args() paginationArgs: PaginationArgs,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+    @FieldMap() fieldMap: any
+  ): Promise<PaginatedPostModel> {
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const edgesNodeProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.edges?.node ?? {};
+    const nodesProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.nodes ?? {};
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
+    const select: Prisma.PostSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
+    const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, user.id);
+    const lastPost = foundPosts.at(-1);
+    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id) : null;
+
+    const edges: Edge<PostModelBase>[] = foundPosts.map(
+      (post): Edge<PostModelBase> => ({
+        cursor: post.id,
+        node: post
+      })
+    );
+
+    return {
+      edges,
+      nodes: foundPosts,
+      pageInfo: {
+        endCursor: lastPost?.id,
+        hasNextPage: Boolean(nextPostId)
+      }
+    };
+  }
+
   @Mutation(() => MessageModel, { description: "Signup" })
   protected async signup(
-    @Args("signupArgs") signupArgs: SignupArgs,
+    @Args("signupInput") signupInput: SignupInput,
     @Context("res") res: Response
   ): Promise<MessageModel> {
-    const foundUser = await this.prismaService.user.findUnique({
+    const foundUser = await this.userService.findUser<{ id: string } | null>({
       select: {
         id: true
       },
       where: {
-        email: signupArgs.email
+        email: signupInput.email
       }
     });
 
     if (foundUser) {
-      throw new HttpException("Email already exists", HttpStatus.CONFLICT);
+      throw new HttpException("User already exists", HttpStatus.CONFLICT);
     }
 
-    const { password, ...rest } = signupArgs;
+    const { password, ...rest } = signupInput;
     const hashedPassword = await hash(password, this.saltRounds);
-    const data: SignupArgs = {
+    const data: SignupInput = {
       ...rest,
       password: hashedPassword
     };
-    const createdUser = await this.prismaService.user.create({
-      data,
-      select: {
-        email: true,
-        id: true
-      }
-    });
+    const createdUser = await this.userService.createUser(data);
+
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
     res.cookie(this.accessTokenKey, accessToken, this.cookieOptions);
@@ -175,12 +158,15 @@ export class UserResolver {
 
   @Mutation(() => MessageModel, { description: "Login" })
   protected async login(
-    @Args("loginArgs") { email, password }: LoginArgs,
+    @Args("loginInput") { email, password }: LoginInput,
     @Context("res") res: Response
   ): Promise<MessageModel> {
-    const foundUser = await this.prismaService.user.findUnique({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const foundUser = await this.userService.findUser<{
+      id: string;
+      password: string;
+    } | null>({
       select: {
-        email: true,
         id: true,
         password: true
       },
@@ -210,78 +196,21 @@ export class UserResolver {
     return { message: "Cookie has been deleted successfully" };
   }
 
-  @Query(() => GetUserModel, { description: "Get Current User" })
-  @UseGuards(GqlAuthGuard)
-  protected async getCurrentUser(@CurrentUser() user: JwtPayload): Promise<GetUserModel> {
-    const foundUser = await this.prismaService.user
-      .findUnique({
-        select: {
-          id: true,
-          imageUrl: true,
-          name: true
-        },
-        where: {
-          id: user.id
-        }
-      })
-      .then((userData) => {
-        if (userData && isPropertyExactlySameAsGetUserModel(userData)) {
-          return userData;
-        }
+  @Query(() => UserModelBase, { description: "Get User" })
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  protected async user(@Args("userId") userId: string, @FieldMap() fieldMap: any): Promise<UserModelBase> {
+    /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const {
+      posts: _posts,
+      ...userProperties
+    }: { posts: any; userProperties: MapObjectPropertyToBoolean<UserModelBase> } = fieldMap ?? {};
+    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-        return null;
-      });
+    const select: Prisma.UserSelect = { ...userProperties, id: true };
+    const foundUser = await this.userService.findUser<UserModelBase | null>({ select, where: { id: userId } });
 
     if (!foundUser) {
-      throw new HttpException("User not found", HttpStatus.UNAUTHORIZED);
-    }
-
-    return foundUser;
-  }
-
-  @SkipThrottle()
-  @Query(() => GetCurrentUserModel, { description: "Get User" })
-  protected async getUser(@Args("id") id: string): Promise<GetCurrentUserModel> {
-    const foundUser = await this.prismaService.user
-      .findUnique({
-        select: {
-          id: true,
-          imageUrl: true,
-          name: true,
-          posts: {
-            orderBy: {
-              createdAt: "desc"
-            },
-            select: {
-              caption: true,
-              createdAt: true,
-              id: true,
-              imageUrl: true
-            }
-          }
-        },
-        where: {
-          id
-        }
-      })
-      .then((userData) => {
-        if (!userData) {
-          return null;
-        }
-        const [post] = userData.posts;
-        if (post) {
-          if (isPropertyExactlySameAsGetCurrentUserModel(userData) && isPropertyExactlySameAsGetPostModel(post)) {
-            return userData;
-          }
-        } else if (isPropertyExactlySameAsGetCurrentUserModel(userData)) {
-          return userData;
-        }
-
-        return null;
-      });
-
-    if (!foundUser) {
-      throw new HttpException("User not found", HttpStatus.UNAUTHORIZED);
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
     }
 
     return foundUser;

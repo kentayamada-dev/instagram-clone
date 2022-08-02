@@ -1,16 +1,18 @@
 import useSWR from "swr";
-import { GET_CURRENT_USER_QUERY } from "./schema";
-import type { GetCurrentUserQuery } from "../../generated";
+import { CURRENT_USER_QUERY } from "./schema";
+import type { CurrentUserQuery } from "../../generated";
 import type { UseCurrentUserType } from "./type";
 
 export const useCurrentUser: UseCurrentUserType = () => {
-  const { data, error, mutate } = useSWR<GetCurrentUserQuery, Error>(GET_CURRENT_USER_QUERY);
-  const isError = Boolean(error);
+  const { data, error, mutate } = useSWR<CurrentUserQuery, Error>(CURRENT_USER_QUERY);
+  const isCurrentUserError = Boolean(error);
+  const currentUser = data?.currentUser ?? null;
+  const isCurrentUserLoading = !isCurrentUserError && !currentUser;
 
   return {
-    currentUser: data ?? null,
-    isError,
-    isLoading: !isError && !data,
-    mutate
+    currentUser,
+    isCurrentUserError,
+    isCurrentUserLoading,
+    mutateCurrentUser: mutate
   };
 };

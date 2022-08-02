@@ -7,7 +7,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { ThrottlerModule } from "@nestjs/throttler";
 import { LoggingPlugin } from "./libs/apollo/logging";
-import { GqlThrottlerGuard } from "./libs/throttler/gql-throttler.guard";
+import { GqlThrottlerGuard } from "./libs/throttler/gqlThrottler.guard";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";

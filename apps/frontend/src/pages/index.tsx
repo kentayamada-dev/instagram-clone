@@ -2,9 +2,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { HomeTemplate } from "../components/templates/HomeTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
-import { GET_CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
+import { CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
 import { fetcher } from "../libs/graphql_request";
-import type { GetCurrentUserQuery } from "../generated";
+import type { CurrentUserQuery } from "../generated";
 import type {
   GetAuthServerSideProps,
   GetAuthServerSidePropsResultType,
@@ -19,17 +19,17 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   defaultLocale = "en"
 }) => {
   const initialLocale = locale ?? defaultLocale;
-  let data: GetCurrentUserQuery | null = null;
+  let data: CurrentUserQuery | null = null;
 
   try {
-    data = await fetcher<GetCurrentUserQuery>(GET_CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
+    data = await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
   } catch (error) {
     // Do nothing
   }
 
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
-      data: data?.getCurrentUser ?? null,
+      data: data?.currentUser ?? null,
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };

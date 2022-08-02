@@ -1,45 +1,44 @@
 import useSWRInfinite from "swr/infinite";
-import { GET_ALL_USERS_QUERY } from "./schema";
-import type { GetAllUsersQuery, GetAllUsersQueryVariables } from "../../generated";
+import { USERS_QUERY } from "./schema";
+import type { UsersQuery, UsersQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { UseAllUsersReturnType, UseAllUsersType } from "./type";
+import type { UseUsersReturnType, UseUsersType } from "./type";
 
-export const useAllUsers: UseAllUsersType = ({ currentUserId }) => {
-  const getKey: GetKeyType<GetAllUsersQuery, GetAllUsersQueryVariables> = (_index, previousPageData) => {
-    const variables: GetAllUsersQueryVariables = {
+export const useUsers: UseUsersType = ({ currentUserId }) => {
+  const getKey: GetKeyType<UsersQuery, UsersQueryVariables> = (_index, previousPageData) => {
+    const variables: UsersQueryVariables = {
       first: 5,
       userId: currentUserId
     };
 
     if (previousPageData === null) {
-      return [GET_ALL_USERS_QUERY, variables];
+      return [USERS_QUERY, variables];
     }
 
-    if (!previousPageData.getAllUsers.pageInfo.hasNextPage) {
+    if (!previousPageData.users.pageInfo.hasNextPage) {
       return null;
     }
 
-    return [GET_ALL_USERS_QUERY, { ...variables, after: previousPageData.getAllUsers.pageInfo.endCursor ?? null }];
+    return [USERS_QUERY, { ...variables, after: previousPageData.users.pageInfo.endCursor ?? null }];
   };
 
-  const { data, error, mutate } = useSWRInfinite<GetAllUsersQuery, Error>(getKey);
-  let users: UseAllUsersReturnType["users"] = null;
+  const { data, error, mutate } = useSWRInfinite<UsersQuery, Error>(getKey);
+  let users: UseUsersReturnType["users"] = null;
 
   if (data) {
     const lastElement = data[data.length - 1];
 
     users = {
-      getAllUsers: {
-        edges: data.map((post) => post.getAllUsers.edges).flat(),
-        pageInfo: {
-          endCursor: lastElement?.getAllUsers.pageInfo.endCursor ?? null,
-          hasNextPage: lastElement?.getAllUsers.pageInfo.hasNextPage ?? false
-        }
+      edges: data.map((post) => post.users.edges).flat(),
+      pageInfo: {
+        endCursor: lastElement?.users.pageInfo.endCursor ?? null,
+        hasNextPage: lastElement?.users.pageInfo.hasNextPage ?? false
       }
     };
   }
 
-  const isError = Boolean(error);
+  const isUsersError = Boolean(error);
+  const isUsersLoading = !isUsersError && !users;
 
-  return { isError, isLoading: !isError && !data, mutate, users };
+  return { isUsersError, isUsersLoading, mutateUsers: mutate, users };
 };

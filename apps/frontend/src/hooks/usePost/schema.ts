@@ -1,24 +1,24 @@
 import { gql } from "graphql-request";
 
-export const GET_POST_QUERY = gql`
-  query GetPost($getPostId: String!) {
-    getPost(id: $getPostId) {
+export const POST_QUERY = gql`
+  query Post($postId: String!) {
+    post(postId: $postId) {
       id
       caption
       createdAt
+      imageUrl
       user {
         id
         name
         imageUrl
       }
-      imageUrl
     }
   }
 `;
 
-export const POST_MUTATION = gql`
-  mutation Post($postArgs: PostArgs!) {
-    post(postArgs: $postArgs) {
+export const UPLOAD_MUTATION = gql`
+  mutation Upload($uploadInput: UploadInput!) {
+    upload(uploadInput: $uploadInput) {
       id
       caption
       createdAt

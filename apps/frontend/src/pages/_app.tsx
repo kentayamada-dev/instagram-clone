@@ -15,7 +15,7 @@ const TOO_MANY_REQUESTS_ERROR_MESSAGE = "ThrottlerException: Too Many Requests";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp: MyAppType = ({ Component, pageProps }) => {
-  const { currentUser, mutate: mutateCurrentUser } = useCurrentUser();
+  const { currentUser, mutateCurrentUser } = useCurrentUser();
   const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
   const toast = useToast();
   const tooManyRequestsErrorMessageTitle = useLocale("Too Many Requests.", "リクエストが多すぎます。");

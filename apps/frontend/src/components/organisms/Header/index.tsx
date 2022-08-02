@@ -79,7 +79,7 @@ export const Header: HeaderType = () => {
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 handleLogout={handleLogout}
                 size={35}
-                src={currentUser?.getCurrentUser.imageUrl}
+                src={currentUser?.imageUrl}
               />
             </>
           ) : null}
@@ -161,8 +161,8 @@ export const Header: HeaderType = () => {
         isDrawerOpen={isDrawerOpen}
       />
       <PostModal
-        currentUserAvatarUrl={currentUser?.getCurrentUser.imageUrl}
-        currentUserName={currentUser?.getCurrentUser.name}
+        currentUserAvatarUrl={currentUser?.imageUrl}
+        currentUserName={currentUser?.name}
         handleCancel={handleCancelPost}
         handleChangeCaption={handleChangeCaption}
         handleChangeImage={handleChangeImage}

@@ -2,10 +2,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { LayoutTemplate } from "../../components/templates/LayoutTemplate";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
-import { GET_USER_QUERY } from "../../hooks/useUser/schema";
-import { GET_ALL_USERS_ID_QUERY } from "../../hooks/useUsers/schema";
+import { USER_QUERY } from "../../hooks/useUser/schema";
+import { USERS_ID_QUERY } from "../../hooks/useUsers/schema";
 import { fetcher } from "../../libs/graphql_request";
-import type { GetUserQuery, GetUserQueryVariables, GetAllUsersIdQuery } from "../../generated";
+import type { UserQuery, UserQueryVariables, UsersIdQuery } from "../../generated";
 import type {
   GetUserStaticPathsType,
   GetUserStaticProps,
@@ -14,9 +14,9 @@ import type {
 } from "../../libs/next/pages/user";
 
 export const getStaticPaths: GetUserStaticPathsType = async () => {
-  const data = await fetcher<GetAllUsersIdQuery>(GET_ALL_USERS_ID_QUERY);
+  const data = await fetcher<UsersIdQuery>(USERS_ID_QUERY);
 
-  const enPaths = data.getAllUsersId.map(
+  const enPaths = data.users.nodes.map(
     (node): UserPathsType => ({
       locale: "en",
       params: {
@@ -25,7 +25,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
     })
   );
 
-  const jaPaths = data.getAllUsersId.map(
+  const jaPaths = data.users.nodes.map(
     (node): UserPathsType => ({
       locale: "ja",
       params: {
@@ -44,11 +44,11 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
 
 export const getStaticProps: GetUserStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  let data: GetUserQuery | null = null;
+  let data: UserQuery | null = null;
 
   try {
-    data = await fetcher<GetUserQuery, GetUserQueryVariables>(GET_USER_QUERY, {
-      getUserId: params?.userId ?? ""
+    data = await fetcher<UserQuery, UserQueryVariables>(USER_QUERY, {
+      userId: params?.userId ?? ""
     });
   } catch (error) {
     return {
@@ -78,11 +78,11 @@ const User: NextUserPageWithLayoutType = ({ data }) => {
 /* eslint-disable no-underscore-dangle */
 User.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
-  if (props.data && props._nextI18Next) {
+  if (props.data?.user && props._nextI18Next) {
     if (props._nextI18Next.initialLocale === "ja") {
-      title = `${props.data.getUser.name} • Instagram写真と動画`;
+      title = `${props.data.user.name} • Instagram写真と動画`;
     } else if (props._nextI18Next.initialLocale === "en") {
-      title = `${props.data.getUser.name} • Instagram photos and videos`;
+      title = `${props.data.user.name} • Instagram photos and videos`;
     }
   }
 

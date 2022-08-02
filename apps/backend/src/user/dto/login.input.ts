@@ -5,7 +5,7 @@ import { PasswordValidator } from "../../libs/classValidator/passwordValidator";
 import { toLowerCase } from "../../utils/helper/cast.helper";
 
 @InputType()
-export class LoginArgs {
+export class LoginInput {
   @Field({ description: "Email" })
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   @Transform(({ value }) => toLowerCase(value))

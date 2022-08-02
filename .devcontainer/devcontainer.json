@@ -38,9 +38,9 @@
     "pflannery.vscode-versionlens",
     "kamikillerto.vscode-colorize",
     "styled-components.vscode-styled-components",
-    "GraphQL.vscode-graphql",
     "ms-vscode.live-server",
     "Gruntfuggly.activitusbar",
-    "formulahendry.auto-rename-tag"
+    "formulahendry.auto-rename-tag",
+    "apollographql.vscode-apollo"
   ]
 }

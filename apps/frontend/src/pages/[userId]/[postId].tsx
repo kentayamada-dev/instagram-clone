@@ -2,10 +2,10 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { LayoutTemplate } from "../../components/templates/LayoutTemplate";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
-import { GET_POST_QUERY } from "../../hooks/usePost/schema";
-import { GET_ALL_POSTS_ID_AND_USER_ID_QUERY } from "../../hooks/usePosts/schema";
+import { POST_QUERY } from "../../hooks/usePost/schema";
+import { POSTS_ID_AND_USERS_ID_QUERY } from "../../hooks/usePosts/schema";
 import { fetcher } from "../../libs/graphql_request";
-import type { GetPostQuery, GetPostQueryVariables, GetAllPostsIdAndUserIdQuery } from "../../generated";
+import type { PostQuery, PostQueryVariables, PostsIdAndUsersIdQuery } from "../../generated";
 import type {
   PostPathsType,
   GetPostStaticPathsType,
@@ -14,24 +14,24 @@ import type {
 } from "../../libs/next/pages/post";
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
-  const data = await fetcher<GetAllPostsIdAndUserIdQuery>(GET_ALL_POSTS_ID_AND_USER_ID_QUERY);
+  const data = await fetcher<PostsIdAndUsersIdQuery>(POSTS_ID_AND_USERS_ID_QUERY);
 
-  const enPaths = data.getAllPostsIdAndUserId.map(
+  const enPaths = data.posts.nodes.map(
     (node): PostPathsType => ({
       locale: "en",
       params: {
         postId: node.id,
-        userId: node.user.id
+        userId: node.userId
       }
     })
   );
 
-  const jaPaths = data.getAllPostsIdAndUserId.map(
+  const jaPaths = data.posts.nodes.map(
     (node): PostPathsType => ({
       locale: "ja",
       params: {
         postId: node.id,
-        userId: node.user.id
+        userId: node.userId
       }
     })
   );
@@ -46,10 +46,10 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
 
 export const getStaticProps: GetPostStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  let data: GetPostQuery | null = null;
+  let data: PostQuery | null = null;
 
   try {
-    data = await fetcher<GetPostQuery, GetPostQueryVariables>(GET_POST_QUERY, { getPostId: params?.postId ?? "" });
+    data = await fetcher<PostQuery, PostQueryVariables>(POST_QUERY, { postId: params?.postId ?? "" });
   } catch (error) {
     return {
       notFound: true
@@ -58,7 +58,7 @@ export const getStaticProps: GetPostStaticProps = async ({ params, locale, defau
 
   return {
     props: {
-      data: data.getPost,
+      data: data.post,
       ...(await serverSideTranslations(initialLocale, ["footer", "common"]))
     },
     revalidate: 1
@@ -78,7 +78,7 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
 /* eslint-disable no-underscore-dangle */
 Post.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
-  if (props.data && props._nextI18Next) {
+  if (props.data?.user && props._nextI18Next) {
     if (props._nextI18Next.initialLocale === "ja") {
       title = `${props.data.user.name}のInstagram写真`;
     } else if (props._nextI18Next.initialLocale === "en") {

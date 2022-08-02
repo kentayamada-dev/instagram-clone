@@ -1,12 +1,12 @@
-import type { GetAllPostsQuery } from "../../generated";
+import type { PostsQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
-export type UseAllPostsReturnType = {
-  isError: boolean;
-  isLoading: boolean;
+export type UsePostsReturnType = {
+  isPostsError: boolean;
+  isPostsLoading: boolean;
   loadMorePosts: () => Promise<unknown[] | undefined>;
-  mutate: KeyedMutator<GetAllPostsQuery[]>;
-  posts: GetAllPostsQuery | null;
+  mutatePosts: KeyedMutator<PostsQuery[]>;
+  posts: PostsQuery["posts"] | null;
 };
 
-export type UseAllPostsType = () => UseAllPostsReturnType;
+export type UsePostsType = () => UsePostsReturnType;

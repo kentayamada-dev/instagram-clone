@@ -1,7 +1,7 @@
-import type { GetAllUsersQuery } from "../../../generated";
+import type { UsersQuery } from "../../../generated";
 
 export type UsersListProps = {
-  usersEdge: GetAllUsersQuery["getAllUsers"]["edges"] | undefined;
+  usersEdge: UsersQuery["users"]["edges"] | undefined;
 };
 
 export type UsersListType = (props: Partial<UsersListProps>) => JSX.Element;

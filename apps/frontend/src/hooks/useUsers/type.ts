@@ -1,15 +1,15 @@
-import type { GetAllUsersQuery } from "../../generated";
+import type { UsersQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
-export type UseAllUsersReturnType = {
-  isError: boolean;
-  isLoading: boolean;
-  mutate: KeyedMutator<GetAllUsersQuery[]>;
-  users: GetAllUsersQuery | null;
+export type UseUsersReturnType = {
+  isUsersError: boolean;
+  isUsersLoading: boolean;
+  mutateUsers: KeyedMutator<UsersQuery[]>;
+  users: UsersQuery["users"] | null;
 };
 
-type UseAllUsersProps = {
+type UseUsersProps = {
   currentUserId: string;
 };
 
-export type UseAllUsersType = (props: UseAllUsersProps) => UseAllUsersReturnType;
+export type UseUsersType = (props: UseUsersProps) => UseUsersReturnType;

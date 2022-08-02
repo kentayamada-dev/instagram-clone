@@ -13,111 +13,32 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type GetAllPostsIdAndUserId = {
-  __typename?: "GetAllPostsIdAndUserId";
-  /** ID */
-  id: Scalars["String"];
-  /** Related User ID */
-  user: GetAllUsersId;
-};
-
-export type GetAllPostsModel = {
-  __typename?: "GetAllPostsModel";
-  /** Caption */
-  caption?: Maybe<Scalars["String"]>;
+export type CurrentUserModel = {
+  __typename?: "CurrentUserModel";
   /** Created Date */
   createdAt: Scalars["DateTime"];
-  /** ID */
-  id: Scalars["String"];
-  /** Image URL */
-  imageUrl: Scalars["String"];
-  /** Related User */
-  user: GetUserModel;
-};
-
-export type GetAllPostsModelEdge = {
-  __typename?: "GetAllPostsModelEdge";
-  /** Cursor */
-  cursor: Scalars["String"];
-  /** Node */
-  node: GetAllPostsModel;
-};
-
-export type GetAllPostsModelPageInfo = {
-  __typename?: "GetAllPostsModelPageInfo";
-  /** End Cursor */
-  endCursor?: Maybe<Scalars["String"]>;
-  /** Boolean value of whether next page exists */
-  hasNextPage: Scalars["Boolean"];
-};
-
-export type GetAllUsersId = {
-  __typename?: "GetAllUsersId";
-  /** ID */
-  id: Scalars["String"];
-};
-
-export type GetAllUsersModel = {
-  __typename?: "GetAllUsersModel";
+  /** Email */
+  email: Scalars["String"];
   /** ID */
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
   /** Name */
   name: Scalars["String"];
+  /** Password */
+  password: Scalars["String"];
+  /** Get Related Posts */
+  posts: PaginatedPostModel;
+  /** Updated Date */
+  updatedAt: Scalars["DateTime"];
 };
 
-export type GetAllUsersModelEdge = {
-  __typename?: "GetAllUsersModelEdge";
-  /** Cursor */
-  cursor: Scalars["String"];
-  /** Node */
-  node: GetAllUsersModel;
+export type CurrentUserModelPostsArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
 };
 
-export type GetAllUsersModelPageInfo = {
-  __typename?: "GetAllUsersModelPageInfo";
-  /** End Cursor */
-  endCursor?: Maybe<Scalars["String"]>;
-  /** Boolean value of whether next page exists */
-  hasNextPage: Scalars["Boolean"];
-};
-
-export type GetCurrentUserModel = {
-  __typename?: "GetCurrentUserModel";
-  /** ID */
-  id: Scalars["String"];
-  /** Image URL */
-  imageUrl: Scalars["String"];
-  /** Name */
-  name: Scalars["String"];
-  /** Related Post */
-  posts: Array<GetPostModel>;
-};
-
-export type GetPostModel = {
-  __typename?: "GetPostModel";
-  /** Caption */
-  caption?: Maybe<Scalars["String"]>;
-  /** Created Date */
-  createdAt: Scalars["DateTime"];
-  /** ID */
-  id: Scalars["String"];
-  /** Image URL */
-  imageUrl: Scalars["String"];
-};
-
-export type GetUserModel = {
-  __typename?: "GetUserModel";
-  /** ID */
-  id: Scalars["String"];
-  /** Image URL */
-  imageUrl: Scalars["String"];
-  /** Name */
-  name: Scalars["String"];
-};
-
-export type LoginArgs = {
+export type LoginInput = {
   /** Email */
   email: Scalars["String"];
   /** Password */
@@ -136,89 +57,149 @@ export type Mutation = {
   login: MessageModel;
   /** Logout */
   logout: MessageModel;
-  /** Post */
-  post: GetPostModel;
   /** Signup */
   signup: MessageModel;
+  /** Upload Post */
+  upload: PostModel;
 };
 
 export type MutationLoginArgs = {
-  loginArgs: LoginArgs;
-};
-
-export type MutationPostArgs = {
-  postArgs: PostArgs;
+  loginInput: LoginInput;
 };
 
 export type MutationSignupArgs = {
-  signupArgs: SignupArgs;
+  signupInput: SignupInput;
 };
 
-export type PaginatedGetAllPostsModel = {
-  __typename?: "PaginatedGetAllPostsModel";
+export type MutationUploadArgs = {
+  uploadInput: UploadInput;
+};
+
+export type PaginatedPostModel = {
+  __typename?: "PaginatedPostModel";
   /** Edges */
-  edges: Array<GetAllPostsModelEdge>;
+  edges: Array<PostModelBaseEdge>;
   /** Nodes */
-  nodes: Array<GetAllPostsModel>;
+  nodes: Array<PostModelBase>;
   /** Page Info */
-  pageInfo: GetAllPostsModelPageInfo;
+  pageInfo: PostModelBasePageInfo;
 };
 
-export type PaginatedGetAllUsersModel = {
-  __typename?: "PaginatedGetAllUsersModel";
+export type PaginatedPostsModel = {
+  __typename?: "PaginatedPostsModel";
   /** Edges */
-  edges: Array<GetAllUsersModelEdge>;
+  edges: Array<PostModelEdge>;
   /** Nodes */
-  nodes: Array<GetAllUsersModel>;
+  nodes: Array<PostModel>;
   /** Page Info */
-  pageInfo: GetAllUsersModelPageInfo;
+  pageInfo: PostModelPageInfo;
 };
 
-export type PostArgs = {
+export type PaginatedUserModel = {
+  __typename?: "PaginatedUserModel";
+  /** Edges */
+  edges: Array<UserModelBaseEdge>;
+  /** Nodes */
+  nodes: Array<UserModelBase>;
+  /** Page Info */
+  pageInfo: UserModelBasePageInfo;
+};
+
+export type PostModel = {
+  __typename?: "PostModel";
   /** Caption */
-  caption?: InputMaybe<Scalars["String"]>;
+  caption?: Maybe<Scalars["String"]>;
+  /** Created Date */
+  createdAt: Scalars["DateTime"];
+  /** ID */
+  id: Scalars["String"];
+  /** Image URL */
+  imageUrl: Scalars["String"];
+  /** Related User */
+  user: UserModelBase;
+  /** Related User ID */
+  userId: Scalars["String"];
+};
+
+export type PostModelBase = {
+  __typename?: "PostModelBase";
+  /** Caption */
+  caption?: Maybe<Scalars["String"]>;
+  /** Created Date */
+  createdAt: Scalars["DateTime"];
+  /** ID */
+  id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
 };
 
+export type PostModelBaseEdge = {
+  __typename?: "PostModelBaseEdge";
+  /** Cursor */
+  cursor: Scalars["String"];
+  /** Node */
+  node: PostModelBase;
+};
+
+export type PostModelBasePageInfo = {
+  __typename?: "PostModelBasePageInfo";
+  /** End Cursor */
+  endCursor?: Maybe<Scalars["String"]>;
+  /** Boolean value of whether next page exists */
+  hasNextPage: Scalars["Boolean"];
+};
+
+export type PostModelEdge = {
+  __typename?: "PostModelEdge";
+  /** Cursor */
+  cursor: Scalars["String"];
+  /** Node */
+  node: PostModel;
+};
+
+export type PostModelPageInfo = {
+  __typename?: "PostModelPageInfo";
+  /** End Cursor */
+  endCursor?: Maybe<Scalars["String"]>;
+  /** Boolean value of whether next page exists */
+  hasNextPage: Scalars["Boolean"];
+};
+
 export type Query = {
   __typename?: "Query";
-  /** Get All Posts */
-  getAllPosts: PaginatedGetAllPostsModel;
-  /** Get All Posts ID and Related User ID */
-  getAllPostsIdAndUserId: Array<GetAllPostsIdAndUserId>;
-  /** Get All Users */
-  getAllUsers: PaginatedGetAllUsersModel;
-  /** Get All Users ID */
-  getAllUsersId: Array<GetAllUsersId>;
   /** Get Current User */
-  getCurrentUser: GetUserModel;
+  currentUser: CurrentUserModel;
   /** Get Post */
-  getPost: GetAllPostsModel;
+  post: PostModel;
+  /** Get Posts */
+  posts: PaginatedPostsModel;
   /** Get User */
-  getUser: GetCurrentUserModel;
+  user: UserModelBase;
+  /** Get Users */
+  users: PaginatedUserModel;
 };
 
-export type QueryGetAllPostsArgs = {
-  after?: InputMaybe<Scalars["String"]>;
-  first: Scalars["Float"];
+export type QueryPostArgs = {
+  postId: Scalars["String"];
 };
 
-export type QueryGetAllUsersArgs = {
+export type QueryPostsArgs = {
   after?: InputMaybe<Scalars["String"]>;
-  first: Scalars["Float"];
+  first?: InputMaybe<Scalars["Float"]>;
+  postId?: InputMaybe<Scalars["String"]>;
+};
+
+export type QueryUserArgs = {
+  userId: Scalars["String"];
+};
+
+export type QueryUsersArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
   userId?: InputMaybe<Scalars["String"]>;
 };
 
-export type QueryGetPostArgs = {
-  id: Scalars["String"];
-};
-
-export type QueryGetUserArgs = {
-  id: Scalars["String"];
-};
-
-export type SignupArgs = {
+export type SignupInput = {
   /** Email */
   email: Scalars["String"];
   /** Image Url */
@@ -229,103 +210,142 @@ export type SignupArgs = {
   password: Scalars["String"];
 };
 
-export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+export type UploadInput = {
+  /** Caption */
+  caption?: InputMaybe<Scalars["String"]>;
+  /** Image URL */
+  imageUrl: Scalars["String"];
+};
 
-export type GetCurrentUserQuery = {
+export type UserModelBase = {
+  __typename?: "UserModelBase";
+  /** ID */
+  id: Scalars["String"];
+  /** Image URL */
+  imageUrl: Scalars["String"];
+  /** Name */
+  name: Scalars["String"];
+  /** Get Related Posts */
+  posts: PaginatedPostModel;
+};
+
+export type UserModelBasePostsArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
+};
+
+export type UserModelBaseEdge = {
+  __typename?: "UserModelBaseEdge";
+  /** Cursor */
+  cursor: Scalars["String"];
+  /** Node */
+  node: UserModelBase;
+};
+
+export type UserModelBasePageInfo = {
+  __typename?: "UserModelBasePageInfo";
+  /** End Cursor */
+  endCursor?: Maybe<Scalars["String"]>;
+  /** Boolean value of whether next page exists */
+  hasNextPage: Scalars["Boolean"];
+};
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CurrentUserQuery = {
   __typename?: "Query";
-  getCurrentUser: { __typename?: "GetUserModel"; id: string; name: string; imageUrl: string };
+  currentUser: { __typename?: "CurrentUserModel"; id: string; name: string; imageUrl: string };
 };
 
 export type LoginMutationVariables = Exact<{
-  loginArgs: LoginArgs;
+  loginInput: LoginInput;
 }>;
 
 export type LoginMutation = { __typename?: "Mutation"; login: { __typename?: "MessageModel"; message: string } };
 
 export type SignupMutationVariables = Exact<{
-  signupArgs: SignupArgs;
+  signupInput: SignupInput;
 }>;
 
 export type SignupMutation = { __typename?: "Mutation"; signup: { __typename?: "MessageModel"; message: string } };
 
-export type GetPostQueryVariables = Exact<{
-  getPostId: Scalars["String"];
+export type PostQueryVariables = Exact<{
+  postId: Scalars["String"];
 }>;
 
-export type GetPostQuery = {
+export type PostQuery = {
   __typename?: "Query";
-  getPost: {
-    __typename?: "GetAllPostsModel";
+  post: {
+    __typename?: "PostModel";
     id: string;
     caption?: string | null;
     createdAt: any;
     imageUrl: string;
-    user: { __typename?: "GetUserModel"; id: string; name: string; imageUrl: string };
+    user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
   };
 };
 
-export type PostMutationVariables = Exact<{
-  postArgs: PostArgs;
+export type UploadMutationVariables = Exact<{
+  uploadInput: UploadInput;
 }>;
 
-export type PostMutation = {
+export type UploadMutation = {
   __typename?: "Mutation";
-  post: { __typename?: "GetPostModel"; id: string; caption?: string | null; createdAt: any; imageUrl: string };
+  upload: { __typename?: "PostModel"; id: string; caption?: string | null; createdAt: any; imageUrl: string };
 };
 
-export type GetAllPostsIdAndUserIdQueryVariables = Exact<{ [key: string]: never }>;
+export type PostsIdAndUsersIdQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllPostsIdAndUserIdQuery = {
+export type PostsIdAndUsersIdQuery = {
   __typename?: "Query";
-  getAllPostsIdAndUserId: Array<{
-    __typename?: "GetAllPostsIdAndUserId";
-    id: string;
-    user: { __typename?: "GetAllUsersId"; id: string };
-  }>;
+  posts: { __typename?: "PaginatedPostsModel"; nodes: Array<{ __typename?: "PostModel"; id: string; userId: string }> };
 };
 
-export type GetAllPostsQueryVariables = Exact<{
-  first: Scalars["Float"];
+export type PostsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Float"]>;
   after?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type GetAllPostsQuery = {
+export type PostsQuery = {
   __typename?: "Query";
-  getAllPosts: {
-    __typename?: "PaginatedGetAllPostsModel";
-    pageInfo: { __typename?: "GetAllPostsModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
+  posts: {
+    __typename?: "PaginatedPostsModel";
+    pageInfo: { __typename?: "PostModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
     edges: Array<{
-      __typename?: "GetAllPostsModelEdge";
+      __typename?: "PostModelEdge";
       node: {
-        __typename?: "GetAllPostsModel";
+        __typename?: "PostModel";
         id: string;
         caption?: string | null;
-        createdAt: any;
         imageUrl: string;
-        user: { __typename?: "GetUserModel"; id: string; name: string; imageUrl: string };
+        createdAt: any;
+        user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
       };
     }>;
   };
 };
 
-export type GetUserQueryVariables = Exact<{
-  getUserId: Scalars["String"];
+export type UserQueryVariables = Exact<{
+  userId: Scalars["String"];
 }>;
 
-export type GetUserQuery = {
+export type UserQuery = {
   __typename?: "Query";
-  getUser: {
-    __typename?: "GetCurrentUserModel";
+  user: {
+    __typename?: "UserModelBase";
     id: string;
     name: string;
     imageUrl: string;
-    posts: Array<{
-      __typename?: "GetPostModel";
-      id: string;
-      caption?: string | null;
-      createdAt: any;
-      imageUrl: string;
-    }>;
+    posts: {
+      __typename?: "PaginatedPostModel";
+      nodes: Array<{
+        __typename?: "PostModelBase";
+        id: string;
+        caption?: string | null;
+        imageUrl: string;
+        createdAt: any;
+      }>;
+    };
   };
 };
 
@@ -333,27 +353,27 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
 export type LogoutMutation = { __typename?: "Mutation"; logout: { __typename?: "MessageModel"; message: string } };
 
-export type GetAllUsersIdQueryVariables = Exact<{ [key: string]: never }>;
+export type UsersIdQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllUsersIdQuery = {
+export type UsersIdQuery = {
   __typename?: "Query";
-  getAllUsersId: Array<{ __typename?: "GetAllUsersId"; id: string }>;
+  users: { __typename?: "PaginatedUserModel"; nodes: Array<{ __typename?: "UserModelBase"; id: string }> };
 };
 
-export type GetAllUsersQueryVariables = Exact<{
-  first: Scalars["Float"];
+export type UsersQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Float"]>;
   after?: InputMaybe<Scalars["String"]>;
   userId?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type GetAllUsersQuery = {
+export type UsersQuery = {
   __typename?: "Query";
-  getAllUsers: {
-    __typename?: "PaginatedGetAllUsersModel";
-    pageInfo: { __typename?: "GetAllUsersModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
+  users: {
+    __typename?: "PaginatedUserModel";
+    pageInfo: { __typename?: "UserModelBasePageInfo"; hasNextPage: boolean; endCursor?: string | null };
     edges: Array<{
-      __typename?: "GetAllUsersModelEdge";
-      node: { __typename?: "GetAllUsersModel"; id: string; name: string; imageUrl: string };
+      __typename?: "UserModelBaseEdge";
+      node: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
     }>;
   };
 };

@@ -1,11 +1,11 @@
-import type { GetCurrentUserQuery } from "../../generated";
+import type { CurrentUserQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
-type UseCurrentUserReturnType = {
-  currentUser: GetCurrentUserQuery | null;
-  isError: boolean;
-  isLoading: boolean;
-  mutate: KeyedMutator<GetCurrentUserQuery>;
+export type UseCurrentUserReturnType = {
+  currentUser: CurrentUserQuery["currentUser"] | null;
+  isCurrentUserError: boolean;
+  isCurrentUserLoading: boolean;
+  mutateCurrentUser: KeyedMutator<CurrentUserQuery>;
 };
 
 export type UseCurrentUserType = () => UseCurrentUserReturnType;

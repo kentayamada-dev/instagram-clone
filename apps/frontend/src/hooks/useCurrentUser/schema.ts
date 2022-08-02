@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
-export const GET_CURRENT_USER_QUERY = gql`
-  query GetCurrentUser {
-    getCurrentUser {
+export const CURRENT_USER_QUERY = gql`
+  query CurrentUser {
+    currentUser {
       id
       name
       imageUrl

@@ -2,7 +2,7 @@ import { graphql } from "msw";
 import { generateUserData } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { UserDetailTemplate } from ".";
-import type { GetUserQuery } from "../../../generated";
+import type { UserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
@@ -11,12 +11,12 @@ export default {
     layout: "fullscreen",
     msw: {
       handlers: [
-        graphql.query<GetUserQuery>(
+        graphql.query<UserQuery>(
           "GetUser",
           (_req, res, ctx) =>
             res(
               ctx.data({
-                getUser: generateUserData
+                user: generateUserData
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -35,6 +35,6 @@ export const userDetailTemplate: ComponentStory<typeof UserDetailTemplate> = (ar
 
 userDetailTemplate.args = {
   data: {
-    getUser: generateUserData
+    user: generateUserData
   }
 };

@@ -1,18 +1,20 @@
 import useSWR from "swr";
-import { GET_USER_QUERY } from "./schema";
-import type { GetUserQuery } from "../../generated";
+import { USER_QUERY } from "./schema";
+import type { UserQuery } from "../../generated";
 import type { UseUserType } from "./type";
 
 export const useUser: UseUserType = ({ userId, fallbackData }) => {
-  const { data, error, mutate } = useSWR<GetUserQuery, Error>([GET_USER_QUERY, { getUserId: userId }], {
-    ...(fallbackData ? { fallbackData } : {})
+  const { data, error, mutate } = useSWR<UserQuery, Error>([USER_QUERY, { userId }], {
+    ...(fallbackData && { fallbackData })
   });
-  const isError = Boolean(error);
+  const isUserError = Boolean(error);
+  const user = data?.user ?? null;
+  const isUserLoading = !isUserError && !user;
 
   return {
-    isError,
-    isLoading: !isError && !data,
-    mutate,
-    user: data ?? null
+    isUserError,
+    isUserLoading,
+    mutateUser: mutate,
+    user
   };
 };
