@@ -13,7 +13,7 @@ import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = () => {
   const { t } = useTranslation("common");
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
   const [isAsyncInitialDataReadyToFetch, setIsAsyncInitialDataReadyToFetch] = React.useState(false);
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const [isAsyncInitialDataFetched, setIsAsyncInitialDataFetched] = React.useState(false);
@@ -25,11 +25,11 @@ export const HomeTemplate: HomeTemplateType = () => {
   const isTooManyRequestsErrorOccurred = isCurrentUserError && isUsersError && isPostsError;
 
   const handleMorePosts = async (): Promise<void> => {
-    if (!isLoading && !isPostsLoading && !isTooManyRequestsErrorOccurred) {
-      setIsLoading(true);
+    if (!isLoadingMorePosts && !isPostsLoading && !isTooManyRequestsErrorOccurred) {
+      setIsLoadingMorePosts(true);
       await wait(2);
       await loadMorePosts();
-      setIsLoading(false);
+      setIsLoadingMorePosts(false);
     }
   };
 
