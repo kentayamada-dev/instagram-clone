@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import type { PaginationArgs } from "../pagination/pagination.args";
 import type { UploadInput } from "./dto/post.input";
-import type { PostsArgs } from "./models/posts.args";
 import type { Prisma } from "@prisma/client";
 
 @Injectable()
@@ -42,7 +41,7 @@ export class PostService {
   public async findPostsWithUser<T>(
     postSelect: Prisma.PostSelect,
     userSelect: Prisma.UserSelect,
-    { first, after, postId }: PostsArgs
+    { first, after }: PaginationArgs
   ): Promise<T> {
     return (await this.prismaService.post.findMany({
       ...(after ? { cursor: { id: after }, skip: 1 } : {}),
@@ -57,19 +56,7 @@ export class PostService {
           }
         }
       },
-      ...(Boolean(first) && { take: first }),
-      ...(postId
-        ? {
-            where: {
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              NOT: {
-                id: {
-                  equals: postId
-                }
-              }
-            }
-          }
-        : {})
+      ...(Boolean(first) && { take: first })
     })) as unknown as T;
   }
 

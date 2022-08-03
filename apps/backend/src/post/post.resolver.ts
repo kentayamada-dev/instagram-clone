@@ -4,10 +4,10 @@ import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { PaginationArgs } from "../pagination/pagination.args";
 import { UploadInput } from "./dto/post.input";
 import { PaginatedPostsModel } from "./models/paginatedPosts.model";
 import { PostModel } from "./models/post.model";
-import { PostsArgs } from "./models/posts.args";
 import { PostService } from "./post.service";
 import type { Edge } from "../pagination/pagination.model";
 import type { MapObjectPropertyToBoolean } from "../types";
@@ -54,7 +54,7 @@ export class PostResolver {
   @Query(() => PaginatedPostsModel, { description: "Get Posts" })
   // eslint-disable-next-line max-statements
   protected async posts(
-    @Args() postsArgs: PostsArgs,
+    @Args() paginationArgs: PaginationArgs,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<PaginatedPostsModel> {
@@ -91,7 +91,7 @@ export class PostResolver {
       id: true
     };
 
-    const posts = await this.postService.findPostsWithUser<PostModel[]>(postSelect, userSelect, postsArgs);
+    const posts = await this.postService.findPostsWithUser<PostModel[]>(postSelect, userSelect, paginationArgs);
     const lastPost = posts.at(-1);
     const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id) : null;
 

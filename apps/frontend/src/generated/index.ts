@@ -186,7 +186,6 @@ export type QueryPostArgs = {
 export type QueryPostsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
-  postId?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryUserArgs = {
