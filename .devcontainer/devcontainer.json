@@ -11,7 +11,8 @@
     "activitusbar.inactiveColour": "#FF0461",
     "activitusbar.views": [
       { "codicon": "debug-restart", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
-      { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" }
+      { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" },
+      { "codicon": "debug-restart", "name": "command.apollographql/reloadService", "tooltip": "Restart Apollo Server" }
     ],
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",

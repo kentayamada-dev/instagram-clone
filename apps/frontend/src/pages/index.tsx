@@ -14,7 +14,7 @@ import type {
 export const getServerSideProps: GetAuthServerSideProps = async ({
   locale,
   req: {
-    headers: { cookie }
+    headers: { cookie = "" }
   },
   defaultLocale = "en"
 }) => {
@@ -22,7 +22,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   let data: CurrentUserQuery | null = null;
 
   try {
-    data = await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
+    data = await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie });
   } catch (error) {
     // Do nothing
   }
@@ -30,7 +30,8 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: data?.currentUser ?? null,
-      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
+      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"])),
+      cookies: cookie
     }
   };
 

@@ -9,7 +9,7 @@ import type { NextPageWithLayout } from "../libs/next/types";
 
 export const getServerSideProps: GetAuthServerSideProps = async ({
   req: {
-    headers: { cookie }
+    headers: { cookie = "" }
   },
   locale,
   defaultLocale = "en"
@@ -17,7 +17,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   const initialLocale = locale ?? defaultLocale;
 
   try {
-    await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie: cookie ?? "" });
+    await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie });
     const pageProps: GetAuthServerSidePropsResultType = {
       redirect: {
         destination: "/",
@@ -33,7 +33,8 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: null,
-      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
+      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"])),
+      cookies: cookie
     }
   };
 
