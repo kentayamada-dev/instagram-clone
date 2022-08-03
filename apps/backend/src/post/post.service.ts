@@ -8,13 +8,18 @@ import type { Prisma } from "@prisma/client";
 export class PostService {
   public constructor(private readonly prismaService: PrismaService) {}
 
-  public async findNextPostId(lastPostId: string): Promise<string | undefined> {
+  public async findNextPostId(lastPostId: string, userId?: string): Promise<string | undefined> {
     return this.prismaService.post
       .findMany({
         cursor: { id: lastPostId },
         orderBy: {
           createdAt: "desc"
         },
+        ...(userId && {
+          where: {
+            userId
+          }
+        }),
         select: {
           id: true
         },
@@ -26,7 +31,7 @@ export class PostService {
 
   public async findPosts<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs, userId: string): Promise<T> {
     return (await this.prismaService.post.findMany({
-      ...(after ? { cursor: { id: after }, skip: 1 } : {}),
+      ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
         createdAt: "desc"
       },
@@ -86,7 +91,7 @@ export class PostService {
     return (await this.prismaService.post.create({
       data: {
         imageUrl,
-        ...(caption ? { caption } : {}),
+        ...(caption && { caption }),
         userId
       },
       select: {

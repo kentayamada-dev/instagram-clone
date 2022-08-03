@@ -104,7 +104,7 @@ export class UserResolver {
     const select: Prisma.PostSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
     const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, user.id);
     const lastPost = foundPosts.at(-1);
-    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id) : null;
+    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id, user.id) : null;
 
     const edges: Edge<PostModelBase>[] = foundPosts.map(
       (post): Edge<PostModelBase> => ({

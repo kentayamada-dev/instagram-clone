@@ -330,20 +330,26 @@ export type UserQueryVariables = Exact<{
 
 export type UserQuery = {
   __typename?: "Query";
+  user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
+};
+
+export type UserPostsQueryVariables = Exact<{
+  userId: Scalars["String"];
+  first?: InputMaybe<Scalars["Float"]>;
+  after?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type UserPostsQuery = {
+  __typename?: "Query";
   user: {
     __typename?: "UserModelBase";
-    id: string;
-    name: string;
-    imageUrl: string;
     posts: {
       __typename?: "PaginatedPostModel";
-      nodes: Array<{
-        __typename?: "PostModelBase";
-        id: string;
-        caption?: string | null;
-        imageUrl: string;
-        createdAt: any;
+      edges: Array<{
+        __typename?: "PostModelBaseEdge";
+        node: { __typename?: "PostModelBase"; id: string; imageUrl: string };
       }>;
+      pageInfo: { __typename?: "PostModelBasePageInfo"; endCursor?: string | null; hasNextPage: boolean };
     };
   };
 };

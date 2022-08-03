@@ -7,7 +7,7 @@ import { usePosts } from "../../../hooks/usePosts";
 import { useUsers } from "../../../hooks/useUsers";
 import { wait } from "../../../utils/wait";
 import { UserCard } from "../../molecules/userCard";
-import { PostsList } from "../../organisms/PostsList";
+import { Feed } from "../../organisms/Feed";
 import { UsersList } from "../../organisms/UsersList";
 import type { HomeTemplateType } from "./index.types";
 
@@ -18,14 +18,14 @@ export const HomeTemplate: HomeTemplateType = () => {
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const [isAsyncInitialDataFetched, setIsAsyncInitialDataFetched] = React.useState(false);
   const { currentUser, isCurrentUserError, mutateCurrentUser } = useCurrentUser();
-  const { posts, loadMorePosts, isPostsLoading, mutatePosts: postsMutate, isPostsError } = usePosts();
+  const { posts, loadMorePosts, isPostsLoading, mutatePosts, isPostsError } = usePosts();
   const { users, mutateUsers, isUsersError } = useUsers({
     currentUserId: currentUser?.id ?? ""
   });
-  const isTooManyRequestsErrorOccurred = isCurrentUserError && isUsersError && isPostsError;
+  const isErrorOccurred = isCurrentUserError || isUsersError || isPostsError;
 
   const handleMorePosts = async (): Promise<void> => {
-    if (!isLoadingMorePosts && !isPostsLoading && !isTooManyRequestsErrorOccurred) {
+    if (!isLoadingMorePosts && !isPostsLoading && !isErrorOccurred) {
       setIsLoadingMorePosts(true);
       await wait(2);
       await loadMorePosts();
@@ -34,7 +34,7 @@ export const HomeTemplate: HomeTemplateType = () => {
   };
 
   React.useEffect(() => {
-    if (!isTooManyRequestsErrorOccurred) {
+    if (!isErrorOccurred) {
       if (!isAsyncInitialDataFetched && isAsyncInitialDataReadyToFetch && !currentUser) {
         setIsAsyncInitialDataFetched(true);
         // eslint-disable-next-line no-void
@@ -47,7 +47,7 @@ export const HomeTemplate: HomeTemplateType = () => {
         // eslint-disable-next-line no-void
         void (async (): Promise<void> => {
           if (!posts) {
-            await postsMutate();
+            await mutatePosts();
           }
           if (currentUser?.id && !users) {
             await mutateUsers();
@@ -64,12 +64,12 @@ export const HomeTemplate: HomeTemplateType = () => {
     currentUser,
     isAsyncInitialDataFetched,
     isAsyncInitialDataReadyToFetch,
+    isErrorOccurred,
     isInitialDataFetched,
-    isTooManyRequestsErrorOccurred,
     mutateCurrentUser,
+    mutatePosts,
     mutateUsers,
     posts,
-    postsMutate,
     users
   ]);
 
@@ -98,7 +98,7 @@ export const HomeTemplate: HomeTemplateType = () => {
               </Center>
             }
           >
-            <PostsList postsEdge={posts?.edges} />
+            <Feed postsEdge={posts?.edges} />
           </InfiniteScroll>
         </Box>
       </Box>

@@ -25,24 +25,22 @@ export class UserService {
 
   public async findUsers<T>(select: Prisma.UserSelect, { first, after, userId }: UsersArgs): Promise<T> {
     return (await this.prismaService.user.findMany({
-      ...(after ? { cursor: { id: after }, skip: 1 } : {}),
+      ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
         createdAt: "desc"
       },
       select,
       ...(Boolean(first) && { take: first }),
-      ...(userId
-        ? {
-            where: {
-              // eslint-disable-next-line @typescript-eslint/naming-convention
-              NOT: {
-                id: {
-                  equals: userId
-                }
-              }
+      ...(userId && {
+        where: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          NOT: {
+            id: {
+              equals: userId
             }
           }
-        : {})
+        }
+      })
     })) as unknown as T;
   }
 

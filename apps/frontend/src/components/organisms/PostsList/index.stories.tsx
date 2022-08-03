@@ -1,4 +1,4 @@
-import { generateAllPostsEdges } from "../../../libs/faker";
+import { generateUserPosts } from "../../../libs/faker";
 import { PostsList } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -8,18 +8,22 @@ export default {
     (Story): JSX.Element => (
       <div
         style={{
-          width: 500
+          width: "1000px"
         }}
       >
         {Story()}
       </div>
     )
   ],
+  parameters: {
+    layout: "centered"
+  },
   title: "organisms/Posts List"
 } as ComponentMeta<typeof PostsList>;
 
 export const postsList: ComponentStoryObj<typeof PostsList> = {
   args: {
-    postsEdge: generateAllPostsEdges
+    posts: generateUserPosts,
+    userId: "userId"
   }
 };

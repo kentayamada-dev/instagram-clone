@@ -4,8 +4,8 @@ import { hash } from "bcrypt";
 
 faker.mersenne.seed(999);
 
-const NUM_USERS = 5;
-const MAX_NUM_POSTS = 10;
+const NUM_USERS = 10;
+const MAX_NUM_POSTS = 20;
 const SALT_ROUNDS = 10;
 const TEST_USER = {
   imageUrl: `https://picsum.photos/id/1000/1000/1000`,

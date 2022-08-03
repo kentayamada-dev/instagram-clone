@@ -6,14 +6,6 @@ export const USER_QUERY = gql`
       id
       name
       imageUrl
-      posts {
-        nodes {
-          id
-          caption
-          imageUrl
-          createdAt
-        }
-      }
     }
   }
 `;

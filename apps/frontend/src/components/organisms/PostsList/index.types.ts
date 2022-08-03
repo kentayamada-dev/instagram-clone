@@ -1,7 +1,8 @@
-import type { PostsQuery } from "../../../generated";
+import type { UserPostsQuery } from "../../../generated";
 
 type PostsListProps = {
-  postsEdge: PostsQuery["posts"]["edges"] | undefined;
+  posts: UserPostsQuery["user"]["posts"]["edges"] | undefined;
+  userId: string;
 };
 
 export type PostsListType = (props: PostsListProps) => JSX.Element;

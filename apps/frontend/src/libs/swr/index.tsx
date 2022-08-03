@@ -4,28 +4,28 @@ import { fetcher } from "../graphql_request";
 import { useLocale } from "../next_router";
 import type { SWRProviderType } from "./types";
 
-const TOO_MANY_REQUESTS_ERROR_ID = "tooManyRequestsError";
-const TOO_MANY_REQUESTS_ERROR_MESSAGE = "ThrottlerException: Too Many Requests";
+const ERROR_TOAST_ID = "ERROR_TOAST_ID";
+const USER_NOT_FOUND_ERROR_MESSAGE = "User not found";
 
 export const SWRProvider: SWRProviderType = ({ children }) => {
   const toast = useToast();
-  const tooManyRequestsErrorMessageTitle = useLocale("Too Many Requests.", "リクエストが多すぎます。");
-  const tooManyRequestsErrorMessageDescription = useLocale(
+  const errorMessageTitle = useLocale("An unexpected error has occurred.", "予期せぬエラーが発生しました。");
+  const errorMessageDescription = useLocale(
     "Please try again after some time.",
     "時間をおいてから再度お試しください。"
   );
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onError = (error: any): void => {
-    const isTooManyRequestsError = error.response.errors[0].message === TOO_MANY_REQUESTS_ERROR_MESSAGE;
-    if (!toast.isActive(TOO_MANY_REQUESTS_ERROR_ID) && isTooManyRequestsError) {
+    const isUserNotFound = error.response.errors[0].message === USER_NOT_FOUND_ERROR_MESSAGE;
+    if (!toast.isActive(ERROR_TOAST_ID) && !isUserNotFound) {
       toast({
-        description: tooManyRequestsErrorMessageDescription,
+        description: errorMessageDescription,
         duration: 10000,
-        id: TOO_MANY_REQUESTS_ERROR_ID,
+        id: ERROR_TOAST_ID,
         isClosable: true,
         position: "top",
         status: "error",
-        title: tooManyRequestsErrorMessageTitle
+        title: errorMessageTitle
       });
     }
   };

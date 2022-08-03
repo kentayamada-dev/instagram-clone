@@ -1,38 +1,44 @@
-import {
-  VStack,
-  HStack,
-  Center,
-  Text,
-  Divider,
-  Grid,
-  GridItem,
-  Link,
-  useColorModeValue,
-  useBreakpointValue
-} from "@chakra-ui/react";
-import Image from "next/image";
-import NextLink from "next/link";
+import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { constants } from "../../../constants";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import { useUser } from "../../../hooks/useUser";
-import { useWindowDimensions } from "../../../hooks/useWindowDimensions";
+import { useUserPosts } from "../../../hooks/useUserPosts";
+import { wait } from "../../../utils/wait";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
+import { PostsList } from "../../organisms/PostsList";
 import type { UserDetailTemplateType } from "./index.types";
-
-const {
-  COLORS: { BLACK_PEARL, SNOW }
-} = constants;
 
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
+  const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : null;
   const { user } = useUser({
     fallbackData: data,
-    userId: router.query["userId"] as string
+    userId: userId ?? ""
   });
-  const shadowColor = useColorModeValue(BLACK_PEARL, SNOW);
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
-  const { width } = useWindowDimensions();
+  const { userPosts, isUserPostsLoading, loadMoreUserPosts, mutateUserPosts, isUserPostsError } = useUserPosts({
+    userId: userId ?? ""
+  });
+  const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
+  const handleMoreUserPosts = async (): Promise<void> => {
+    if (!isLoadingMorePosts && !isUserPostsError && !isUserPostsLoading) {
+      setIsLoadingMorePosts(true);
+      await wait(2);
+      await loadMoreUserPosts();
+      setIsLoadingMorePosts(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (!isUserPostsError && userId && !userPosts) {
+      // eslint-disable-next-line no-void
+      void (async (): Promise<void> => {
+        await mutateUserPosts();
+      })();
+    }
+  }, [isUserPostsError, mutateUserPosts, userId, userPosts]);
 
   return (
     <VStack
@@ -55,39 +61,22 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         </Text>
       </HStack>
       <Divider />
-      <Grid
-        gap={{
-          base: 2,
-          lg: 6
+      <InfiniteScroll
+        hasMore={userPosts?.pageInfo.hasNextPage}
+        // eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/no-misused-promises
+        loadMore={handleMoreUserPosts}
+        loader={
+          <Center key={0} pb="5" pt="5">
+            <Spinner size="lg" />
+          </Center>
+        }
+        // eslint-disable-next-line react/forbid-component-props
+        style={{
+          width: "inherit"
         }}
-        templateColumns="repeat(3, 1fr)"
-        w="100%"
       >
-        {user?.posts.nodes.map((post) => (
-          <GridItem
-            _hover={{
-              boxShadow: `0 6px 14px ${shadowColor}`,
-              transform: "translate(0, -2px)"
-            }}
-            h={{
-              base: width === null ? "10px" : `${width / 3}px`,
-              lg: "280px"
-            }}
-            key={post.id}
-            pos="relative"
-            sx={{
-              transition: "box-shadow 0.5s, transform 0.5s"
-            }}
-            w="inherit"
-          >
-            <NextLink href={`/${user.id}/${post.id}`} passHref>
-              <Link>
-                <Image alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.imageUrl} />
-              </Link>
-            </NextLink>
-          </GridItem>
-        ))}
-      </Grid>
+        <PostsList posts={userPosts?.edges} userId={userId ?? ""} />
+      </InfiniteScroll>
     </VStack>
   );
 };

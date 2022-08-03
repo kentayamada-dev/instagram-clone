@@ -2,12 +2,9 @@ import { join } from "path";
 import { ApolloDriver } from "@nestjs/apollo";
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
-import { ThrottlerModule } from "@nestjs/throttler";
 import { LoggingPlugin } from "./libs/apollo/logging";
-import { GqlThrottlerGuard } from "./libs/throttler/gqlThrottler.guard";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";
@@ -17,10 +14,6 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot({
-      limit: 20,
-      ttl: 60
-    }),
     ConfigModule.forRoot({
       cache: true,
       validationSchema: configSchema
@@ -47,12 +40,6 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "client") })
   ],
-  providers: [
-    LoggingPlugin,
-    {
-      provide: APP_GUARD,
-      useClass: GqlThrottlerGuard
-    }
-  ]
+  providers: [LoggingPlugin]
 })
 export class AppModule {}
