@@ -75,10 +75,10 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
   return <PostDetailTemplate data={data} />;
 };
 
-/* eslint-disable no-underscore-dangle */
 Post.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
   const userName = props.data?.user.name;
+  // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
 
   if (userName && initialLocale) {
@@ -91,6 +91,5 @@ Post.getLayout = (page, props): JSX.Element => {
 
   return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
-/* eslint-enable no-underscore-dangle */
 
 export default Post;

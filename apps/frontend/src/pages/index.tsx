@@ -30,8 +30,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: data?.currentUser ?? null,
-      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"])),
-      cookies: cookie
+      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
 

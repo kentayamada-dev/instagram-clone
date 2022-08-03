@@ -75,9 +75,9 @@ const User: NextUserPageWithLayoutType = ({ data }) => {
   return <UserDetailTemplate data={data} />;
 };
 
-/* eslint-disable no-underscore-dangle */
 User.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
+  // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
   const userName = props.data?.user.name;
 
@@ -91,6 +91,5 @@ User.getLayout = (page, props): JSX.Element => {
 
   return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
-/* eslint-enable no-underscore-dangle */
 
 export default User;

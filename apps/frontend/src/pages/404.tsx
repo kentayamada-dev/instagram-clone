@@ -16,9 +16,9 @@ export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "
 
 const Custom404: NextPageWithLayout = () => <Custom404Template />;
 
-/* eslint-disable no-underscore-dangle */
 Custom404.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
+  // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
 
   if (initialLocale) {
@@ -31,6 +31,5 @@ Custom404.getLayout = (page, props): JSX.Element => {
 
   return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
-/* eslint-enable no-underscore-dangle */
 
 export default Custom404;

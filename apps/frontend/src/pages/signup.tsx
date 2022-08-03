@@ -33,8 +33,7 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
   const pageProps: GetAuthServerSidePropsResultType = {
     props: {
       data: null,
-      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"])),
-      cookies: cookie
+      ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
 
@@ -43,9 +42,9 @@ export const getServerSideProps: GetAuthServerSideProps = async ({
 
 const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
 
-/* eslint-disable no-underscore-dangle */
 Signup.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
+  // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
 
   if (initialLocale) {
@@ -58,6 +57,5 @@ Signup.getLayout = (page, props): JSX.Element => {
 
   return <LayoutTemplate title={title}>{page}</LayoutTemplate>;
 };
-/* eslint-enable no-underscore-dangle */
 
 export default Signup;
