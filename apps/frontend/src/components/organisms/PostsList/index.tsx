@@ -1,6 +1,8 @@
-import { Grid, GridItem, Link, Skeleton, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Grid, GridItem, Link, Skeleton, useColorModeValue, VStack } from "@chakra-ui/react";
+import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import NextLink from "next/link";
+import { FiCamera } from "react-icons/fi";
 import { constants } from "../../../constants";
 import { useWindowDimensions } from "../../../hooks/useWindowDimensions";
 import type { PostsListType } from "./index.types";
@@ -12,6 +14,18 @@ const {
 export const PostsList: PostsListType = ({ posts, userId }) => {
   const { width } = useWindowDimensions();
   const shadowColor = useColorModeValue(BLACK_PEARL, SNOW);
+  const { t } = useTranslation("common");
+
+  if (posts?.length === 0) {
+    return (
+      <VStack>
+        <FiCamera size="30px" />
+        <Heading as="h1" fontWeight="normal" size="lg">
+          {t("noPostsYet")}
+        </Heading>
+      </VStack>
+    );
+  }
 
   return (
     <Grid

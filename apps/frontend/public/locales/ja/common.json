@@ -10,5 +10,6 @@
   "cancel": "キャンセル",
   "submit": "送信",
   "recommend": "おすすめ",
-  "email": "メール"
+  "email": "メール",
+  "noPostsYet": "投稿はまだありません"
 }
