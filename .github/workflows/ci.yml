@@ -213,9 +213,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Install japanese font
-        run: sudo apt-get install fonts-noto -y
-
       - name: Test on chrome
         uses: cypress-io/github-action@v4
         with:

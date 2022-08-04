@@ -41,32 +41,13 @@ export const myTheme = extendTheme({
         }
       }
     }
-    /* eslint-disable multiline-comment-style, capitalized-comments */
-    // Box: {
-    //   variants: {
-    //     primary: (props: StyleFunctionProps) => ({
-    //       bg: mode("gray.800", "whiteAlpha.900")(props)
-    //     })
-    //   }
-    // }
-    /* eslint-enable multiline-comment-style, capitalized-comments  */
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
-      // eslint-disable-next-line lines-around-comment
-      /*
-       * "a": {
-       *   _hover: {
-       *     opacity: 0.8
-       *   },
-       *   color: "#2081E2 !important",
-       *   fontWeight: "bold",
-       *   textDecoration: "none !important"
-       * },
-       */
       "body": {
         bg: mode(SNOW, BUNKER)(props),
-        height: "100%"
+        height: "100%",
+        fontFamily: "Noto Sans JP"
       },
       "html, #__next": {
         height: "100%"

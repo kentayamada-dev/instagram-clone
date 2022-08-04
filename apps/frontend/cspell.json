@@ -32,7 +32,9 @@
     "subcomponents",
     "picsum",
     "jzle",
-    "deadcode"
+    "deadcode",
+    "Noto",
+    "fontsource"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

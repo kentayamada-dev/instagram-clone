@@ -37,7 +37,7 @@ export const Header: HeaderType = () => {
     usePost({ handleClosePostModal });
   const bgColor = useColorModeValue(SNOW, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
-  const localeJa = useLocale("A", "あ");
+  const localeJa = useLocale("あ", "A");
   const instagramDarkImg = {
     alt: "Instagram Text Dark",
     src: "/static/instagram/text_dark.svg"

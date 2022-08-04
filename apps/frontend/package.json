@@ -37,6 +37,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@faker-js/faker": "^7.3.0",
+    "@fontsource/noto-sans-jp": "^4.5.10",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/builder-webpack5": "^6.5.9",
     "@storybook/manager-webpack5": "^6.5.9",

@@ -7,6 +7,7 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 import { myTheme } from "../libs/chakra";
 import { SWRProvider } from "../libs/swr";
 import type { MyAppType } from "../libs/next/types";
+import "@fontsource/noto-sans-jp";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp: MyAppType = ({ Component, pageProps }) => {

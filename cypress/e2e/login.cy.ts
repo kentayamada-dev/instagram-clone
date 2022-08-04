@@ -11,10 +11,10 @@ describe("Login Page", () => {
     cy.get('button[aria-label="Toggle Language Mode"]').as("toggleLocaleButton");
     while (times--) {
       cy.contains("Email");
-      cy.get("@toggleLocaleButton").contains("A").click();
+      cy.get("@toggleLocaleButton").contains("あ").click();
       cy.url().should("eq", Cypress.config().baseUrl + "ja/");
       cy.contains("メールアドレス");
-      cy.get("@toggleLocaleButton").contains("あ").click();
+      cy.get("@toggleLocaleButton").contains("A").click();
       cy.url().should("eq", Cypress.config().baseUrl);
     }
   });

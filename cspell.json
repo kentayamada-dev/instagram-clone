@@ -1,7 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["chakra", "Cloudinary", "Turborepo", "filesize", "jedec"],
+  "words": ["chakra", "Cloudinary", "Turborepo", "filesize", "jedec", "devcontainer"],
   "ignorePaths": [
     "package.json",
     "cspell.json",
