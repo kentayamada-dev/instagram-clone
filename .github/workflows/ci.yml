@@ -80,7 +80,7 @@ jobs:
     if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
     needs: [Build-Backend]
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     services:
       postgres:
