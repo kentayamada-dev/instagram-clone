@@ -1,37 +1,45 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+import { email, password } from "../fixtures/form.json";
+
+Cypress.Commands.add("visitRoot", () => {
+  cy.visit("/");
+});
+
+Cypress.Commands.add("visitHome", () => {
+  cy.visit("/");
+});
+
+Cypress.Commands.add("toggleLocale", () => {
+  cy.get('button[aria-label="Toggle Language Mode"]').as("toggleLocaleButton");
+  cy.get("@toggleLocaleButton").contains("あ").click();
+  cy.contains("アカウントをお持ちでないですか？").should("be.visible");
+  cy.url().should("eq", Cypress.config().baseUrl + "ja/");
+  cy.get("@toggleLocaleButton").contains("A").click();
+  cy.contains("Don't have an account?").should("be.visible");
+  cy.url().should("eq", Cypress.config().baseUrl);
+});
+
+Cypress.Commands.add("toggleDarkMode", () => {
+  cy.get('button[aria-label="Toggle Dark Mode"]').as("toggleDarkMode");
+  cy.get("@toggleDarkMode").click();
+  cy.get("body").should("have.class", "chakra-ui-dark");
+  cy.get("@toggleDarkMode").click();
+  cy.get("body").should("have.class", "chakra-ui-light");
+});
+
+Cypress.Commands.add("transitionBetweenAuthPages", () => {
+  cy.contains("Sign up").click();
+  cy.contains("Have an account?").should("be.visible");
+  cy.url().should("eq", Cypress.config().baseUrl + "signup/");
+  cy.contains("Log in").click();
+  cy.contains("Don't have an account?").should("be.visible");
+  cy.url().should("eq", Cypress.config().baseUrl);
+});
+
+Cypress.Commands.add("fillLoginFormAndSubmit", () => {
+  cy.get('[type="email"]').type(email).should("have.value", email);
+  cy.get('[type="password"]').type(password).should("have.value", password);
+  cy.get("form").submit();
+  cy.contains("Recommend").should("be.visible");
+  cy.url().should("eq", Cypress.config().baseUrl);
+  cy.getCookie("accessToken").should("exist");
+});
