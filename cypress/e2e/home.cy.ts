@@ -1,6 +1,6 @@
 describe("Home Page", () => {
   beforeEach(() => {
-    cy.visitRoot();
+    cy.visit("/");
   });
 
   it("Toggle Locale", () => {

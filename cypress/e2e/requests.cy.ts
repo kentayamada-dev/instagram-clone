@@ -2,13 +2,12 @@ describe("Requests", () => {
   describe("Auth Page", () => {
     beforeEach(() => {
       cy.intercept("POST", "https://api.instagram-clone.net/graphql").as("post_req");
-      cy.visitRoot();
+      cy.visit("/");
     });
 
     it("Toggle Locale", () => {
-      cy.toggleLocale();
-      cy.wait(5000)
-        .get("@post_req.all")
+      cy.toggleLocale(true);
+      cy.get("@post_req.all")
         .should("have.length", 3)
         .then((node) => {
           // @ts-ignore
@@ -21,9 +20,8 @@ describe("Requests", () => {
     });
 
     it("Toggle Dark Mode", () => {
-      cy.toggleDarkMode();
-      cy.wait(5000)
-        .get("@post_req.all")
+      cy.toggleDarkMode(true);
+      cy.get("@post_req.all")
         .should("have.length", 1)
         .then((node) => {
           // @ts-ignore
@@ -32,9 +30,8 @@ describe("Requests", () => {
     });
 
     it("Transition Between Root And Signup Page", () => {
-      cy.transitionBetweenAuthPages();
-      cy.wait(5000)
-        .get("@post_req.all")
+      cy.transitionBetweenAuthPages(true);
+      cy.get("@post_req.all")
         .should("have.length", 1)
         .then((node) => {
           // @ts-ignore
@@ -45,15 +42,22 @@ describe("Requests", () => {
 
   describe("Home Page", () => {
     before(() => {
-      cy.visitRoot();
+      cy.visit("/");
       cy.fillLoginFormAndSubmit();
-      cy.reload();
+    });
+
+    beforeEach(() => {
+      cy.reload(true);
       cy.intercept("POST", "https://api.instagram-clone.net/graphql").as("post_req");
     });
 
-    it("Feed", () => {
-      cy.wait(5000)
-        .get("@post_req.all")
+    it.only("Feed", () => {
+      cy.wait(5000);
+      cy.contains("Test User").click();
+      cy.wait(5000);
+      cy.get('a[href="/"]').click();
+      cy.wait(5000);
+      cy.get("@post_req.all")
         .should("have.length", 4)
         .then((node) => {
           // @ts-ignore

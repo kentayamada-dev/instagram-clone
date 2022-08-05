@@ -2,11 +2,9 @@
 
 declare namespace Cypress {
   interface Chainable<Subject> {
-    visitRoot(): Chainable<any>;
-    toggleLocale(): Chainable<any>;
-    toggleDarkMode(): Chainable<any>;
-    transitionBetweenAuthPages(): Chainable<any>;
-    visitHome(): Chainable<any>;
+    toggleLocale(shouldWaitRequests?: boolean): Chainable<any>;
+    toggleDarkMode(shouldWaitRequests?: boolean): Chainable<any>;
+    transitionBetweenAuthPages(shouldWaitRequests?: boolean): Chainable<any>;
     fillLoginFormAndSubmit(): Chainable<any>;
   }
 }
