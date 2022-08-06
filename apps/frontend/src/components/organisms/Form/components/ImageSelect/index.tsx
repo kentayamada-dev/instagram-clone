@@ -13,12 +13,12 @@ const {
 export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, setError, setValue }) => {
   const [imagePreviewSrc, setImagePreviewSrc] = React.useState("");
   const fileSizeExceededErrorMessage = useLocale(
-    "File size should be less than 10MB",
-    "ファイルサイズは10MB以下にしてください"
+    "File size should be less than 10MB.",
+    "ファイルサイズは10MB以下にしてください。"
   );
   const unexpectedErrorMessage = useLocale(
-    "An unexpected error has occurred. Please wait a few minutes and try again",
-    "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
+    "An unexpected error has occurred. Please wait a few minutes and try again.",
+    "予期せぬエラーが発生しました。お時間をおいて再度お試しください。"
   );
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);

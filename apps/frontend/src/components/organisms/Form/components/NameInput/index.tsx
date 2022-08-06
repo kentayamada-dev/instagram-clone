@@ -10,17 +10,17 @@ const {
 
 export const NameInput: NameInputType = ({ errors, register }) => {
   const { t } = useTranslation("form");
-  const nameBlankErrorMessage = useLocale("Please enter name", "名前を入力してください");
+  const nameBlankErrorMessage = useLocale("Please enter full name.", "フルネームを入力してください。");
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
   const errorMessage = errors.name?.message;
 
   return (
     <FormControl isInvalid={Boolean(errorMessage)}>
-      <FormLabel htmlFor="name">{t("name")}</FormLabel>
+      <FormLabel htmlFor="name">{t("fullName")}</FormLabel>
       <Input
         bgColor={inputBgColor}
         id="name"
-        placeholder={t("namePlaceholder")}
+        placeholder={t("fullNamePlaceholder")}
         {...register("name", {
           required: nameBlankErrorMessage
         })}

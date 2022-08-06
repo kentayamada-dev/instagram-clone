@@ -1,14 +1,14 @@
 {
   "email": "Email",
   "emailPlaceholder": "Please enter your email address",
-  "emailValidationMessage": "Entered value does not match email format",
   "password": "Password",
   "passwordPlaceholder": "Please enter your password",
-  "passwordValidationMessage": "Your password must be more than 10 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character",
   "login": "Log in",
   "signUp": "Sign up",
   "noAccount": "Don't have an account?",
   "haveAccount": "Have an account?",
-  "name": "Name",
-  "namePlaceholder": "Please enter your name"
+  "fullName": "Full Name",
+  "fullNamePlaceholder": "Please enter your full name",
+  "username": "Username",
+  "usernamePlaceholder": "Please enter your username"
 }

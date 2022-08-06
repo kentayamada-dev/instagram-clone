@@ -12,7 +12,11 @@ export const EmailInput: EmailInputType = ({ errors, register }) => {
   const { t } = useTranslation("form");
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
   const errorMessage = errors.email?.message;
-  const emailBlankErrorMessage = useLocale("Please enter email address", "メールアドレスを入力してください");
+  const emailBlankErrorMessage = useLocale("Please enter email address.", "メールアドレスを入力してください。");
+  const emailValidationMessage = useLocale(
+    "Entered value does not match email format.",
+    "メールアドレスのフォーマットを確認してください。"
+  );
 
   return (
     <FormControl isInvalid={Boolean(errorMessage)}>
@@ -24,7 +28,7 @@ export const EmailInput: EmailInputType = ({ errors, register }) => {
         type="email"
         {...register("email", {
           pattern: {
-            message: t("emailValidationMessage"),
+            message: emailValidationMessage,
             value: /\S+@\S+\.\S+/u
           },
           required: emailBlankErrorMessage

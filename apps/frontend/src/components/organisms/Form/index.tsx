@@ -18,6 +18,7 @@ import { EmailInput } from "./components/EmailInput";
 import { ImageSelect } from "./components/ImageSelect";
 import { NameInput } from "./components/NameInput";
 import { PasswordInput } from "./components/PasswordInput";
+import { UserIdInput } from "./components/UserIdInput";
 import type { FormType } from "./index.types";
 
 const StyledForm = styled.form`
@@ -85,6 +86,7 @@ export const Form: FormType = ({ isSignup }) => {
                     setValue={setValue}
                   />
                   <NameInput errors={errors} register={register} />
+                  <UserIdInput errors={errors} register={register} />
                 </>
               ) : null}
               <EmailInput errors={errors} register={register} />

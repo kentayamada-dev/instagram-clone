@@ -7,7 +7,8 @@ faker.mersenne.seed(999);
 const NUM_USERS = 10;
 const MAX_NUM_POSTS = 20;
 const SALT_ROUNDS = 10;
-const TEST_USER = {
+const TEST_USER: Prisma.UserCreateInput = {
+  id: "test_user",
   imageUrl: `https://picsum.photos/id/1000/1000/1000`,
   name: "Test User",
   email: "testuser@gmail.com",
@@ -39,6 +40,7 @@ const generateUsers = async (numberOfUsers: number): Promise<Prisma.UserCreateIn
       const hashedPassword = await hash(password, SALT_ROUNDS);
 
       return {
+        id: faker.internet.userName().toLowerCase(),
         imageUrl: `https://picsum.photos/id/${(index + 1) * 3}/1000/1000`,
         name,
         email,
@@ -64,7 +66,6 @@ const initDB = async () => {
 };
 
 const seedData = async (userData: Prisma.UserCreateInput[]) => {
-  console.log("Start seeding ...");
   for (const user of userData) {
     const randomBoolean = !getRandomInt(2);
     await sleep(0.1);
@@ -84,12 +85,14 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
       }
     }
   }
-  console.log("Seeding finished.");
 };
 
 (async () => {
   const generatedUsers = await generateUsers(NUM_USERS);
-  const userToBeTested = { ...TEST_USER, password: await hash(TEST_USER.password, SALT_ROUNDS) };
+  const userToBeTested: Prisma.UserCreateInput = {
+    ...TEST_USER,
+    password: await hash(TEST_USER.password, SALT_ROUNDS)
+  };
   const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested];
 
   try {

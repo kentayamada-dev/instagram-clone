@@ -1,14 +1,14 @@
 {
   "email": "メールアドレス",
   "emailPlaceholder": "メールアドレスを入力してください",
-  "emailValidationMessage": "メールアドレスのフォーマットを確認してください。",
   "password": "パスワード",
   "passwordPlaceholder": "パスワードを入力してください",
-  "passwordValidationMessage": "パスワードは10文字以上で、少なくとも大文字1つ、小文字1つ、数字1つ、特殊文字1つを含んでいる必要があります",
   "login": "ログイン",
   "signUp": "登録する",
   "noAccount": "アカウントをお持ちでないですか？",
   "haveAccount": "アカウントをお持ちですか？",
-  "name": "名前",
-  "namePlaceholder": "名前を入力してください"
+  "fullName": "フルネーム",
+  "fullNamePlaceholder": "フルネームを入力してください",
+  "username": "ユーザーネーム",
+  "usernamePlaceholder": "ユーザーネームを入力してください"
 }

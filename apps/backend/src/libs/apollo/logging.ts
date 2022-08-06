@@ -13,7 +13,7 @@ export class LoggingPlugin implements ApolloServerPlugin {
         const message = {
           errors: JSON.stringify(errors, null, 2)
         };
-        console.log(message);
+        console.error(message);
       },
       async willSendResponse(): Promise<void> {
         const message = {

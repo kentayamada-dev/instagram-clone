@@ -20,26 +20,32 @@ const isGraphQLErrors = (error: any): error is { response: any } => {
 
 export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const emailAlreadyExistsErrorMessage = useLocale(
-    "The email address you entered is already in use",
-    "入力されたメールアドレスは既に使用されています"
+    "Another account is using the same email.",
+    "同じメールアドレスが他のアカウントで利用されています。"
   );
-  const emailErrorMessage = useLocale("Invalid Email or Password", "メールアドレスまたはパスワードが違います");
+  const emailErrorMessage = useLocale("Invalid Email or Password.", "メールアドレスまたはパスワードが違います。");
+  const userIdErrorMessage = useLocale(
+    "This username isn't available. Please try another.",
+    "このユーザーネームは使用できません。別のユーザーネームを選択してください。"
+  );
   const unexpectedErrorMessage = useLocale(
-    "An unexpected error has occurred. Please wait a few minutes and try again",
-    "予期せぬエラーが発生しました。お時間をおいて再度お試しください"
+    "An unexpected error has occurred. Please wait a few minutes and try again.",
+    "予期せぬエラーが発生しました。お時間をおいて再度お試しください。"
   );
   const router = useRouter();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const imageBlankErrorMessage = useLocale("Please select image", "画像を選択してください");
+  const imageBlankErrorMessage = useLocale("Please select image.", "画像を選択してください。");
   const { setError, ...rest } = useForm<MyFormType>({ mode: "onSubmit" });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleError = (error: any): void => {
     if (isGraphQLErrors(error)) {
-      const errorStatus: number | undefined = error.response.errors[0].extensions.exception.status;
-      if (errorStatus === 401) {
-        setErrorMessage(emailErrorMessage);
-      } else if (errorStatus === 409) {
+      const returnedErrorMessage: string = error.response.errors[0].message;
+      if (returnedErrorMessage === "User ID Is Taken") {
+        setErrorMessage(userIdErrorMessage);
+      } else if (returnedErrorMessage === "Email Is Taken") {
         setErrorMessage(emailAlreadyExistsErrorMessage);
+      } else if (returnedErrorMessage === "Incorrect email or password") {
+        setErrorMessage(emailErrorMessage);
       } else {
         setErrorMessage(unexpectedErrorMessage);
       }

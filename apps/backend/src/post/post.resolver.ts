@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
 import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
+import { Prisma } from "@prisma/client";
 import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
@@ -13,7 +14,6 @@ import type { Edge } from "../pagination/pagination.model";
 import type { MapObjectPropertyToBoolean } from "../types";
 import type { UserModelBase } from "../user/models/base.model";
 import type { PostModelBase } from "./models/base.model";
-import type { Prisma } from "@prisma/client";
 
 @Resolver(PostModel)
 export class PostResolver {
@@ -32,15 +32,15 @@ export class PostResolver {
     }: { posts: any; userProperties: MapObjectPropertyToBoolean<UserModelBase> } = user ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const postSelect: Prisma.PostSelect = {
+    const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...postProperties,
       id: true
-    };
+    });
 
-    const userSelect: Prisma.UserSelect = {
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({
       ...userProperties,
       id: true
-    };
+    });
 
     const foundPost = await this.postService.findPost<PostModel | null>(postSelect, userSelect, postId);
 
@@ -80,16 +80,17 @@ export class PostResolver {
     }: { nodesUserProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = nodesUser ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const postSelect: Prisma.PostSelect = {
+    const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...edgesNodeProperties,
       ...nodesProperties,
       id: true
-    };
-    const userSelect: Prisma.UserSelect = {
+    });
+
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({
       ...edgesNodeUserProperties,
       ...nodesUserProperties,
       id: true
-    };
+    });
 
     const posts = await this.postService.findPostsWithUser<PostModel[]>(postSelect, userSelect, paginationArgs);
     const lastPost = posts.at(-1);
@@ -130,14 +131,15 @@ export class PostResolver {
     }: { posts: any; userProperties: MapObjectPropertyToBoolean<UserModelBase> } = user ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const postSelect: Prisma.PostSelect = {
+    const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...postProperties,
       id: true
-    };
-    const userSelect: Prisma.UserSelect = {
+    });
+
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({
       ...userProperties,
       id: true
-    };
+    });
 
     const createdPost = await this.postService.upload<PostModel>(postSelect, userSelect, uploadInput, currentUser.id);
 

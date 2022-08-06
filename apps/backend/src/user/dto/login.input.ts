@@ -13,7 +13,7 @@ export class LoginInput {
   public readonly email!: string;
 
   @Validate(PasswordValidator, {
-    message: "Password too weak"
+    message: "Invalid Password"
   })
   @Field({ description: "Password" })
   public readonly password!: string;

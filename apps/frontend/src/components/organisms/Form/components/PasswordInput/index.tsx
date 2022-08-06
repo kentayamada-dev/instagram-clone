@@ -21,7 +21,11 @@ const {
 
 export const PasswordInput: PasswordInputType = ({ errors, register }) => {
   const { t } = useTranslation("form");
-  const passwordBlankErrorMessage = useLocale("Please enter password", "パスワードを入力してください");
+  const passwordBlankErrorMessage = useLocale("Please enter password.", "パスワードを入力してください。");
+  const passwordValidationMessage = useLocale(
+    "Password must be more than 10 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.",
+    "パスワードは10文字以上で、少なくとも大文字1つ、小文字1つ、数字1つ、特殊文字1つを含んでいる必要があります。"
+  );
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const getPasswordVisibleIcon = (): JSX.Element => (isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />);
   const handleShowPassword = (): void => setIsPasswordVisible(!isPasswordVisible);
@@ -39,7 +43,7 @@ export const PasswordInput: PasswordInputType = ({ errors, register }) => {
           type={isPasswordVisible ? "text" : "password"}
           {...register("password", {
             pattern: {
-              message: t("passwordValidationMessage"),
+              message: passwordValidationMessage,
               value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u
             },
             required: passwordBlankErrorMessage

@@ -5,7 +5,7 @@ export const convertFileContent = (path) => {
   try {
     content = JSON.parse(readFileSync(path));
   } catch (error) {
-    console.log(`Cannot read content in ${path}`);
+    console.error(`Cannot read content in ${path}`);
   }
 
   return content;

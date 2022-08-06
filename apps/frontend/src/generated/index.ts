@@ -201,6 +201,8 @@ export type QueryUsersArgs = {
 export type SignupInput = {
   /** Email */
   email: Scalars["String"];
+  /** Id */
+  id: Scalars["String"];
   /** Image Url */
   imageUrl: Scalars["String"];
   /** Name */
@@ -333,6 +335,10 @@ export type UserQuery = {
   user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
 };
 
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
+
+export type LogoutMutation = { __typename?: "Mutation"; logout: { __typename?: "MessageModel"; message: string } };
+
 export type UserPostsQueryVariables = Exact<{
   userId: Scalars["String"];
   first?: InputMaybe<Scalars["Float"]>;
@@ -353,10 +359,6 @@ export type UserPostsQuery = {
     };
   };
 };
-
-export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
-
-export type LogoutMutation = { __typename?: "Mutation"; logout: { __typename?: "MessageModel"; message: string } };
 
 export type UsersIdQueryVariables = Exact<{ [key: string]: never }>;
 

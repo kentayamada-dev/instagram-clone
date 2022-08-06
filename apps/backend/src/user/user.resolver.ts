@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Args, Resolver, Query, Mutation, Context, ResolveField, Parent } from "@nestjs/graphql";
+import { Prisma } from "@prisma/client";
 import { hash, compare } from "bcrypt";
 import { Response } from "express";
 import { AuthService } from "../auth/auth.service";
@@ -19,7 +20,6 @@ import type { Edge } from "../pagination/pagination.model";
 import type { PostModelBase } from "../post/models/base.model";
 import type { MapObjectPropertyToBoolean } from "../types";
 import type { ConfigSchema } from "../utils/config/config.schema";
-import type { Prisma } from "@prisma/client";
 import type { CookieOptions } from "express";
 
 @Resolver(UserModelBase)
@@ -67,7 +67,12 @@ export class UserResolver {
     }: { nodesProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = fieldMap?.nodes ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const select: Prisma.UserSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
+    const select = Prisma.validator<Prisma.UserSelect>()({
+      ...edgesNodeProperties,
+      ...nodesProperties,
+      id: true
+    });
+
     const foundUsers = await this.userService.findUsers<UserModelBase[]>(select, usersArgs);
     const lastUser = foundUsers.at(-1);
     const nextUserId = lastUser ? await this.userService.findNextUserId(lastUser.id) : null;
@@ -101,7 +106,12 @@ export class UserResolver {
     const nodesProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.nodes ?? {};
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const select: Prisma.PostSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
+    const select = Prisma.validator<Prisma.PostSelect>()({
+      ...edgesNodeProperties,
+      ...nodesProperties,
+      id: true
+    });
+
     const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, user.id);
     const lastPost = foundPosts.at(-1);
     const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id, user.id) : null;
@@ -124,11 +134,12 @@ export class UserResolver {
   }
 
   @Mutation(() => MessageModel, { description: "Signup" })
+  // eslint-disable-next-line max-statements
   protected async signup(
     @Args("signupInput") signupInput: SignupInput,
     @Context("res") res: Response
   ): Promise<MessageModel> {
-    const foundUser = await this.userService.findUser<{ id: string } | null>({
+    const foundUserByEmail = await this.userService.findUser<{ id: string } | null>({
       select: {
         id: true
       },
@@ -137,8 +148,21 @@ export class UserResolver {
       }
     });
 
-    if (foundUser) {
-      throw new HttpException("User already exists", HttpStatus.CONFLICT);
+    if (foundUserByEmail) {
+      throw new HttpException("Email Is Taken", HttpStatus.CONFLICT);
+    }
+
+    const foundUserById = await this.userService.findUser<{ id: string } | null>({
+      select: {
+        id: true
+      },
+      where: {
+        id: signupInput.id
+      }
+    });
+
+    if (foundUserById) {
+      throw new HttpException("User ID Is Taken", HttpStatus.CONFLICT);
     }
 
     const { password, ...rest } = signupInput;
@@ -147,6 +171,7 @@ export class UserResolver {
       ...rest,
       password: hashedPassword
     };
+
     const createdUser = await this.userService.createUser(data);
 
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
@@ -206,7 +231,11 @@ export class UserResolver {
     }: { posts: any; userProperties: MapObjectPropertyToBoolean<UserModelBase> } = fieldMap ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
-    const select: Prisma.UserSelect = { ...userProperties, id: true };
+    const select = Prisma.validator<Prisma.UserSelect>()({
+      ...userProperties,
+      id: true
+    });
+
     const foundUser = await this.userService.findUser<UserModelBase | null>({ select, where: { id: userId } });
 
     if (!foundUser) {

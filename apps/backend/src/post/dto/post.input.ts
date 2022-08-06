@@ -1,4 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
+import { IsUrl } from "class-validator";
 
 @InputType()
 export class UploadInput {
@@ -6,5 +7,6 @@ export class UploadInput {
   public readonly caption?: string;
 
   @Field({ description: "Image URL" })
+  @IsUrl()
   public readonly imageUrl!: string;
 }

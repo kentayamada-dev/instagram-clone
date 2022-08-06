@@ -10,14 +10,14 @@ import type { ValidatorConstraintInterface } from "class-validator";
  */
 @ValidatorConstraint({ async: false, name: "passwordValidator" })
 export class PasswordValidator implements ValidatorConstraintInterface {
-  private readonly strongPasswordRegEx =
+  private readonly validPasswordRegEx =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u;
 
   private isValid = false;
   private readonly defaultErrorMessage = "Something went wrong";
 
   public validate(text: string): boolean {
-    this.isValid = this.strongPasswordRegEx.test(text);
+    this.isValid = this.validPasswordRegEx.test(text);
 
     return this.isValid;
   }
