@@ -60,7 +60,7 @@ export const Header: HeaderType = () => {
         pr="10px"
         shadow="lg"
         w="100%"
-        zIndex="1"
+        zIndex="999"
       >
         <ImageLinkColorMode darkImg={instagramDarkImg} height={50} href="/" lightImg={instagramLightImg} width={150} />
         <Flex align="center" gap={5}>

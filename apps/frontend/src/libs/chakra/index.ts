@@ -42,12 +42,15 @@ export const myTheme = extendTheme({
       }
     }
   },
+  fonts: {
+    heading: "Noto Sans JP",
+    body: "Noto Sans JP"
+  },
   styles: {
     global: (props: StyleFunctionProps) => ({
       "body": {
         bg: mode(SNOW, BUNKER)(props),
-        height: "100%",
-        fontFamily: "Noto Sans JP"
+        height: "100%"
       },
       "html, #__next": {
         height: "100%"
