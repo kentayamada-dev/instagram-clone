@@ -35,3 +35,7 @@ schema.graphql
 # cypress
 cypress/videos
 cypress/screenshots
+
+# nextjs
+apps/frontend/public/robots.txt
+apps/frontend/public/sitemap*.xml

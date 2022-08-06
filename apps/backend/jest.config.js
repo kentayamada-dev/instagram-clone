@@ -1,9 +1,7 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
-const config = {
+module.exports = {
   collectCoverage: true,
   coverageDirectory: "../coverage",
   preset: "ts-jest",
   rootDir: "./src"
 };
-
-module.exports = config;

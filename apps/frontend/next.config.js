@@ -3,7 +3,7 @@ const { i18n } = require("./next-i18next.config");
 const withBundleAnalyzer =
   process.env.ANALYZE === "true" ? require("@next/bundle-analyzer")({ enabled: true }) : (config) => config;
 
-const nextConfig = {
+module.exports = withBundleAnalyzer({
   i18n,
   distDir: "dist",
   reactStrictMode: true,
@@ -25,6 +25,4 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true
   }
-};
-
-module.exports = withBundleAnalyzer(nextConfig);
+});

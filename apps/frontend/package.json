@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "run-p build:*",
+    "postbuild": "run-s generate:sitemap",
     "prebuild:next": "run-p clean:next",
     "build:next": "next build",
     "prebuild:storybook": "run-s clean:storybook",
@@ -22,6 +23,7 @@
     "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "generate": "run-s generate:schema generate:types",
     "generate:schema": "get-graphql-schema http://localhost:5001/graphql > schema.graphql",
+    "generate:sitemap": "next-sitemap --config next-sitemap.config.js",
     "generate:types": "graphql-codegen --config codegen.yml",
     "kill-port:next": "kill-port 3002",
     "kill-port:storybook": "kill-port 6006",
@@ -53,6 +55,7 @@
     "lottie-react": "^2.3.1",
     "next": "^12.1.6",
     "next-i18next": "^11.0.0",
+    "next-sitemap": "^3.1.16",
     "nextjs-progressbar": "^0.0.14",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
