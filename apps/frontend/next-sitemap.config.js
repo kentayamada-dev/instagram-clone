@@ -1,6 +1,12 @@
+const SITE_URL = "https://app.instagram-clone.net";
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://app.instagram-clone.net",
+  siteUrl: SITE_URL,
   generateRobotsTxt: true,
-  sourceDir: "dist"
+  sourceDir: "dist",
+  exclude: ["/server-sitemap.xml"],
+  robotsTxtOptions: {
+    additionalSitemaps: [`${SITE_URL}/server-sitemap.xml`]
+  }
 };

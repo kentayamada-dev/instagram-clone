@@ -11,6 +11,18 @@ export const POSTS_ID_AND_USERS_ID_QUERY = gql`
   }
 `;
 
+export const POSTS_ID_AND_USERS_ID_AND_UPDATED_AT_QUERY = gql`
+  query PostsIdAndUsersIdUpdatedAt {
+    posts {
+      nodes {
+        id
+        userId
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const POSTS_QUERY = gql`
   query Posts($first: Float, $after: String) {
     posts(first: $first, after: $after) {

@@ -115,6 +115,8 @@ export type PostModel = {
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
+  /** Updated Date */
+  updatedAt: Scalars["DateTime"];
   /** Related User */
   user: UserModelBase;
   /** Related User ID */
@@ -131,6 +133,8 @@ export type PostModelBase = {
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
+  /** Updated Date */
+  updatedAt: Scalars["DateTime"];
 };
 
 export type PostModelBaseEdge = {
@@ -300,6 +304,16 @@ export type PostsIdAndUsersIdQueryVariables = Exact<{ [key: string]: never }>;
 export type PostsIdAndUsersIdQuery = {
   __typename?: "Query";
   posts: { __typename?: "PaginatedPostsModel"; nodes: Array<{ __typename?: "PostModel"; id: string; userId: string }> };
+};
+
+export type PostsIdAndUsersIdUpdatedAtQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PostsIdAndUsersIdUpdatedAtQuery = {
+  __typename?: "Query";
+  posts: {
+    __typename?: "PaginatedPostsModel";
+    nodes: Array<{ __typename?: "PostModel"; id: string; userId: string; updatedAt: any }>;
+  };
 };
 
 export type PostsQueryVariables = Exact<{

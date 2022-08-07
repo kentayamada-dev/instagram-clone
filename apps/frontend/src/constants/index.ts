@@ -1,5 +1,7 @@
 /* eslint @typescript-eslint/naming-convention: ["error", {selector: "property", format: ["UPPER_CASE"] } ]*/
 
+const SITE_URL = "https://app.instagram-clone.net";
+
 export const constants = {
   API_URL: process.env["NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL"] ?? "",
   CLOUDINARY: {
@@ -18,6 +20,7 @@ export const constants = {
   LINKS: {
     APOLLO_LINK: "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",
-    STORYBOOK_LINK: "https://app.instagram-clone.net/storybook"
-  }
+    STORYBOOK_LINK: `${SITE_URL}/storybook`
+  },
+  SITE_URL
 };

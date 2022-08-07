@@ -34,7 +34,8 @@
     "jzle",
     "deadcode",
     "Noto",
-    "fontsource"
+    "fontsource",
+    "lastmod"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",
