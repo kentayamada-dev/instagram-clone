@@ -6,7 +6,7 @@
   "scripts": {
     "build": "run-p build:*",
     "postbuild": "run-s generate:sitemap",
-    "prebuild:next": "run-p clean:next",
+    "prebuild:next": "run-p clean:next eslint type-check validateI18nJsonFiles",
     "build:next": "next build",
     "prebuild:storybook": "run-s clean:storybook",
     "build:storybook": "build-storybook -o ./public/storybook",
@@ -15,7 +15,7 @@
     "clean:storybook": "rimraf public/storybook",
     "cspell": "cspell --cache --config cspell.json '**'",
     "dev": "run-p dev:*",
-    "predev:next": "run-s kill-port:next",
+    "predev:next": "run-p validateI18nJsonFiles kill-port:next",
     "dev:next": "next dev -p 3002",
     "predev:storybook": "run-s kill-port:storybook",
     "dev:storybook": "start-storybook -p 6006 --ci",
@@ -32,7 +32,8 @@
     "lint": "run-p eslint cspell type-check find-deadcode",
     "postlint": "run-p format",
     "prod": "next start",
-    "type-check": "tsc --noEmit --project tsconfig.json"
+    "type-check": "tsc --noEmit --project tsconfig.json",
+    "validateI18nJsonFiles": "node scripts/validateI18nJsonFiles"
   },
   "dependencies": {
     "@babel/core": "^7.18.6",

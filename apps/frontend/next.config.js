@@ -24,5 +24,8 @@ module.exports = withBundleAnalyzer({
   },
   experimental: {
     scrollRestoration: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 });

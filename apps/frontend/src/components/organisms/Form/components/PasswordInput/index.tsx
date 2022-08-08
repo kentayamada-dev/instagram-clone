@@ -44,7 +44,7 @@ export const PasswordInput: PasswordInputType = ({ errors, register }) => {
           {...register("password", {
             pattern: {
               message: passwordValidationMessage,
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})/u
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"'()+,-./:;<=>?[\]^_`{|}~])(?=.{10,})$/u
             },
             required: passwordBlankErrorMessage
           })}

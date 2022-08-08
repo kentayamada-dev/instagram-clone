@@ -9,13 +9,13 @@ describe("Requests", () => {
       cy.toggleLocale(true);
       cy.get("@post_req.all")
         .should("have.length", 3)
-        .then((node) => {
+        .then((xhr) => {
           // @ts-ignore
-          expect(node[0].request.body.operationName).to.eq("CurrentUser");
+          expect(xhr[0].request.body.operationName).to.eq("CurrentUser");
           // @ts-ignore
-          expect(node[1].request.body.operationName).to.eq("CurrentUser");
+          expect(xhr[1].request.body.operationName).to.eq("CurrentUser");
           // @ts-ignore
-          expect(node[2].request.body.operationName).to.eq("CurrentUser");
+          expect(xhr[2].request.body.operationName).to.eq("CurrentUser");
         });
     });
 
@@ -23,9 +23,9 @@ describe("Requests", () => {
       cy.toggleDarkMode(true);
       cy.get("@post_req.all")
         .should("have.length", 1)
-        .then((node) => {
+        .then((xhr) => {
           // @ts-ignore
-          expect(node[0].request.body.operationName).to.eq("CurrentUser");
+          expect(xhr[0].request.body.operationName).to.eq("CurrentUser");
         });
     });
 
@@ -33,9 +33,9 @@ describe("Requests", () => {
       cy.transitionBetweenAuthPages(true);
       cy.get("@post_req.all")
         .should("have.length", 1)
-        .then((node) => {
+        .then((xhr) => {
           // @ts-ignore
-          expect(node[0].request.body.operationName).to.eq("CurrentUser");
+          expect(xhr[0].request.body.operationName).to.eq("CurrentUser");
         });
     });
   });
@@ -59,9 +59,9 @@ describe("Requests", () => {
       cy.wait(5000);
       cy.get("@post_req.all")
         .should("have.length", 4)
-        .then((node) => {
+        .then((xhr) => {
           // @ts-ignore
-          const elsText = node.map((el) => el.request.body.operationName);
+          const elsText = xhr.map((el) => el.request.body.operationName);
           // @ts-ignore
           expect(elsText.sort()).to.deep.eq(["CurrentUser", "Posts", "UserPosts", "Users"].sort());
         });
