@@ -15,4 +15,4 @@ jobs:
         uses: snow-actions/line-notify@v1.0.0
         with:
           access_token: ${{ secrets.LINE_NOTIFY_TOKEN }}
-          message: "\n\n⚠️⚠️⚠️Github Actionが失敗しました⚠️⚠️⚠️\n\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          message: "Github Actionが失敗しました⚠️⚠️⚠️\n\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
