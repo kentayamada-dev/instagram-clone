@@ -38,7 +38,8 @@
     "lastmod",
     "Occured",
     "postbuild",
-    "pregenerate"
+    "pregenerate",
+    "gtag"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",
