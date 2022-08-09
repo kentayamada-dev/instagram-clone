@@ -1,5 +1,5 @@
 const isDevelopment = process.env.NODE_ENV === "development";
-const SITE_URL = "${SITE_URL}";
+const SITE_URL = "https://app.instagram-clone.net";
 
 module.exports = {
   ...(isDevelopment ? { staticDirs: ["../public"] } : {}),
