@@ -1,4 +1,5 @@
 const isDevelopment = process.env.NODE_ENV === "development";
+const SITE_URL = "${SITE_URL}";
 
 module.exports = {
   ...(isDevelopment ? { staticDirs: ["../public"] } : {}),
@@ -89,15 +90,15 @@ module.exports = {
       <meta content="3 days" name="revisit-after">
       <meta content="Kenta Yamada" name="author">
       <meta content="website" property="og:type">
-      <meta content="https://app.instagram-clone.net/storybook/" property="og:url">
+      <meta content="${SITE_URL}/storybook/" property="og:url">
       <meta content="Instagram Clone Storybook" property="og:title">
       <meta content="This is an Instagram Clone Storybook." property="og:description">
-      <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="og:image">
+      <meta content="${SITE_URL}/static/instagram/image.jpg" property="og:image">
       <meta content="summary_large_image" property="twitter:card">
-      <meta content="https://app.instagram-clone.net/storybook/" property="twitter:url">
+      <meta content="${SITE_URL}/storybook/" property="twitter:url">
       <meta content="Instagram Clone Storybook" property="twitter:title">
       <meta content="This is an Instagram Clone Storybook." property="twitter:description">
-      <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="twitter:image">
+      <meta content="${SITE_URL}/static/instagram/image.jpg" property="twitter:image">
     `;
   },
   webpackFinal: (config) => {

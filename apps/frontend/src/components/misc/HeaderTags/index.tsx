@@ -1,4 +1,7 @@
+import { constants } from "../../../constants";
 import type { HeaderTagsType } from "./index.types";
+
+const { SITE_URL } = constants;
 
 export const HeaderTags: HeaderTagsType = () => (
   <>
@@ -60,15 +63,15 @@ export const HeaderTags: HeaderTagsType = () => (
     <meta content="Kenta Yamada" name="author" />
     {/* Open Graph / Facebook */}
     <meta content="website" property="og:type" />
-    <meta content="https://app.instagram-clone.net/" property="og:url" />
+    <meta content={`${SITE_URL}/`} property="og:url" />
     <meta content="Instagram Clone" property="og:title" />
     <meta content="This is an Instagram Clone Site." property="og:description" />
-    <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="og:image" />
+    <meta content={`${SITE_URL}/static/instagram/image.jpg`} property="og:image" />
     {/* Twitter */}
     <meta content="summary_large_image" property="twitter:card" />
-    <meta content="https://app.instagram-clone.net/" property="twitter:url" />
+    <meta content={`${SITE_URL}/`} property="twitter:url" />
     <meta content="Instagram Clone" property="twitter:title" />
     <meta content="This is an Instagram Clone Site." property="twitter:description" />
-    <meta content="https://app.instagram-clone.net/static/instagram/image.jpg" property="twitter:image" />
+    <meta content={`${SITE_URL}/static/instagram/image.jpg`} property="twitter:image" />
   </>
 );
