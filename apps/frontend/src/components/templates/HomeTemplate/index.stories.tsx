@@ -7,7 +7,7 @@ import {
 } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
-import type { PostsQuery, UsersQuery, CurrentUserQuery, UserQuery } from "../../../generated";
+import type { PostsQuery, UsersQuery, UserQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
@@ -36,16 +36,6 @@ export default {
             )
           // eslint-disable-next-line function-paren-newline
         ),
-        graphql.query<CurrentUserQuery>(
-          "CurrentUser",
-          (_req, res, ctx) =>
-            res(
-              ctx.data({
-                currentUser: generateCurrentUserData
-              })
-            )
-          // eslint-disable-next-line function-paren-newline
-        ),
         graphql.query<UserQuery>(
           "User",
           (_req, res, ctx) =>
@@ -62,8 +52,12 @@ export default {
   title: "templates/Home Template"
 } as ComponentMeta<typeof HomeTemplate>;
 
-export const homeTemplate: ComponentStory<typeof HomeTemplate> = () => (
+export const homeTemplate: ComponentStory<typeof HomeTemplate> = (args) => (
   <LayoutTemplate>
-    <HomeTemplate />
+    <HomeTemplate {...args} />
   </LayoutTemplate>
 );
+
+homeTemplate.args = {
+  currentUser: generateCurrentUserData
+};

@@ -18,12 +18,12 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   });
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
-  const { userPosts, isUserPostsLoading, loadMoreUserPosts, mutateUserPosts, isUserPostsError } = useUserPosts({
+  const { userPosts, isUserPostsLoading, loadMoreUserPosts, mutateUserPosts } = useUserPosts({
     userId: userId ?? ""
   });
   const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
   const handleMoreUserPosts = async (): Promise<void> => {
-    if (!isLoadingMorePosts && !isUserPostsError && !isUserPostsLoading) {
+    if (!isLoadingMorePosts && !isUserPostsLoading) {
       setIsLoadingMorePosts(true);
       await wait(2);
       await loadMoreUserPosts();
@@ -32,13 +32,13 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   };
 
   React.useEffect(() => {
-    if (!isUserPostsError && userId && !userPosts) {
+    if (userId && !userPosts) {
       // eslint-disable-next-line no-void
       void (async (): Promise<void> => {
         await mutateUserPosts();
       })();
     }
-  }, [isUserPostsError, mutateUserPosts, userId, userPosts]);
+  }, [mutateUserPosts, userId, userPosts]);
 
   return (
     <VStack

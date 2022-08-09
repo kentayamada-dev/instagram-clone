@@ -1,6 +1,6 @@
-import type { FaviconType } from "./index.types";
+import type { HeaderTagsType } from "./index.types";
 
-export const Favicon: FaviconType = () => (
+export const HeaderTags: HeaderTagsType = () => (
   <>
     <meta content="/favicon/site-tile-70x70.png" name="msapplication-square70x70logo" />
     <meta content="/favicon/site-tile-150x150.png" name="msapplication-square150x150logo" />

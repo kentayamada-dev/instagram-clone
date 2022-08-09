@@ -2,7 +2,6 @@ import { Center, Spinner, Box, Text } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import { usePosts } from "../../../hooks/usePosts";
 import { useUsers } from "../../../hooks/useUsers";
 import { wait } from "../../../utils/wait";
@@ -11,21 +10,17 @@ import { Feed } from "../../organisms/Feed";
 import { UsersList } from "../../organisms/UsersList";
 import type { HomeTemplateType } from "./index.types";
 
-export const HomeTemplate: HomeTemplateType = () => {
+export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   const { t } = useTranslation("common");
   const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
-  const [isAsyncInitialDataReadyToFetch, setIsAsyncInitialDataReadyToFetch] = React.useState(false);
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
-  const [isAsyncInitialDataFetched, setIsAsyncInitialDataFetched] = React.useState(false);
-  const { currentUser, isCurrentUserError, mutateCurrentUser } = useCurrentUser();
-  const { posts, loadMorePosts, isPostsLoading, mutatePosts, isPostsError } = usePosts();
-  const { users, mutateUsers, isUsersError } = useUsers({
-    currentUserId: currentUser?.id ?? ""
+  const { posts, loadMorePosts, isPostsLoading, mutatePosts } = usePosts();
+  const { users, mutateUsers } = useUsers({
+    currentUserId: currentUser.id
   });
-  const isErrorOccurred = isCurrentUserError || isUsersError || isPostsError;
 
   const handleMorePosts = async (): Promise<void> => {
-    if (!isLoadingMorePosts && !isPostsLoading && !isErrorOccurred) {
+    if (!isLoadingMorePosts && !isPostsLoading) {
       setIsLoadingMorePosts(true);
       await wait(2);
       await loadMorePosts();
@@ -34,44 +29,19 @@ export const HomeTemplate: HomeTemplateType = () => {
   };
 
   React.useEffect(() => {
-    if (!isErrorOccurred) {
-      if (!isAsyncInitialDataFetched && isAsyncInitialDataReadyToFetch && !currentUser) {
-        setIsAsyncInitialDataFetched(true);
-        // eslint-disable-next-line no-void
-        void (async (): Promise<void> => {
-          await mutateCurrentUser();
-        })();
-      }
-      if (!isInitialDataFetched) {
-        setIsInitialDataFetched(true);
-        // eslint-disable-next-line no-void
-        void (async (): Promise<void> => {
-          if (!posts) {
-            await mutatePosts();
-          }
-          if (currentUser?.id && !users) {
-            await mutateUsers();
-          }
-        })();
-      }
-      if (!isAsyncInitialDataReadyToFetch) {
-        setTimeout(() => {
-          setIsAsyncInitialDataReadyToFetch(true);
-        }, 2000);
-      }
+    if (!isInitialDataFetched) {
+      setIsInitialDataFetched(true);
+      // eslint-disable-next-line no-void
+      void (async (): Promise<void> => {
+        if (!posts) {
+          await mutatePosts();
+        }
+        if (!users) {
+          await mutateUsers();
+        }
+      })();
     }
-  }, [
-    currentUser,
-    isAsyncInitialDataFetched,
-    isAsyncInitialDataReadyToFetch,
-    isErrorOccurred,
-    isInitialDataFetched,
-    mutateCurrentUser,
-    mutatePosts,
-    mutateUsers,
-    posts,
-    users
-  ]);
+  }, [isInitialDataFetched, mutatePosts, mutateUsers, posts, users]);
 
   return (
     <Center>
@@ -115,7 +85,7 @@ export const HomeTemplate: HomeTemplateType = () => {
         top="0px"
       >
         <Box w="250px">
-          <UserCard size={50} src={currentUser?.imageUrl} userId={currentUser?.id} userName={currentUser?.name} />
+          <UserCard size={50} src={currentUser.imageUrl} userId={currentUser.id} userName={currentUser.name} />
           <Text fontWeight="bold" pl="10px" pt="15px" w="100%">
             {t("recommend")}
           </Text>

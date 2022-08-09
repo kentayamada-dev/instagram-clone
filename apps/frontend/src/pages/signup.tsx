@@ -1,46 +1,39 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
+import { LoadingAnimation } from "../components/atoms/LoadingAnimation";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
-import { CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
-import { fetcher } from "../libs/graphql_request";
-import type { CurrentUserQuery } from "../generated";
-import type { GetAuthServerSideProps, GetAuthServerSidePropsResultType } from "../libs/next/pages/auth/types";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 import type { NextPageWithLayout } from "../libs/next/types";
+import type { GetStaticProps } from "next";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({
-  req: {
-    headers: { cookie = "" }
-  },
-  locale,
-  defaultLocale = "en"
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
 
-  try {
-    await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie });
-    const pageProps: GetAuthServerSidePropsResultType = {
-      redirect: {
-        destination: "/",
-        permanent: true
-      }
-    };
-
-    return pageProps;
-  } catch (error) {
-    // Do nothing
-  }
-
-  const pageProps: GetAuthServerSidePropsResultType = {
+  return {
     props: {
-      data: null,
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
-
-  return pageProps;
 };
 
-const Signup: NextPageWithLayout = () => <AuthTemplate isSignup />;
+const Signup: NextPageWithLayout = () => {
+  const { currentUser, isCurrentUserLoading } = useCurrentUser();
+  const router = useRouter();
+
+  if (isCurrentUserLoading) {
+    return <LoadingAnimation />;
+  }
+
+  if (currentUser) {
+    // eslint-disable-next-line no-void
+    void router.replace("/");
+
+    return null;
+  }
+
+  return <AuthTemplate isSignup />;
+};
 
 Signup.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";

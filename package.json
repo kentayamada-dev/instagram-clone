@@ -18,7 +18,7 @@
     "dev": "turbo run dev --parallel --no-cache --continue",
     "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "heroku-postbuild": "turbo run build --scope=backend --include-dependencies --no-deps",
-    "lint": "cspell --cache --config cspell.json '**'",
+    "lint": "cspell --gitignore --cache --config cspell.json '**'",
     "prepare": "husky install",
     "test": "turbo run test --parallel --continue=false",
     "turbo:format": "turbo run format --parallel --continue=false",

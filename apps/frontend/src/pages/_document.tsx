@@ -1,6 +1,6 @@
 import { ColorModeScript } from "@chakra-ui/react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { Favicon } from "../components/misc/Favicon";
+import { HeaderTags } from "../components/misc/HeaderTags";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 class MyDocument extends Document {
@@ -9,7 +9,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <Favicon />
+          <HeaderTags />
         </Head>
         <body>
           <ColorModeScript initialColorMode="system" />

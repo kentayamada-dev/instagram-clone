@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 import { useTranslation } from "next-i18next";
 import { constants } from "../../../constants";
 import { TextLink } from "../../atoms/TextLink";
-import Custom404Animation from "./Custom404Animation.json";
+import Custom404Animation from "./custom404Animation.json";
 import type { Custom404TemplateType } from "./index.types";
 
 const {

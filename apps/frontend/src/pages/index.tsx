@@ -1,45 +1,31 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { LoadingAnimation } from "../components/atoms/LoadingAnimation";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { HomeTemplate } from "../components/templates/HomeTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
-import { CURRENT_USER_QUERY } from "../hooks/useCurrentUser/schema";
-import { fetcher } from "../libs/graphql_request";
-import type { CurrentUserQuery } from "../generated";
-import type {
-  GetAuthServerSideProps,
-  GetAuthServerSidePropsResultType,
-  NextAuthPageWithLayoutType
-} from "../libs/next/pages/auth/types";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import type { NextPageWithLayout } from "../libs/next/types";
+import type { GetStaticProps } from "next";
 
-export const getServerSideProps: GetAuthServerSideProps = async ({
-  locale,
-  req: {
-    headers: { cookie = "" }
-  },
-  defaultLocale = "en"
-}) => {
+export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
-  let data: CurrentUserQuery | null = null;
 
-  try {
-    data = await fetcher<CurrentUserQuery>(CURRENT_USER_QUERY, null, { cookie });
-  } catch (error) {
-    // Do nothing
-  }
-
-  const pageProps: GetAuthServerSidePropsResultType = {
+  return {
     props: {
-      data: data?.currentUser ?? null,
       ...(await serverSideTranslations(initialLocale, ["common", "form", "footer"]))
     }
   };
-
-  return pageProps;
 };
 
-const Home: NextAuthPageWithLayoutType = ({ data }) => {
-  if (data) {
-    return <HomeTemplate />;
+const Home: NextPageWithLayout = () => {
+  const { currentUser, isCurrentUserLoading } = useCurrentUser();
+
+  if (isCurrentUserLoading) {
+    return <LoadingAnimation />;
+  }
+
+  if (currentUser) {
+    return <HomeTemplate currentUser={currentUser} />;
   }
 
   return <AuthTemplate isSignup={false} />;

@@ -8,7 +8,7 @@
     "prebuild:nest": "run-s clean:nest prisma:generate",
     "build:nest": "nest build",
     "clean:nest": "rimraf dist",
-    "cspell": "cspell --cache --config cspell.json '**'",
+    "cspell": "cspell --gitignore --cache --config cspell.json '**'",
     "predev": "run-p prisma:generate",
     "dev": "run-p dev:nest",
     "predev:nest": "run-p kill-port:nest",

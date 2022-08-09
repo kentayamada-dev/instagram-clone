@@ -1,7 +1,7 @@
 import type { CurrentUserQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
-export type UseCurrentUserReturnType = {
+type UseCurrentUserReturnType = {
   currentUser: CurrentUserQuery["currentUser"] | null;
   isCurrentUserError: boolean;
   isCurrentUserLoading: boolean;

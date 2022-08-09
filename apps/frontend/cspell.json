@@ -36,7 +36,9 @@
     "Noto",
     "fontsource",
     "lastmod",
-    "Occured"
+    "Occured",
+    "postbuild",
+    "pregenerate"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

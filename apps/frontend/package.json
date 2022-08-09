@@ -13,7 +13,7 @@
     "clean:next": "rimraf dist",
     "clean:sitemap": "rimraf public/{robots.txt,sitemap*.xml}",
     "clean:storybook": "rimraf public/storybook",
-    "cspell": "cspell --cache --config cspell.json '**'",
+    "cspell": "cspell --gitignore --cache --config cspell.json '**'",
     "dev": "run-p dev:*",
     "predev:next": "run-p validateI18nJsonFiles kill-port:next",
     "dev:next": "next dev -p 3002",
