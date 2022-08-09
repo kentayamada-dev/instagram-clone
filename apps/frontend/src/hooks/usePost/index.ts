@@ -38,7 +38,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
   const handleSubmitPost = async (): Promise<void> => {
     if (imageSrc === "") {
       toast({
-        duration: 10000,
+        duration: 3000,
         isClosable: true,
         position: "top",
         status: "error",
@@ -58,7 +58,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
         setIsLoading(false);
         handleCancelPost();
         toast({
-          duration: 10000,
+          duration: 3000,
           isClosable: true,
           position: "top",
           status: "success",
@@ -68,7 +68,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
         await mutateUserPosts();
       } catch (error) {
         toast({
-          duration: 10000,
+          duration: 3000,
           isClosable: true,
           position: "top",
           status: "error",
@@ -90,7 +90,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
       setPostImageFile(file);
     } catch (error) {
       toast({
-        duration: 10000,
+        duration: 3000,
         isClosable: true,
         position: "top",
         status: "error",
