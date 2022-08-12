@@ -1,5 +1,5 @@
 import { Box, VStack } from "@chakra-ui/react";
-import { PostCard } from "../../molecules/postCard";
+import { PostCard } from "../../molecules/PostCard";
 import type { FeedType } from "./index.types";
 
 export const Feed: FeedType = ({ postsEdge }) => (

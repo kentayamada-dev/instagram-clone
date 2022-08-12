@@ -260,7 +260,7 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type CurrentUserQuery = {
   __typename?: "Query";
-  currentUser: { __typename?: "CurrentUserModel"; id: string; name: string; imageUrl: string };
+  currentUser: { __typename?: "CurrentUserModel" | undefined; id: string; name: string; imageUrl: string };
 };
 
 export type LoginMutationVariables = Exact<{

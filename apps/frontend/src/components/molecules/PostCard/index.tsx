@@ -1,4 +1,4 @@
-import { VStack, HStack, Box, useColorModeValue, Text, Skeleton } from "@chakra-ui/react";
+import { VStack, Box, useColorModeValue, Text, Skeleton } from "@chakra-ui/react";
 import Image from "next/image";
 import { constants } from "../../../constants";
 import { UserCard } from "../userCard";
@@ -14,6 +14,7 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
 
   return (
     <VStack
+      align="flex-start"
       bgColor={bgColor}
       borderColor={borderColor}
       borderWidth={{
@@ -32,10 +33,13 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
         )}
       </Box>
       {caption ? (
-        <HStack p="3" w="100%">
-          <Text fontWeight="bold">{userName}</Text>
-          <Text noOfLines={1}>{caption}</Text>
-        </HStack>
+        <Text noOfLines={2} p="3">
+          <Text as="span" fontWeight="bold">
+            {userId}
+          </Text>
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+          &nbsp;{caption}
+        </Text>
       ) : null}
     </VStack>
   );

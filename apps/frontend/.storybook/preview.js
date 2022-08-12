@@ -5,6 +5,9 @@ import i18n from "./i18next.js";
 import { initialize, mswDecorator } from "msw-storybook-addon";
 import { SWRConfig } from "swr";
 import { request } from "graphql-request";
+import { graphql } from "msw";
+import { generateUsersData } from "../src/libs/faker";
+import "@fontsource/noto-sans-jp";
 
 const fetcher = (query) => request("/", query);
 
@@ -51,5 +54,18 @@ export const parameters = {
   },
   nextRouter: {
     Provider: RouterContext.Provider
+  },
+  msw: {
+    handlers: {
+      search: [
+        graphql.query("UsersFilter", (_req, res, ctx) =>
+          res(
+            ctx.data({
+              users: { nodes: generateUsersData }
+            })
+          )
+        )
+      ]
+    }
   }
 };
