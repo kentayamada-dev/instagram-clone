@@ -35,7 +35,9 @@ export const Combobox: ComboboxType = () => {
     highlightedIndex,
     getItemProps,
     inputValue,
-    openMenu
+    openMenu,
+    closeMenu,
+    setHighlightedIndex
   } = useCombobox({
     id: "search-box",
     itemToString(item) {
@@ -69,6 +71,7 @@ export const Combobox: ComboboxType = () => {
     },
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
       if (newSelectedItem?.id) {
+        closeMenu();
         // eslint-disable-next-line no-void
         void router.push(`/${newSelectedItem.id}/`);
       }
@@ -80,8 +83,7 @@ export const Combobox: ComboboxType = () => {
         case useCombobox.stateChangeTypes.ItemClick:
           return {
             ...changes,
-            inputValue: state.inputValue,
-            isOpen: false
+            inputValue: state.inputValue
           };
         case useCombobox.stateChangeTypes.InputBlur:
           return {
@@ -94,13 +96,20 @@ export const Combobox: ComboboxType = () => {
     }
   });
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key === "Enter" && filteredUsers.length && highlightedIndex === -1) {
+      setHighlightedIndex(0);
+    }
+  };
+
   return (
     <>
       <Box {...getComboboxProps()}>
         <Input
           placeholder={t("search")}
           {...getInputProps({
-            onFocus: openMenu
+            onFocus: openMenu,
+            onKeyDown: handleKeyDown
           })}
         />
       </Box>
