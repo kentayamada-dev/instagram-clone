@@ -11,6 +11,7 @@ import type { UserDetailTemplateType } from "./index.types";
 
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
+  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : null;
   const { user } = useUser({
     fallbackData: data,
@@ -32,13 +33,14 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   };
 
   React.useEffect(() => {
-    if (userId && !userPosts) {
+    if (userId && !userPosts && !isInitialDataFetched) {
+      setIsInitialDataFetched(true);
       // eslint-disable-next-line no-void
       void (async (): Promise<void> => {
         await mutateUserPosts();
       })();
     }
-  }, [mutateUserPosts, userId, userPosts]);
+  }, [isInitialDataFetched, mutateUserPosts, userId, userPosts]);
 
   return (
     <VStack

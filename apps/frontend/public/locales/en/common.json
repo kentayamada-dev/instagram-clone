@@ -11,5 +11,7 @@
   "submit": "Submit",
   "recommend": "Recommend",
   "email": "Email",
-  "noPostsYet": "No Posts Yet"
+  "noPostsYet": "No Posts Yet",
+  "noResultsFound": "No results found.",
+  "search": "Search"
 }

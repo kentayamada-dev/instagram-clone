@@ -24,6 +24,6 @@ export const postCard: ComponentStoryObj<typeof PostCard> = {
     ...userCard.args,
     caption: "caption",
     imageUrl: "https://picsum.photos/id/100/1000/1000",
-    isVisibleUnderline: true
+    shouldUserNameHidden: true
   }
 };

@@ -12,16 +12,18 @@ import { AvatarPopover } from "../../molecules/AvatarPopover";
 import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import { PostModal } from "../../molecules/PostModal";
+import { Combobox } from "./components/Combobox";
 import type { HeaderType } from "./index.types";
 
 const {
-  COLORS: { SNOW, EBONY },
+  COLORS: { WHITE, EBONY },
   LINKS: { APOLLO_LINK, GITHUB_LINK, STORYBOOK_LINK }
 } = constants;
 
 export const Header: HeaderType = () => {
   const { currentUser } = useCurrentUser();
   const isAuthenticated = Boolean(currentUser);
+
   const {
     handleChangeLocale,
     handleCloseDrawer,
@@ -35,7 +37,7 @@ export const Header: HeaderType = () => {
   } = useHeader();
   const { handleCancelPost, handleChangeCaption, handleChangeImage, handleSubmitPost, imageSrc, isPostLoading } =
     usePost({ handleClosePostModal });
-  const bgColor = useColorModeValue(SNOW, EBONY);
+  const bgColor = useColorModeValue(WHITE, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("あ", "A");
   const instagramDarkImg = {
@@ -63,6 +65,15 @@ export const Header: HeaderType = () => {
         zIndex="999"
       >
         <ImageLinkColorMode darkImg={instagramDarkImg} height={50} href="/" lightImg={instagramLightImg} width={150} />
+        <Box
+          display={{
+            base: "none",
+            md: "block"
+          }}
+          position="relative"
+        >
+          <Combobox />
+        </Box>
         <Flex align="center" gap={5}>
           {isAuthenticated ? (
             <>

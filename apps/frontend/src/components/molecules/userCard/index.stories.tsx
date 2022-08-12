@@ -8,7 +8,6 @@ export default {
 
 export const userCard: ComponentStoryObj<typeof UserCard> = {
   args: {
-    isVisibleUnderline: true,
     size: 50,
     src: "https://picsum.photos/id/200/1000/1000",
     userId: "userId",

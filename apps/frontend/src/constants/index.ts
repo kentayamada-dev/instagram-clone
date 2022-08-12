@@ -15,6 +15,7 @@ export const constants = {
     DODGER_BLUE: "#2081E2",
     EBONY: "#303339",
     SNOW: "#FAFAFA",
+    SUVA_GREY: "#8E8E8E",
     WHITE: "#FFFFFF"
   },
   GA_TRACKING_ID: process.env["NEXT_PUBLIC_GOOGLE_ANALYTICS_ID"],

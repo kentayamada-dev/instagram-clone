@@ -70,7 +70,7 @@ module.exports = {
       },
       {
         format: ["PascalCase"],
-        prefix: ["is", "has"],
+        prefix: ["is", "has", "should"],
         selector: "variable",
         types: ["boolean"]
       },

@@ -23,7 +23,7 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
       spacing={0}
       w="100%"
     >
-      <UserCard size={35} src={src} userId={userId} userName={userName} />
+      <UserCard shouldUserNameHidden size={35} src={src} userId={userId} userName={userName} />
       <Box h="700px" pos="relative" w="100%">
         {imageUrl ? (
           <Image alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={imageUrl} />

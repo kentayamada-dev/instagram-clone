@@ -11,8 +11,8 @@ export const USERS_ID_QUERY = gql`
 `;
 
 export const USERS_QUERY = gql`
-  query Users($first: Float, $after: String, $userId: String) {
-    users(first: $first, after: $after, userId: $userId) {
+  query Users($first: Float, $after: String, $userIdExcluded: String) {
+    users(first: $first, after: $after, userIdExcluded: $userIdExcluded) {
       pageInfo {
         hasNextPage
         endCursor
@@ -23,6 +23,18 @@ export const USERS_QUERY = gql`
           name
           imageUrl
         }
+      }
+    }
+  }
+`;
+
+export const USERS_FILTER_QUERY = gql`
+  query UsersFilter($first: Float, $userIdQuery: String) {
+    users(first: $first, userIdQuery: $userIdQuery) {
+      nodes {
+        id
+        name
+        imageUrl
       }
     }
   }

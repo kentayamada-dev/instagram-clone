@@ -50,6 +50,7 @@
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "browser-image-compression": "^2.0.0",
+    "downshift": "^6.1.7",
     "framer-motion": "^6.4.3",
     "graphql-request": "^4.3.0",
     "i18next-browser-languagedetector": "^6.1.4",

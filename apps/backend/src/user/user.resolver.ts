@@ -51,7 +51,7 @@ export class UserResolver {
 
   @Query(() => PaginatedUserModel, { description: "Get Users" })
   protected async users(
-    @Args() usersArgs: UsersArgs,
+    @Args() { after, first, userIdExcluded, userIdQuery }: UsersArgs,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
     @FieldMap() fieldMap: any
   ): Promise<PaginatedUserModel> {
@@ -73,7 +73,30 @@ export class UserResolver {
       id: true
     });
 
-    const foundUsers = await this.userService.findUsers<UserModelBase[]>(select, usersArgs);
+    function getUserWhereInput(): Prisma.UserWhereInput | null {
+      if (userIdExcluded) {
+        return {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          NOT: {
+            id: {
+              equals: userIdExcluded
+            }
+          }
+        };
+      }
+      if (userIdQuery) {
+        return {
+          id: {
+            contains: userIdQuery,
+            mode: "insensitive"
+          }
+        };
+      }
+
+      return null;
+    }
+
+    const foundUsers = await this.userService.findUsers<UserModelBase[]>(select, first, after, getUserWhereInput());
     const lastUser = foundUsers.at(-1);
     const nextUserId = lastUser ? await this.userService.findNextUserId(lastUser.id) : null;
 

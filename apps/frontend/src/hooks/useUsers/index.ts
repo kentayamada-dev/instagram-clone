@@ -8,7 +8,7 @@ export const useUsers: UseUsersType = ({ currentUserId }) => {
   const getKey: GetKeyType<UsersQuery, UsersQueryVariables> = (_index, previousPageData) => {
     const variables: UsersQueryVariables = {
       first: 5,
-      userId: currentUserId
+      userIdExcluded: currentUserId
     };
 
     if (previousPageData === null) {

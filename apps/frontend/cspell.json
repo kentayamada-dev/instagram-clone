@@ -39,7 +39,8 @@
     "Occured",
     "postbuild",
     "pregenerate",
-    "gtag"
+    "gtag",
+    "Combobox"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

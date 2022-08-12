@@ -11,5 +11,7 @@
   "submit": "送信",
   "recommend": "おすすめ",
   "email": "メール",
-  "noPostsYet": "投稿はまだありません"
+  "noPostsYet": "投稿はまだありません",
+  "noResultsFound": "一致する結果はありませんでした。",
+  "search": "検索"
 }

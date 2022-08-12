@@ -199,7 +199,8 @@ export type QueryUserArgs = {
 export type QueryUsersArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
-  userId?: InputMaybe<Scalars["String"]>;
+  userIdExcluded?: InputMaybe<Scalars["String"]>;
+  userIdQuery?: InputMaybe<Scalars["String"]>;
 };
 
 export type SignupInput = {
@@ -384,7 +385,7 @@ export type UsersIdQuery = {
 export type UsersQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Float"]>;
   after?: InputMaybe<Scalars["String"]>;
-  userId?: InputMaybe<Scalars["String"]>;
+  userIdExcluded?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type UsersQuery = {
@@ -396,5 +397,18 @@ export type UsersQuery = {
       __typename?: "UserModelBaseEdge";
       node: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
     }>;
+  };
+};
+
+export type UsersFilterQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Float"]>;
+  userIdQuery?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type UsersFilterQuery = {
+  __typename?: "Query";
+  users: {
+    __typename?: "PaginatedUserModel";
+    nodes: Array<{ __typename?: "UserModelBase"; id: string; name: string; imageUrl: string }>;
   };
 };
