@@ -80,7 +80,8 @@ export const Combobox: ComboboxType = () => {
         case useCombobox.stateChangeTypes.ItemClick:
           return {
             ...changes,
-            inputValue: state.inputValue
+            inputValue: state.inputValue,
+            isOpen: false
           };
         case useCombobox.stateChangeTypes.InputBlur:
           return {
