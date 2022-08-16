@@ -8,8 +8,7 @@ export default {
     (Story): JSX.Element => (
       <div
         style={{
-          height: 300,
-          width: 300
+          width: 500
         }}
       >
         {Story()}
@@ -23,6 +22,7 @@ export const postCard: ComponentStoryObj<typeof PostCard> = {
   args: {
     ...userCard.args,
     caption: "caption",
+    createdAt: "2022-08-12 16:43:24.512",
     imageUrl: "https://picsum.photos/id/100/1000/1000",
     shouldUserNameHidden: true
   }

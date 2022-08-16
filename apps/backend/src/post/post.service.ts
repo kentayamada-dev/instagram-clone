@@ -43,38 +43,20 @@ export class PostService {
     })) as unknown as T;
   }
 
-  public async findPostsWithUser<T>(
-    postSelect: Prisma.PostSelect,
-    userSelect: Prisma.UserSelect,
-    { first, after }: PaginationArgs
-  ): Promise<T> {
+  public async findPostsWithUser<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs): Promise<T> {
     return (await this.prismaService.post.findMany({
       ...(after ? { cursor: { id: after }, skip: 1 } : {}),
       orderBy: {
         createdAt: "desc"
       },
-      select: {
-        ...postSelect,
-        user: {
-          select: {
-            ...userSelect
-          }
-        }
-      },
+      select,
       ...(Boolean(first) && { take: first })
     })) as unknown as T;
   }
 
-  public async findPost<T>(postSelect: Prisma.PostSelect, userSelect: Prisma.UserSelect, postId: string): Promise<T> {
+  public async findPost<T>(select: Prisma.PostSelect, postId: string): Promise<T> {
     return (await this.prismaService.post.findUnique({
-      select: {
-        ...postSelect,
-        user: {
-          select: {
-            ...userSelect
-          }
-        }
-      },
+      select,
       where: {
         id: postId
       }
@@ -82,26 +64,14 @@ export class PostService {
   }
 
   // eslint-disable-next-line max-params
-  public async upload<T>(
-    postSelect: Prisma.PostSelect,
-    userSelect: Prisma.UserSelect,
-    { caption, imageUrl }: UploadInput,
-    userId: string
-  ): Promise<T> {
+  public async upload<T>(select: Prisma.PostSelect, { caption, imageUrl }: UploadInput, userId: string): Promise<T> {
     return (await this.prismaService.post.create({
       data: {
         imageUrl,
         ...(caption && { caption }),
         userId
       },
-      select: {
-        ...postSelect,
-        user: {
-          select: {
-            ...userSelect
-          }
-        }
-      }
+      select
     })) as unknown as T;
   }
 }

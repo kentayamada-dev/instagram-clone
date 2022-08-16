@@ -6,6 +6,15 @@ export const USER_QUERY = gql`
       id
       name
       imageUrl
+      posts {
+        totalCount
+      }
+      follower {
+        totalCount
+      }
+      following {
+        totalCount
+      }
     }
   }
 `;

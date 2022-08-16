@@ -1,6 +1,20 @@
 {
   "language": "en",
   "version": "0.2",
-  "words": ["nestjs", "datasource", "cuid", "tablename", "schemaname", "mersenne", "predev", "deadcode", "postlint"],
+  "words": [
+    "Nodefollower",
+    "nestjs",
+    "datasource",
+    "cuid",
+    "tablename",
+    "schemaname",
+    "mersenne",
+    "predev",
+    "deadcode",
+    "postlint",
+    "Nodefollowing",
+    "Nodesfollower",
+    "Nodesfollowing"
+  ],
   "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js"]
 }

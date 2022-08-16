@@ -41,6 +41,11 @@ Object.defineProperty(NextImage, "default", {
 });
 
 export const parameters = {
+  controls: {
+    matchers: {
+      date: /(createdAt|updatedAt)$/i
+    }
+  },
   i18n,
   locale: "en",
   locales: {

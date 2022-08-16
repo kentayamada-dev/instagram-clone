@@ -1,13 +1,19 @@
-import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner } from "@chakra-ui/react";
+import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner, Show } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import InfiniteScroll from "react-infinite-scroller";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { constants } from "../../../constants";
 import { useUser } from "../../../hooks/useUser";
 import { useUserPosts } from "../../../hooks/useUserPosts";
 import { wait } from "../../../utils/wait";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import { PostsList } from "../../organisms/PostsList";
+import { Stats } from "./components/Stats";
 import type { UserDetailTemplateType } from "./index.types";
+
+const {
+  COLORS: { SUVA_GREY }
+} = constants;
 
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
@@ -23,6 +29,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
     userId: userId ?? ""
   });
   const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
+  const isPostsThere = Boolean(userPosts?.edges && userPosts.edges.length > 0);
   const handleMoreUserPosts = async (): Promise<void> => {
     if (!isLoadingMorePosts && !isUserPostsLoading) {
       setIsLoadingMorePosts(true);
@@ -54,27 +61,54 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         lg: "900px"
       }}
     >
-      <HStack align="flex-start" w="100%">
-        <Center w="30%">
+      <HStack align="flex-start" spacing="10" w="100%">
+        <Center
+          p={{
+            base: "3",
+            lg: "8"
+          }}
+        >
           <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.imageUrl} />
         </Center>
-        <Text fontSize="3xl" w="70%">
-          {user?.name}
-        </Text>
+        <VStack align="flex-start" spacing="8" w="100%">
+          <Text fontSize="2xl">{user?.id}</Text>
+          <Show above="md">
+            <Stats
+              followersNumber={user?.follower.totalCount ?? null}
+              followingNumber={user?.following.totalCount ?? null}
+              postsNumber={user?.posts.totalCount ?? null}
+              userId={user?.id}
+              width="350px"
+            />
+          </Show>
+          <Text fontSize="sm" fontWeight="bold" w="50%">
+            {user?.name}
+          </Text>
+        </VStack>
       </HStack>
-      <Divider />
+      <Show below="md">
+        <Divider borderColor={SUVA_GREY} />
+        <Stats
+          followersNumber={user?.follower.totalCount ?? null}
+          followingNumber={user?.following.totalCount ?? null}
+          justifyContent="space-around"
+          postsNumber={user?.posts.totalCount ?? null}
+          userId={user?.id}
+        />
+      </Show>
       <InfiniteScroll
-        hasMore={userPosts?.pageInfo.hasNextPage}
-        // eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/no-misused-promises
-        loadMore={handleMoreUserPosts}
+        dataLength={userPosts?.edges.length ?? 0}
+        hasMore={userPosts?.pageInfo.hasNextPage ?? false}
         loader={
           <Center key={0} pb="5" pt="5">
             <Spinner size="lg" />
           </Center>
         }
+        // eslint-disable-next-line react/jsx-handler-names
+        next={handleMoreUserPosts}
         // eslint-disable-next-line react/forbid-component-props
         style={{
-          width: "inherit"
+          overflow: isPostsThere ? "auto" : "none"
         }}
       >
         <PostsList posts={userPosts?.edges} userId={userId ?? ""} />

@@ -16,6 +16,7 @@ export interface Connection<T> {
   edges: Edge<T>[];
   nodes: T[];
   pageInfo: PageInfo;
+  totalCount: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/prefer-readonly-parameter-types
@@ -54,6 +55,11 @@ export function Paginated<T>(classRef: Type<T>): Type<Connection<T>> {
       description: "Page Info"
     })
     public readonly pageInfo!: PageInfoType;
+
+    @Field({
+      description: "Total Count"
+    })
+    public readonly totalCount!: number;
   }
 
   return PaginatedType as Type<Connection<T>>;

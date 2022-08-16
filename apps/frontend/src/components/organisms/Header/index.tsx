@@ -35,8 +35,15 @@ export const Header: HeaderType = () => {
     isPostModalOpen,
     handleLogout
   } = useHeader();
-  const { handleCancelPost, handleChangeCaption, handleChangeImage, handleSubmitPost, imageSrc, isPostLoading } =
-    usePost({ handleClosePostModal });
+  const {
+    caption,
+    handleCancelPost,
+    handleChangeCaption,
+    handleChangeImage,
+    handleSubmitPost,
+    imageSrc,
+    isPostLoading
+  } = usePost({ handleClosePostModal });
   const bgColor = useColorModeValue(WHITE, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("あ", "A");
@@ -55,11 +62,17 @@ export const Header: HeaderType = () => {
       <Flex
         align="center"
         bgColor={bgColor}
-        h="inherit"
         justify="space-between"
-        pl="10px"
+        minH="inherit"
+        pl={{
+          base: 1,
+          sm: 5
+        }}
         position="fixed"
-        pr="10px"
+        pr={{
+          base: 1,
+          sm: 5
+        }}
         shadow="lg"
         w="100%"
         zIndex="999"
@@ -172,6 +185,7 @@ export const Header: HeaderType = () => {
         isDrawerOpen={isDrawerOpen}
       />
       <PostModal
+        caption={caption}
         currentUserAvatarUrl={currentUser?.imageUrl}
         currentUserName={currentUser?.name}
         handleCancel={handleCancelPost}

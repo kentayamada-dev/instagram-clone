@@ -3,7 +3,12 @@ import { PostCard } from "../../molecules/PostCard";
 import type { FeedType } from "./index.types";
 
 export const Feed: FeedType = ({ postsEdge }) => (
-  <VStack spacing={10}>
+  <VStack
+    spacing={{
+      base: 5,
+      sm: 10
+    }}
+  >
     {postsEdge ? (
       <>
         {postsEdge.map((postEdge) => {
@@ -13,6 +18,7 @@ export const Feed: FeedType = ({ postsEdge }) => (
             <Box key={post.id} w="100%">
               <PostCard
                 caption={post.caption}
+                createdAt={post.createdAt}
                 imageUrl={post.imageUrl}
                 src={post.user.imageUrl}
                 userId={post.user.id}

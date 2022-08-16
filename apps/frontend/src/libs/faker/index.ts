@@ -12,6 +12,8 @@ import type {
 
 faker.mersenne.seed(999);
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 const userData = (): Omit<UserModelBase, "__typename" | "posts"> => ({
   id: faker.internet.userName().toLowerCase(),
   imageUrl: faker.internet.avatar(),
@@ -63,6 +65,8 @@ export const generateAllUsersData: UsersQuery["users"] = {
 
 export const generateCurrentUserData: CurrentUserQuery["currentUser"] = userData();
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 export const generateUserData: UserQuery["user"] = userData();
 
 const generateUserPostData = (index: number): UserPostsQuery["user"]["posts"]["edges"][0] => ({

@@ -5,13 +5,18 @@
   "language": "Language",
   "logout": "Log Out",
   "createNewPost": "Create new post",
-  "selectFromComputer": "Select from computer",
+  "selectPhoto": "Select a photo",
   "writeCaption": "Write a caption...",
   "cancel": "Cancel",
-  "submit": "Submit",
+  "share": "Share",
   "recommend": "Recommend",
   "email": "Email",
   "noPostsYet": "No Posts Yet",
   "noResultsFound": "No results found.",
-  "search": "Search"
+  "search": "Search",
+  "followersCount": "{{count, number}} followers",
+  "followingCount": "{{count, number}} following",
+  "followers": "Followers",
+  "following": "Following",
+  "postsCount": "{{count, number}} posts"
 }

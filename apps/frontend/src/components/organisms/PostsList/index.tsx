@@ -1,4 +1,4 @@
-import { Heading, Grid, GridItem, Link, Skeleton, useColorModeValue, VStack } from "@chakra-ui/react";
+import { Heading, Grid, GridItem, Link, Skeleton, useColorModeValue, VStack, Center } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -18,12 +18,14 @@ export const PostsList: PostsListType = ({ posts, userId }) => {
 
   if (posts?.length === 0) {
     return (
-      <VStack>
-        <FiCamera size="30px" />
-        <Heading as="h1" fontWeight="normal" size="lg">
-          {t("noPostsYet")}
-        </Heading>
-      </VStack>
+      <Center h="200px">
+        <VStack>
+          <FiCamera size="30px" />
+          <Heading as="h1" fontWeight="normal" size="lg">
+            {t("noPostsYet")}
+          </Heading>
+        </VStack>
+      </Center>
     );
   }
 
@@ -33,6 +35,10 @@ export const PostsList: PostsListType = ({ posts, userId }) => {
         base: 2,
         lg: 6
       }}
+      p={{
+        base: 0,
+        sm: 6
+      }}
       templateColumns="repeat(3, 1fr)"
       w="100%"
     >
@@ -40,7 +46,7 @@ export const PostsList: PostsListType = ({ posts, userId }) => {
         posts.map((post) => (
           <GridItem
             _hover={{
-              boxShadow: `0 6px 14px ${shadowColor}`,
+              boxShadow: `0 3px 10px ${shadowColor}`,
               transform: "translate(0, -2px)"
             }}
             h={{
@@ -65,10 +71,6 @@ export const PostsList: PostsListType = ({ posts, userId }) => {
         <>
           {[...Array(9)].map((_, index) => (
             <GridItem
-              _hover={{
-                boxShadow: `0 6px 14px ${shadowColor}`,
-                transform: "translate(0, -2px)"
-              }}
               h={{
                 base: width === null ? "10px" : `${width / 3}px`,
                 lg: "280px"

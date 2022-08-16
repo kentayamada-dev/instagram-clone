@@ -55,7 +55,7 @@ export const Form: FormType = ({ isSignup }) => {
   };
 
   return (
-    <VStack minH="500px" spacing={4}>
+    <VStack pb="20px" pt="20px" spacing={4}>
       <Stack
         align="center"
         bgColor={{

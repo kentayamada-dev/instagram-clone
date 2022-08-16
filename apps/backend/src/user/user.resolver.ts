@@ -5,21 +5,22 @@ import { Prisma } from "@prisma/client";
 import { hash, compare } from "bcrypt";
 import { Response } from "express";
 import { AuthService } from "../auth/auth.service";
+import { PaginatedFollowerModel } from "../follow/models/paginatedFollower.model";
+import { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.model";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
 import { MessageModel } from "../message/message.model";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { PaginatedPostModel } from "../post/models/paginatedBase.model";
-import { PostService } from "../post/post.service";
 import { LoginInput } from "./dto/login.input";
 import { SignupInput } from "./dto/signup.input";
 import { UsersArgs } from "./dto/users.args";
 import { UserModelBase } from "./models/base.model";
 import { PaginatedUserModel } from "./models/paginatedBase.model";
+import { UserCommon } from "./user.common";
 import { UserService } from "./user.service";
 import type { Edge } from "../pagination/pagination.model";
-import type { PostModelBase } from "../post/models/base.model";
 import type { MapObjectPropertyToBoolean } from "../types";
-import type { ConfigSchema } from "../utils/config/config.schema";
+import type { ConfigSchema } from "../utils/config";
 import type { CookieOptions } from "express";
 
 @Resolver(UserModelBase)
@@ -32,7 +33,7 @@ export class UserResolver {
 
   // eslint-disable-next-line max-params
   public constructor(
-    private readonly postService: PostService,
+    private readonly userCommon: UserCommon,
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly configService: ConfigService<ConfigSchema>
@@ -58,13 +59,27 @@ export class UserResolver {
     /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const {
       posts: _edgesNodePosts,
+      follower: _edgesNodefollower,
+      following: _edgesNodefollowing,
       ...edgesNodeProperties
-    }: { edgesNodeProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = fieldMap?.edges?.node ?? {};
+    }: {
+      edgesNodeProperties: MapObjectPropertyToBoolean<UserModelBase>;
+      follower: any;
+      following: any;
+      posts: any;
+    } = fieldMap?.edges?.node ?? {};
 
     const {
       posts: _userNodesPosts,
+      follower: _userNodesfollower,
+      following: _userNodesfollowing,
       ...nodesProperties
-    }: { nodesProperties: MapObjectPropertyToBoolean<UserModelBase>; posts: any } = fieldMap?.nodes ?? {};
+    }: {
+      follower: any;
+      following: any;
+      nodesProperties: MapObjectPropertyToBoolean<UserModelBase>;
+      posts: any;
+    } = fieldMap?.nodes ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const select = Prisma.validator<Prisma.UserSelect>()({
@@ -113,47 +128,36 @@ export class UserResolver {
       pageInfo: {
         endCursor: lastUser?.id,
         hasNextPage: Boolean(nextUserId)
-      }
+      },
+      totalCount: foundUsers.length
     };
+  }
+
+  @ResolveField(() => PaginatedFollowingModel, { description: "Get Related Following" })
+  protected async following(
+    @Parent() user: UserModelBase,
+    @Args() paginationArgs: PaginationArgs,
+    @FieldMap() fieldMap: Record<string, unknown>
+  ): Promise<PaginatedFollowingModel> {
+    return this.userCommon.getPaginatedFollowing(user.id, paginationArgs, fieldMap);
+  }
+
+  @ResolveField(() => PaginatedFollowerModel, { description: "Get Related Follower" })
+  protected async follower(
+    @Parent() user: UserModelBase,
+    @Args() paginationArgs: PaginationArgs,
+    @FieldMap() fieldMap: Record<string, unknown>
+  ): Promise<PaginatedFollowerModel> {
+    return this.userCommon.getPaginatedFollower(user.id, paginationArgs, fieldMap);
   }
 
   @ResolveField(() => PaginatedPostModel, { description: "Get Related Posts" })
   protected async posts(
     @Parent() user: UserModelBase,
     @Args() paginationArgs: PaginationArgs,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-    @FieldMap() fieldMap: any
+    @FieldMap() fieldMap: Record<string, unknown>
   ): Promise<PaginatedPostModel> {
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-    const edgesNodeProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.edges?.node ?? {};
-    const nodesProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.nodes ?? {};
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-
-    const select = Prisma.validator<Prisma.PostSelect>()({
-      ...edgesNodeProperties,
-      ...nodesProperties,
-      id: true
-    });
-
-    const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, user.id);
-    const lastPost = foundPosts.at(-1);
-    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id, user.id) : null;
-
-    const edges: Edge<PostModelBase>[] = foundPosts.map(
-      (post): Edge<PostModelBase> => ({
-        cursor: post.id,
-        node: post
-      })
-    );
-
-    return {
-      edges,
-      nodes: foundPosts,
-      pageInfo: {
-        endCursor: lastPost?.id,
-        hasNextPage: Boolean(nextPostId)
-      }
-    };
+    return this.userCommon.getPaginatedPosts(user.id, paginationArgs, fieldMap);
   }
 
   @Mutation(() => MessageModel, { description: "Signup" })
@@ -250,15 +254,21 @@ export class UserResolver {
     /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const {
       posts: _posts,
+      follower: _follower,
+      following: _following,
       ...userProperties
-    }: { posts: any; userProperties: MapObjectPropertyToBoolean<UserModelBase> } = fieldMap ?? {};
+    }: {
+      follower: any;
+      following: any;
+      posts: any;
+      userProperties: MapObjectPropertyToBoolean<UserModelBase>;
+    } = fieldMap ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const select = Prisma.validator<Prisma.UserSelect>()({
       ...userProperties,
       id: true
     });
-
     const foundUser = await this.userService.findUser<UserModelBase | null>({ select, where: { id: userId } });
 
     if (!foundUser) {

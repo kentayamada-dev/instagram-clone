@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import type { ConfigSchema } from "../utils/config/config.schema";
+import type { ConfigSchema } from "../utils/config";
 import type { JwtToken } from "./auth.types";
 import type { Request } from "express";
 

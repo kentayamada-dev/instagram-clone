@@ -24,6 +24,7 @@
     "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "generate": "run-s generate:schema generate:types",
     "generate:schema": "get-graphql-schema http://localhost:5001/graphql > schema.graphql",
+    "generate:theme": "chakra-cli tokens src/libs/chakra/index.ts --out ../../node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts",
     "pregenerate:sitemap": "run-s clean:sitemap",
     "generate:sitemap": "next-sitemap --config next-sitemap.config.js",
     "generate:types": "graphql-codegen --config codegen.yml",
@@ -50,6 +51,7 @@
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "browser-image-compression": "^2.0.0",
+    "date-fns": "^2.29.1",
     "downshift": "^6.1.7",
     "framer-motion": "^6.4.3",
     "graphql-request": "^4.3.0",
@@ -65,7 +67,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
     "react-icons": "^4.4.0",
-    "react-infinite-scroller": "^1.2.6",
+    "react-infinite-scroll-component": "^6.1.0",
     "sass": "^1.53.0",
     "sharp": "^0.30.7",
     "storybook-addon-next": "^1.6.7",
@@ -74,6 +76,7 @@
     "swr": "^1.3.0"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.1.6",
     "@graphql-codegen/cli": "^2.9.1",
     "@graphql-codegen/typescript": "^2.7.1",
     "@graphql-codegen/typescript-operations": "^2.5.1",

@@ -4,7 +4,7 @@ import { hash } from "bcrypt";
 
 faker.mersenne.seed(999);
 
-const NUM_USERS = 10;
+const NUM_USERS = 15;
 const MAX_NUM_POSTS = 20;
 const SALT_ROUNDS = 10;
 const TEST_USER: Prisma.UserCreateInput = {
@@ -16,8 +16,17 @@ const TEST_USER: Prisma.UserCreateInput = {
 };
 
 const prisma = new PrismaClient();
+
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
-const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
+const getRandomElements = (array: string[], num: number) => {
+  const output = [];
+  for (let i = 0; i < num; i++) {
+    // @ts-ignore
+    output.push(...array.splice(Math.floor(Math.random() * array.length), 1));
+  }
+
+  return output;
+};
 
 const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput[] =>
   [...Array(numberOfPosts)].map((_, index): Prisma.PostCreateWithoutUserInput => {
@@ -68,14 +77,12 @@ const initDB = async () => {
 const seedData = async (userData: Prisma.UserCreateInput[]) => {
   for (const user of userData) {
     const randomBoolean = !getRandomInt(2);
-    await sleep(0.1);
     const createdUser = await prisma.user.create({
       data: user
     });
     if (randomBoolean) {
       const generatedPosts = generatePosts(getRandomInt(MAX_NUM_POSTS));
       for (const post of generatedPosts) {
-        await sleep(0.1);
         await prisma.post.create({
           data: {
             userId: createdUser.id,
@@ -83,6 +90,24 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
           }
         });
       }
+    }
+  }
+  for (const user of userData) {
+    const randomNumber = getRandomInt(3);
+    const randomBoolean = !!randomNumber;
+    const usersIdExceptMe = userData.filter((usr) => usr.id !== user.id).map((usr) => usr.id);
+    const followingUsers = getRandomElements(
+      usersIdExceptMe,
+      randomNumber === 2 ? usersIdExceptMe.length : getRandomInt(usersIdExceptMe.length)
+    );
+
+    if (randomBoolean) {
+      await prisma.follow.createMany({
+        data: followingUsers.map((userId) => ({
+          followedUserId: user.id,
+          followingUserId: userId
+        }))
+      });
     }
   }
 };

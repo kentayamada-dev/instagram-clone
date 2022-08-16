@@ -3,7 +3,7 @@ import { GqlExecutionContext } from "@nestjs/graphql";
 import type { ExecutionContext } from "@nestjs/common";
 
 /* eslint-disable @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-return, @typescript-eslint/strict-boolean-expressions, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment */
-function getNodeData(node: any): any {
+function getNodeData(node: any): Record<string, unknown> {
   const { selectionSet } = node || {};
   let fields: any = true;
   if (selectionSet) {
@@ -17,7 +17,7 @@ function getNodeData(node: any): any {
   return fields;
 }
 
-export const FieldMap = createParamDecorator((_, ctx: ExecutionContext): ParameterDecorator => {
+export const FieldMap = createParamDecorator((_, ctx: ExecutionContext): Record<string, unknown> => {
   const gqlCtx = GqlExecutionContext.create(ctx);
   const info = gqlCtx.getInfo();
   const [node] = info.fieldNodes;

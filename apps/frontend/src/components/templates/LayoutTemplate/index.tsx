@@ -10,7 +10,7 @@ export const LayoutTemplate: LayoutTemplateType = ({ children, title = "Instagra
     </Head>
     <header
       style={{
-        height: 60
+        minHeight: "60px"
       }}
     >
       <Header />
@@ -25,7 +25,7 @@ export const LayoutTemplate: LayoutTemplateType = ({ children, title = "Instagra
     </main>
     <footer
       style={{
-        height: 60
+        minHeight: "60px"
       }}
     >
       <Footer />

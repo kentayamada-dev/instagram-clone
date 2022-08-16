@@ -25,7 +25,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     "ファイルサイズは10MB以下にしてください"
   );
   const unexpectedErrorMessage = useLocale("An unexpected error has occurred", "予期しないエラーが発生しました");
-  const fileNotSelectedErrorMessage = useLocale("Please select an image", "画像を選択してください");
+  const fileNotSelectedErrorMessage = useLocale("Please select a photo", "写真を選択してください");
   const postSuccessMessage = useLocale("Submission complete!", "投稿が完了しました！");
   const toast = useToast();
   const handleCancelPost = (): void => {
@@ -33,7 +33,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     setCaption("");
     handleClosePostModal();
   };
-  const handleChangeCaption = (event: React.ChangeEvent<HTMLInputElement>): void => setCaption(event.target.value);
+  const handleChangeCaption = (event: React.ChangeEvent<HTMLTextAreaElement>): void => setCaption(event.target.value);
 
   const handleSubmitPost = async (): Promise<void> => {
     if (imageSrc === "") {
@@ -102,6 +102,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
   };
 
   return {
+    caption,
     handleCancelPost,
     handleChangeCaption,
     handleChangeImage,

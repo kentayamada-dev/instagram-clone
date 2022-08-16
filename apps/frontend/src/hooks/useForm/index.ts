@@ -34,7 +34,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   );
   const router = useRouter();
   const [errorMessage, setErrorMessage] = React.useState("");
-  const imageBlankErrorMessage = useLocale("Please select image.", "画像を選択してください。");
+  const imageBlankErrorMessage = useLocale("Please select a photo.", "写真を選択してください。");
   const { setError, ...rest } = useForm<MyFormType>({ mode: "onSubmit" });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleError = (error: any): void => {

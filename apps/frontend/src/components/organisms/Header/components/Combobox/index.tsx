@@ -21,12 +21,13 @@ const {
 export const Combobox: ComboboxType = () => {
   const debounce = useDebounce(1000);
   const bgColor = useColorModeValue(WHITE, EBONY);
-  const selectedColor = useColorModeValue(SNOW, "#ffffff0a");
+  const selectedColor = useColorModeValue(SNOW, `${WHITE}0a`);
   const { cache } = useSWRConfig();
   const router = useRouter();
   const { t } = useTranslation("common");
   const [filteredUsers, setFilteredUsers] = React.useState<UsersFilterQuery["users"]["nodes"]>([]);
   const [isFetching, setIsFetching] = React.useState(false);
+  const ref = React.useRef<HTMLInputElement | null>(null);
   const {
     isOpen,
     getMenuProps,
@@ -72,6 +73,7 @@ export const Combobox: ComboboxType = () => {
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
       if (newSelectedItem?.id) {
         closeMenu();
+        ref.current?.blur();
         // eslint-disable-next-line no-void
         void router.push(`/${newSelectedItem.id}/`);
       }
@@ -109,7 +111,8 @@ export const Combobox: ComboboxType = () => {
           placeholder={t("search")}
           {...getInputProps({
             onFocus: openMenu,
-            onKeyDown: handleKeyDown
+            onKeyDown: handleKeyDown,
+            ref
           })}
         />
       </Box>
@@ -122,6 +125,7 @@ export const Combobox: ComboboxType = () => {
         display={isOpen ? "block" : "none"}
         left="-60px"
         mt="13px"
+        overflow="overlay"
         overflowY="auto"
         position="absolute"
         rounded="md"

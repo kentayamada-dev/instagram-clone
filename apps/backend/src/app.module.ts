@@ -4,12 +4,14 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
-import { LoggingPlugin } from "./libs/apollo/logging";
+import { FollowModule } from "./follow/follow.module";
+// eslint-disable-next-line capitalized-comments
+// import { LoggingPlugin } from "./libs/apollo/logging";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";
-import { configSchema } from "./utils/config/config.schema";
-import type { ConfigSchema } from "./utils/config/config.schema";
+import { configSchema } from "./utils/config";
+import type { ConfigSchema } from "./utils/config";
 import type { ApolloDriverConfig } from "@nestjs/apollo";
 
 @Module({
@@ -21,6 +23,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
     PrismaModule,
     UserModule,
     PostModule,
+    FollowModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ConfigModule],
@@ -39,7 +42,8 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
       })
     }),
     ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", "client") })
-  ],
-  providers: [LoggingPlugin]
+  ]
+  // eslint-disable-next-line capitalized-comments
+  // providers: [LoggingPlugin]
 })
 export class AppModule {}

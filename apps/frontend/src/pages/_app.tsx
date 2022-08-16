@@ -6,7 +6,7 @@ import i18nextConfig from "../../next-i18next.config";
 import { GaTags } from "../components/misc/GaTags";
 import { constants } from "../constants";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { myTheme } from "../libs/chakra";
+import { theme } from "../libs/chakra";
 import { SWRProvider } from "../libs/swr";
 import type { MyAppType } from "../libs/next/types";
 import "@fontsource/noto-sans-jp";
@@ -36,7 +36,7 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
         options={{ showSpinner: false }}
       />
       <SWRProvider>
-        <ChakraProvider theme={myTheme}>{getLayout(<Component {...pageProps} />, pageProps)}</ChakraProvider>
+        <ChakraProvider theme={theme}>{getLayout(<Component {...pageProps} />, pageProps)}</ChakraProvider>
       </SWRProvider>
     </>
   );

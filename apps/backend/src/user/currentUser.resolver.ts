@@ -1,35 +1,35 @@
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
 import { Resolver, Query, ResolveField, Args, Parent } from "@nestjs/graphql";
+import { Prisma } from "@prisma/client";
 import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
+import { PaginatedFollowerModel } from "../follow/models/paginatedFollower.model";
+import { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.model";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { PaginatedPostModel } from "../post/models/paginatedBase.model";
-import { PostService } from "../post/post.service";
 import { CurrentUserModel } from "./models/currentUser.model";
+import { UserCommon } from "./user.common";
 import { UserService } from "./user.service";
-import type { Edge } from "../pagination/pagination.model";
-import type { PostModelBase } from "../post/models/base.model";
 import type { MapObjectPropertyToBoolean } from "../types";
-import type { Prisma } from "@prisma/client";
 
 @Resolver(CurrentUserModel)
 export class CurrentUserResolver {
-  public constructor(private readonly postService: PostService, private readonly userService: UserService) {}
+  public constructor(private readonly userCommon: UserCommon, private readonly userService: UserService) {}
 
   @Query(() => CurrentUserModel, { description: "Get Current User" })
   @UseGuards(GqlAuthGuard)
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   protected async currentUser(@CurrentUser() user: JwtPayload, @FieldMap() fieldMap: any): Promise<CurrentUserModel> {
-    /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-    const {
-      posts: _posts,
-      ...userProperties
-    }: { posts: any; userProperties: MapObjectPropertyToBoolean<CurrentUserModel> } = fieldMap ?? {};
-    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { posts: _posts, follower: _follower, following: _following, ...userProperties } = fieldMap ?? {};
 
-    const select: Prisma.UserSelect = { ...userProperties, id: true };
+    const select = Prisma.validator<Prisma.UserSelect>()({
+      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
+      id: true
+    });
+
     const foundUser = await this.userService.findUser<CurrentUserModel | null>({
       select,
       where: {
@@ -44,37 +44,30 @@ export class CurrentUserResolver {
     return foundUser;
   }
 
+  @ResolveField(() => PaginatedFollowingModel, { description: "Get Related Following" })
+  protected async following(
+    @CurrentUser() user: JwtPayload,
+    @Args() paginationArgs: PaginationArgs,
+    @FieldMap() fieldMap: Record<string, unknown>
+  ): Promise<PaginatedFollowingModel> {
+    return this.userCommon.getPaginatedFollowing(user.id, paginationArgs, fieldMap);
+  }
+
+  @ResolveField(() => PaginatedFollowerModel, { description: "Get Related Follower" })
+  protected async follower(
+    @CurrentUser() user: JwtPayload,
+    @Args() paginationArgs: PaginationArgs,
+    @FieldMap() fieldMap: Record<string, unknown>
+  ): Promise<PaginatedFollowerModel> {
+    return this.userCommon.getPaginatedFollower(user.id, paginationArgs, fieldMap);
+  }
+
   @ResolveField(() => PaginatedPostModel, { description: "Get Related Posts" })
   protected async posts(
     @Parent() user: CurrentUserModel,
     @Args() paginationArgs: PaginationArgs,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-    @FieldMap() fieldMap: any
+    @FieldMap() fieldMap: Record<string, unknown>
   ): Promise<PaginatedPostModel> {
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-    const edgesNodeProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.edges?.node ?? {};
-    const nodesProperties: MapObjectPropertyToBoolean<PostModelBase> = fieldMap?.nodes ?? {};
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-
-    const select: Prisma.PostSelect = { ...edgesNodeProperties, ...nodesProperties, id: true };
-    const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, user.id);
-    const lastPost = foundPosts.at(-1);
-    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id) : null;
-
-    const edges: Edge<PostModelBase>[] = foundPosts.map(
-      (post): Edge<PostModelBase> => ({
-        cursor: post.id,
-        node: post
-      })
-    );
-
-    return {
-      edges,
-      nodes: foundPosts,
-      pageInfo: {
-        endCursor: lastPost?.id,
-        hasNextPage: Boolean(nextPostId)
-      }
-    };
+    return this.userCommon.getPaginatedPosts(user.id, paginationArgs, fieldMap);
   }
 }

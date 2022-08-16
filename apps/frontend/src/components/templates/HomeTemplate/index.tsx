@@ -1,7 +1,7 @@
-import { Center, Spinner, Box, Text } from "@chakra-ui/react";
+import { Center, Spinner, Box, Text, HStack } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import React from "react";
-import InfiniteScroll from "react-infinite-scroller";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { usePosts } from "../../../hooks/usePosts";
 import { useUsers } from "../../../hooks/useUsers";
 import { wait } from "../../../utils/wait";
@@ -44,54 +44,50 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   }, [isInitialDataFetched, mutatePosts, mutateUsers, posts, users]);
 
   return (
-    <Center>
+    <HStack
+      align="flex-start"
+      m={{
+        base: 0,
+        sm: "0 auto"
+      }}
+      my={{
+        base: 5,
+        sm: 10
+      }}
+      spacing={10}
+    >
       <Box
         w={{
           base: "100%",
-          lg: "900px",
-          md: "inherit"
+          sm: "500px"
         }}
       >
-        <Box
-          w={{
-            base: "100%",
-            md: "600px"
-          }}
+        <InfiniteScroll
+          dataLength={posts?.edges.length ?? 0}
+          hasMore={posts?.pageInfo.hasNextPage ?? false}
+          loader={
+            <Center key={0} pb="5" pt="5">
+              <Spinner size="lg" />
+            </Center>
+          }
+          // eslint-disable-next-line react/jsx-handler-names
+          next={handleMorePosts}
         >
-          <InfiniteScroll
-            hasMore={posts?.pageInfo.hasNextPage}
-            // eslint-disable-next-line react/jsx-handler-names, @typescript-eslint/no-misused-promises
-            loadMore={handleMorePosts}
-            loader={
-              <Center key={0} pb="5" pt="5">
-                <Spinner size="lg" />
-              </Center>
-            }
-          >
-            <Feed postsEdge={posts?.edges} />
-          </InfiniteScroll>
-        </Box>
+          <Feed postsEdge={posts?.edges} />
+        </InfiniteScroll>
       </Box>
       <Box
         display={{
           base: "none",
           lg: "block"
         }}
-        left="auto"
-        ml="600px"
-        mt="100px"
-        pos="fixed"
-        right="auto"
-        top="0px"
       >
-        <Box w="250px">
-          <UserCard size={50} src={currentUser.imageUrl} userId={currentUser.id} userName={currentUser.name} />
-          <Text fontWeight="bold" pl="10px" pt="15px" w="100%">
-            {t("recommend")}
-          </Text>
-          <UsersList usersEdge={users?.edges} />
-        </Box>
+        <UserCard size={50} src={currentUser.imageUrl} userId={currentUser.id} userName={currentUser.name} />
+        <Text fontWeight="bold" pl="10px" pt="15px" w="100%">
+          {t("recommend")}
+        </Text>
+        <UsersList usersEdge={users?.edges} />
       </Box>
-    </Center>
+    </HStack>
   );
 };

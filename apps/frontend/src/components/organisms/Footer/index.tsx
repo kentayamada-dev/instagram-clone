@@ -7,7 +7,7 @@ import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import type { FooterType } from "./index.types";
 
 const {
-  COLORS: { DODGER_BLUE }
+  COLORS: { DODGER_BLUE, SUVA_GREY }
 } = constants;
 
 export const Footer: FooterType = () => {
@@ -24,7 +24,7 @@ export const Footer: FooterType = () => {
 
   return (
     <VStack h="inherit" justify="space-around" overflow="hidden" spacing={0} w="100%">
-      <Divider w="80%" />
+      <Divider borderColor={SUVA_GREY} w="80%" />
       <Flex justify="space-around" w="100%">
         <VStack>
           <Text fontSize="xs">{t("support")}</Text>

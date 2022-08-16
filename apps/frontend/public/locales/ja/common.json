@@ -5,13 +5,18 @@
   "language": "言語",
   "logout": "ログアウト",
   "createNewPost": "新規投稿を作成",
-  "selectFromComputer": "コンピューターから選択",
+  "selectPhoto": "写真を選択",
   "writeCaption": "キャプションを入力...",
   "cancel": "キャンセル",
-  "submit": "送信",
+  "share": "シェア",
   "recommend": "おすすめ",
   "email": "メール",
   "noPostsYet": "投稿はまだありません",
   "noResultsFound": "一致する結果はありませんでした。",
-  "search": "検索"
+  "search": "検索",
+  "followersCount": "フォロワー{{count, number}}人",
+  "followingCount": "フォロー中{{count, number}}人",
+  "followers": "フォロワー",
+  "following": "フォロー中",
+  "postsCount": "投稿{{count, number}}件"
 }
