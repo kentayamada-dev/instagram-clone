@@ -8,7 +8,7 @@ import type { Prisma } from "@prisma/client";
 export class PostService {
   public constructor(private readonly prismaService: PrismaService) {}
 
-  public async findNextPostId(lastPostId: string, userId?: string): Promise<string | undefined> {
+  public async readNextPostId(lastPostId: string, userId?: string): Promise<string | undefined> {
     return this.prismaService.post
       .findMany({
         cursor: { id: lastPostId },
@@ -29,7 +29,7 @@ export class PostService {
       .then((value) => value[0]?.id);
   }
 
-  public async findPosts<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs, userId: string): Promise<T> {
+  public async readPosts<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs, userId: string): Promise<T> {
     return (await this.prismaService.post.findMany({
       ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
@@ -43,7 +43,7 @@ export class PostService {
     })) as unknown as T;
   }
 
-  public async findPostsWithUser<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs): Promise<T> {
+  public async readPostsWithUser<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs): Promise<T> {
     return (await this.prismaService.post.findMany({
       ...(after ? { cursor: { id: after }, skip: 1 } : {}),
       orderBy: {
@@ -54,7 +54,7 @@ export class PostService {
     })) as unknown as T;
   }
 
-  public async findPost<T>(select: Prisma.PostSelect, postId: string): Promise<T> {
+  public async readPost<T>(select: Prisma.PostSelect, postId: string): Promise<T> {
     return (await this.prismaService.post.findUnique({
       select,
       where: {
@@ -64,7 +64,11 @@ export class PostService {
   }
 
   // eslint-disable-next-line max-params
-  public async upload<T>(select: Prisma.PostSelect, { caption, imageUrl }: UploadInput, userId: string): Promise<T> {
+  public async createPost<T>(
+    select: Prisma.PostSelect,
+    { caption, imageUrl }: UploadInput,
+    userId: string
+  ): Promise<T> {
     return (await this.prismaService.post.create({
       data: {
         imageUrl,

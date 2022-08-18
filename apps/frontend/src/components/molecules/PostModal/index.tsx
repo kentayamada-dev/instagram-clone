@@ -42,17 +42,18 @@ export const PostModal: PostModalType = ({
   const { t } = useTranslation("common");
 
   return (
-    <Modal
-      isCentered
-      isOpen={isOpen}
-      onClose={handleClose}
-      size={{
-        base: "xl",
-        lg: "4xl"
-      }}
-    >
+    <Modal isCentered isOpen={isOpen} onClose={handleClose} variant="usersList">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        minH={{
+          base: "400px",
+          lg: "500px"
+        }}
+        minW={{
+          lg: "800px",
+          md: "700px"
+        }}
+      >
         <ModalHeader>
           <HStack justify="space-between">
             <IconButton aria-label="Cancel Post" icon={<ImCross />} onClick={handleCancel} />
@@ -72,10 +73,10 @@ export const PostModal: PostModalType = ({
           <HStack align="flex-start">
             <Center
               h={{
-                base: "300px",
+                base: "400px",
                 lg: "500px"
               }}
-              minW="50%"
+              w="400px"
             >
               {isImageSelected ? (
                 <Image h="100%" objectFit="cover" src={imagePreviewSrc} w="100%" />
@@ -89,27 +90,34 @@ export const PostModal: PostModalType = ({
                     ref={inputRef}
                     type="file"
                   />
-                  <Button colorScheme="blue" onClick={handleClick}>
+                  <Button onClick={handleClick} variant="primary">
                     {t("selectPhoto")}
                   </Button>
                 </VStack>
               )}
             </Center>
-            <Box height="inherit" w="100%">
-              <VStack align="flex-start" height="inherit" pt={3}>
-                <HStack spacing={5}>
+            <Box w="400px">
+              <VStack align="flex-start" pt={3}>
+                <HStack
+                  spacing={{
+                    base: 2,
+                    sm: 5
+                  }}
+                >
                   <StyledAvatar alt="Avatar Image" size={30} src={currentUserAvatarUrl} />
                   <Text fontWeight="bold" noOfLines={1}>
                     {currentUserName}
                   </Text>
                 </HStack>
                 <Textarea
-                  height="inherit"
+                  minH={{
+                    base: "350px",
+                    lg: "450px"
+                  }}
                   mt={0}
                   onChange={handleChangeCaption}
                   placeholder={t("writeCaption")}
                   resize="none"
-                  size="lg"
                   value={caption}
                   variant="unstyled"
                 />

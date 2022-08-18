@@ -34,13 +34,18 @@
     "jzle",
     "deadcode",
     "Noto",
+    "GAINSBORO",
+    "unstyled",
     "fontsource",
     "lastmod",
     "Occured",
     "postbuild",
     "pregenerate",
     "gtag",
-    "Combobox"
+    "Combobox",
+    "outerdiv",
+    "unfollow",
+    "Usergroup"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

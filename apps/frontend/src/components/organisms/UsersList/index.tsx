@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { UserCard } from "../../molecules/userCard";
 import type { UsersListType } from "./index.types";
 
-export const UsersList: UsersListType = ({ usersEdge }) => {
+export const UsersList: UsersListType = ({ usersEdge, ...rest }) => {
   if (usersEdge) {
     return (
       <>
@@ -11,7 +11,7 @@ export const UsersList: UsersListType = ({ usersEdge }) => {
 
           return (
             <Box key={user.id} w="100%">
-              <UserCard size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
+              <UserCard {...rest} size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
             </Box>
           );
         })}

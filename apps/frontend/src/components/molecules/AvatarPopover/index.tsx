@@ -15,9 +15,7 @@ export const AvatarPopover: AvatarPopoverType = ({ handleLogout, alt, src, size 
       </PopoverTrigger>
       <PopoverContent w="48">
         <PopoverArrow />
-        <Button onClick={handleLogout} variant="ghost">
-          {t("logout")}
-        </Button>
+        <Button onClick={handleLogout}>{t("logout")}</Button>
       </PopoverContent>
     </Popover>
   );

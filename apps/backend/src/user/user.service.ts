@@ -6,7 +6,7 @@ import type { Prisma } from "@prisma/client";
 export class UserService {
   public constructor(private readonly prismaService: PrismaService) {}
 
-  public async findNextUserId(lastUserId: string): Promise<string | undefined> {
+  public async readNextUserId(lastUserId: string): Promise<string | undefined> {
     return this.prismaService.user
       .findMany({
         cursor: { id: lastUserId },
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   // eslint-disable-next-line max-params
-  public async findUsers<T>(
+  public async readUsers<T>(
     select: Prisma.UserSelect,
     first: number | undefined,
     after: string | undefined,
@@ -40,20 +40,16 @@ export class UserService {
     })) as unknown as T;
   }
 
-  public async findUser<T>(args: Prisma.UserFindUniqueOrThrowArgs): Promise<T> {
+  public async readUser<T>(args: Prisma.UserFindUniqueOrThrowArgs): Promise<T> {
     return (await this.prismaService.user.findUnique({
       ...args
     })) as unknown as T;
   }
 
-  public async createUser(data: Prisma.UserCreateArgs["data"]): Promise<{
-    id: string;
-  }> {
-    return this.prismaService.user.create({
+  public async createUser<T>(select: Prisma.UserSelect, data: Prisma.UserCreateArgs["data"]): Promise<T> {
+    return (await this.prismaService.user.create({
       data,
-      select: {
-        id: true
-      }
-    });
+      select
+    })) as unknown as T;
   }
 }

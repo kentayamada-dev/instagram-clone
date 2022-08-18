@@ -11,14 +11,16 @@ import {
   Center,
   Spinner,
   Box,
-  Skeleton
+  Skeleton,
+  VStack
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import React from "react";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useFollow } from "../../../../../hooks/useFollow";
 import { useFollowers } from "../../../../../hooks/useFollowers";
 import { useFollowing } from "../../../../../hooks/useFollowing";
-import { wait } from "../../../../../utils/wait";
 import { UsersList } from "../../../../organisms/UsersList";
 import type { StatsType } from "./index.types";
 
@@ -30,40 +32,28 @@ export const Stats: StatsType = ({
   width = "100%",
   userId
 }) => {
+  const { handleFollow, getFollowState } = useFollow({ userId });
   const { t } = useTranslation("common");
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const { isOpen, onOpen, onClose: handleClose } = useDisclosure();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [followState, setFollowState] = React.useState<"followers" | "following">("following");
-  const usefollowState = <T, U>(followersValue: T, followingValue: U): T | U =>
-    followState === "followers" ? followersValue : followingValue;
-  const { followers, loadMoreFollowers, isFollowersLoading, mutateFollowers } = useFollowers({ userId: userId ?? "" });
-  const { following, loadMoreFollowing, isFollowingLoading, mutateFollowing } = useFollowing({ userId: userId ?? "" });
-  const handleMoreFollowers = async (): Promise<void> => {
-    if (!isLoading && !isFollowersLoading) {
-      setIsLoading(true);
-      await wait(2);
-      await loadMoreFollowers();
-      setIsLoading(false);
-    }
-  };
-
-  const handleMoreFollowing = async (): Promise<void> => {
-    if (!isLoading && !isFollowingLoading) {
-      setIsLoading(true);
-      await wait(2);
-      await loadMoreFollowing();
-      setIsLoading(false);
-    }
-  };
-
+  const [isFollowing, setIsFollowing] = React.useState(true);
+  const useFollowState = <T, U>(followersValue: T, followingValue: U): T | U =>
+    isFollowing ? followingValue : followersValue;
+  const { followers, handleMoreFollowers, mutateFollowers } = useFollowers({ userId });
+  const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId: userId ?? "" });
+  const usersEdge = useFollowState(followers?.edges, following?.edges);
+  const headerTitle = useFollowState(t("followers"), t("following"));
+  const text = useFollowState(t("noFollowerMessage"), t("noFollowingMessage"));
+  const dataLength = useFollowState(followers?.edges.length, following?.edges.length) ?? 0;
+  const hasMore = useFollowState(followers?.pageInfo.hasNextPage, following?.pageInfo.hasNextPage) ?? false;
+  const next = useFollowState(handleMoreFollowers, handleMoreFollowing);
   const handleOpenFollowers = (): void => {
-    setFollowState("followers");
+    setIsFollowing(false);
     onOpen();
   };
 
   const handleOpenFollowing = (): void => {
-    setFollowState("following");
+    setIsFollowing(true);
     onOpen();
   };
 
@@ -112,23 +102,35 @@ export const Stats: StatsType = ({
       <Modal isCentered isOpen={isOpen} onClose={handleClose} variant="usersList">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign="center">{usefollowState(t("followers"), t("following"))}</ModalHeader>
+          <ModalHeader textAlign="center">{headerTitle}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box h="400px" id="scrollableDiv" overflowY="scroll">
-              <InfiniteScroll
-                dataLength={usefollowState(followers?.edges.length, following?.edges.length) ?? 0}
-                hasMore={usefollowState(followers?.pageInfo.hasNextPage, following?.pageInfo.hasNextPage) ?? false}
-                loader={
-                  <Center key={0} pb="5" pt="5">
-                    <Spinner size="lg" />
-                  </Center>
-                }
-                next={usefollowState(handleMoreFollowers, handleMoreFollowing)}
-                scrollableTarget="scrollableDiv"
-              >
-                <UsersList usersEdge={usefollowState(followers?.edges, following?.edges)} />
-              </InfiniteScroll>
+            <Box h="400px" id="scrollableDiv" overflowY="auto">
+              {usersEdge && usersEdge.length > 0 ? (
+                <InfiniteScroll
+                  dataLength={dataLength}
+                  hasMore={hasMore}
+                  loader={
+                    <Center key={0} pb="5" pt="5">
+                      <Spinner size="lg" />
+                    </Center>
+                  }
+                  next={next}
+                  scrollableTarget="scrollableDiv"
+                >
+                  <UsersList
+                    getFollowState={getFollowState}
+                    handleFollow={handleFollow}
+                    isLink={false}
+                    usersEdge={usersEdge}
+                  />
+                </InfiniteScroll>
+              ) : (
+                <VStack h="100%" pt="10">
+                  <AiOutlineUsergroupAdd size={200} />
+                  <Text>{text}</Text>
+                </VStack>
+              )}
             </Box>
           </ModalBody>
         </ModalContent>

@@ -47,7 +47,7 @@ export class PostResolver {
       })
     };
 
-    const foundPost = await this.postService.findPost<PostModel | null>(select, postId);
+    const foundPost = await this.postService.readPost<PostModel | null>(select, postId);
 
     if (!foundPost) {
       throw new HttpException("Post not found", HttpStatus.NOT_FOUND);
@@ -93,9 +93,9 @@ export class PostResolver {
       })
     };
 
-    const posts = await this.postService.findPostsWithUser<PostModel[]>(select, paginationArgs);
+    const posts = await this.postService.readPostsWithUser<PostModel[]>(select, paginationArgs);
     const lastPost = posts.at(-1);
-    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id) : null;
+    const nextPostId = lastPost ? await this.postService.readNextPostId(lastPost.id) : null;
 
     const edges: Edge<PostModel>[] = posts.map(
       (post): Edge<PostModel> => ({
@@ -149,7 +149,7 @@ export class PostResolver {
       })
     };
 
-    const createdPost = await this.postService.upload<PostModel>(select, uploadInput, currentUser.id);
+    const createdPost = await this.postService.createPost<PostModel>(select, uploadInput, currentUser.id);
 
     return createdPost;
   }

@@ -111,9 +111,9 @@ export class UserResolver {
       return null;
     }
 
-    const foundUsers = await this.userService.findUsers<UserModelBase[]>(select, first, after, getUserWhereInput());
+    const foundUsers = await this.userService.readUsers<UserModelBase[]>(select, first, after, getUserWhereInput());
     const lastUser = foundUsers.at(-1);
-    const nextUserId = lastUser ? await this.userService.findNextUserId(lastUser.id) : null;
+    const nextUserId = lastUser ? await this.userService.readNextUserId(lastUser.id) : null;
 
     const edges: Edge<UserModelBase>[] = foundUsers.map(
       (user): Edge<UserModelBase> => ({
@@ -160,38 +160,13 @@ export class UserResolver {
     return this.userCommon.getPaginatedPosts(user.id, paginationArgs, fieldMap);
   }
 
-  @Mutation(() => MessageModel, { description: "Signup" })
+  @Mutation(() => UserModelBase, { description: "Signup" })
   // eslint-disable-next-line max-statements
   protected async signup(
     @Args("signupInput") signupInput: SignupInput,
     @Context("res") res: Response
-  ): Promise<MessageModel> {
-    const foundUserByEmail = await this.userService.findUser<{ id: string } | null>({
-      select: {
-        id: true
-      },
-      where: {
-        email: signupInput.email
-      }
-    });
-
-    if (foundUserByEmail) {
-      throw new HttpException("Email Is Taken", HttpStatus.CONFLICT);
-    }
-
-    const foundUserById = await this.userService.findUser<{ id: string } | null>({
-      select: {
-        id: true
-      },
-      where: {
-        id: signupInput.id
-      }
-    });
-
-    if (foundUserById) {
-      throw new HttpException("User ID Is Taken", HttpStatus.CONFLICT);
-    }
-
+  ): Promise<UserModelBase> {
+    let createdUser: UserModelBase | null = null;
     const { password, ...rest } = signupInput;
     const hashedPassword = await hash(password, this.saltRounds);
     const data: SignupInput = {
@@ -199,13 +174,32 @@ export class UserResolver {
       password: hashedPassword
     };
 
-    const createdUser = await this.userService.createUser(data);
+    const select = Prisma.validator<Prisma.UserSelect>()({
+      id: true
+    });
+
+    try {
+      createdUser = await this.userService.createUser<UserModelBase>(select, data);
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        const target = error.meta?.["target"] as string[];
+
+        if (target.includes("id")) {
+          throw new HttpException("User ID Is Taken", HttpStatus.CONFLICT);
+        }
+        if (target.includes("email")) {
+          throw new HttpException("Email Is Taken", HttpStatus.CONFLICT);
+        }
+      }
+
+      throw new HttpException("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     const { accessToken } = this.authService.getJwtToken(createdUser.id);
 
     res.cookie(this.accessTokenKey, accessToken, this.cookieOptions);
 
-    return { message: "Cookie has been set successfully" };
+    return createdUser;
   }
 
   @Mutation(() => MessageModel, { description: "Login" })
@@ -214,7 +208,7 @@ export class UserResolver {
     @Context("res") res: Response
   ): Promise<MessageModel> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const foundUser = await this.userService.findUser<{
+    const foundUser = await this.userService.readUser<{
       id: string;
       password: string;
     } | null>({
@@ -269,7 +263,7 @@ export class UserResolver {
       ...userProperties,
       id: true
     });
-    const foundUser = await this.userService.findUser<UserModelBase | null>({ select, where: { id: userId } });
+    const foundUser = await this.userService.readUser<UserModelBase | null>({ select, where: { id: userId } });
 
     if (!foundUser) {
       throw new HttpException("User not found", HttpStatus.NOT_FOUND);

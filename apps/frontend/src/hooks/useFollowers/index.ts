@@ -1,10 +1,12 @@
+import React from "react";
 import useSWRInfinite from "swr/infinite";
+import { wait } from "../../utils/wait";
 import { FOLLOWERS_QUERY } from "./schema";
 import type { FollowersQuery, FollowersQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { UseFollowersReturnType, UseFollowersType } from "./type";
+import type { HandleMoreFollowersType, LoadMoreFollowersType, UseFollowersReturnType, UseFollowersType } from "./type";
 
-export const useFollowers: UseFollowersType = ({ userId }) => {
+export const useFollowers: UseFollowersType = ({ userId = "" }) => {
   const getKey: GetKeyType<FollowersQuery, FollowersQueryVariables> = (_index, previousPageData) => {
     const variables: FollowersQueryVariables = {
       first: 7,
@@ -24,11 +26,12 @@ export const useFollowers: UseFollowersType = ({ userId }) => {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite<FollowersQuery, Error>(getKey);
   let followers: UseFollowersReturnType["followers"] = null;
+  const [isThresholdLoading, setIsThresholdLoading] = React.useState(false);
 
   if (data) {
     const lastElement = data[data.length - 1];
-    const flatedData = data.map((follower) => follower.follower.edges).flat();
-    const edges = flatedData.map((edge) => ({
+    const flattedData = data.map((follower) => follower.follower.edges).flat();
+    const edges = flattedData.map((edge) => ({
       node: edge.node.followedUser
     }));
 
@@ -40,10 +43,24 @@ export const useFollowers: UseFollowersType = ({ userId }) => {
       }
     };
   }
-
   const isFollowersError = Boolean(error);
-  const isFollowersLoading = !isFollowersError && !followers;
-  const loadMoreFollowers = async (): Promise<unknown[] | undefined> => setSize(size + 1);
+  const isFollowersLoading = !isFollowersError && !followers && !isThresholdLoading;
+  const loadMoreFollowers: LoadMoreFollowersType = async () => setSize(size + 1);
+  const handleMoreFollowers: HandleMoreFollowersType = async () => {
+    if (!isFollowersLoading) {
+      setIsThresholdLoading(true);
+      await wait(2);
+      await loadMoreFollowers();
+      setIsThresholdLoading(false);
+    }
+  };
 
-  return { followers, isFollowersError, isFollowersLoading, loadMoreFollowers, mutateFollowers: mutate };
+  return {
+    followers,
+    handleMoreFollowers,
+    isFollowersError,
+    isFollowersLoading,
+    loadMoreFollowers,
+    mutateFollowers: mutate
+  };
 };

@@ -64,12 +64,12 @@ export class UserCommon {
       })
     };
 
-    const following = await this.followService.findFollowing<FollowingModel[]>(select, {
+    const following = await this.followService.readFollowing<FollowingModel[]>(select, {
       ...paginationArgs,
       userId
     });
     const lastFollowing = following.at(-1);
-    const nextFollowingId = lastFollowing ? await this.followService.findNextFollowing(lastFollowing.id, userId) : null;
+    const nextFollowingId = lastFollowing ? await this.followService.readNextFollowing(lastFollowing.id, userId) : null;
 
     const edges: Edge<FollowingModel>[] = following.map(
       (post): Edge<FollowingModel> => ({
@@ -136,12 +136,12 @@ export class UserCommon {
       })
     };
 
-    const follower = await this.followService.findFollower<FollowerModel[]>(select, {
+    const follower = await this.followService.readFollower<FollowerModel[]>(select, {
       ...paginationArgs,
       userId
     });
     const lastFollower = follower.at(-1);
-    const nextFollowerId = lastFollower ? await this.followService.findNextFollower(lastFollower.id, userId) : null;
+    const nextFollowerId = lastFollower ? await this.followService.readNextFollower(lastFollower.id, userId) : null;
 
     const edges: Edge<FollowerModel>[] = follower.map(
       (post): Edge<FollowerModel> => ({
@@ -178,9 +178,9 @@ export class UserCommon {
       id: true
     });
 
-    const foundPosts = await this.postService.findPosts<PostModelBase[]>(select, paginationArgs, userId);
+    const foundPosts = await this.postService.readPosts<PostModelBase[]>(select, paginationArgs, userId);
     const lastPost = foundPosts.at(-1);
-    const nextPostId = lastPost ? await this.postService.findNextPostId(lastPost.id, userId) : null;
+    const nextPostId = lastPost ? await this.postService.readNextPostId(lastPost.id, userId) : null;
 
     const edges: Edge<PostModelBase>[] = foundPosts.map(
       (post): Edge<PostModelBase> => ({

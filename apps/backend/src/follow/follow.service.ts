@@ -7,7 +7,7 @@ import type { Prisma } from "@prisma/client";
 export class FollowService {
   public constructor(private readonly prismaService: PrismaService) {}
 
-  public async findNextFollower(lastFollowerId: string, userId: string): Promise<string | undefined> {
+  public async readNextFollower(lastFollowerId: string, userId: string): Promise<string | undefined> {
     return this.prismaService.follow
       .findMany({
         cursor: { id: lastFollowerId },
@@ -27,7 +27,7 @@ export class FollowService {
   }
 
   // eslint-disable-next-line max-params
-  public async findFollower<T>(select: Prisma.FollowSelect, { first, after, userId }: FollowArgs): Promise<T> {
+  public async readFollower<T>(select: Prisma.FollowSelect, { first, after, userId }: FollowArgs): Promise<T> {
     return (await this.prismaService.follow.findMany({
       ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
@@ -41,7 +41,7 @@ export class FollowService {
     })) as unknown as T;
   }
 
-  public async findNextFollowing(lastFollowingId: string, userId: string): Promise<string | undefined> {
+  public async readNextFollowing(lastFollowingId: string, userId: string): Promise<string | undefined> {
     return this.prismaService.follow
       .findMany({
         cursor: { id: lastFollowingId },
@@ -61,7 +61,7 @@ export class FollowService {
   }
 
   // eslint-disable-next-line max-params
-  public async findFollowing<T>(select: Prisma.FollowSelect, { first, after, userId }: FollowArgs): Promise<T> {
+  public async readFollowing<T>(select: Prisma.FollowSelect, { first, after, userId }: FollowArgs): Promise<T> {
     return (await this.prismaService.follow.findMany({
       ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
@@ -71,6 +71,37 @@ export class FollowService {
       ...(Boolean(first) && { take: first }),
       where: {
         followedUserId: userId
+      }
+    })) as unknown as T;
+  }
+
+  public async createFollow<T>(
+    select: Prisma.FollowSelect,
+    followedUserId: string,
+    followingUserId: string
+  ): Promise<T> {
+    return (await this.prismaService.follow.create({
+      data: {
+        followedUserId,
+        followingUserId
+      },
+      select
+    })) as unknown as T;
+  }
+
+  public async deleteFollow<T>(
+    select: Prisma.FollowSelect,
+    followedUserId: string,
+    followingUserId: string
+  ): Promise<T> {
+    return (await this.prismaService.follow.delete({
+      select,
+      where: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+        followedUserId_followingUserId: {
+          followedUserId,
+          followingUserId
+        }
       }
     })) as unknown as T;
   }

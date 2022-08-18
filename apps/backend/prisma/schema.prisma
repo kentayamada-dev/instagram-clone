@@ -8,9 +8,9 @@ datasource db {
 }
 
 model User {
-  id         String   @unique
+  id         String @unique
   name       String
-  email      String   @unique
+  email      String @unique
   imageUrl   String
   password   String
   posts      Post[]
@@ -38,4 +38,6 @@ model Follow {
   followingUserId String
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@unique([followedUserId, followingUserId])
 }

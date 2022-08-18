@@ -14,7 +14,10 @@
     "postlint",
     "Nodefollowing",
     "Nodesfollower",
-    "Nodesfollowing"
+    "Nodesfollowing",
+    "Unfollow",
+    "camelcase",
+    "Unfollowed"
   ],
-  "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js"]
+  "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js", "seed.ts"]
 }

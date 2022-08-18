@@ -156,7 +156,7 @@ export const Combobox: ComboboxType = () => {
                         listStyleType: "none"
                       }}
                     >
-                      <UserCard size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
+                      <UserCard isLink={false} size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
                     </ListItem>
                   ))
                 ) : (

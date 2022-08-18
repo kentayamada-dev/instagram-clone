@@ -5,8 +5,10 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { FollowModule } from "./follow/follow.module";
-// eslint-disable-next-line capitalized-comments
-// import { LoggingPlugin } from "./libs/apollo/logging";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { LoggingPlugin } from "./libs/apollo/logging";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";

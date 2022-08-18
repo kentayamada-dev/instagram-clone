@@ -8,8 +8,9 @@ import type { ComponentStyleConfig } from "@chakra-ui/theme";
 import type { StyleFunctionProps } from "@chakra-ui/theme-tools";
 
 const {
-  COLORS: { DODGER_BLUE, WHITE, SNOW, BUNKER, SUVA_GREY, EBONY }
+  COLORS: { DODGER_BLUE, WHITE, SNOW, BUNKER, SUVA_GREY, EBONY, RADICAL_RED }
 } = constants;
+
 const Modal: ComponentStyleConfig = {
   baseStyle: (props) => ({
     dialog: {
@@ -47,26 +48,23 @@ const Button: ComponentSingleStyleConfig = {
       },
       bg: DODGER_BLUE,
       color: WHITE
+    },
+    secondary: {
+      _hover: {
+        _disabled: {
+          bg: RADICAL_RED,
+          opacity: 0.4
+        },
+        opacity: 0.8
+      },
+      bg: RADICAL_RED,
+      color: WHITE
     }
   }
 };
 
 const theme = extendTheme({
   // https://tailwind.simeongriggs.dev/
-  colors: {
-    cancel: {
-      50: "#FDE8E9",
-      100: "#F9BEC3",
-      200: "#F4949C",
-      300: "#F06A75",
-      400: "#EC414E",
-      500: "#E81728",
-      600: "#BA1220",
-      700: "#8B0E18",
-      800: "#5D0910",
-      900: "#2E0508"
-    }
-  },
   components: {
     Button,
     Modal

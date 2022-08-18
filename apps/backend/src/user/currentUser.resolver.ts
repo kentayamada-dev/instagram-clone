@@ -30,7 +30,7 @@ export class CurrentUserResolver {
       id: true
     });
 
-    const foundUser = await this.userService.findUser<CurrentUserModel | null>({
+    const foundUser = await this.userService.readUser<CurrentUserModel | null>({
       select,
       where: {
         id: user.id

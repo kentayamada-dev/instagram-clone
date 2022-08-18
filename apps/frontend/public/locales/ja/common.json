@@ -18,5 +18,9 @@
   "followingCount": "フォロー中{{count, number}}人",
   "followers": "フォロワー",
   "following": "フォロー中",
-  "postsCount": "投稿{{count, number}}件"
+  "postsCount": "投稿{{count, number}}件",
+  "follow": "フォローする",
+  "unfollow": "フォローをやめる",
+  "noFollowerMessage": "ここにすべてのフォロワーが表示されます。",
+  "noFollowingMessage": "ユーザーをフォローすると、ここに表示されます。"
 }

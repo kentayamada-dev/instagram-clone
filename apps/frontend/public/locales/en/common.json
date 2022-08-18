@@ -18,5 +18,9 @@
   "followingCount": "{{count, number}} following",
   "followers": "Followers",
   "following": "Following",
-  "postsCount": "{{count, number}} posts"
+  "postsCount": "{{count, number}} posts",
+  "follow": "Follow",
+  "unfollow": "Unfollow",
+  "noFollowerMessage": "You'll see all the people who follow you here.",
+  "noFollowingMessage": "Once you follow people, you'll see them here."
 }
