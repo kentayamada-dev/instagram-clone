@@ -7,9 +7,6 @@ export type HandleMoreFollowersType = () => Promise<void>;
 export type UseFollowersReturnType = {
   followers: { edges: UsersQuery["users"]["edges"]; pageInfo: FollowersQuery["follower"]["pageInfo"] } | null;
   handleMoreFollowers: HandleMoreFollowersType;
-  isFollowersError: boolean;
-  isFollowersLoading: boolean;
-  loadMoreFollowers: LoadMoreFollowersType;
   mutateFollowers: KeyedMutator<FollowersQuery[]>;
 };
 

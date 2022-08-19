@@ -1,8 +1,10 @@
+import React from "react";
 import useSWRInfinite from "swr/infinite";
+import { wait } from "../../utils/wait";
 import { POSTS_QUERY } from "./schema";
 import type { PostsQuery, PostsQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { UsePostsReturnType, UsePostsType } from "./type";
+import type { HandleMorePostsType, LoadMorePostsType, UsePostsReturnType, UsePostsType } from "./type";
 
 export const usePosts: UsePostsType = () => {
   const getKey: GetKeyType<PostsQuery, PostsQueryVariables> = (_index, previousPageData) => {
@@ -23,6 +25,7 @@ export const usePosts: UsePostsType = () => {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite<PostsQuery, Error>(getKey);
   let posts: UsePostsReturnType["posts"] = null;
+  const [isThresholdLoading, setIsThresholdLoading] = React.useState(false);
 
   if (data) {
     const lastElement = data[data.length - 1];
@@ -37,8 +40,16 @@ export const usePosts: UsePostsType = () => {
   }
 
   const isPostsError = Boolean(error);
-  const isPostsLoading = !isPostsError && !posts;
-  const loadMorePosts = async (): Promise<unknown[] | undefined> => setSize(size + 1);
+  const isPostsLoading = !isPostsError && !posts && !isThresholdLoading;
+  const loadMorePosts: LoadMorePostsType = async () => setSize(size + 1);
+  const handleMorePosts: HandleMorePostsType = async () => {
+    if (!isPostsLoading) {
+      setIsThresholdLoading(true);
+      await wait(2);
+      await loadMorePosts();
+      setIsThresholdLoading(false);
+    }
+  };
 
-  return { isPostsError, isPostsLoading, loadMorePosts, mutatePosts: mutate, posts };
+  return { handleMorePosts, mutatePosts: mutate, posts };
 };

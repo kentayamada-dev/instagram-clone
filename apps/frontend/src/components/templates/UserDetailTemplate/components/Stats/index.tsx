@@ -40,7 +40,7 @@ export const Stats: StatsType = ({
   const useFollowState = <T, U>(followersValue: T, followingValue: U): T | U =>
     isFollowing ? followingValue : followersValue;
   const { followers, handleMoreFollowers, mutateFollowers } = useFollowers({ userId });
-  const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId: userId ?? "" });
+  const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId });
   const usersEdge = useFollowState(followers?.edges, following?.edges);
   const headerTitle = useFollowState(t("followers"), t("following"));
   const text = useFollowState(t("noFollowerMessage"), t("noFollowingMessage"));

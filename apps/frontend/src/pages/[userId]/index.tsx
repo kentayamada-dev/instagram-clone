@@ -80,12 +80,13 @@ User.getLayout = (page, props): JSX.Element => {
   // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
   const userName = props.data?.user.name;
+  const userId = props.data?.user.id;
 
-  if (userName && initialLocale) {
+  if (userName && initialLocale && userId) {
     if (initialLocale === "ja") {
-      title = `${userName} • Instagram写真と動画`;
+      title = `${userName}(@${userId}) • Instagram写真と動画`;
     } else if (initialLocale === "en") {
-      title = `${userName} • Instagram photos and videos`;
+      title = `${userName} (@${userId}) • Instagram photos and videos`;
     }
   }
 

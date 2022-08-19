@@ -11,7 +11,6 @@ export const useCurrentUser: UseCurrentUserType = () => {
 
   return {
     currentUser,
-    isCurrentUserError,
     isCurrentUserLoading,
     mutateCurrentUser: mutate
   };

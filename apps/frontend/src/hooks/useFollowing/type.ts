@@ -7,9 +7,6 @@ export type HandleMoreFollowingType = () => Promise<void>;
 export type UseFollowingReturnType = {
   following: { edges: UsersQuery["users"]["edges"]; pageInfo: FollowingQuery["following"]["pageInfo"] } | null;
   handleMoreFollowing: HandleMoreFollowingType;
-  isFollowingError: boolean;
-  isFollowingLoading: boolean;
-  loadMoreFollowing: LoadMoreFollowingType;
   mutateFollowing: KeyedMutator<FollowingQuery[]>;
 };
 

@@ -2,8 +2,6 @@ import type { UserQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
 type UseUserReturnType = {
-  isUserError: boolean;
-  isUserLoading: boolean;
   mutateUser: KeyedMutator<UserQuery>;
   user: UserQuery["user"] | null;
 };

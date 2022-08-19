@@ -1,4 +1,4 @@
-.prettierignore
 .husky/pre-commit
 .devcontainer/Dockerfile
 .gitignore
+.prettierignore

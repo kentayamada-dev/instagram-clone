@@ -58,9 +58,6 @@ export const useFollowers: UseFollowersType = ({ userId = "" }) => {
   return {
     followers,
     handleMoreFollowers,
-    isFollowersError,
-    isFollowersLoading,
-    loadMoreFollowers,
     mutateFollowers: mutate
   };
 };

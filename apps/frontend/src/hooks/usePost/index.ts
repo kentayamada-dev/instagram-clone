@@ -16,7 +16,7 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
   const [postImageFile, setPostImageFile] = React.useState<Blob>();
   const { currentUser } = useCurrentUser();
   const { mutatePosts } = usePosts();
-  const { mutateUserPosts } = useUserPosts({ userId: currentUser?.id ?? "" });
+  const { mutateUserPosts } = useUserPosts({ userId: currentUser?.id });
   const [isLoading, setIsLoading] = React.useState(false);
   const [imageSrc, setImageSrc] = React.useState("");
   const [caption, setCaption] = React.useState("");

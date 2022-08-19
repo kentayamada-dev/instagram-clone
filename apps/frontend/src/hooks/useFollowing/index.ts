@@ -59,9 +59,6 @@ export const useFollowing: UseFollowingType = ({ userId = "" }) => {
   return {
     following,
     handleMoreFollowing,
-    isFollowingError,
-    isFollowingLoading,
-    loadMoreFollowing,
     mutateFollowing: mutate
   };
 };

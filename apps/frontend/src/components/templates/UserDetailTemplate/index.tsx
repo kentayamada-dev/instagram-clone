@@ -5,7 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { constants } from "../../../constants";
 import { useUser } from "../../../hooks/useUser";
 import { useUserPosts } from "../../../hooks/useUserPosts";
-import { wait } from "../../../utils/wait";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import { PostsList } from "../../organisms/PostsList";
 import { Stats } from "./components/Stats";
@@ -25,19 +24,10 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   });
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
-  const { userPosts, isUserPostsLoading, loadMoreUserPosts, mutateUserPosts } = useUserPosts({
+  const { userPosts, handleMoreUserPosts, mutateUserPosts } = useUserPosts({
     userId: userId ?? ""
   });
-  const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
   const isPostsThere = Boolean(userPosts?.edges && userPosts.edges.length > 0);
-  const handleMoreUserPosts = async (): Promise<void> => {
-    if (!isLoadingMorePosts && !isUserPostsLoading) {
-      setIsLoadingMorePosts(true);
-      await wait(2);
-      await loadMoreUserPosts();
-      setIsLoadingMorePosts(false);
-    }
-  };
 
   React.useEffect(() => {
     if (userId && !userPosts && !isInitialDataFetched) {

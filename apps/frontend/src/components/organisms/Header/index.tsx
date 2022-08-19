@@ -21,9 +21,6 @@ const {
 } = constants;
 
 export const Header: HeaderType = () => {
-  const { currentUser } = useCurrentUser();
-  const isAuthenticated = Boolean(currentUser);
-
   const {
     handleChangeLocale,
     handleCloseDrawer,
@@ -35,6 +32,7 @@ export const Header: HeaderType = () => {
     isPostModalOpen,
     handleLogout
   } = useHeader();
+
   const {
     caption,
     handleCancelPost,
@@ -44,9 +42,13 @@ export const Header: HeaderType = () => {
     imageSrc,
     isPostLoading
   } = usePost({ handleClosePostModal });
+
+  const { currentUser } = useCurrentUser();
+  const isAuthenticated = Boolean(currentUser);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const iconByColorMode = useColorModeValue(<IoMoon />, <IoSunny />);
   const localeJa = useLocale("あ", "A");
+
   const instagramDarkImg = {
     alt: "Instagram Text Dark",
     src: "/static/instagram/text_dark.svg"

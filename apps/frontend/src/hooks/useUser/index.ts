@@ -7,16 +7,12 @@ export const useUser: UseUserType = ({ userId, fallbackData }) => {
   const args: UserQueryVariables = {
     userId
   };
-  const { data, error, mutate } = useSWR<UserQuery, Error>([USER_QUERY, args], {
+  const { data, mutate } = useSWR<UserQuery, Error>([USER_QUERY, args], {
     ...(fallbackData && { fallbackData })
   });
-  const isUserError = Boolean(error);
   const user = data?.user ?? null;
-  const isUserLoading = !isUserError && !user;
 
   return {
-    isUserError,
-    isUserLoading,
     mutateUser: mutate,
     user
   };

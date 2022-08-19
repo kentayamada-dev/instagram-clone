@@ -4,7 +4,6 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { usePosts } from "../../../hooks/usePosts";
 import { useUsers } from "../../../hooks/useUsers";
-import { wait } from "../../../utils/wait";
 import { UserCard } from "../../molecules/userCard";
 import { Feed } from "../../organisms/Feed";
 import { UsersList } from "../../organisms/UsersList";
@@ -12,21 +11,11 @@ import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   const { t } = useTranslation("common");
-  const [isLoadingMorePosts, setIsLoadingMorePosts] = React.useState(false);
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
-  const { posts, loadMorePosts, isPostsLoading, mutatePosts } = usePosts();
+  const { posts, mutatePosts, handleMorePosts } = usePosts();
   const { users, mutateUsers } = useUsers({
     currentUserId: currentUser.id
   });
-
-  const handleMorePosts = async (): Promise<void> => {
-    if (!isLoadingMorePosts && !isPostsLoading) {
-      setIsLoadingMorePosts(true);
-      await wait(2);
-      await loadMorePosts();
-      setIsLoadingMorePosts(false);
-    }
-  };
 
   React.useEffect(() => {
     if (!isInitialDataFetched) {
