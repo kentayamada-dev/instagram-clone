@@ -1,4 +1,4 @@
-import { myTheme } from "../src/libs/chakra";
+import { theme } from "../src/libs/chakra";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";
 import i18n from "./i18next.js";
@@ -55,7 +55,7 @@ export const parameters = {
   layout: "centered",
   actions: { argTypesRegex: "^handle[A-Z].*" },
   chakra: {
-    theme: myTheme
+    theme
   },
   nextRouter: {
     Provider: RouterContext.Provider
