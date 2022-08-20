@@ -51,19 +51,21 @@ describe("Requests", () => {
       cy.intercept("POST", "https://api.instagram-clone.net/graphql").as("post_req");
     });
 
-    it.only("Feed", () => {
+    it("Feed", () => {
       cy.wait(5000);
-      cy.contains("Test User").click();
+      cy.contains("test_user").click();
       cy.wait(5000);
       cy.get('a[href="/"]').click();
       cy.wait(5000);
       cy.get("@post_req.all")
-        .should("have.length", 4)
+        .should("have.length", 7)
         .then((xhr) => {
           // @ts-ignore
           const elsText = xhr.map((el) => el.request.body.operationName);
           // @ts-ignore
-          expect(elsText.sort()).to.deep.eq(["CurrentUser", "Posts", "UserPosts", "Users"].sort());
+          expect(elsText.sort()).to.deep.eq(
+            ["CurrentUser", "Posts", "UserPosts", "Users", "User", "Followers", "Following"].sort()
+          );
         });
     });
   });

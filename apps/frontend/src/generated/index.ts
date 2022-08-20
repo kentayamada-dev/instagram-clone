@@ -14,7 +14,6 @@ export type Scalars = {
 };
 
 export type CurrentUserModel = {
-  __typename?: "CurrentUserModel";
   /** Created Date */
   createdAt: Scalars["DateTime"];
   /** Email */
@@ -58,7 +57,6 @@ export type FollowInput = {
 };
 
 export type FollowerModel = {
-  __typename?: "FollowerModel";
   /** Created Date */
   createdAt: Scalars["DateTime"];
   /** Followed User */
@@ -72,7 +70,6 @@ export type FollowerModel = {
 };
 
 export type FollowerModelEdge = {
-  __typename?: "FollowerModelEdge";
   /** Cursor */
   cursor: Scalars["String"];
   /** Node */
@@ -80,7 +77,6 @@ export type FollowerModelEdge = {
 };
 
 export type FollowerModelPageInfo = {
-  __typename?: "FollowerModelPageInfo";
   /** End Cursor */
   endCursor?: Maybe<Scalars["String"]>;
   /** Boolean value of whether next page exists */
@@ -88,7 +84,6 @@ export type FollowerModelPageInfo = {
 };
 
 export type FollowingModel = {
-  __typename?: "FollowingModel";
   /** Created Date */
   createdAt: Scalars["DateTime"];
   /** Following User */
@@ -102,7 +97,6 @@ export type FollowingModel = {
 };
 
 export type FollowingModelEdge = {
-  __typename?: "FollowingModelEdge";
   /** Cursor */
   cursor: Scalars["String"];
   /** Node */
@@ -110,7 +104,6 @@ export type FollowingModelEdge = {
 };
 
 export type FollowingModelPageInfo = {
-  __typename?: "FollowingModelPageInfo";
   /** End Cursor */
   endCursor?: Maybe<Scalars["String"]>;
   /** Boolean value of whether next page exists */
@@ -125,13 +118,11 @@ export type LoginInput = {
 };
 
 export type MessageModel = {
-  __typename?: "MessageModel";
   /** Message */
   message: Scalars["String"];
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
   /** Follow User */
   follow: FollowingModel;
   /** Login */
@@ -167,7 +158,6 @@ export type MutationUploadArgs = {
 };
 
 export type PaginatedFollowerModel = {
-  __typename?: "PaginatedFollowerModel";
   /** Edges */
   edges: Array<FollowerModelEdge>;
   /** Nodes */
@@ -179,7 +169,6 @@ export type PaginatedFollowerModel = {
 };
 
 export type PaginatedFollowingModel = {
-  __typename?: "PaginatedFollowingModel";
   /** Edges */
   edges: Array<FollowingModelEdge>;
   /** Nodes */
@@ -191,7 +180,6 @@ export type PaginatedFollowingModel = {
 };
 
 export type PaginatedPostModel = {
-  __typename?: "PaginatedPostModel";
   /** Edges */
   edges: Array<PostModelBaseEdge>;
   /** Nodes */
@@ -203,7 +191,6 @@ export type PaginatedPostModel = {
 };
 
 export type PaginatedPostsModel = {
-  __typename?: "PaginatedPostsModel";
   /** Edges */
   edges: Array<PostModelEdge>;
   /** Nodes */
@@ -215,7 +202,6 @@ export type PaginatedPostsModel = {
 };
 
 export type PaginatedUserModel = {
-  __typename?: "PaginatedUserModel";
   /** Edges */
   edges: Array<UserModelBaseEdge>;
   /** Nodes */
@@ -227,7 +213,6 @@ export type PaginatedUserModel = {
 };
 
 export type PostModel = {
-  __typename?: "PostModel";
   /** Caption */
   caption?: Maybe<Scalars["String"]>;
   /** Created Date */
@@ -245,7 +230,6 @@ export type PostModel = {
 };
 
 export type PostModelBase = {
-  __typename?: "PostModelBase";
   /** Caption */
   caption?: Maybe<Scalars["String"]>;
   /** Created Date */
@@ -259,7 +243,6 @@ export type PostModelBase = {
 };
 
 export type PostModelBaseEdge = {
-  __typename?: "PostModelBaseEdge";
   /** Cursor */
   cursor: Scalars["String"];
   /** Node */
@@ -267,7 +250,6 @@ export type PostModelBaseEdge = {
 };
 
 export type PostModelBasePageInfo = {
-  __typename?: "PostModelBasePageInfo";
   /** End Cursor */
   endCursor?: Maybe<Scalars["String"]>;
   /** Boolean value of whether next page exists */
@@ -275,7 +257,6 @@ export type PostModelBasePageInfo = {
 };
 
 export type PostModelEdge = {
-  __typename?: "PostModelEdge";
   /** Cursor */
   cursor: Scalars["String"];
   /** Node */
@@ -283,7 +264,6 @@ export type PostModelEdge = {
 };
 
 export type PostModelPageInfo = {
-  __typename?: "PostModelPageInfo";
   /** End Cursor */
   endCursor?: Maybe<Scalars["String"]>;
   /** Boolean value of whether next page exists */
@@ -291,7 +271,6 @@ export type PostModelPageInfo = {
 };
 
 export type Query = {
-  __typename?: "Query";
   /** Get Current User */
   currentUser: CurrentUserModel;
   /** Get Follower */
@@ -361,7 +340,6 @@ export type UploadInput = {
 };
 
 export type UserModelBase = {
-  __typename?: "UserModelBase";
   /** Created Date */
   createdAt: Scalars["DateTime"];
   /** Get Related Follower */
@@ -396,7 +374,6 @@ export type UserModelBasePostsArgs = {
 };
 
 export type UserModelBaseEdge = {
-  __typename?: "UserModelBaseEdge";
   /** Cursor */
   cursor: Scalars["String"];
   /** Node */
@@ -404,7 +381,6 @@ export type UserModelBaseEdge = {
 };
 
 export type UserModelBasePageInfo = {
-  __typename?: "UserModelBasePageInfo";
   /** End Cursor */
   endCursor?: Maybe<Scalars["String"]>;
   /** Boolean value of whether next page exists */
@@ -414,30 +390,20 @@ export type UserModelBasePageInfo = {
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type CurrentUserQuery = {
-  __typename?: "Query";
-  currentUser: {
-    __typename?: "CurrentUserModel";
-    id: string;
-    name: string;
-    imageUrl: string;
-    following: {
-      __typename?: "PaginatedFollowingModel";
-      nodes: Array<{ __typename?: "FollowingModel"; followingUserId: string }>;
-    };
-  };
+  currentUser: { id: string; name: string; imageUrl: string; following: { nodes: Array<{ followingUserId: string }> } };
 };
 
 export type FollowMutationVariables = Exact<{
   followInput: FollowInput;
 }>;
 
-export type FollowMutation = { __typename?: "Mutation"; follow: { __typename?: "FollowingModel"; id: string } };
+export type FollowMutation = { follow: { id: string } };
 
 export type UnfollowMutationVariables = Exact<{
   followInput: FollowInput;
 }>;
 
-export type UnfollowMutation = { __typename?: "Mutation"; unfollow: { __typename?: "FollowingModel"; id: string } };
+export type UnfollowMutation = { unfollow: { id: string } };
 
 export type FollowersQueryVariables = Exact<{
   userId: Scalars["String"];
@@ -446,17 +412,9 @@ export type FollowersQueryVariables = Exact<{
 }>;
 
 export type FollowersQuery = {
-  __typename?: "Query";
   follower: {
-    __typename?: "PaginatedFollowerModel";
-    pageInfo: { __typename?: "FollowerModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
-    edges: Array<{
-      __typename?: "FollowerModelEdge";
-      node: {
-        __typename?: "FollowerModel";
-        followedUser: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
-      };
-    }>;
+    pageInfo: { hasNextPage: boolean; endCursor?: string | null };
+    edges: Array<{ node: { followedUser: { id: string; name: string; imageUrl: string } } }>;
   };
 };
 
@@ -467,17 +425,9 @@ export type FollowingQueryVariables = Exact<{
 }>;
 
 export type FollowingQuery = {
-  __typename?: "Query";
   following: {
-    __typename?: "PaginatedFollowingModel";
-    edges: Array<{
-      __typename?: "FollowingModelEdge";
-      node: {
-        __typename?: "FollowingModel";
-        followingUser: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
-      };
-    }>;
-    pageInfo: { __typename?: "FollowingModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
+    edges: Array<{ node: { followingUser: { id: string; name: string; imageUrl: string } } }>;
+    pageInfo: { hasNextPage: boolean; endCursor?: string | null };
   };
 };
 
@@ -485,27 +435,25 @@ export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
 
-export type LoginMutation = { __typename?: "Mutation"; login: { __typename?: "MessageModel"; message: string } };
+export type LoginMutation = { login: { message: string } };
 
 export type SignupMutationVariables = Exact<{
   signupInput: SignupInput;
 }>;
 
-export type SignupMutation = { __typename?: "Mutation"; signup: { __typename?: "UserModelBase"; id: string } };
+export type SignupMutation = { signup: { id: string } };
 
 export type PostQueryVariables = Exact<{
   postId: Scalars["String"];
 }>;
 
 export type PostQuery = {
-  __typename?: "Query";
   post: {
-    __typename?: "PostModel";
     id: string;
     caption?: string | null;
     createdAt: string;
     imageUrl: string;
-    user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
+    user: { id: string; name: string; imageUrl: string };
   };
 };
 
@@ -513,26 +461,16 @@ export type UploadMutationVariables = Exact<{
   uploadInput: UploadInput;
 }>;
 
-export type UploadMutation = {
-  __typename?: "Mutation";
-  upload: { __typename?: "PostModel"; id: string; caption?: string | null; createdAt: string; imageUrl: string };
-};
+export type UploadMutation = { upload: { id: string; caption?: string | null; createdAt: string; imageUrl: string } };
 
 export type PostsIdAndUsersIdQueryVariables = Exact<{ [key: string]: never }>;
 
-export type PostsIdAndUsersIdQuery = {
-  __typename?: "Query";
-  posts: { __typename?: "PaginatedPostsModel"; nodes: Array<{ __typename?: "PostModel"; id: string; userId: string }> };
-};
+export type PostsIdAndUsersIdQuery = { posts: { nodes: Array<{ id: string; userId: string }> } };
 
 export type PostsIdAndUsersIdUpdatedAtQueryVariables = Exact<{ [key: string]: never }>;
 
 export type PostsIdAndUsersIdUpdatedAtQuery = {
-  __typename?: "Query";
-  posts: {
-    __typename?: "PaginatedPostsModel";
-    nodes: Array<{ __typename?: "PostModel"; id: string; userId: string; updatedAt: string }>;
-  };
+  posts: { nodes: Array<{ id: string; userId: string; updatedAt: string }> };
 };
 
 export type PostsQueryVariables = Exact<{
@@ -541,19 +479,15 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 export type PostsQuery = {
-  __typename?: "Query";
   posts: {
-    __typename?: "PaginatedPostsModel";
-    pageInfo: { __typename?: "PostModelPageInfo"; hasNextPage: boolean; endCursor?: string | null };
+    pageInfo: { hasNextPage: boolean; endCursor?: string | null };
     edges: Array<{
-      __typename?: "PostModelEdge";
       node: {
-        __typename?: "PostModel";
         id: string;
         caption?: string | null;
         imageUrl: string;
         createdAt: string;
-        user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
+        user: { id: string; name: string; imageUrl: string };
       };
     }>;
   };
@@ -564,21 +498,19 @@ export type UserQueryVariables = Exact<{
 }>;
 
 export type UserQuery = {
-  __typename?: "Query";
   user: {
-    __typename?: "UserModelBase";
     id: string;
     name: string;
     imageUrl: string;
-    posts: { __typename?: "PaginatedPostModel"; totalCount: number };
-    follower: { __typename?: "PaginatedFollowerModel"; totalCount: number };
-    following: { __typename?: "PaginatedFollowingModel"; totalCount: number };
+    posts: { totalCount: number };
+    follower: { totalCount: number };
+    following: { totalCount: number };
   };
 };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutMutation = { __typename?: "Mutation"; logout: { __typename?: "MessageModel"; message: string } };
+export type LogoutMutation = { logout: { message: string } };
 
 export type UserPostsQueryVariables = Exact<{
   userId: Scalars["String"];
@@ -587,26 +519,17 @@ export type UserPostsQueryVariables = Exact<{
 }>;
 
 export type UserPostsQuery = {
-  __typename?: "Query";
   user: {
-    __typename?: "UserModelBase";
     posts: {
-      __typename?: "PaginatedPostModel";
-      edges: Array<{
-        __typename?: "PostModelBaseEdge";
-        node: { __typename?: "PostModelBase"; id: string; imageUrl: string };
-      }>;
-      pageInfo: { __typename?: "PostModelBasePageInfo"; endCursor?: string | null; hasNextPage: boolean };
+      edges: Array<{ node: { id: string; imageUrl: string } }>;
+      pageInfo: { endCursor?: string | null; hasNextPage: boolean };
     };
   };
 };
 
 export type UsersIdQueryVariables = Exact<{ [key: string]: never }>;
 
-export type UsersIdQuery = {
-  __typename?: "Query";
-  users: { __typename?: "PaginatedUserModel"; nodes: Array<{ __typename?: "UserModelBase"; id: string }> };
-};
+export type UsersIdQuery = { users: { nodes: Array<{ id: string }> } };
 
 export type UsersQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Float"]>;
@@ -615,14 +538,9 @@ export type UsersQueryVariables = Exact<{
 }>;
 
 export type UsersQuery = {
-  __typename?: "Query";
   users: {
-    __typename?: "PaginatedUserModel";
-    pageInfo: { __typename?: "UserModelBasePageInfo"; hasNextPage: boolean; endCursor?: string | null };
-    edges: Array<{
-      __typename?: "UserModelBaseEdge";
-      node: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
-    }>;
+    pageInfo: { hasNextPage: boolean; endCursor?: string | null };
+    edges: Array<{ node: { id: string; name: string; imageUrl: string } }>;
   };
 };
 
@@ -631,10 +549,4 @@ export type UsersFilterQueryVariables = Exact<{
   userIdQuery?: InputMaybe<Scalars["String"]>;
 }>;
 
-export type UsersFilterQuery = {
-  __typename?: "Query";
-  users: {
-    __typename?: "PaginatedUserModel";
-    nodes: Array<{ __typename?: "UserModelBase"; id: string; name: string; imageUrl: string }>;
-  };
-};
+export type UsersFilterQuery = { users: { nodes: Array<{ id: string; name: string; imageUrl: string }> } };
