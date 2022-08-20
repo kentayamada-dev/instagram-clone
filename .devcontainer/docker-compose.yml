@@ -17,11 +17,13 @@ services:
     command: sleep infinity
     network_mode: host
     environment:
+      # app env
       - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres?schema=public
       - JWT_SECRET=jwt_secret
       - FRONTEND_ORIGIN=http://localhost:3002
       - NODE_ENV=development
       - NEXT_PUBLIC_INSTAGRAM_CLONE_API_URL=http://localhost:5001/graphql
+      - REACT_EDITOR=code
       # cypress env
       - DISPLAY=:14
       - LIBGL_ALWAYS_INDIRECT=0

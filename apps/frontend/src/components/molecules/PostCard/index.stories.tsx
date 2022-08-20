@@ -23,7 +23,6 @@ export const postCard: ComponentStoryObj<typeof PostCard> = {
     ...userCard.args,
     caption: "caption",
     createdAt: "2022-08-12 16:43:24.512",
-    imageUrl: "https://picsum.photos/id/100/1000/1000",
-    shouldUserNameHidden: true
+    imageUrl: "https://picsum.photos/id/100/1000/1000"
   }
 };

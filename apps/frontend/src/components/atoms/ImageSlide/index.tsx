@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/react";
-import Image from "next/image";
+import NextImage from "next/image";
 import styles from "./index.module.scss";
 import type { ImageSlideType } from "./index.types";
 
 export const ImageSlide: ImageSlideType = () => (
   <Box pos="relative">
-    <Image
+    <NextImage
       alt="Image Slide Base"
       height={581}
       objectFit="contain"
@@ -14,7 +14,7 @@ export const ImageSlide: ImageSlideType = () => (
       width={380}
     />
     <Box pos="absolute" right="47px" top="40px">
-      <Image
+      <NextImage
         alt="Image Slide 1"
         // eslint-disable-next-line react/forbid-component-props
         className={styles["slide_1"]}
@@ -26,7 +26,7 @@ export const ImageSlide: ImageSlideType = () => (
       />
     </Box>
     <Box pos="absolute" right="47px" top="40px">
-      <Image
+      <NextImage
         alt="Image Slide 2"
         // eslint-disable-next-line react/forbid-component-props
         className={styles["slide_2"]}
@@ -38,7 +38,7 @@ export const ImageSlide: ImageSlideType = () => (
       />
     </Box>
     <Box pos="absolute" right="47px" top="40px">
-      <Image
+      <NextImage
         alt="Image Slide 3"
         // eslint-disable-next-line react/forbid-component-props
         className={styles["slide_3"]}
@@ -50,7 +50,7 @@ export const ImageSlide: ImageSlideType = () => (
       />
     </Box>
     <Box pos="absolute" right="47px" top="40px">
-      <Image
+      <NextImage
         alt="Image Slide 4"
         // eslint-disable-next-line react/forbid-component-props
         className={styles["slide_4"]}

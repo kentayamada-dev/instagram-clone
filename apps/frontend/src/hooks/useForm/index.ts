@@ -59,7 +59,6 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   const submitHandler: SubmitHandler<MyFormType> = async (data) => {
     setErrorMessage("");
     const { file, ...signUpProps } = data;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { name, ...loginProps } = signUpProps;
     try {
       if (isSignup) {

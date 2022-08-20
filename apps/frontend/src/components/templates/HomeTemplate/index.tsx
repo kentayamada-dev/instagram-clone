@@ -20,7 +20,6 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   React.useEffect(() => {
     if (!isInitialDataFetched) {
       setIsInitialDataFetched(true);
-      // eslint-disable-next-line no-void
       void (async (): Promise<void> => {
         if (!posts) {
           await mutatePosts();

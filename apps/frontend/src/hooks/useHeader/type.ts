@@ -1,9 +1,11 @@
-export type UseHeaderReturnType = {
-  handleChangeLocale: () => Promise<void>;
+import type { AvatarLogoutPopoverProps } from "../../components/molecules/AvatarLogoutPopover/index.types";
+import type { Button } from "@chakra-ui/react";
+
+export type UseHeaderReturnType = Pick<AvatarLogoutPopoverProps, "handleLogout"> & {
+  handleChangeLocale: React.ComponentProps<typeof Button>["onClick"];
   handleCloseDrawer: () => void;
   handleClosePostModal: () => void;
   handleColorMode: () => void;
-  handleLogout: () => Promise<void>;
   handleOpenDrawer: () => void;
   handleOpenPostModal: () => void;
   isDrawerOpen: boolean;

@@ -1,6 +1,6 @@
 import { Heading, Grid, GridItem, Link, Skeleton, useColorModeValue, VStack, Center } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import Image from "next/image";
+import NextImage from "next/image";
 import NextLink from "next/link";
 import { FiCamera } from "react-icons/fi";
 import { constants } from "../../../constants";
@@ -11,7 +11,7 @@ const {
   COLORS: { BLACK_PEARL, SNOW }
 } = constants;
 
-export const PostsList: PostsListType = ({ posts, userId }) => {
+export const PostsList: PostsListType = ({ posts, userId = "" }) => {
   const { width } = useWindowDimensions();
   const shadowColor = useColorModeValue(BLACK_PEARL, SNOW);
   const { t } = useTranslation("common");
@@ -62,7 +62,7 @@ export const PostsList: PostsListType = ({ posts, userId }) => {
           >
             <NextLink href={`/${userId}/${post.node.id}`} passHref>
               <Link>
-                <Image alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.node.imageUrl} />
+                <NextImage alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.node.imageUrl} />
               </Link>
             </NextLink>
           </GridItem>

@@ -12,12 +12,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const data = await fetcher<PostsIdAndUsersIdUpdatedAtQuery>(POSTS_ID_AND_USERS_ID_AND_UPDATED_AT_QUERY);
 
   const enFields: ISitemapField[] = data.posts.nodes.map((node) => ({
-    lastmod: node.updatedAt,
+    lastmod: node.updatedAt.toString(),
     loc: `${SITE_URL}/${node.userId}/${node.id}/`
   }));
 
   const jaFields: ISitemapField[] = data.posts.nodes.map((node) => ({
-    lastmod: node.updatedAt,
+    lastmod: node.updatedAt.toString(),
     loc: `${SITE_URL}/ja/${node.userId}/${node.id}/`
   }));
 

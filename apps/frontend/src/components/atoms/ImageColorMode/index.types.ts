@@ -1,15 +1,9 @@
-import type { ImageProps } from "next/image";
+import type { NextImageAltSrc } from "../../../libs/next/types";
 
 export type ImageColorModeProps = {
-  darkImg: {
-    alt: ImageProps["alt"];
-    src: ImageProps["src"];
-  };
+  darkImg: NextImageAltSrc;
   height: number;
-  lightImg: {
-    alt: ImageProps["alt"];
-    src: ImageProps["src"];
-  };
+  lightImg: NextImageAltSrc;
   width: number;
 };
 

@@ -32,12 +32,14 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
   const { colorMode, toggleColorMode } = useColorMode();
   const handleColorMode = (): void => toggleColorMode();
   const { t } = useTranslation("common");
-  const handleChangeLocale = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
-    const localeValue = event.target.value;
-    Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });
-    await router.push({ pathname, query }, asPath, {
-      locale: localeValue
-    });
+  const handleChangeLocale: React.ComponentProps<typeof Select>["onChange"] = (event) => {
+    void (async (): Promise<void> => {
+      const localeValue = event.target.value;
+      Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });
+      await router.push({ pathname, query }, asPath, {
+        locale: localeValue
+      });
+    })();
   };
   const githubDarkImg = {
     alt: "Github Text Dark",
@@ -105,12 +107,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="locale">{t("language")}</FormLabel>
-                  <Select
-                    defaultValue={locale}
-                    id="locale"
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onChange={handleChangeLocale}
-                  >
+                  <Select defaultValue={locale} id="locale" onChange={handleChangeLocale}>
                     <option value="ja">日本語</option>
                     <option value="en">English</option>
                   </Select>

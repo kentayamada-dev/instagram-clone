@@ -7,14 +7,15 @@ import type {
   PostQuery,
   UserPostsQuery,
   UserModelBase,
-  PostModelPageInfo
+  PostModelPageInfo,
+  FollowingQuery,
+  FollowersQuery,
+  UsersFilterQuery
 } from "../../generated";
 
 faker.mersenne.seed(999);
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const userData = (): Omit<UserModelBase, "__typename" | "posts"> => ({
+const userData = (): Pick<UserModelBase, "id" | "imageUrl" | "name"> => ({
   id: faker.internet.userName().toLowerCase(),
   imageUrl: faker.internet.avatar(),
   name: faker.name.findName()
@@ -25,13 +26,11 @@ const pageInfoData = (): Omit<PostModelPageInfo, "__typename"> => ({
   hasNextPage: false
 });
 
-export const generateUsersData: Omit<UserModelBase, "__typename" | "posts">[] = new Array(5)
-  .fill(null)
-  .map(() => userData());
+export const generateUsersData: UsersFilterQuery["users"]["nodes"] = new Array(5).fill(null).map(() => userData());
 
 export const generatePostData = (index: number): PostQuery["post"] => ({
   caption: faker.lorem.sentence(),
-  createdAt: faker.date.past(),
+  createdAt: faker.date.past().toDateString(),
   id: faker.datatype.uuid(),
   imageUrl: `https://picsum.photos/id/${index}/1000/1000`,
   user: userData()
@@ -63,11 +62,31 @@ export const generateAllUsersData: UsersQuery["users"] = {
   pageInfo: pageInfoData()
 };
 
-export const generateCurrentUserData: CurrentUserQuery["currentUser"] = userData();
+const generateFollowingData: CurrentUserQuery["currentUser"]["following"]["nodes"] = new Array(5)
+  .fill(null)
+  .map(() => ({ followingUserId: faker.internet.userName().toLowerCase() }));
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-export const generateUserData: UserQuery["user"] = userData();
+export const generateCurrentUserData: CurrentUserQuery["currentUser"] = {
+  ...userData(),
+  following: {
+    nodes: generateFollowingData
+  }
+};
+
+export const generateUserData: UserQuery["user"] = {
+  ...{
+    follower: {
+      totalCount: 123
+    },
+    following: {
+      totalCount: 456
+    },
+    posts: {
+      totalCount: 789
+    }
+  },
+  ...userData()
+};
 
 const generateUserPostData = (index: number): UserPostsQuery["user"]["posts"]["edges"][0] => ({
   node: {
@@ -82,5 +101,27 @@ export const generateUserPosts: UserPostsQuery["user"]["posts"]["edges"] = new A
 
 export const generateUserPostsData: UserPostsQuery["user"]["posts"] = {
   edges: generateUserPosts,
+  pageInfo: pageInfoData()
+};
+
+export const generateFollowing: FollowingQuery["following"] = {
+  edges: [
+    {
+      node: {
+        followingUser: userData()
+      }
+    }
+  ],
+  pageInfo: pageInfoData()
+};
+
+export const generateFollower: FollowersQuery["follower"] = {
+  edges: [
+    {
+      node: {
+        followedUser: userData()
+      }
+    }
+  ],
   pageInfo: pageInfoData()
 };

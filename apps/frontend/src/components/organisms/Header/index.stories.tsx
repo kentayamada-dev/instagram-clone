@@ -7,7 +7,7 @@ export default {
     (Story): JSX.Element => (
       <div
         style={{
-          height: 60
+          minHeight: "60px"
         }}
       >
         {Story()}

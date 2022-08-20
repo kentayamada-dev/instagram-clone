@@ -19,7 +19,6 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
 
   React.useEffect(() => {
-    // eslint-disable-next-line no-void
     void (async (): Promise<void> => {
       if (currentUser === null) {
         await mutateCurrentUser();

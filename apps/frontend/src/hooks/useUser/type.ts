@@ -8,7 +8,7 @@ type UseUserReturnType = {
 
 type UseUserProps = {
   fallbackData?: UserQuery;
-  userId: string;
+  userId: string | undefined;
 };
 
 export type UseUserType = (props: UseUserProps) => UseUserReturnType;

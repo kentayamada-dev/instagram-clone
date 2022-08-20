@@ -10,7 +10,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  DateTime: any;
+  DateTime: string;
 };
 
 export type CurrentUserModel = {
@@ -427,6 +427,18 @@ export type CurrentUserQuery = {
   };
 };
 
+export type FollowMutationVariables = Exact<{
+  followInput: FollowInput;
+}>;
+
+export type FollowMutation = { __typename?: "Mutation"; follow: { __typename?: "FollowingModel"; id: string } };
+
+export type UnfollowMutationVariables = Exact<{
+  followInput: FollowInput;
+}>;
+
+export type UnfollowMutation = { __typename?: "Mutation"; unfollow: { __typename?: "FollowingModel"; id: string } };
+
 export type FollowersQueryVariables = Exact<{
   userId: Scalars["String"];
   first?: InputMaybe<Scalars["Float"]>;
@@ -469,18 +481,6 @@ export type FollowingQuery = {
   };
 };
 
-export type FollowMutationVariables = Exact<{
-  followInput: FollowInput;
-}>;
-
-export type FollowMutation = { __typename?: "Mutation"; follow: { __typename?: "FollowingModel"; id: string } };
-
-export type UnfollowMutationVariables = Exact<{
-  followInput: FollowInput;
-}>;
-
-export type UnfollowMutation = { __typename?: "Mutation"; unfollow: { __typename?: "FollowingModel"; id: string } };
-
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
@@ -503,7 +503,7 @@ export type PostQuery = {
     __typename?: "PostModel";
     id: string;
     caption?: string | null;
-    createdAt: any;
+    createdAt: string;
     imageUrl: string;
     user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
   };
@@ -515,7 +515,7 @@ export type UploadMutationVariables = Exact<{
 
 export type UploadMutation = {
   __typename?: "Mutation";
-  upload: { __typename?: "PostModel"; id: string; caption?: string | null; createdAt: any; imageUrl: string };
+  upload: { __typename?: "PostModel"; id: string; caption?: string | null; createdAt: string; imageUrl: string };
 };
 
 export type PostsIdAndUsersIdQueryVariables = Exact<{ [key: string]: never }>;
@@ -531,7 +531,7 @@ export type PostsIdAndUsersIdUpdatedAtQuery = {
   __typename?: "Query";
   posts: {
     __typename?: "PaginatedPostsModel";
-    nodes: Array<{ __typename?: "PostModel"; id: string; userId: string; updatedAt: any }>;
+    nodes: Array<{ __typename?: "PostModel"; id: string; userId: string; updatedAt: string }>;
   };
 };
 
@@ -552,7 +552,7 @@ export type PostsQuery = {
         id: string;
         caption?: string | null;
         imageUrl: string;
-        createdAt: any;
+        createdAt: string;
         user: { __typename?: "UserModelBase"; id: string; name: string; imageUrl: string };
       };
     }>;

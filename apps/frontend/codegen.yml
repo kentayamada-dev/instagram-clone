@@ -5,3 +5,7 @@ generates:
     plugins:
       - typescript
       - typescript-operations
+config:
+  strictScalars: true
+  scalars:
+    DateTime: string

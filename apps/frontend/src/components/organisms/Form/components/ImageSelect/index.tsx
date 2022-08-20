@@ -1,4 +1,4 @@
-import { Avatar, AvatarBadge, FormControl, FormErrorMessage, InputGroup } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, FormControl, FormErrorMessage, Input, InputGroup } from "@chakra-ui/react";
 import React from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import { constants } from "../../../../../constants";
@@ -22,9 +22,9 @@ export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, se
   );
 
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { ref, onChange, ...rest } = register("file");
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const handleImageChange: React.ComponentProps<typeof Input>["onChange"] = async (event) => {
     const { files } = event.target;
     try {
       const { blobUrl, file } = await getBlobUrlAndFile({
@@ -55,13 +55,11 @@ export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, se
   return (
     <FormControl isInvalid={Boolean(errorMessage)}>
       <InputGroup justifyContent="center" onClick={handleClick}>
-        <input
+        <Input
           accept="image/*"
           hidden
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onChange={handleImageChange}
           type="file"
-          // eslint-disable-next-line react/jsx-props-no-spreading
           {...rest}
           ref={(element): void => {
             ref(element);

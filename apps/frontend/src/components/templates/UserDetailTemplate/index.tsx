@@ -17,22 +17,17 @@ const {
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
-  const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : null;
-  const { user } = useUser({
-    fallbackData: data,
-    userId: userId ?? ""
-  });
+  // eslint-disable-next-line no-undefined
+  const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : undefined;
+  const { user } = useUser({ fallbackData: data, userId });
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
-  const { userPosts, handleMoreUserPosts, mutateUserPosts } = useUserPosts({
-    userId: userId ?? ""
-  });
+  const { userPosts, handleMoreUserPosts, mutateUserPosts } = useUserPosts({ userId });
   const isPostsThere = Boolean(userPosts?.edges && userPosts.edges.length > 0);
 
   React.useEffect(() => {
     if (userId && !userPosts && !isInitialDataFetched) {
       setIsInitialDataFetched(true);
-      // eslint-disable-next-line no-void
       void (async (): Promise<void> => {
         await mutateUserPosts();
       })();
@@ -101,7 +96,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
           overflow: isPostsThere ? "auto" : "none"
         }}
       >
-        <PostsList posts={userPosts?.edges} userId={userId ?? ""} />
+        <PostsList posts={userPosts?.edges} userId={userId} />
       </InfiniteScroll>
     </VStack>
   );

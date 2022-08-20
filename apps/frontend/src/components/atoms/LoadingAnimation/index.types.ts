@@ -1,1 +1,5 @@
-export type LoadingAnimationType = () => JSX.Element;
+type LoadingAnimationProps = {
+  size?: number;
+};
+
+export type LoadingAnimationType = (props: LoadingAnimationProps) => JSX.Element;

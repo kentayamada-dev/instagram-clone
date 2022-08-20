@@ -169,7 +169,7 @@ export class FollowResolver {
   protected async follow(
     @CurrentUser() currentUser: JwtPayload,
     @Args("followInput") followInput: FollowInput,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<FollowingModel> {
     let followData: FollowingModel | null = null;
@@ -227,7 +227,7 @@ export class FollowResolver {
   protected async unfollow(
     @CurrentUser() currentUser: JwtPayload,
     @Args("followInput") followInput: FollowInput,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<FollowingModel> {
     let followData: FollowingModel | null = null;

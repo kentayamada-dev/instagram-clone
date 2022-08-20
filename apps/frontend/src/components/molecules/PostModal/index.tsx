@@ -22,27 +22,27 @@ import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { PostModalType } from "./index.types";
 
 export const PostModal: PostModalType = ({
-  isOpen,
-  handleClose,
-  imagePreviewSrc,
+  isPostModalOpen,
+  handleClosePostModal,
+  imageSrc,
   currentUserName,
   currentUserAvatarUrl,
   handleChangeCaption,
   handleChangeImage,
-  handleCancel,
-  handleSubmit,
-  isLoading,
+  handleCancelPost,
+  handleSubmitPost,
+  isPostLoading,
   caption
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const handleClick = (): void => {
     inputRef.current?.click();
   };
-  const isImageSelected = Boolean(imagePreviewSrc);
+  const isImageSelected = Boolean(imageSrc);
   const { t } = useTranslation("common");
 
   return (
-    <Modal isCentered isOpen={isOpen} onClose={handleClose} variant="usersList">
+    <Modal isCentered isOpen={isPostModalOpen} onClose={handleClosePostModal} variant="usersList">
       <ModalOverlay />
       <ModalContent
         minH={{
@@ -56,15 +56,9 @@ export const PostModal: PostModalType = ({
       >
         <ModalHeader>
           <HStack justify="space-between">
-            <IconButton aria-label="Cancel Post" icon={<ImCross />} onClick={handleCancel} />
+            <IconButton aria-label="Cancel Post" icon={<ImCross />} onClick={handleCancelPost} />
             <Text>{t("createNewPost")}</Text>
-            <Button
-              aria-label="Share"
-              isLoading={isLoading}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={handleSubmit}
-              variant="primary"
-            >
+            <Button aria-label="Share" isLoading={isPostLoading} onClick={handleSubmitPost} variant="primary">
               {t("share")}
             </Button>
           </HStack>
@@ -79,17 +73,10 @@ export const PostModal: PostModalType = ({
               w="400px"
             >
               {isImageSelected ? (
-                <Image h="100%" objectFit="cover" src={imagePreviewSrc} w="100%" />
+                <Image h="100%" objectFit="cover" src={imageSrc} w="100%" />
               ) : (
                 <VStack>
-                  <Input
-                    accept="image/*"
-                    hidden
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onChange={handleChangeImage}
-                    ref={inputRef}
-                    type="file"
-                  />
+                  <Input accept="image/*" hidden onChange={handleChangeImage} ref={inputRef} type="file" />
                   <Button onClick={handleClick} variant="primary">
                     {t("selectPhoto")}
                   </Button>

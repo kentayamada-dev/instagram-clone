@@ -26,7 +26,6 @@ const Signup: NextPageWithLayout = () => {
   }
 
   if (currentUser) {
-    // eslint-disable-next-line no-void
     void router.replace("/");
 
     return null;

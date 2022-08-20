@@ -1,15 +1,10 @@
-type PostModalProps = {
-  caption: string;
-  currentUserAvatarUrl: string | undefined;
-  currentUserName: string | undefined;
-  handleCancel: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleChangeCaption: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleChangeImage: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-  handleClose: () => void;
-  handleSubmit: () => Promise<void>;
-  imagePreviewSrc: string;
-  isLoading: boolean;
-  isOpen: boolean;
-};
+import type { UseHeaderReturnType } from "../../../hooks/useHeader/type";
+import type { UsePostReturnType } from "../../../hooks/usePost/type";
+
+type PostModalProps = Pick<UseHeaderReturnType, "handleClosePostModal" | "isPostModalOpen"> &
+  UsePostReturnType & {
+    currentUserAvatarUrl: string | undefined;
+    currentUserName: string | undefined;
+  };
 
 export type PostModalType = (props: PostModalProps) => JSX.Element;

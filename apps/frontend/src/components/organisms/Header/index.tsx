@@ -8,7 +8,7 @@ import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import { useHeader } from "../../../hooks/useHeader";
 import { usePost } from "../../../hooks/usePost";
 import { useLocale } from "../../../libs/next_router";
-import { AvatarPopover } from "../../molecules/AvatarPopover";
+import { AvatarLogoutPopover } from "../../molecules/AvatarLogoutPopover";
 import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import { PostModal } from "../../molecules/PostModal";
@@ -33,15 +33,7 @@ export const Header: HeaderType = () => {
     handleLogout
   } = useHeader();
 
-  const {
-    caption,
-    handleCancelPost,
-    handleChangeCaption,
-    handleChangeImage,
-    handleSubmitPost,
-    imageSrc,
-    isPostLoading
-  } = usePost({ handleClosePostModal });
+  const { ...usePostValues } = usePost({ handleClosePostModal });
 
   const { currentUser } = useCurrentUser();
   const isAuthenticated = Boolean(currentUser);
@@ -92,17 +84,9 @@ export const Header: HeaderType = () => {
         <Flex align="center" gap={5}>
           {isAuthenticated ? (
             <>
-              <IconButton
-                aria-label="Post"
-                icon={<VscAdd />}
-                minH="48px"
-                minW="48px"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleOpenPostModal}
-              />
-              <AvatarPopover
+              <IconButton aria-label="Post" icon={<VscAdd />} minH="48px" minW="48px" onClick={handleOpenPostModal} />
+              <AvatarLogoutPopover
                 alt="Avatar Image"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 handleLogout={handleLogout}
                 size={35}
                 src={currentUser?.imageUrl}
@@ -114,13 +98,7 @@ export const Header: HeaderType = () => {
               base: isAuthenticated ? "none" : "contents"
             }}
           >
-            <Button
-              aria-label="Toggle Language Mode"
-              minH="48px"
-              minW="48px"
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={handleChangeLocale}
-            >
+            <Button aria-label="Toggle Language Mode" minH="48px" minW="48px" onClick={handleChangeLocale}>
               {localeJa}
             </Button>
             <IconButton
@@ -187,17 +165,11 @@ export const Header: HeaderType = () => {
         isDrawerOpen={isDrawerOpen}
       />
       <PostModal
-        caption={caption}
+        {...usePostValues}
         currentUserAvatarUrl={currentUser?.imageUrl}
         currentUserName={currentUser?.name}
-        handleCancel={handleCancelPost}
-        handleChangeCaption={handleChangeCaption}
-        handleChangeImage={handleChangeImage}
-        handleClose={handleClosePostModal}
-        handleSubmit={handleSubmitPost}
-        imagePreviewSrc={imageSrc}
-        isLoading={isPostLoading}
-        isOpen={isPostModalOpen}
+        handleClosePostModal={handleClosePostModal}
+        isPostModalOpen={isPostModalOpen}
       />
     </>
   );

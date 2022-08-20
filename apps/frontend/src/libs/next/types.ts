@@ -2,6 +2,7 @@
 import type { NextPage } from "next";
 import type { SSRConfig } from "next-i18next";
 import type { AppProps } from "next/app";
+import type NextImage from "next/image";
 
 type MyPageProps<T = {}> = Partial<SSRConfig & T>;
 
@@ -23,3 +24,7 @@ export type MyPathsType<T> = {
   locale: "en" | "ja";
   params: T;
 };
+
+type NextImageProps = React.ComponentProps<typeof NextImage>;
+
+export type NextImageAltSrc = Pick<NextImageProps, "alt" | "src">;

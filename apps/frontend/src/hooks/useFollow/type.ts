@@ -6,8 +6,12 @@ type HandleFollowProps = FollowMutationVariables & {
 
 export type HandleFollowType = (props: HandleFollowProps) => Promise<void>;
 
+export type FollowStateType = "follow" | "unfollow" | null;
+
+export type GetFollowStateType = (followingUserId: string | undefined) => FollowStateType;
+
 export type UseFollowReturnType = {
-  getFollowState: (followingUserId: string | undefined) => "follow" | "unfollow" | null;
+  getFollowState: GetFollowStateType;
   handleFollow: HandleFollowType;
 };
 
@@ -16,7 +20,5 @@ type UseFollowProps = {
 };
 
 export type UseFollowType = (props: UseFollowProps) => UseFollowReturnType;
-
-export type GetFollowStateType = (followingUserId: string | undefined) => "follow" | "unfollow" | null;
 
 export type GetFollowingUserExistenceType = (id: string) => boolean;

@@ -74,7 +74,6 @@ export const Combobox: ComboboxType = () => {
       if (newSelectedItem?.id) {
         closeMenu();
         ref.current?.blur();
-        // eslint-disable-next-line no-void
         void router.push(`/${newSelectedItem.id}/`);
       }
     },

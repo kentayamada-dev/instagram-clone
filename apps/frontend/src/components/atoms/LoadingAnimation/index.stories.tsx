@@ -6,4 +6,8 @@ export default {
   title: "atoms/Loading Animation"
 } as ComponentMeta<typeof LoadingAnimation>;
 
-export const loadingAnimation: ComponentStoryObj<typeof LoadingAnimation> = {};
+export const loadingAnimation: ComponentStoryObj<typeof LoadingAnimation> = {
+  args: {
+    size: 200
+  }
+};

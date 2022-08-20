@@ -1,5 +1,5 @@
 import { Box, useColorMode } from "@chakra-ui/react";
-import Image from "next/image";
+import NextImage from "next/image";
 import type { ImageColorModeType } from "./index.types";
 
 export const ImageColorMode: ImageColorModeType = ({ height, width, darkImg, lightImg }) => {
@@ -8,7 +8,7 @@ export const ImageColorMode: ImageColorModeType = ({ height, width, darkImg, lig
   return (
     <Box h={height} pos="relative" w={width}>
       <Box alignItems="center" display="flex" h="inherit" justifyContent="center" pos="absolute">
-        <Image
+        <NextImage
           alt={lightImg.alt}
           height={height}
           hidden={colorMode === "light"}
@@ -19,7 +19,7 @@ export const ImageColorMode: ImageColorModeType = ({ height, width, darkImg, lig
         />
       </Box>
       <Box alignItems="center" display="flex" h="inherit" justifyContent="center" pos="absolute">
-        <Image
+        <NextImage
           alt={darkImg.alt}
           height={height}
           hidden={colorMode === "dark"}

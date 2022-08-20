@@ -1,9 +1,9 @@
 import { Popover, PopoverTrigger, Button, PopoverContent, PopoverArrow } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
-import type { AvatarPopoverType } from "./index.types";
+import type { AvatarLogoutPopoverType } from "./index.types";
 
-export const AvatarPopover: AvatarPopoverType = ({ handleLogout, alt, src, size }) => {
+export const AvatarLogoutPopover: AvatarLogoutPopoverType = ({ handleLogout, alt, src, size }) => {
   const { t } = useTranslation("common");
 
   return (

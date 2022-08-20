@@ -15,9 +15,11 @@ import {
   VStack
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import React from "react";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useCurrentUser } from "../../../../../hooks/useCurrentUser";
 import { useFollow } from "../../../../../hooks/useFollow";
 import { useFollowers } from "../../../../../hooks/useFollowers";
 import { useFollowing } from "../../../../../hooks/useFollowing";
@@ -32,13 +34,14 @@ export const Stats: StatsType = ({
   width = "100%",
   userId
 }) => {
+  const { currentUser } = useCurrentUser();
   const { handleFollow, getFollowState } = useFollow({ userId });
   const { t } = useTranslation("common");
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const { isOpen, onOpen, onClose: handleClose } = useDisclosure();
-  const [isFollowing, setIsFollowing] = React.useState(true);
+  const [isFollowingState, setIsFollowingState] = React.useState(true);
   const useFollowState = <T, U>(followersValue: T, followingValue: U): T | U =>
-    isFollowing ? followingValue : followersValue;
+    isFollowingState ? followingValue : followersValue;
   const { followers, handleMoreFollowers, mutateFollowers } = useFollowers({ userId });
   const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId });
   const usersEdge = useFollowState(followers?.edges, following?.edges);
@@ -47,20 +50,19 @@ export const Stats: StatsType = ({
   const dataLength = useFollowState(followers?.edges.length, following?.edges.length) ?? 0;
   const hasMore = useFollowState(followers?.pageInfo.hasNextPage, following?.pageInfo.hasNextPage) ?? false;
   const next = useFollowState(handleMoreFollowers, handleMoreFollowing);
-  const handleOpenFollowers = (): void => {
-    setIsFollowing(false);
-    onOpen();
-  };
-
-  const handleOpenFollowing = (): void => {
-    setIsFollowing(true);
-    onOpen();
+  const router = useRouter();
+  const handleOpenFollow = (isFollowing: boolean) => () => {
+    if (currentUser) {
+      setIsFollowingState(isFollowing);
+      onOpen();
+    } else {
+      void router.push("/");
+    }
   };
 
   React.useEffect(() => {
     if (!isInitialDataFetched && userId) {
       setIsInitialDataFetched(true);
-      // eslint-disable-next-line no-void
       void (async (): Promise<void> => {
         if (!following) {
           await mutateFollowing();
@@ -82,7 +84,7 @@ export const Stats: StatsType = ({
               _hover={{
                 cursor: "pointer"
               }}
-              onClick={handleOpenFollowers}
+              onClick={handleOpenFollow(false)}
             >
               {t("followersCount", { count: followersNumber })}
             </Text>
@@ -90,7 +92,7 @@ export const Stats: StatsType = ({
               _hover={{
                 cursor: "pointer"
               }}
-              onClick={handleOpenFollowing}
+              onClick={handleOpenFollow(true)}
             >
               {t("followingCount", { count: followingNumber })}
             </Text>

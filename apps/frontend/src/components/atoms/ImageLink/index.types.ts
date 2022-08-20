@@ -1,6 +1,6 @@
-import type { ImageProps } from "next/image";
+import type { NextImageAltSrc } from "../../../libs/next/types";
 
-export type ImageLinkProps = Pick<ImageProps, "alt" | "src"> & {
+export type ImageLinkProps = NextImageAltSrc & {
   height: number;
   href: string;
   width: number;

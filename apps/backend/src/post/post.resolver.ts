@@ -120,7 +120,7 @@ export class PostResolver {
   protected async upload(
     @CurrentUser() currentUser: JwtPayload,
     @Args("uploadInput") uploadInput: UploadInput,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<PostModel> {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment */

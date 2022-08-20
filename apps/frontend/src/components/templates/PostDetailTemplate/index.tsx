@@ -1,65 +1,75 @@
-import { Box, HStack, VStack, Text, useColorModeValue } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Center, SimpleGrid, useColorModeValue, Text, VStack, Show, Hide, Flex } from "@chakra-ui/react";
+import NextImage from "next/image";
+import { useRouter } from "next/router";
 import { constants } from "../../../constants";
-import { StyledAvatar } from "../../atoms/StyledAvatar";
-import { TextLink } from "../../atoms/TextLink";
+import { getDateTime } from "../../../libs/date_fns";
+import { CommentCard } from "../../molecules/CommentCard";
+import { UserCard } from "../../molecules/userCard";
 import type { PostDetailTemplateType } from "./index.types";
 
 const {
-  COLORS: { BLACK_PEARL, WHITE, EBONY }
+  COLORS: { GAINSBORO, BLACK_PEARL, WHITE, EBONY, SUVA_GREY }
 } = constants;
 
 export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
+  const borderColor = useColorModeValue(GAINSBORO, BLACK_PEARL);
   const bgColor = useColorModeValue(WHITE, EBONY);
-  const borderColor = useColorModeValue("", BLACK_PEARL);
+  const router = useRouter();
+  const { locale } = router;
 
   return (
-    <VStack
-      mb="auto"
-      ml="auto"
-      mr="auto"
-      mt={{
-        base: "0px",
-        sm: "auto"
-      }}
-      w={{
-        base: "100%",
-        sm: "450px"
-      }}
-    >
-      <Box
-        bgColor={{
-          base: "inherit",
-          sm: bgColor
-        }}
-        borderColor={borderColor}
-        borderWidth={{
-          base: "0px",
-          sm: "1px"
-        }}
-        w="100%"
+    <Box margin="0 auto" pb="30px" pt={{ base: 0, md: "30px" }} w={{ base: "100%", md: "inherit" }}>
+      <SimpleGrid
+        bgColor={bgColor}
+        border={`${borderColor} solid 1px`}
+        columns={{ base: 1, md: 2 }}
+        h={{ base: "100%", md: "530px" }}
+        w={{ lg: "900px", md: "700px", sm: "100%" }}
       >
-        <HStack p="3" w="100%">
-          <StyledAvatar alt="Avatar Image" size={35} src={data.user.imageUrl} />
-          <TextLink fontWeight="semibold" href={`/${data.user.id}`} text={data.user.name} />
-        </HStack>
-        <Box
-          h={{
-            base: "300px",
-            md: "500px"
-          }}
-          pos="relative"
-          w="100%"
-        >
-          <Image alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={data.imageUrl} />
+        <Show below="md">
+          <UserCard
+            shouldUserNameHidden
+            size={35}
+            src={data.user.imageUrl}
+            userId={data.user.id}
+            userName={data.user.name}
+          />
+        </Show>
+        <Box minH="400px" pos="relative">
+          <NextImage alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={data.imageUrl} />
         </Box>
-        {data.caption !== null && (
-          <HStack p="3" w="100%">
-            <Text fontWeight="bold">{data.user.name}</Text>
-            <Text noOfLines={1}>{data.caption}</Text>
-          </HStack>
-        )}
-      </Box>
-    </VStack>
+        <Flex flexDir="column" justify="space-between" minH="200px">
+          <Box>
+            <Hide below="md">
+              <UserCard
+                shouldUserNameHidden
+                size={35}
+                src={data.user.imageUrl}
+                userId={data.user.id}
+                userName={data.user.name}
+              />
+            </Hide>
+            {data.caption === null ? (
+              <Center pt={{ base: "50px", md: "100px" }}>
+                <VStack>
+                  <Text>No comments yet.</Text>
+                  <Text>Start the conversation.</Text>
+                </VStack>
+              </Center>
+            ) : (
+              <CommentCard
+                comment={data.caption}
+                src={data.user.imageUrl}
+                userId={data.user.id}
+                userName={data.user.name}
+              />
+            )}
+          </Box>
+          <Text color={SUVA_GREY} fontSize="sm" p="10px">
+            {getDateTime(data.createdAt, locale)}
+          </Text>
+        </Flex>
+      </SimpleGrid>
+    </Box>
   );
 };

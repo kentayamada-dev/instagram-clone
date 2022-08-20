@@ -3,7 +3,7 @@ import { USER_QUERY } from "./schema";
 import type { UserQuery, UserQueryVariables } from "../../generated";
 import type { UseUserType } from "./type";
 
-export const useUser: UseUserType = ({ userId, fallbackData }) => {
+export const useUser: UseUserType = ({ userId = "", fallbackData }) => {
   const args: UserQueryVariables = {
     userId
   };

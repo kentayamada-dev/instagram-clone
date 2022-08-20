@@ -1,8 +1,8 @@
 import { graphql } from "msw";
-import { generateUserData, generateUserPostsData } from "../../../libs/faker";
+import { generateFollower, generateFollowing, generateUserData, generateUserPostsData } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { UserDetailTemplate } from ".";
-import type { UserPostsQuery } from "../../../generated";
+import type { FollowersQuery, FollowingQuery, UserPostsQuery } from "../../../generated";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 export default {
@@ -19,6 +19,26 @@ export default {
                 user: {
                   posts: generateUserPostsData
                 }
+              })
+            )
+          // eslint-disable-next-line function-paren-newline
+        ),
+        graphql.query<FollowingQuery>(
+          "Following",
+          (_req, res, ctx) =>
+            res(
+              ctx.data({
+                following: generateFollowing
+              })
+            )
+          // eslint-disable-next-line function-paren-newline
+        ),
+        graphql.query<FollowersQuery>(
+          "Followers",
+          (_req, res, ctx) =>
+            res(
+              ctx.data({
+                follower: generateFollower
               })
             )
           // eslint-disable-next-line function-paren-newline

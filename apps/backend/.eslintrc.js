@@ -29,12 +29,6 @@ module.exports = {
     "max-lines": "off",
     "new-cap": "off",
     "no-confusing-arrow": "off",
-    "no-void": [
-      "error",
-      {
-        allowAsStatement: true
-      }
-    ],
     "padding-line-between-statements": [
       "error",
       {
@@ -90,15 +84,6 @@ module.exports = {
         allowLiterals: "never",
         allowMappedTypes: "always",
         allowTupleTypes: "never"
-      }
-    ],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        args: "all",
-        argsIgnorePattern: "^_",
-        ignoreRestSiblings: true,
-        vars: "all"
       }
     ],
     "@typescript-eslint/parameter-properties": [
