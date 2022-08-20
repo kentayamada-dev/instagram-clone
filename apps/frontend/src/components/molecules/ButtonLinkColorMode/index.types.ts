@@ -1,8 +1,8 @@
-import type { ImageColorModeProps } from "../../atoms/ImageColorMode/index.types";
+import type { ImageColorModePropsType } from "../../atoms/ImageColorMode/index.types";
 
-type ButtonLinkColorModeProps = ImageColorModeProps & {
+type ButtonLinkColorModePropsType = ImageColorModePropsType & {
   href: string;
   isExternal?: boolean;
 };
 
-export type ButtonLinkColorModeType = (props: ButtonLinkColorModeProps) => JSX.Element;
+export type ButtonLinkColorModeType = (props: ButtonLinkColorModePropsType) => JSX.Element;

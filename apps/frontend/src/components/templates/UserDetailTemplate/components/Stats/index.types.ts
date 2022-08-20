@@ -1,6 +1,6 @@
 import type { Flex } from "@chakra-ui/react";
 
-type StatsProps = {
+type StatsPropsType = {
   followersNumber: number | null;
   followingNumber: number | null;
   justifyContent?: React.ComponentProps<typeof Flex>["justifyContent"];
@@ -9,4 +9,4 @@ type StatsProps = {
   width?: React.ComponentProps<typeof Flex>["width"];
 };
 
-export type StatsType = (props: StatsProps) => JSX.Element;
+export type StatsType = (props: StatsPropsType) => JSX.Element;

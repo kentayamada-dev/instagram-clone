@@ -1,23 +1,23 @@
 import type { UseFollowReturnType } from "../../../hooks/useFollow/type";
 import type { NeverType } from "../../../types";
-import type { StyledAvatarProps } from "../../atoms/StyledAvatar/index.types";
+import type { StyledAvatarPropsType } from "../../atoms/StyledAvatar/index.types";
 
-type UserCardBaseProps = Partial<
-  Pick<StyledAvatarProps, "src"> & {
+type UserCardBasePropsType = Partial<
+  Pick<StyledAvatarPropsType, "src"> & {
     isLink: boolean;
     shouldUserNameHidden: boolean;
     userId: string | undefined;
     userName: string | undefined;
   }
 > &
-  Pick<StyledAvatarProps, "size">;
+  Pick<StyledAvatarPropsType, "size">;
 
-type FollowProps = UseFollowReturnType;
+type FollowPropsType = UseFollowReturnType;
 
-type UserCardDefaultProps = NeverType<FollowProps> & UserCardBaseProps;
+type UserCardDefaultPropsType = NeverType<FollowPropsType> & UserCardBasePropsType;
 
-export type UserCardFollowProps = FollowProps & UserCardBaseProps;
+export type UserCardFollowPropsType = FollowPropsType & UserCardBasePropsType;
 
-export type UserCardProps = UserCardDefaultProps | UserCardFollowProps;
+export type UserCardPropsType = UserCardDefaultPropsType | UserCardFollowPropsType;
 
-export type UserCardType = (props: UserCardProps) => JSX.Element;
+export type UserCardType = (props: UserCardPropsType) => JSX.Element;

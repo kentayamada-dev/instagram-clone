@@ -41,7 +41,10 @@ export const Form: FormType = ({ isSignup }) => {
     formState: { errors, isSubmitting }
   } = useMyForm({ isSignup });
   const { t } = useTranslation("form");
-  const getValueByAuthMode = <T, U>(valueT: T, valueU: U): T | U => (isSignup ? valueT : valueU);
+  const getValueByAuthMode = <SignupValueType, LoginValueType>(
+    signupValue: SignupValueType,
+    loginValue: LoginValueType
+  ): LoginValueType | SignupValueType => (isSignup ? signupValue : loginValue);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
   const darkImg = {

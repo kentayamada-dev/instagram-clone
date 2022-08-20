@@ -1,10 +1,10 @@
 import type { ColorProps, TypographyProps } from "@chakra-ui/react";
 
-type TextLinkProps = ColorProps &
+type TextLinkPropsType = ColorProps &
   TypographyProps & {
     href: string;
     isVisibleUnderline?: boolean;
     text: string;
   };
 
-export type TextLinkType = (props: TextLinkProps) => JSX.Element;
+export type TextLinkType = (props: TextLinkPropsType) => JSX.Element;

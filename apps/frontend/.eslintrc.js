@@ -90,7 +90,7 @@ module.exports = {
       {
         custom: {
           match: true,
-          regex: "^(T|U)$|(Type|Props)$"
+          regex: "Type$"
         },
         format: ["PascalCase"],
         selector: "typeLike"

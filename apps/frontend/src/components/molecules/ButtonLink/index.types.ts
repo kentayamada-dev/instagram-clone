@@ -1,7 +1,7 @@
-import type { ImageLinkProps } from "../../atoms/ImageLink/index.types";
+import type { ImageLinkPropsType } from "../../atoms/ImageLink/index.types";
 
-type ButtonLinkProps = ImageLinkProps & {
+type ButtonLinkPropsType = ImageLinkPropsType & {
   isExternal?: boolean;
 };
 
-export type ButtonLinkType = (props: ButtonLinkProps) => JSX.Element;
+export type ButtonLinkType = (props: ButtonLinkPropsType) => JSX.Element;

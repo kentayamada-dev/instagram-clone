@@ -1,5 +1,5 @@
-export type FormProps = {
+export type FormPropsType = {
   isSignup: boolean;
 };
 
-export type FormType = (props: FormProps) => JSX.Element;
+export type FormType = (props: FormPropsType) => JSX.Element;

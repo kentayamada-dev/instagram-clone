@@ -1,3 +1,3 @@
-import type { FormProps } from "../../organisms/Form/index.types";
+import type { FormPropsType } from "../../organisms/Form/index.types";
 
-export type AuthTemplateType = (props: FormProps) => JSX.Element;
+export type AuthTemplateType = (props: FormPropsType) => JSX.Element;

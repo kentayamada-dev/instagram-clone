@@ -1,17 +1,17 @@
 import type { UsersQuery } from "../../../generated";
 import type { NeverType } from "../../../types";
-import type { UserCardFollowProps } from "../../molecules/userCard/index.types";
+import type { UserCardFollowPropsType } from "../../molecules/userCard/index.types";
 
-type UserCardPropsType = Pick<UserCardFollowProps, "getFollowState" | "handleFollow" | "isLink">;
+type UserCardPropsType = Pick<UserCardFollowPropsType, "getFollowState" | "handleFollow" | "isLink">;
 
-type UsersBaseProps = {
+type UsersBasePropsType = {
   usersEdge: UsersQuery["users"]["edges"] | undefined;
 };
 
-type UsersDefaultProps = NeverType<UserCardPropsType> & UsersBaseProps;
+type UsersDefaultPropsType = NeverType<UserCardPropsType> & UsersBasePropsType;
 
-type UsersFollowListProps = UserCardPropsType & UsersBaseProps;
+type UsersFollowListPropsType = UserCardPropsType & UsersBasePropsType;
 
-type UsersListProps = UsersDefaultProps | UsersFollowListProps;
+type UsersListPropsType = UsersDefaultPropsType | UsersFollowListPropsType;
 
-export type UsersListType = (props: UsersListProps) => JSX.Element;
+export type UsersListType = (props: UsersListPropsType) => JSX.Element;

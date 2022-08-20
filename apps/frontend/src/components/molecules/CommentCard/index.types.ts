@@ -1,10 +1,10 @@
-import type { StyledAvatarProps } from "../../atoms/StyledAvatar/index.types";
-import type { CommentProps } from "./components/Comment/index.types";
+import type { StyledAvatarPropsType } from "../../atoms/StyledAvatar/index.types";
+import type { CommentPropsType } from "./components/Comment/index.types";
 
-type CommentCardProps = CommentProps &
-  Pick<StyledAvatarProps, "src"> & {
+type CommentCardPropsType = CommentPropsType &
+  Pick<StyledAvatarPropsType, "src"> & {
     userId: string | undefined;
     userName: string | undefined;
   };
 
-export type CommentCardType = (props: CommentCardProps) => JSX.Element;
+export type CommentCardType = (props: CommentCardPropsType) => JSX.Element;

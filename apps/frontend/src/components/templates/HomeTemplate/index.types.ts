@@ -1,7 +1,7 @@
 import type { CurrentUserQuery } from "../../../generated";
 
-type HomeTemplateProps = {
+type HomeTemplatePropsType = {
   currentUser: CurrentUserQuery["currentUser"];
 };
 
-export type HomeTemplateType = (props: HomeTemplateProps) => JSX.Element;
+export type HomeTemplateType = (props: HomeTemplatePropsType) => JSX.Element;

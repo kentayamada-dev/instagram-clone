@@ -40,8 +40,10 @@ export const Stats: StatsType = ({
   const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
   const { isOpen, onOpen, onClose: handleClose } = useDisclosure();
   const [isFollowingState, setIsFollowingState] = React.useState(true);
-  const useFollowState = <T, U>(followersValue: T, followingValue: U): T | U =>
-    isFollowingState ? followingValue : followersValue;
+  const useFollowState = <FollowersValueType, FollowingValueType>(
+    followersValue: FollowersValueType,
+    followingValue: FollowingValueType
+  ): FollowersValueType | FollowingValueType => (isFollowingState ? followingValue : followersValue);
   const { followers, handleMoreFollowers, mutateFollowers } = useFollowers({ userId });
   const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId });
   const usersEdge = useFollowState(followers?.edges, following?.edges);
