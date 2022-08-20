@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import type { PaginationArgs } from "../pagination/pagination.args";
 import type { UploadInput } from "./dto/post.input";
+import type { PostsArgs } from "./dto/posts.args";
 import type { Prisma } from "@prisma/client";
 
 @Injectable()
@@ -29,7 +30,11 @@ export class PostService {
       .then((value) => value[0]?.id);
   }
 
-  public async readPosts<T>(select: Prisma.PostSelect, { first, after }: PaginationArgs, userId: string): Promise<T> {
+  public async readPosts<T>(
+    select: Prisma.PostSelect,
+    { first, after, postIdExcluded }: PostsArgs,
+    userId: string
+  ): Promise<T> {
     return (await this.prismaService.post.findMany({
       ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
@@ -38,7 +43,15 @@ export class PostService {
       select,
       ...(Boolean(first) && { take: first }),
       where: {
-        userId
+        userId,
+        ...(postIdExcluded && {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          NOT: {
+            id: {
+              equals: postIdExcluded
+            }
+          }
+        })
       }
     })) as unknown as T;
   }

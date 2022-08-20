@@ -371,6 +371,7 @@ export type UserModelBaseFollowingArgs = {
 export type UserModelBasePostsArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
+  postIdExcluded?: InputMaybe<Scalars["String"]>;
 };
 
 export type UserModelBaseEdge = {
@@ -444,7 +445,9 @@ export type SignupMutationVariables = Exact<{
 export type SignupMutation = { signup: { id: string } };
 
 export type PostQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Float"]>;
   postId: Scalars["String"];
+  postIdExcluded?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type PostQuery = {
@@ -453,7 +456,12 @@ export type PostQuery = {
     caption?: string | null;
     createdAt: string;
     imageUrl: string;
-    user: { id: string; name: string; imageUrl: string };
+    user: {
+      id: string;
+      name: string;
+      imageUrl: string;
+      posts: { edges: Array<{ node: { id: string; imageUrl: string } }> };
+    };
   };
 };
 

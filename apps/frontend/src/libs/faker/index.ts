@@ -28,12 +28,28 @@ const pageInfoData = (): Omit<PostModelPageInfo, "__typename"> => ({
 
 export const generateUsersData: UsersFilterQuery["users"]["nodes"] = new Array(5).fill(null).map(() => userData());
 
+const generateUserPostData = (index: number): UserPostsQuery["user"]["posts"]["edges"][0] => ({
+  node: {
+    id: faker.datatype.uuid(),
+    imageUrl: `https://picsum.photos/id/${index * 10}/1000/1000`
+  }
+});
+
+export const generateUserPosts: UserPostsQuery["user"]["posts"]["edges"] = new Array(5)
+  .fill(null)
+  .map((_, index) => generateUserPostData(index));
+
 export const generatePostData = (index: number): PostQuery["post"] => ({
   caption: faker.lorem.sentence(),
   createdAt: faker.date.past().toDateString(),
   id: faker.datatype.uuid(),
   imageUrl: `https://picsum.photos/id/${index}/1000/1000`,
-  user: userData()
+  user: {
+    ...userData(),
+    posts: {
+      edges: generateUserPosts
+    }
+  }
 });
 
 const generateAllPostsEdge = (index: number): PostsQuery["posts"]["edges"][0] => ({
@@ -87,17 +103,6 @@ export const generateUserData: UserQuery["user"] = {
   },
   ...userData()
 };
-
-const generateUserPostData = (index: number): UserPostsQuery["user"]["posts"]["edges"][0] => ({
-  node: {
-    id: faker.datatype.uuid(),
-    imageUrl: `https://picsum.photos/id/${index * 10}/1000/1000`
-  }
-});
-
-export const generateUserPosts: UserPostsQuery["user"]["posts"]["edges"] = new Array(5)
-  .fill(null)
-  .map((_, index) => generateUserPostData(index));
 
 export const generateUserPostsData: UserPostsQuery["user"]["posts"] = {
   edges: generateUserPosts,

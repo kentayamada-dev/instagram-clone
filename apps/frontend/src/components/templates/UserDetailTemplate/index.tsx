@@ -1,4 +1,4 @@
-import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner, Show } from "@chakra-ui/react";
+import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner, Show, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -56,7 +56,9 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
           <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.imageUrl} />
         </Center>
         <VStack align="flex-start" spacing="8" w="100%">
-          <Text fontSize="2xl">{user?.id}</Text>
+          <Heading as="h2" fontWeight="normal" size="lg">
+            {user?.id}
+          </Heading>
           <Show above="md">
             <Stats
               followersNumber={user?.follower.totalCount ?? null}
@@ -66,7 +68,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
               width="350px"
             />
           </Show>
-          <Text fontSize="sm" fontWeight="bold" w="50%">
+          <Text fontSize="md" fontWeight="bold" w="50%">
             {user?.name}
           </Text>
         </VStack>

@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
+import type { UsersArgs } from "./dto/users.args";
 import type { Prisma } from "@prisma/client";
 
 @Injectable()
@@ -25,10 +26,25 @@ export class UserService {
   // eslint-disable-next-line max-params
   public async readUsers<T>(
     select: Prisma.UserSelect,
-    first: number | undefined,
-    after: string | undefined,
-    where: Prisma.UserWhereInput | null
+    { after, first, userIdExcluded, userIdQuery }: UsersArgs
   ): Promise<T> {
+    const userWhere: Prisma.UserWhereInput = {
+      ...(userIdQuery && {
+        id: {
+          contains: userIdQuery,
+          mode: "insensitive"
+        }
+      }),
+      ...(userIdExcluded && {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NOT: {
+          id: {
+            equals: userIdExcluded
+          }
+        }
+      })
+    };
+
     return (await this.prismaService.user.findMany({
       ...(after && { cursor: { id: after }, skip: 1 }),
       orderBy: {
@@ -36,7 +52,7 @@ export class UserService {
       },
       select,
       ...(typeof first === "number" && { take: first }),
-      ...(where && { where })
+      ...((userIdExcluded || userIdQuery) && { where: userWhere })
     })) as unknown as T;
   }
 

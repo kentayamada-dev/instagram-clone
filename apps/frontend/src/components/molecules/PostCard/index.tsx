@@ -19,6 +19,7 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
   return (
     <VStack
       align="flex-start"
+      as="article"
       bgColor={bgColor}
       border={`${borderColor} solid 1px`}
       borderRadius="lg"
@@ -47,7 +48,7 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
         )}
         <Box mt="5">
           {createdAt ? (
-            <Text color={SUVA_GREY} fontSize="sm">
+            <Text as="time" color={SUVA_GREY} fontSize="sm">
               {getDateTime(createdAt, locale)}
             </Text>
           ) : (

@@ -9,6 +9,7 @@ import type { PaginatedFollowerModel } from "../follow/models/paginatedFollower.
 import type { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.model";
 import type { PaginationArgs } from "../pagination/pagination.args";
 import type { Edge } from "../pagination/pagination.model";
+import type { PostsArgs } from "../post/dto/posts.args";
 import type { PostModelBase } from "../post/models/base.model";
 import type { PaginatedPostModel } from "../post/models/paginatedBase.model";
 import type { MapObjectPropertyToBoolean } from "../types";
@@ -163,7 +164,7 @@ export class UserCommon {
 
   public async getPaginatedPosts(
     userId: string,
-    paginationArgs: PaginationArgs,
+    postsArgs: PostsArgs,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     fieldMap: any
   ): Promise<PaginatedPostModel> {
@@ -178,7 +179,7 @@ export class UserCommon {
       id: true
     });
 
-    const foundPosts = await this.postService.readPosts<PostModelBase[]>(select, paginationArgs, userId);
+    const foundPosts = await this.postService.readPosts<PostModelBase[]>(select, postsArgs, userId);
     const lastPost = foundPosts.at(-1);
     const nextPostId = lastPost ? await this.postService.readNextPostId(lastPost.id, userId) : null;
 

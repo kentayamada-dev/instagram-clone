@@ -10,6 +10,7 @@ import { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.mod
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
 import { MessageModel } from "../message/message.model";
 import { PaginationArgs } from "../pagination/pagination.args";
+import { PostsArgs } from "../post/dto/posts.args";
 import { PaginatedPostModel } from "../post/models/paginatedBase.model";
 import { LoginInput } from "./dto/login.input";
 import { SignupInput } from "./dto/signup.input";
@@ -52,7 +53,7 @@ export class UserResolver {
 
   @Query(() => PaginatedUserModel, { description: "Get Users" })
   protected async users(
-    @Args() { after, first, userIdExcluded, userIdQuery }: UsersArgs,
+    @Args() usersArgs: UsersArgs,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
     @FieldMap() fieldMap: any
   ): Promise<PaginatedUserModel> {
@@ -88,30 +89,7 @@ export class UserResolver {
       id: true
     });
 
-    function getUserWhereInput(): Prisma.UserWhereInput | null {
-      if (userIdExcluded) {
-        return {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          NOT: {
-            id: {
-              equals: userIdExcluded
-            }
-          }
-        };
-      }
-      if (userIdQuery) {
-        return {
-          id: {
-            contains: userIdQuery,
-            mode: "insensitive"
-          }
-        };
-      }
-
-      return null;
-    }
-
-    const foundUsers = await this.userService.readUsers<UserModelBase[]>(select, first, after, getUserWhereInput());
+    const foundUsers = await this.userService.readUsers<UserModelBase[]>(select, usersArgs);
     const lastUser = foundUsers.at(-1);
     const nextUserId = lastUser ? await this.userService.readNextUserId(lastUser.id) : null;
 
@@ -154,10 +132,10 @@ export class UserResolver {
   @ResolveField(() => PaginatedPostModel, { description: "Get Related Posts" })
   protected async posts(
     @Parent() user: UserModelBase,
-    @Args() paginationArgs: PaginationArgs,
+    @Args() postsArgs: PostsArgs,
     @FieldMap() fieldMap: Record<string, unknown>
   ): Promise<PaginatedPostModel> {
-    return this.userCommon.getPaginatedPosts(user.id, paginationArgs, fieldMap);
+    return this.userCommon.getPaginatedPosts(user.id, postsArgs, fieldMap);
   }
 
   @Mutation(() => UserModelBase, { description: "Signup" })

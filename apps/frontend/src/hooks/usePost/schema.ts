@@ -1,7 +1,7 @@
 import { gql } from "graphql-request";
 
 export const POST_QUERY = gql`
-  query Post($postId: String!) {
+  query Post($first: Float, $postId: String!, $postIdExcluded: String) {
     post(postId: $postId) {
       id
       caption
@@ -11,6 +11,14 @@ export const POST_QUERY = gql`
         id
         name
         imageUrl
+        posts(first: $first, postIdExcluded: $postIdExcluded) {
+          edges {
+            node {
+              id
+              imageUrl
+            }
+          }
+        }
       }
     }
   }

@@ -49,7 +49,11 @@ export const getStaticProps: GetPostStaticPropsType = async ({ params, locale, d
   let data: PostQuery | null = null;
 
   try {
-    data = await fetcher<PostQuery, PostQueryVariables>(POST_QUERY, { postId: params?.postId ?? "" });
+    data = await fetcher<PostQuery, PostQueryVariables>(POST_QUERY, {
+      first: 6,
+      postId: params?.postId ?? "",
+      postIdExcluded: params?.postId ?? ""
+    });
   } catch (error) {
     return {
       notFound: true
@@ -59,7 +63,7 @@ export const getStaticProps: GetPostStaticPropsType = async ({ params, locale, d
   return {
     props: {
       data: data.post,
-      ...(await serverSideTranslations(initialLocale, ["footer", "common"]))
+      ...(await serverSideTranslations(initialLocale, ["footer", "common", "postDetail"]))
     },
     revalidate: 1
   };
