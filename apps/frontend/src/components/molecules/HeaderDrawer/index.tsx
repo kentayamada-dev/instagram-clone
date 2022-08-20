@@ -13,12 +13,13 @@ import {
   useColorModeValue,
   VStack
 } from "@chakra-ui/react";
-import Cookies from "js-cookie";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { constants } from "../../../constants";
+import { changeLocale } from "../../../libs/next_router";
 import { ButtonLink } from "../ButtonLink";
 import { ButtonLinkColorMode } from "../ButtonLinkColorMode";
+import type { LocaleType } from "../../../libs/next/types";
 import type { HeaderDrawerType } from "./index.types";
 
 const {
@@ -28,18 +29,13 @@ const {
 
 export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthenticated, isDrawerOpen }) => {
   const router = useRouter();
-  const { locale, asPath, pathname, query } = router;
+  const { locale } = router;
   const { colorMode, toggleColorMode } = useColorMode();
   const handleColorMode = (): void => toggleColorMode();
   const { t } = useTranslation("common");
   const handleChangeLocale: React.ComponentProps<typeof Select>["onChange"] = (event) => {
-    void (async (): Promise<void> => {
-      const localeValue = event.target.value;
-      Cookies.set("NEXT_LOCALE", localeValue, { path: "/" });
-      await router.push({ pathname, query }, asPath, {
-        locale: localeValue
-      });
-    })();
+    const localeValue = event.target.value as LocaleType;
+    changeLocale(router, localeValue);
   };
   const githubDarkImg = {
     alt: "Github Text Dark",

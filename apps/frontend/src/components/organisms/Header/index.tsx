@@ -34,7 +34,6 @@ export const Header: HeaderType = () => {
   } = useHeader();
 
   const { ...usePostValues } = usePost({ handleClosePostModal });
-
   const { currentUser } = useCurrentUser();
   const isAuthenticated = Boolean(currentUser);
   const bgColor = useColorModeValue(WHITE, EBONY);

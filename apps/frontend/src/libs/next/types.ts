@@ -20,8 +20,10 @@ type MyAppPropsWithLayout = MyAppProps & {
 
 export type MyAppType = (props: MyAppPropsWithLayout) => JSX.Element;
 
+export type LocaleType = "en" | "ja";
+
 export type MyPathsType<T> = {
-  locale: "en" | "ja";
+  locale: LocaleType;
   params: T;
 };
 
