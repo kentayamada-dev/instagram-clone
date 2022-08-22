@@ -43,7 +43,7 @@ export const UserCard: UserCardType = ({
         </Flex>
         <Box w={userIdNameWrapperSize}>
           {userId && userName ? (
-            <VStack align="flex-start" spacing={0} w="100%">
+            <VStack align="flex-start" spacing={0} w="fit-content">
               {isLink ? (
                 <TextLink fontWeight="semibold" href={`/${userId}`} text={userId} />
               ) : (

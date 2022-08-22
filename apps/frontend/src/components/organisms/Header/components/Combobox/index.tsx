@@ -38,7 +38,8 @@ export const Combobox: ComboboxType = () => {
     inputValue,
     openMenu,
     closeMenu,
-    setHighlightedIndex
+    setHighlightedIndex,
+    selectItem
   } = useCombobox({
     id: "search-box",
     itemToString(item) {
@@ -75,6 +76,11 @@ export const Combobox: ComboboxType = () => {
         closeMenu();
         ref.current?.blur();
         void router.push(`/${newSelectedItem.id}/`);
+        selectItem({
+          id: "",
+          imageUrl: "",
+          name: ""
+        });
       }
     },
     stateReducer: (state, actionAndChanges) => {
