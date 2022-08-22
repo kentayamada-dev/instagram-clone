@@ -26,22 +26,16 @@ export const PostsList: PostsListType = ({ posts, userId = "" }) => {
                   boxShadow: `0 3px 10px ${shadowColor}`,
                   transform: "translate(0, -2px)"
                 }}
-                key={post.node.id}
+                key={post.id}
                 paddingTop="100%"
                 pos="relative"
                 sx={{
                   transition: "box-shadow 0.5s, transform 0.5s"
                 }}
               >
-                <NextLink href={`/${userId}/${post.node.id}`} passHref>
+                <NextLink href={`/${userId}/${post.id}`} passHref>
                   <Link>
-                    <NextImage
-                      alt="Post Image"
-                      layout="fill"
-                      objectFit="cover"
-                      quality={100}
-                      src={post.node.imageUrl}
-                    />
+                    <NextImage alt="Post Image" layout="fill" objectFit="cover" quality={100} src={post.imageUrl} />
                   </Link>
                 </NextLink>
               </GridItem>

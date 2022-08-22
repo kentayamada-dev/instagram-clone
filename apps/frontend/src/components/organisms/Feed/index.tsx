@@ -2,31 +2,27 @@ import { Box, VStack } from "@chakra-ui/react";
 import { PostCard } from "../../molecules/PostCard";
 import type { FeedType } from "./index.types";
 
-export const Feed: FeedType = ({ postsEdge }) => (
+export const Feed: FeedType = ({ postNodes }) => (
   <VStack
     spacing={{
       base: 5,
       sm: 10
     }}
   >
-    {postsEdge ? (
+    {postNodes ? (
       <>
-        {postsEdge.map((postEdge) => {
-          const post = postEdge.node;
-
-          return (
-            <Box key={post.id} w="100%">
-              <PostCard
-                caption={post.caption}
-                createdAt={post.createdAt}
-                imageUrl={post.imageUrl}
-                src={post.user.imageUrl}
-                userId={post.user.id}
-                userName={post.user.name}
-              />
-            </Box>
-          );
-        })}
+        {postNodes.map((post) => (
+          <Box key={post.id} w="100%">
+            <PostCard
+              caption={post.caption}
+              createdAt={post.createdAt}
+              imageUrl={post.imageUrl}
+              src={post.user.imageUrl}
+              userId={post.user.id}
+              userName={post.user.name}
+            />
+          </Box>
+        ))}
       </>
     ) : (
       <>

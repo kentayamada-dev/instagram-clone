@@ -104,7 +104,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         />
       </Show>
       <InfiniteScroll
-        dataLength={userPosts?.edges.length ?? 0}
+        dataLength={userPosts?.nodes.length ?? 0}
         hasMore={userPosts?.pageInfo.hasNextPage ?? false}
         loader={
           <Center key={0} pb="5" pt="5">
@@ -114,7 +114,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         // eslint-disable-next-line react/jsx-handler-names
         next={handleMoreUserPosts}
       >
-        <PostsList posts={userPosts?.edges} userId={userId} />
+        <PostsList posts={userPosts?.nodes} userId={userId} />
       </InfiniteScroll>
     </VStack>
   );

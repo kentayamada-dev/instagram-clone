@@ -1,11 +1,11 @@
-import type { UserCardPropsType } from "../userCard/index.types";
+import type { UserCardProps } from "../userCard/index.types";
 
-type PostCardPropsType = Partial<
-  Pick<UserCardPropsType, "src" | "userId" | "userName"> & {
+type PostCardProps = Partial<
+  Pick<UserCardProps, "src" | "userId" | "userName"> & {
     caption: string | null | undefined;
     createdAt: string;
     imageUrl: string;
   }
 >;
 
-export type PostCardType = (props: PostCardPropsType) => JSX.Element;
+export type PostCardType = (props: PostCardProps) => JSX.Element;

@@ -415,7 +415,7 @@ export type FollowersQueryVariables = Exact<{
 export type FollowersQuery = {
   follower: {
     pageInfo: { hasNextPage: boolean; endCursor?: string | null };
-    edges: Array<{ node: { followedUser: { id: string; name: string; imageUrl: string } } }>;
+    nodes: Array<{ followedUser: { id: string; name: string; imageUrl: string } }>;
   };
 };
 
@@ -427,7 +427,7 @@ export type FollowingQueryVariables = Exact<{
 
 export type FollowingQuery = {
   following: {
-    edges: Array<{ node: { followingUser: { id: string; name: string; imageUrl: string } } }>;
+    nodes: Array<{ followingUser: { id: string; name: string; imageUrl: string } }>;
     pageInfo: { hasNextPage: boolean; endCursor?: string | null };
   };
 };
@@ -456,12 +456,7 @@ export type PostQuery = {
     caption?: string | null;
     createdAt: string;
     imageUrl: string;
-    user: {
-      id: string;
-      name: string;
-      imageUrl: string;
-      posts: { edges: Array<{ node: { id: string; imageUrl: string } }> };
-    };
+    user: { id: string; name: string; imageUrl: string; posts: { nodes: Array<{ id: string; imageUrl: string }> } };
   };
 };
 
@@ -489,14 +484,12 @@ export type PostsQueryVariables = Exact<{
 export type PostsQuery = {
   posts: {
     pageInfo: { hasNextPage: boolean; endCursor?: string | null };
-    edges: Array<{
-      node: {
-        id: string;
-        caption?: string | null;
-        imageUrl: string;
-        createdAt: string;
-        user: { id: string; name: string; imageUrl: string };
-      };
+    nodes: Array<{
+      id: string;
+      caption?: string | null;
+      imageUrl: string;
+      createdAt: string;
+      user: { id: string; name: string; imageUrl: string };
     }>;
   };
 };
@@ -529,7 +522,7 @@ export type UserPostsQueryVariables = Exact<{
 export type UserPostsQuery = {
   user: {
     posts: {
-      edges: Array<{ node: { id: string; imageUrl: string } }>;
+      nodes: Array<{ id: string; imageUrl: string }>;
       pageInfo: { endCursor?: string | null; hasNextPage: boolean };
     };
   };
@@ -548,7 +541,7 @@ export type UsersQueryVariables = Exact<{
 export type UsersQuery = {
   users: {
     pageInfo: { hasNextPage: boolean; endCursor?: string | null };
-    edges: Array<{ node: { id: string; name: string; imageUrl: string } }>;
+    nodes: Array<{ id: string; name: string; imageUrl: string }>;
   };
 };
 

@@ -1,12 +1,12 @@
 import type { UseFollowReturnType } from "../../../hooks/useFollow/type";
 import type { NeverType } from "../../../types";
-import type { StyledAvatarPropsType } from "../../atoms/StyledAvatar/index.types";
-import type { FollowButtonPropsType } from "./components/FollowButton/index.types";
+import type { StyledAvatarProps } from "../../atoms/StyledAvatar/index.types";
+import type { FollowButtonProps } from "./components/FollowButton/index.types";
 import type { LayoutProps } from "@chakra-ui/react";
 
-type UserCardBasePropsType = Partial<
+type UserCardBaseProps = Partial<
   Pick<LayoutProps, "width"> &
-    Pick<StyledAvatarPropsType, "src"> & {
+    Pick<StyledAvatarProps, "src"> & {
       isLink: boolean;
       shouldUserNameHidden: boolean;
       size: 35 | 50;
@@ -15,12 +15,12 @@ type UserCardBasePropsType = Partial<
     }
 >;
 
-type FollowPropsType = Pick<FollowButtonPropsType, "buttonSize"> & UseFollowReturnType;
+type FollowProps = Pick<FollowButtonProps, "buttonSize"> & UseFollowReturnType;
 
-type UserCardDefaultPropsType = NeverType<FollowPropsType> & UserCardBasePropsType;
+type UserCardDefaultProps = NeverType<FollowProps> & UserCardBaseProps;
 
-export type UserCardFollowPropsType = FollowPropsType & UserCardBasePropsType;
+export type UserCardFollowProps = FollowProps & UserCardBaseProps;
 
-export type UserCardPropsType = UserCardDefaultPropsType | UserCardFollowPropsType;
+export type UserCardProps = UserCardDefaultProps | UserCardFollowProps;
 
-export type UserCardType = (props: UserCardPropsType) => JSX.Element;
+export type UserCardType = (props: UserCardProps) => JSX.Element;

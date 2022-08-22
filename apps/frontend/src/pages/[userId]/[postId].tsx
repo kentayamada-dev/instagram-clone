@@ -9,7 +9,7 @@ import type { PostQuery, PostQueryVariables, PostsIdAndUsersIdQuery } from "../.
 import type {
   PostPathsType,
   GetPostStaticPathsType,
-  GetPostStaticPropsType,
+  GetPostStaticProps,
   NextPostPageWithLayoutType
 } from "../../libs/next/pages/post";
 
@@ -44,7 +44,7 @@ export const getStaticPaths: GetPostStaticPathsType = async () => {
   };
 };
 
-export const getStaticProps: GetPostStaticPropsType = async ({ params, locale, defaultLocale = "en" }) => {
+export const getStaticProps: GetPostStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
   let data: PostQuery | null = null;
 

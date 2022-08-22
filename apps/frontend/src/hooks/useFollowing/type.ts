@@ -2,11 +2,10 @@ import type { FollowingQuery, UsersQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
 export type LoadMoreFollowingType = () => Promise<FollowingQuery[] | undefined>;
-export type HandleMoreFollowingType = () => Promise<void>;
 
 export type UseFollowingReturnType = {
-  following: { edges: UsersQuery["users"]["edges"]; pageInfo: FollowingQuery["following"]["pageInfo"] } | null;
-  handleMoreFollowing: HandleMoreFollowingType;
+  following: { nodes: UsersQuery["users"]["nodes"]; pageInfo: FollowingQuery["following"]["pageInfo"] } | null;
+  handleMoreFollowing: () => Promise<void>;
   mutateFollowing: KeyedMutator<FollowingQuery[]>;
 };
 

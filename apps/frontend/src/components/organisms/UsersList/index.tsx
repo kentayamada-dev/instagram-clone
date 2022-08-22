@@ -2,19 +2,15 @@ import { Box } from "@chakra-ui/react";
 import { UserCard } from "../../molecules/userCard";
 import type { UsersListType } from "./index.types";
 
-export const UsersList: UsersListType = ({ usersEdge, width = "100%", ...rest }) => {
-  if (usersEdge) {
+export const UsersList: UsersListType = ({ userNodes, width = "100%", ...rest }) => {
+  if (userNodes) {
     return (
       <>
-        {usersEdge.map((userEdge) => {
-          const user = userEdge.node;
-
-          return (
-            <Box key={user.id} p="12px" w={width}>
-              <UserCard {...rest} src={user.imageUrl} userId={user.id} userName={user.name} />
-            </Box>
-          );
-        })}
+        {userNodes.map((user) => (
+          <Box key={user.id} p="12px" w={width}>
+            <UserCard {...rest} src={user.imageUrl} userId={user.id} userName={user.name} />
+          </Box>
+        ))}
       </>
     );
   }

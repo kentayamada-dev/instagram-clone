@@ -1,5 +1,5 @@
-type GaTagsPropsType = {
+type GaTagsProps = {
   gaTrackingId: string | undefined;
 };
 
-export type GaTagsType = (props: GaTagsPropsType) => JSX.Element | null;
+export type GaTagsType = (props: GaTagsProps) => JSX.Element | null;

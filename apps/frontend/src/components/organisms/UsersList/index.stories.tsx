@@ -1,4 +1,4 @@
-import { generateAllUsersEdges } from "../../../libs/faker";
+import { userNodes } from "../../../libs/faker";
 import { UsersList } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -9,7 +9,7 @@ export default {
 
 export const usersList: ComponentStoryObj<typeof UsersList> = {
   args: {
-    usersEdge: generateAllUsersEdges,
+    userNodes,
     width: "400px"
   }
 };

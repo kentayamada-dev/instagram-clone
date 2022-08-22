@@ -1,4 +1,4 @@
-import { generateAllPostsEdges } from "../../../libs/faker";
+import { postNodes } from "../../../libs/faker";
 import { Feed } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -19,6 +19,6 @@ export default {
 
 export const feed: ComponentStoryObj<typeof Feed> = {
   args: {
-    postsEdge: generateAllPostsEdges
+    postNodes
   }
 };

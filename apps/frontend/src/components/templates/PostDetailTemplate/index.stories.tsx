@@ -1,4 +1,4 @@
-import { generatePostData } from "../../../libs/faker";
+import { post } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { PostDetailTemplate } from ".";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
@@ -18,5 +18,5 @@ export const postDetailTemplate: ComponentStory<typeof PostDetailTemplate> = (ar
 );
 
 postDetailTemplate.args = {
-  data: generatePostData(1)
+  data: post(1)
 };

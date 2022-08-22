@@ -11,7 +11,7 @@ import type {
   UnfollowMutation,
   UnfollowMutationVariables
 } from "../../generated";
-import type { GetFollowingUserExistenceType, GetFollowStateType, HandleFollowType, UseFollowType } from "./type";
+import type { GetFollowingUserExistenceType, UseFollowReturnType, UseFollowType } from "./type";
 
 export const useFollow: UseFollowType = ({ userId = "" }) => {
   const { currentUser, isCurrentUserLoading } = useCurrentUser();
@@ -28,7 +28,8 @@ export const useFollow: UseFollowType = ({ userId = "" }) => {
   const { mutateFollowing: mutateCurrentUserFollowing } = useFollowing({
     userId: currentUserId
   });
-  const handleFollow: HandleFollowType = async ({ followInput, isFollowing }) => {
+
+  const handleFollow: UseFollowReturnType["handleFollow"] = async ({ followInput, isFollowing }) => {
     await wait(2);
     if (isFollowing) {
       await fetcher<FollowMutation, FollowMutationVariables>(FOLLOW_MUTATION, {
@@ -50,7 +51,7 @@ export const useFollow: UseFollowType = ({ userId = "" }) => {
   const getFollowingUserExistence: GetFollowingUserExistenceType = (id) =>
     currentUser?.following.nodes.findIndex((user) => user.followingUserId === id || id === currentUser.id) !== -1;
 
-  const getFollowState: GetFollowStateType = (followingUserId) => {
+  const getFollowState: UseFollowReturnType["getFollowState"] = (followingUserId) => {
     if (isCurrentUserLoading || !followingUserId || (!isCurrentUser && currentUserId === followingUserId)) {
       return null;
     }

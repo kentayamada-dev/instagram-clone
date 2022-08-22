@@ -1,11 +1,10 @@
 import type { UserPostsQuery } from "../../generated";
 import type { KeyedMutator } from "swr";
 
-export type HandleMoreUserPostsType = () => Promise<void>;
 export type LoadMoreUserPostsType = () => Promise<UserPostsQuery[] | undefined>;
 
 export type UseUserPostsReturnType = {
-  handleMoreUserPosts: HandleMoreUserPostsType;
+  handleMoreUserPosts: () => Promise<void>;
   mutateUserPosts: KeyedMutator<UserPostsQuery[]>;
   userPosts: UserPostsQuery["user"]["posts"] | null;
 };

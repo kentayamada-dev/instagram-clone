@@ -4,7 +4,7 @@ import { wait } from "../../utils/wait";
 import { USER_POSTS_QUERY } from "./schema";
 import type { UserPostsQuery, UserPostsQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { HandleMoreUserPostsType, LoadMoreUserPostsType, UseUserPostsReturnType, UseUserPostsType } from "./type";
+import type { LoadMoreUserPostsType, UseUserPostsReturnType, UseUserPostsType } from "./type";
 
 export const useUserPosts: UseUserPostsType = ({ userId = "" }) => {
   const getKey: GetKeyType<UserPostsQuery, UserPostsQueryVariables> = (_index, previousPageData) => {
@@ -32,7 +32,7 @@ export const useUserPosts: UseUserPostsType = ({ userId = "" }) => {
     const lastElement = data[data.length - 1];
 
     userPosts = {
-      edges: data.map((post) => post.user.posts.edges).flat(),
+      nodes: data.map((post) => post.user.posts.nodes).flat(),
       pageInfo: {
         endCursor: lastElement?.user.posts.pageInfo.endCursor ?? null,
         hasNextPage: lastElement?.user.posts.pageInfo.hasNextPage ?? false
@@ -43,7 +43,8 @@ export const useUserPosts: UseUserPostsType = ({ userId = "" }) => {
   const isUserPostsError = Boolean(error);
   const isUserPostsLoading = !isUserPostsError && !userPosts && !isThresholdLoading;
   const loadMoreUserPosts: LoadMoreUserPostsType = async () => setSize(size + 1);
-  const handleMoreUserPosts: HandleMoreUserPostsType = async () => {
+
+  const handleMoreUserPosts: UseUserPostsReturnType["handleMoreUserPosts"] = async () => {
     if (!isUserPostsLoading) {
       setIsThresholdLoading(true);
       await wait(2);

@@ -1,5 +1,5 @@
-export type CommentPropsType = {
+export type CommentProps = {
   comment: string | undefined;
 };
 
-export type CommentType = (props: CommentPropsType) => JSX.Element;
+export type CommentType = (props: CommentProps) => JSX.Element;

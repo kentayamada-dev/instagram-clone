@@ -1,7 +1,7 @@
-import type { ImageColorModePropsType } from "../../atoms/ImageColorMode/index.types";
+import type { ImageColorModeProps } from "../../atoms/ImageColorMode/index.types";
 import type { ButtonProps } from "@chakra-ui/react";
 
-type ButtonLinkColorModePropsType = ImageColorModePropsType &
+type ButtonLinkColorModeProps = ImageColorModeProps &
   Partial<
     Pick<ButtonProps, "height" | "width"> & {
       isExternal: boolean;
@@ -10,4 +10,4 @@ type ButtonLinkColorModePropsType = ImageColorModePropsType &
     href: string;
   };
 
-export type ButtonLinkColorModeType = (props: ButtonLinkColorModePropsType) => JSX.Element;
+export type ButtonLinkColorModeType = (props: ButtonLinkColorModeProps) => JSX.Element;

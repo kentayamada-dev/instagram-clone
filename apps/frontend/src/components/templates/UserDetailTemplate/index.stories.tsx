@@ -1,5 +1,5 @@
 import { graphql } from "msw";
-import { generateFollower, generateFollowing, generateUserData, generateUserPostsData } from "../../../libs/faker";
+import { follower, following, user, userPosts } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { UserDetailTemplate } from ".";
 import type { FollowersQuery, FollowingQuery, UserPostsQuery } from "../../../generated";
@@ -17,7 +17,7 @@ export default {
             res(
               ctx.data({
                 user: {
-                  posts: generateUserPostsData
+                  posts: userPosts
                 }
               })
             )
@@ -28,7 +28,7 @@ export default {
           (_req, res, ctx) =>
             res(
               ctx.data({
-                following: generateFollowing
+                following
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -38,7 +38,7 @@ export default {
           (_req, res, ctx) =>
             res(
               ctx.data({
-                follower: generateFollower
+                follower
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -62,6 +62,6 @@ export const userDetailTemplate: ComponentStory<typeof UserDetailTemplate> = (ar
 
 userDetailTemplate.args = {
   data: {
-    user: generateUserData
+    user
   }
 };

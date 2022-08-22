@@ -31,7 +31,7 @@ export const usePosts: UsePostsType = () => {
     const lastElement = data[data.length - 1];
 
     posts = {
-      edges: data.map((post) => post.posts.edges).flat(),
+      nodes: data.map((post) => post.posts.nodes).flat(),
       pageInfo: {
         endCursor: lastElement?.posts.pageInfo.endCursor ?? null,
         hasNextPage: lastElement?.posts.pageInfo.hasNextPage ?? false

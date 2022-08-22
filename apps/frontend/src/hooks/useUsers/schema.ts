@@ -17,12 +17,10 @@ export const USERS_QUERY = gql`
         hasNextPage
         endCursor
       }
-      edges {
-        node {
-          id
-          name
-          imageUrl
-        }
+      nodes {
+        id
+        name
+        imageUrl
       }
     }
   }

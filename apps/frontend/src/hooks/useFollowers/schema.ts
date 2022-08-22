@@ -7,13 +7,11 @@ export const FOLLOWERS_QUERY = gql`
         hasNextPage
         endCursor
       }
-      edges {
-        node {
-          followedUser {
-            id
-            name
-            imageUrl
-          }
+      nodes {
+        followedUser {
+          id
+          name
+          imageUrl
         }
       }
     }

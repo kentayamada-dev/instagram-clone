@@ -1,18 +1,18 @@
 import type { UsersQuery } from "../../../generated";
 import type { NeverType } from "../../../types";
-import type { UserCardFollowPropsType } from "../../molecules/userCard/index.types";
+import type { UserCardFollowProps } from "../../molecules/userCard/index.types";
 import type { BoxProps } from "@chakra-ui/react";
 
-type UserCardPropsType = Pick<UserCardFollowPropsType, "buttonSize" | "getFollowState" | "handleFollow" | "isLink">;
+type UserCardProps = Pick<UserCardFollowProps, "buttonSize" | "getFollowState" | "handleFollow" | "isLink">;
 
-type UsersBasePropsType = Partial<Pick<BoxProps, "width">> & {
-  usersEdge: UsersQuery["users"]["edges"] | undefined;
+type UsersBaseProps = Partial<Pick<BoxProps, "width">> & {
+  userNodes: UsersQuery["users"]["nodes"] | undefined;
 };
 
-type UsersDefaultPropsType = NeverType<UserCardPropsType> & UsersBasePropsType;
+type UsersDefaultProps = NeverType<UserCardProps> & UsersBaseProps;
 
-type UsersFollowListPropsType = UserCardPropsType & UsersBasePropsType;
+type UsersFollowListProps = UserCardProps & UsersBaseProps;
 
-type UsersListPropsType = UsersDefaultPropsType | UsersFollowListPropsType;
+type UsersListProps = UsersDefaultProps | UsersFollowListProps;
 
-export type UsersListType = (props: UsersListPropsType) => JSX.Element;
+export type UsersListType = (props: UsersListProps) => JSX.Element;

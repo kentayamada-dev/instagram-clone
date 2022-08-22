@@ -1,7 +1,7 @@
 import type { PostsQuery } from "../../../generated";
 
-type FeedPropsType = {
-  postsEdge: PostsQuery["posts"]["edges"] | undefined;
+type FeedProps = {
+  postNodes: PostsQuery["posts"]["nodes"] | undefined;
 };
 
-export type FeedType = (props: FeedPropsType) => JSX.Element;
+export type FeedType = (props: FeedProps) => JSX.Element;

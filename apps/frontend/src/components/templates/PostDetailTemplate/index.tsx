@@ -87,7 +87,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
           </Flex>
         </SimpleGrid>
       </Box>
-      {data.user.posts.edges.length ? (
+      {data.user.posts.nodes.length ? (
         <>
           <Box p={{ base: "24px 0 12px 0", md: "24px 12px 12px 12px" }}>
             <Divider borderColor={SUVA_GREY} />
@@ -106,7 +106,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
               </Flex>
             </Text>
           </Box>
-          <PostsList posts={data.user.posts.edges} userId={data.user.id} />
+          <PostsList posts={data.user.posts.nodes} userId={data.user.id} />
         </>
       ) : null}
     </Box>

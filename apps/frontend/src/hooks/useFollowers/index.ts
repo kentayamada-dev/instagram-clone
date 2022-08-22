@@ -4,7 +4,7 @@ import { wait } from "../../utils/wait";
 import { FOLLOWERS_QUERY } from "./schema";
 import type { FollowersQuery, FollowersQueryVariables } from "../../generated";
 import type { GetKeyType } from "../../libs/swr/types";
-import type { HandleMoreFollowersType, LoadMoreFollowersType, UseFollowersReturnType, UseFollowersType } from "./type";
+import type { LoadMoreFollowersType, UseFollowersReturnType, UseFollowersType } from "./type";
 
 export const useFollowers: UseFollowersType = ({ userId = "" }) => {
   const getKey: GetKeyType<FollowersQuery, FollowersQueryVariables> = (_index, previousPageData) => {
@@ -30,13 +30,11 @@ export const useFollowers: UseFollowersType = ({ userId = "" }) => {
 
   if (data) {
     const lastElement = data[data.length - 1];
-    const flattedData = data.map((follower) => follower.follower.edges).flat();
-    const edges = flattedData.map((edge) => ({
-      node: edge.node.followedUser
-    }));
+    const flattedData = data.map((followerData) => followerData.follower.nodes).flat();
+    const nodes = flattedData.map((node) => node.followedUser);
 
     followers = {
-      edges,
+      nodes,
       pageInfo: {
         endCursor: lastElement?.follower.pageInfo.endCursor ?? null,
         hasNextPage: lastElement?.follower.pageInfo.hasNextPage ?? false
@@ -46,7 +44,7 @@ export const useFollowers: UseFollowersType = ({ userId = "" }) => {
   const isFollowersError = Boolean(error);
   const isFollowersLoading = !isFollowersError && !followers && !isThresholdLoading;
   const loadMoreFollowers: LoadMoreFollowersType = async () => setSize(size + 1);
-  const handleMoreFollowers: HandleMoreFollowersType = async () => {
+  const handleMoreFollowers: UseFollowersReturnType["handleMoreFollowers"] = async () => {
     if (!isFollowersLoading) {
       setIsThresholdLoading(true);
       await wait(2);

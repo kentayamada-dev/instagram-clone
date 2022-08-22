@@ -3,13 +3,11 @@ import { gql } from "graphql-request";
 export const FOLLOWING_QUERY = gql`
   query Following($userId: String!, $first: Float, $after: String) {
     following(userId: $userId, first: $first, after: $after) {
-      edges {
-        node {
-          followingUser {
-            id
-            name
-            imageUrl
-          }
+      nodes {
+        followingUser {
+          id
+          name
+          imageUrl
         }
       }
       pageInfo {

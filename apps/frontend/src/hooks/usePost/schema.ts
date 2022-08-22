@@ -12,11 +12,9 @@ export const POST_QUERY = gql`
         name
         imageUrl
         posts(first: $first, postIdExcluded: $postIdExcluded) {
-          edges {
-            node {
-              id
-              imageUrl
-            }
+          nodes {
+            id
+            imageUrl
           }
         }
       }

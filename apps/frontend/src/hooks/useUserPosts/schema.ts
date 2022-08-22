@@ -4,11 +4,9 @@ export const USER_POSTS_QUERY = gql`
   query UserPosts($userId: String!, $first: Float, $after: String) {
     user(userId: $userId) {
       posts(first: $first, after: $after) {
-        edges {
-          node {
-            id
-            imageUrl
-          }
+        nodes {
+          id
+          imageUrl
         }
         pageInfo {
           endCursor

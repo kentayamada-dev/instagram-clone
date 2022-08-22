@@ -1,7 +1,7 @@
 import type { NextImageAltSrc } from "../../../libs/next/types";
 import type { LinkProps } from "@chakra-ui/react";
 
-export type ImageLinkPropsType = NextImageAltSrc &
+export type ImageLinkProps = NextImageAltSrc &
   Partial<
     Pick<LinkProps, "height" | "width"> & {
       isExternal: boolean;
@@ -10,4 +10,4 @@ export type ImageLinkPropsType = NextImageAltSrc &
     href: string;
   };
 
-export type ImageLinkType = (props: ImageLinkPropsType) => JSX.Element;
+export type ImageLinkType = (props: ImageLinkProps) => JSX.Element;

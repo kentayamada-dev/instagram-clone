@@ -29,7 +29,7 @@ export const useUsers: UseUsersType = ({ currentUserId }) => {
     const lastElement = data[data.length - 1];
 
     users = {
-      edges: data.map((post) => post.users.edges).flat(),
+      nodes: data.map((post) => post.users.nodes).flat(),
       pageInfo: {
         endCursor: lastElement?.users.pageInfo.endCursor ?? null,
         hasNextPage: lastElement?.users.pageInfo.hasNextPage ?? false

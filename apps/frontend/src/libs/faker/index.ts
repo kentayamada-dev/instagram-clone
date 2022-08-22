@@ -9,87 +9,70 @@ import type {
   UserModelBase,
   PostModelPageInfo,
   FollowingQuery,
-  FollowersQuery,
-  UsersFilterQuery
+  FollowersQuery
 } from "../../generated";
 
 faker.mersenne.seed(999);
 
-const userData = (): Pick<UserModelBase, "id" | "imageUrl" | "name"> => ({
+const userCommon = (): Pick<UserModelBase, "id" | "imageUrl" | "name"> => ({
   id: faker.internet.userName().toLowerCase(),
   imageUrl: faker.internet.avatar(),
   name: faker.name.findName()
 });
 
-const pageInfoData = (): Omit<PostModelPageInfo, "__typename"> => ({
+const pageInfo = (): Omit<PostModelPageInfo, "__typename"> => ({
   endCursor: faker.datatype.uuid(),
   hasNextPage: false
 });
 
-export const generateUsersData: UsersFilterQuery["users"]["nodes"] = new Array(5).fill(null).map(() => userData());
-
-const generateUserPostData = (index: number): UserPostsQuery["user"]["posts"]["edges"][0] => ({
-  node: {
-    id: faker.datatype.uuid(),
-    imageUrl: `https://picsum.photos/id/${index * 10}/1000/1000`
-  }
+const userPost = (index: number): UserPostsQuery["user"]["posts"]["nodes"][0] => ({
+  id: faker.datatype.uuid(),
+  imageUrl: `https://picsum.photos/id/${index * 10}/1000/1000`
 });
 
-export const generateUserPosts: UserPostsQuery["user"]["posts"]["edges"] = new Array(5)
+export const userPostNodes: UserPostsQuery["user"]["posts"]["nodes"] = new Array(5)
   .fill(null)
-  .map((_, index) => generateUserPostData(index));
+  .map((_, index) => userPost(index));
 
-export const generatePostData = (index: number): PostQuery["post"] => ({
+export const post = (index: number): PostQuery["post"] => ({
   caption: faker.lorem.sentence(),
   createdAt: faker.date.past().toDateString(),
   id: faker.datatype.uuid(),
   imageUrl: `https://picsum.photos/id/${index}/1000/1000`,
   user: {
-    ...userData(),
+    ...userCommon(),
     posts: {
-      edges: generateUserPosts
+      nodes: userPostNodes
     }
   }
 });
 
-const generateAllPostsEdge = (index: number): PostsQuery["posts"]["edges"][0] => ({
-  node: generatePostData(index)
-});
+export const postNodes: PostsQuery["posts"]["nodes"] = new Array(5).fill(null).map((_, index) => post(index));
 
-export const generateAllPostsEdges: PostsQuery["posts"]["edges"] = new Array(5)
-  .fill(null)
-  .map((_, index) => generateAllPostsEdge(index));
-
-export const generateAllPostsData: PostsQuery["posts"] = {
-  edges: generateAllPostsEdges,
-  pageInfo: pageInfoData()
+export const posts: PostsQuery["posts"] = {
+  nodes: postNodes,
+  pageInfo: pageInfo()
 };
 
-const generateAllUsersEdge = (): UsersQuery["users"]["edges"][0] => ({
-  node: userData()
-});
+export const userNodes: UsersQuery["users"]["nodes"] = new Array(5).fill(null).map(() => userCommon());
 
-export const generateAllUsersEdges: UsersQuery["users"]["edges"] = new Array(5)
-  .fill(null)
-  .map(() => generateAllUsersEdge());
-
-export const generateAllUsersData: UsersQuery["users"] = {
-  edges: generateAllUsersEdges,
-  pageInfo: pageInfoData()
+export const users: UsersQuery["users"] = {
+  nodes: userNodes,
+  pageInfo: pageInfo()
 };
 
-const generateFollowingData: CurrentUserQuery["currentUser"]["following"]["nodes"] = new Array(5)
+const followingNodes: CurrentUserQuery["currentUser"]["following"]["nodes"] = new Array(5)
   .fill(null)
   .map(() => ({ followingUserId: faker.internet.userName().toLowerCase() }));
 
-export const generateCurrentUserData: CurrentUserQuery["currentUser"] = {
-  ...userData(),
+export const currentUser: CurrentUserQuery["currentUser"] = {
+  ...userCommon(),
   following: {
-    nodes: generateFollowingData
+    nodes: followingNodes
   }
 };
 
-export const generateUserData: UserQuery["user"] = {
+export const user: UserQuery["user"] = {
   ...{
     follower: {
       totalCount: 123
@@ -101,32 +84,28 @@ export const generateUserData: UserQuery["user"] = {
       totalCount: 789
     }
   },
-  ...userData()
+  ...userCommon()
 };
 
-export const generateUserPostsData: UserPostsQuery["user"]["posts"] = {
-  edges: generateUserPosts,
-  pageInfo: pageInfoData()
+export const userPosts: UserPostsQuery["user"]["posts"] = {
+  nodes: userPostNodes,
+  pageInfo: pageInfo()
 };
 
-export const generateFollowing: FollowingQuery["following"] = {
-  edges: [
+export const following: FollowingQuery["following"] = {
+  nodes: [
     {
-      node: {
-        followingUser: userData()
-      }
+      followingUser: userCommon()
     }
   ],
-  pageInfo: pageInfoData()
+  pageInfo: pageInfo()
 };
 
-export const generateFollower: FollowersQuery["follower"] = {
-  edges: [
+export const follower: FollowersQuery["follower"] = {
+  nodes: [
     {
-      node: {
-        followedUser: userData()
-      }
+      followedUser: userCommon()
     }
   ],
-  pageInfo: pageInfoData()
+  pageInfo: pageInfo()
 };

@@ -1,5 +1,5 @@
 import type { UserQuery } from "../../../generated";
 
-export type UserDetailTemplatePropsType = { data: UserQuery };
+export type UserDetailTemplateProps = { data: UserQuery };
 
-export type UserDetailTemplateType = (props: UserDetailTemplatePropsType) => JSX.Element;
+export type UserDetailTemplateType = (props: UserDetailTemplateProps) => JSX.Element;

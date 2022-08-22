@@ -8,7 +8,7 @@ import { fetcher } from "../../libs/graphql_request";
 import type { UserQuery, UserQueryVariables, UsersIdQuery } from "../../generated";
 import type {
   GetUserStaticPathsType,
-  GetUserStaticPropsType,
+  GetUserStaticProps,
   NextUserPageWithLayoutType,
   UserPathsType
 } from "../../libs/next/pages/user";
@@ -42,7 +42,7 @@ export const getStaticPaths: GetUserStaticPathsType = async () => {
   };
 };
 
-export const getStaticProps: GetUserStaticPropsType = async ({ params, locale, defaultLocale = "en" }) => {
+export const getStaticProps: GetUserStaticProps = async ({ params, locale, defaultLocale = "en" }) => {
   const initialLocale = locale ?? defaultLocale;
   let data: UserQuery | null = null;
 

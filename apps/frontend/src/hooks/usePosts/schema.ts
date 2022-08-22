@@ -30,17 +30,15 @@ export const POSTS_QUERY = gql`
         hasNextPage
         endCursor
       }
-      edges {
-        node {
+      nodes {
+        id
+        caption
+        imageUrl
+        createdAt
+        user {
           id
-          caption
+          name
           imageUrl
-          createdAt
-          user {
-            id
-            name
-            imageUrl
-          }
         }
       }
     }

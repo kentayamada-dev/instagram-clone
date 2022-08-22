@@ -1,10 +1,5 @@
 import { graphql } from "msw";
-import {
-  generateAllPostsData,
-  generateAllUsersData,
-  generateCurrentUserData,
-  generateUserData
-} from "../../../libs/faker";
+import { posts, users, currentUser, user } from "../../../libs/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
 import type { PostsQuery, UsersQuery, UserQuery } from "../../../generated";
@@ -21,7 +16,7 @@ export default {
           (_req, res, ctx) =>
             res(
               ctx.data({
-                posts: generateAllPostsData
+                posts
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -31,7 +26,7 @@ export default {
           (_req, res, ctx) =>
             res(
               ctx.data({
-                users: generateAllUsersData
+                users
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -41,7 +36,7 @@ export default {
           (_req, res, ctx) =>
             res(
               ctx.data({
-                user: generateUserData
+                user
               })
             )
           // eslint-disable-next-line function-paren-newline
@@ -59,5 +54,5 @@ export const homeTemplate: ComponentStory<typeof HomeTemplate> = (args) => (
 );
 
 homeTemplate.args = {
-  currentUser: generateCurrentUserData
+  currentUser
 };

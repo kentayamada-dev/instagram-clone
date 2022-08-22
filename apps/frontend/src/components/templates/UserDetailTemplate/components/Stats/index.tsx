@@ -46,10 +46,10 @@ export const Stats: StatsType = ({
   ): FollowersValueType | FollowingValueType => (isFollowingState ? followingValue : followersValue);
   const { followers, handleMoreFollowers, mutateFollowers } = useFollowers({ userId });
   const { following, handleMoreFollowing, mutateFollowing } = useFollowing({ userId });
-  const usersEdge = useFollowState(followers?.edges, following?.edges);
+  const followNodes = useFollowState(followers?.nodes, following?.nodes);
   const headerTitle = useFollowState(t("followers"), t("following"));
   const text = useFollowState(t("noFollowerMessage"), t("noFollowingMessage"));
-  const dataLength = useFollowState(followers?.edges.length, following?.edges.length) ?? 0;
+  const dataLength = useFollowState(followers?.nodes.length, following?.nodes.length) ?? 0;
   const hasMore = useFollowState(followers?.pageInfo.hasNextPage, following?.pageInfo.hasNextPage) ?? false;
   const next = useFollowState(handleMoreFollowers, handleMoreFollowing);
   const router = useRouter();
@@ -124,7 +124,7 @@ export const Stats: StatsType = ({
           <ModalCloseButton />
           <ModalBody>
             <Box h="400px" id="scrollableDiv" overflowY="auto">
-              {usersEdge && usersEdge.length > 0 ? (
+              {followNodes && followNodes.length > 0 ? (
                 <InfiniteScroll
                   dataLength={dataLength}
                   hasMore={hasMore}
@@ -137,7 +137,7 @@ export const Stats: StatsType = ({
                   scrollableTarget="scrollableDiv"
                 >
                   <Box w="inherit">
-                    <UsersList getFollowState={getFollowState} handleFollow={handleFollow} usersEdge={usersEdge} />
+                    <UsersList getFollowState={getFollowState} handleFollow={handleFollow} userNodes={followNodes} />
                   </Box>
                 </InfiniteScroll>
               ) : (

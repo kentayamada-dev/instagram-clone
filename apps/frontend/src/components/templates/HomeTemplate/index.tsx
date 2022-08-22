@@ -53,7 +53,7 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
         }}
       >
         <InfiniteScroll
-          dataLength={posts?.edges.length ?? 0}
+          dataLength={posts?.nodes.length ?? 0}
           hasMore={posts?.pageInfo.hasNextPage ?? false}
           loader={
             <Center key={0} pb="5" pt="5">
@@ -63,7 +63,7 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
           // eslint-disable-next-line react/jsx-handler-names
           next={handleMorePosts}
         >
-          <Feed postsEdge={posts?.edges} />
+          <Feed postNodes={posts?.nodes} />
         </InfiniteScroll>
       </Box>
       <Box
@@ -83,7 +83,7 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
           buttonSize="xs"
           getFollowState={getFollowState}
           handleFollow={handleFollow}
-          usersEdge={users?.edges}
+          userNodes={users?.nodes}
         />
       </Box>
     </HStack>

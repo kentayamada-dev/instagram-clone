@@ -10,8 +10,8 @@ export type UsePostReturnType = {
   isPostLoading: boolean;
 };
 
-type UsePostPropsType = {
+type UsePostProps = {
   handleClosePostModal: () => void;
 };
 
-export type UsePostType = (props: UsePostPropsType) => UsePostReturnType;
+export type UsePostType = (props: UsePostProps) => UsePostReturnType;

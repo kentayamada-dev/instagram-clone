@@ -1,4 +1,4 @@
-import { generateUserPosts } from "../../../libs/faker";
+import { userPostNodes } from "../../../libs/faker";
 import { PostsList } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -23,7 +23,7 @@ export default {
 
 export const postsList: ComponentStoryObj<typeof PostsList> = {
   args: {
-    posts: generateUserPosts,
+    posts: userPostNodes,
     userId: "userId"
   }
 };

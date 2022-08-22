@@ -1,11 +1,11 @@
-import type { ImageLinkPropsType } from "../../atoms/ImageLink/index.types";
+import type { ImageLinkProps } from "../../atoms/ImageLink/index.types";
 import type { ButtonProps } from "@chakra-ui/react";
 
-type ButtonLinkPropsType = ImageLinkPropsType &
+type ButtonLinkProps = ImageLinkProps &
   Partial<
     Pick<ButtonProps, "height" | "width"> & {
       isExternal: boolean;
     }
   >;
 
-export type ButtonLinkType = (props: ButtonLinkPropsType) => JSX.Element;
+export type ButtonLinkType = (props: ButtonLinkProps) => JSX.Element;
