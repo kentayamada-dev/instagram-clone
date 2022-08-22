@@ -23,10 +23,10 @@ export const Footer: FooterType = () => {
   };
 
   return (
-    <VStack h="inherit" justify="space-around" overflow="hidden" spacing={0} w="100%">
+    <VStack justify="space-around" minH="inherit" overflow="hidden" spacing={0} w="100%">
       <Divider borderColor={SUVA_GREY} w="80%" />
       <Flex justify="space-around" w="100%">
-        <VStack>
+        <VStack spacing={0}>
           <Text fontSize="xs">{t("support")}</Text>
           <Center>
             <TextLink
@@ -38,25 +38,26 @@ export const Footer: FooterType = () => {
             />
           </Center>
         </VStack>
-        <VStack>
+        <VStack spacing={0}>
           <Text fontSize="xs">{t("reference")}</Text>
           <ImageLink
             alt="Instagram Text"
-            height={25}
+            height={23}
             href="https://www.instagram.com/"
+            isExternal
             src="/static/instagram/text.svg"
-            width={90}
+            width={85}
           />
         </VStack>
-        <VStack>
+        <VStack spacing={0}>
           <Text fontSize="xs">{t("hosting")}</Text>
           <ImageLinkColorMode
             darkImg={darkImg}
-            height={25}
+            height={23}
             href="https://vercel.com/"
             isExternal
             lightImg={lightImg}
-            width={90}
+            width={85}
           />
         </VStack>
       </Flex>

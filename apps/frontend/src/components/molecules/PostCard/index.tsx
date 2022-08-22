@@ -26,7 +26,9 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
       spacing={0}
       w="100%"
     >
-      <UserCard shouldUserNameHidden size={35} src={src} userId={userId} userName={userName} />
+      <Box p="10px" w="90%">
+        <UserCard shouldUserNameHidden src={src} userId={userId} userName={userName} />
+      </Box>
       <Box h="600px" pos="relative" w="100%">
         {imageUrl ? (
           <NextImage alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={imageUrl} />
@@ -36,10 +38,9 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
       </Box>
       <Box p="3" w="100%">
         {userId ? (
-          <Text fontSize="md" noOfLines={2}>
-            <Text as="span" fontWeight="bold">
+          <Text fontSize="md" noOfLines={3}>
+            <Text fontSize="md" fontWeight="bold" maxW="200px" noOfLines={1}>
               {userId}
-              &nbsp;
             </Text>
             {caption ? caption : ""}
           </Text>

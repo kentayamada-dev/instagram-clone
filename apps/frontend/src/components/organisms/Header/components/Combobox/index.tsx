@@ -142,7 +142,6 @@ export const Combobox: ComboboxType = () => {
               <>
                 {filteredUsers.length ? (
                   filteredUsers.map((user, index) => (
-                    // eslint-disable-next-line react/jsx-indent
                     <ListItem
                       _hover={{
                         cursor: "pointer"
@@ -150,12 +149,15 @@ export const Combobox: ComboboxType = () => {
                       bg={highlightedIndex === index && selectedColor}
                       key={user.id}
                       opacity={highlightedIndex === index && "1.5"}
+                      w="100%"
                       {...getItemProps({ index, item: user })}
                       css={{
                         listStyleType: "none"
                       }}
                     >
-                      <UserCard isLink={false} size={35} src={user.imageUrl} userId={user.id} userName={user.name} />
+                      <Box p="10px" w="inherit">
+                        <UserCard isLink={false} src={user.imageUrl} userId={user.id} userName={user.name} />
+                      </Box>
                     </ListItem>
                   ))
                 ) : (

@@ -5,6 +5,7 @@ import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../libs/next_router";
 import { getBlobUrlAndFile } from "../../../../../utils/getBlobUrl";
 import type { ImageSelectType } from "./index.types";
+import type { InputProps } from "@chakra-ui/react";
 
 const {
   COLORS: { DODGER_BLUE }
@@ -24,7 +25,7 @@ export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, se
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const { ref, onChange, ...rest } = register("file");
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const handleImageChange: React.ComponentProps<typeof Input>["onChange"] = async (event) => {
+  const handleImageChange: InputProps["onChange"] = async (event) => {
     const { files } = event.target;
     try {
       const { blobUrl, file } = await getBlobUrlAndFile({

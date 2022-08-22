@@ -53,6 +53,20 @@ export const Stats: StatsType = ({
   const hasMore = useFollowState(followers?.pageInfo.hasNextPage, following?.pageInfo.hasNextPage) ?? false;
   const next = useFollowState(handleMoreFollowers, handleMoreFollowing);
   const router = useRouter();
+
+  React.useEffect(() => {
+    const handleRouteChange = (): void => {
+      if (isOpen) {
+        handleClose();
+      }
+    };
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [handleClose, isOpen, router.events]);
+
   const handleOpenFollow = (isFollowing: boolean) => () => {
     if (currentUser) {
       setIsFollowingState(isFollowing);
@@ -122,12 +136,9 @@ export const Stats: StatsType = ({
                   next={next}
                   scrollableTarget="scrollableDiv"
                 >
-                  <UsersList
-                    getFollowState={getFollowState}
-                    handleFollow={handleFollow}
-                    isLink={false}
-                    usersEdge={usersEdge}
-                  />
+                  <Box w="inherit">
+                    <UsersList getFollowState={getFollowState} handleFollow={handleFollow} usersEdge={usersEdge} />
+                  </Box>
                 </InfiniteScroll>
               ) : (
                 <VStack h="100%" pt="10">

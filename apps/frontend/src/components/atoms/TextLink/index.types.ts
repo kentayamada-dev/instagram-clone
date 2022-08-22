@@ -1,9 +1,13 @@
-import type { ColorProps, TypographyProps } from "@chakra-ui/react";
+import type { ColorProps, LayoutProps, TypographyProps } from "@chakra-ui/react";
 
 type TextLinkPropsType = ColorProps &
+  Partial<
+    Pick<LayoutProps, "width"> & {
+      isVisibleUnderline: boolean;
+    }
+  > &
   TypographyProps & {
     href: string;
-    isVisibleUnderline?: boolean;
     text: string;
   };
 

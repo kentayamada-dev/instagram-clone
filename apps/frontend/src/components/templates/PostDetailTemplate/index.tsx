@@ -34,8 +34,8 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
   const { t } = useTranslation("postDetail");
 
   return (
-    <Box h="fit-content" margin="0 auto" pb={{ base: "24px", sm: "0" }} w={{ base: "100%", md: "inherit" }}>
-      <Box p={{ base: "0", sm: "24px 24px 24px 24px" }}>
+    <Box h="fit-content" margin="0 auto" pb={{ base: "24px", md: "0" }} w={{ base: "100%", md: "inherit" }}>
+      <Box p={{ base: "0", md: "12px" }}>
         <SimpleGrid
           bgColor={bgColor}
           border={`${borderColor} solid 1px`}
@@ -44,13 +44,9 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
           w={{ lg: "900px", md: "700px", sm: "100%" }}
         >
           <Show below="md">
-            <UserCard
-              shouldUserNameHidden
-              size={35}
-              src={data.user.imageUrl}
-              userId={data.user.id}
-              userName={data.user.name}
-            />
+            <Box p="12px" w="100%">
+              <UserCard shouldUserNameHidden src={data.user.imageUrl} userId={data.user.id} userName={data.user.name} />
+            </Box>
           </Show>
           <Box minH="400px" pos="relative">
             <NextImage alt="Post Image" layout="fill" objectFit="cover" priority quality={100} src={data.imageUrl} />
@@ -58,13 +54,14 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
           <Flex flexDir="column" justify="space-between" minH="200px">
             <Box>
               <Hide below="md">
-                <UserCard
-                  shouldUserNameHidden
-                  size={35}
-                  src={data.user.imageUrl}
-                  userId={data.user.id}
-                  userName={data.user.name}
-                />
+                <Box p="12px" w="90%">
+                  <UserCard
+                    shouldUserNameHidden
+                    src={data.user.imageUrl}
+                    userId={data.user.id}
+                    userName={data.user.name}
+                  />
+                </Box>
               </Hide>
               {data.caption === null ? (
                 <Center pt={{ base: "50px", md: "100px" }}>
@@ -92,12 +89,21 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
       </Box>
       {data.user.posts.edges.length ? (
         <>
-          <Box p={{ base: "24px 0 12px 0", sm: "24px 24px 0 24px" }}>
+          <Box p={{ base: "24px 0 12px 0", md: "24px 12px 12px 12px" }}>
             <Divider borderColor={SUVA_GREY} />
-            <Text color={SUVA_GREY} pt="24px">
-              {locale === "en" && t("morePostsFrom")}
-              <TextLink color="initial" href={`/${data.user.id}`} text={data.user.id} />
-              {locale === "ja" && t("morePostsFrom")}
+            <Text color={SUVA_GREY} pl={{ base: "12px", md: 0 }} pt="24px">
+              <Flex>
+                {locale === "en" && (
+                  <Box>
+                    {t("morePostsFrom")}
+                    &nbsp;
+                  </Box>
+                )}
+                <Box maxW="200px">
+                  <TextLink color="initial" href={`/${data.user.id}`} text={data.user.id} />
+                </Box>
+                {locale === "ja" && t("morePostsFrom")}
+              </Flex>
             </Text>
           </Box>
           <PostsList posts={data.user.posts.edges} userId={data.user.id} />

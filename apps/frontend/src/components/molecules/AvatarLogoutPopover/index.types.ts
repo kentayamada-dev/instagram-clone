@@ -1,8 +1,8 @@
 import type { StyledAvatarPropsType } from "../../atoms/StyledAvatar/index.types";
-import type { Button } from "@chakra-ui/react";
+import type { ButtonProps } from "@chakra-ui/react";
 
 export type AvatarLogoutPopoverPropsType = StyledAvatarPropsType & {
-  handleLogout: React.ComponentProps<typeof Button>["onClick"];
+  handleLogout: ButtonProps["onClick"];
 };
 
 export type AvatarLogoutPopoverType = (props: AvatarLogoutPopoverPropsType) => JSX.Element;

@@ -1,10 +1,11 @@
 import type { UsersQuery } from "../../../generated";
 import type { NeverType } from "../../../types";
 import type { UserCardFollowPropsType } from "../../molecules/userCard/index.types";
+import type { BoxProps } from "@chakra-ui/react";
 
-type UserCardPropsType = Pick<UserCardFollowPropsType, "getFollowState" | "handleFollow" | "isLink">;
+type UserCardPropsType = Pick<UserCardFollowPropsType, "buttonSize" | "getFollowState" | "handleFollow" | "isLink">;
 
-type UsersBasePropsType = {
+type UsersBasePropsType = Partial<Pick<BoxProps, "width">> & {
   usersEdge: UsersQuery["users"]["edges"] | undefined;
 };
 

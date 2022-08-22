@@ -2,6 +2,7 @@ import { Center, Spinner, Box, Text, HStack } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useFollow } from "../../../hooks/useFollow";
 import { usePosts } from "../../../hooks/usePosts";
 import { useUsers } from "../../../hooks/useUsers";
 import { UserCard } from "../../molecules/userCard";
@@ -16,6 +17,7 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   const { users, mutateUsers } = useUsers({
     currentUserId: currentUser.id
   });
+  const { handleFollow, getFollowState } = useFollow({ userId: currentUser.id });
 
   React.useEffect(() => {
     if (!isInitialDataFetched) {
@@ -69,12 +71,20 @@ export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
           base: "none",
           lg: "block"
         }}
+        w="350px"
       >
-        <UserCard size={50} src={currentUser.imageUrl} userId={currentUser.id} userName={currentUser.name} />
+        <Box p="10px" w="100%">
+          <UserCard size={50} src={currentUser.imageUrl} userId={currentUser.id} userName={currentUser.name} />
+        </Box>
         <Text fontWeight="bold" pl="10px" pt="15px" w="100%">
           {t("recommend")}
         </Text>
-        <UsersList usersEdge={users?.edges} />
+        <UsersList
+          buttonSize="xs"
+          getFollowState={getFollowState}
+          handleFollow={handleFollow}
+          usersEdge={users?.edges}
+        />
       </Box>
     </HStack>
   );

@@ -3,9 +3,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { constants } from "../../../constants";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { useFollow } from "../../../hooks/useFollow";
 import { useUser } from "../../../hooks/useUser";
 import { useUserPosts } from "../../../hooks/useUserPosts";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
+import { FollowButton } from "../../molecules/userCard/components/FollowButton";
 import { PostsList } from "../../organisms/PostsList";
 import { Stats } from "./components/Stats";
 import type { UserDetailTemplateType } from "./index.types";
@@ -23,7 +26,9 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const avatarSize = useBreakpointValue({ base: 90, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
   const { userPosts, handleMoreUserPosts, mutateUserPosts } = useUserPosts({ userId });
-  const isPostsThere = Boolean(userPosts?.edges && userPosts.edges.length > 0);
+  const { handleFollow, getFollowState } = useFollow({ userId });
+  const { currentUser } = useCurrentUser();
+  const isNotCurrentUser = currentUser !== null && currentUser.id !== userId;
 
   React.useEffect(() => {
     if (userId && !userPosts && !isInitialDataFetched) {
@@ -56,9 +61,24 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
           <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.imageUrl} />
         </Center>
         <VStack align="flex-start" spacing="8" w="100%">
-          <Heading as="h2" fontWeight="normal" size="lg">
-            {user?.id}
-          </Heading>
+          <HStack
+            spacing={{
+              base: 5,
+              md: 10
+            }}
+          >
+            <Heading as="h2" fontWeight="normal" size="lg">
+              {user?.id}
+            </Heading>
+            {isNotCurrentUser ? (
+              <FollowButton
+                buttonSize="sm"
+                followState={getFollowState(userId)}
+                handleFollow={handleFollow}
+                userId={userId}
+              />
+            ) : null}
+          </HStack>
           <Show above="md">
             <Stats
               followersNumber={user?.follower.totalCount ?? null}
@@ -93,10 +113,6 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
         }
         // eslint-disable-next-line react/jsx-handler-names
         next={handleMoreUserPosts}
-        // eslint-disable-next-line react/forbid-component-props
-        style={{
-          overflow: isPostsThere ? "auto" : "none"
-        }}
       >
         <PostsList posts={userPosts?.edges} userId={userId} />
       </InfiniteScroll>

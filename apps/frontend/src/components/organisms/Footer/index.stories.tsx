@@ -12,7 +12,14 @@ export default {
           minHeight: "100vh"
         }}
       >
-        {Story()}
+        <div
+          style={{
+            minHeight: "60px",
+            width: "100%"
+          }}
+        >
+          {Story()}
+        </div>
       </div>
     )
   ],

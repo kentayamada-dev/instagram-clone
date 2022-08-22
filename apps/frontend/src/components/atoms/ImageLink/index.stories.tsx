@@ -1,3 +1,4 @@
+import { nextImage } from "../NextImage/index.stories";
 import { ImageLink } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 
@@ -8,10 +9,8 @@ export default {
 
 export const imageLink: ComponentStoryObj<typeof ImageLink> = {
   args: {
-    alt: "alt",
-    height: 70,
     href: "href",
-    src: "/static/instagram/text.svg",
-    width: 200
+    isExternal: true,
+    ...nextImage.args
   }
 };

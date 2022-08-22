@@ -14,13 +14,16 @@ import type {
 import type { GetFollowingUserExistenceType, GetFollowStateType, HandleFollowType, UseFollowType } from "./type";
 
 export const useFollow: UseFollowType = ({ userId = "" }) => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isCurrentUserLoading } = useCurrentUser();
   const currentUserId = currentUser?.id ?? "";
   const isCurrentUser = currentUserId === userId;
   const { mutateUser } = useUser({ userId: currentUserId });
   const { mutateCurrentUser } = useCurrentUser();
   const { mutateFollowers: mutateCurrentUserFollowers } = useFollowers({
     userId: currentUserId
+  });
+  const { mutateUser: mutateFollowedUser } = useUser({
+    userId
   });
   const { mutateFollowing: mutateCurrentUserFollowing } = useFollowing({
     userId: currentUserId
@@ -38,6 +41,7 @@ export const useFollow: UseFollowType = ({ userId = "" }) => {
     }
 
     await mutateUser();
+    await mutateFollowedUser();
     await mutateCurrentUser();
     await mutateCurrentUserFollowers();
     await mutateCurrentUserFollowing();
@@ -47,7 +51,7 @@ export const useFollow: UseFollowType = ({ userId = "" }) => {
     currentUser?.following.nodes.findIndex((user) => user.followingUserId === id || id === currentUser.id) !== -1;
 
   const getFollowState: GetFollowStateType = (followingUserId) => {
-    if (!followingUserId || (!isCurrentUser && currentUserId === followingUserId)) {
+    if (isCurrentUserLoading || !followingUserId || (!isCurrentUser && currentUserId === followingUserId)) {
       return null;
     }
     const isUserFollowing = getFollowingUserExistence(followingUserId);

@@ -8,6 +8,7 @@ export default {
 
 export const commentCard: ComponentStoryObj<typeof CommentCard> = {
   args: {
+    comment: "this is comment",
     src: "https://picsum.photos/id/200/1000/1000",
     userId: "user_id",
     userName: "User Name"

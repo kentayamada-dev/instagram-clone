@@ -12,11 +12,11 @@ export const imageColorMode: ComponentStoryObj<typeof ImageColorMode> = {
       alt: "darkImg alt",
       src: "/static/vercel/logo_dark.png"
     },
-    height: 70,
+    height: 100,
     lightImg: {
       alt: "lightImg alt",
       src: "/static/vercel/logo_light.png"
     },
-    width: 200
+    width: 300
   }
 };

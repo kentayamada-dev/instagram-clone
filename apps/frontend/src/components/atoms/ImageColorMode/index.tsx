@@ -1,34 +1,18 @@
 import { Box, useColorMode } from "@chakra-ui/react";
-import NextImage from "next/image";
+import { NextImage } from "../NextImage";
 import type { ImageColorModeType } from "./index.types";
 
-export const ImageColorMode: ImageColorModeType = ({ height, width, darkImg, lightImg }) => {
+export const ImageColorMode: ImageColorModeType = ({ darkImg, lightImg, width = "inherit", height = "inherit" }) => {
   const { colorMode } = useColorMode();
 
   return (
-    <Box h={height} pos="relative" w={width}>
-      <Box alignItems="center" display="flex" h="inherit" justifyContent="center" pos="absolute">
-        <NextImage
-          alt={lightImg.alt}
-          height={height}
-          hidden={colorMode === "light"}
-          objectFit="contain"
-          quality={100}
-          src={lightImg.src}
-          width={width}
-        />
+    <>
+      <Box h={height} hidden={colorMode === "light"} w={width}>
+        <NextImage alt={lightImg.alt} src={lightImg.src} />
       </Box>
-      <Box alignItems="center" display="flex" h="inherit" justifyContent="center" pos="absolute">
-        <NextImage
-          alt={darkImg.alt}
-          height={height}
-          hidden={colorMode === "dark"}
-          objectFit="contain"
-          quality={100}
-          src={darkImg.src}
-          width={width}
-        />
+      <Box h={height} hidden={colorMode === "dark"} w={width}>
+        <NextImage alt={darkImg.alt} src={darkImg.src} />
       </Box>
-    </Box>
+    </>
   );
 };

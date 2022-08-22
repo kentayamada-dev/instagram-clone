@@ -21,6 +21,7 @@ import { ButtonLink } from "../ButtonLink";
 import { ButtonLinkColorMode } from "../ButtonLinkColorMode";
 import type { LocaleType } from "../../../libs/next/types";
 import type { HeaderDrawerType } from "./index.types";
+import type { SelectProps } from "@chakra-ui/react";
 
 const {
   COLORS: { SNOW, EBONY },
@@ -33,7 +34,7 @@ export const HeaderDrawer: HeaderDrawerType = ({ handleCloseDrawer, isAuthentica
   const { colorMode, toggleColorMode } = useColorMode();
   const handleColorMode = (): void => toggleColorMode();
   const { t } = useTranslation("common");
-  const handleChangeLocale: React.ComponentProps<typeof Select>["onChange"] = (event) => {
+  const handleChangeLocale: SelectProps["onChange"] = (event) => {
     const localeValue = event.target.value as LocaleType;
     changeLocale(router, localeValue);
   };

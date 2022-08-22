@@ -5,7 +5,7 @@ import { Comment } from "./components/Comment";
 import type { CommentCardType } from "./index.types";
 
 export const CommentCard: CommentCardType = ({ userId, userName, src, comment }) => (
-  <HStack align="flex-start" p={3} spacing={5}>
+  <HStack align="flex-start" p={3} spacing={3}>
     <StyledAvatar alt="Avatar Image" size={35} src={src} />
     <Box w="100%">
       {userId && userName ? (

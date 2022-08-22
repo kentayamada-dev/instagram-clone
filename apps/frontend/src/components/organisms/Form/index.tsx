@@ -109,6 +109,7 @@ export const Form: FormType = ({ isSignup }) => {
           href={getValueByAuthMode("/", "/signup")}
           text={getValueByAuthMode(t("login"), t("signUp"))}
           textColor={DODGER_BLUE}
+          width="fit-content"
         />
       </Center>
     </VStack>

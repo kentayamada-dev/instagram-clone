@@ -30,7 +30,7 @@ const Modal: ComponentStyleConfig = {
   variants: {
     usersList: {
       dialogContainer: {
-        overflowY: "hidden"
+        overflow: "hidden"
       }
     }
   }

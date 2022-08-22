@@ -8,7 +8,7 @@ export default {
     (Story): JSX.Element => (
       <div
         style={{
-          width: "1000px"
+          width: "700px"
         }}
       >
         {Story()}

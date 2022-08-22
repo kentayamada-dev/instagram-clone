@@ -3,7 +3,7 @@ import i18n from "i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-const ns = ["common", "form", "footer", "notFound"];
+const ns = ["common", "form", "footer", "notFound", "postDetail"];
 const supportedLngs = ["en", "ja"];
 const resources = ns.reduce((acc, n) => {
   supportedLngs.forEach((lng) => {

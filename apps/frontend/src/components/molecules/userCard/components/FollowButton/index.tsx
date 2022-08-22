@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 import type { FollowButtonType } from "./index.types";
 
-export const FollowButton: FollowButtonType = ({ followState, handleFollow, userId }) => {
+export const FollowButton: FollowButtonType = ({ followState, handleFollow, userId = "", buttonSize = "md" }) => {
   const { t } = useTranslation("common");
   const [isFollowLoading, setIsFollowLoading] = React.useState(false);
   const isFollow = followState === "follow";
@@ -22,8 +22,12 @@ export const FollowButton: FollowButtonType = ({ followState, handleFollow, user
     })();
   };
 
+  if (followState === null) {
+    return null;
+  }
+
   return (
-    <Button isLoading={isFollowLoading} onClick={handleButtonClick} variant={colorScheme}>
+    <Button isLoading={isFollowLoading} onClick={handleButtonClick} size={buttonSize} variant={colorScheme}>
       {text}
     </Button>
   );

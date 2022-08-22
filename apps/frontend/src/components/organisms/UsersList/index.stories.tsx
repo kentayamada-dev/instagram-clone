@@ -9,6 +9,7 @@ export default {
 
 export const usersList: ComponentStoryObj<typeof UsersList> = {
   args: {
-    usersEdge: generateAllUsersEdges
+    usersEdge: generateAllUsersEdges,
+    width: "400px"
   }
 };

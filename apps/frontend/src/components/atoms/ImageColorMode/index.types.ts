@@ -1,10 +1,9 @@
 import type { NextImageAltSrc } from "../../../libs/next/types";
+import type { BoxProps } from "@chakra-ui/react";
 
-export type ImageColorModePropsType = {
+export type ImageColorModePropsType = Partial<Pick<BoxProps, "height" | "width">> & {
   darkImg: NextImageAltSrc;
-  height: number;
   lightImg: NextImageAltSrc;
-  width: number;
 };
 
 export type ImageColorModeType = (props: ImageColorModePropsType) => JSX.Element;

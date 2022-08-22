@@ -1,10 +1,10 @@
 import type { FollowMutationVariables } from "../../generated";
 
-type HandleFollowProps = FollowMutationVariables & {
+type HandleFollowPropsType = FollowMutationVariables & {
   isFollowing: boolean;
 };
 
-export type HandleFollowType = (props: HandleFollowProps) => Promise<void>;
+export type HandleFollowType = (props: HandleFollowPropsType) => Promise<void>;
 
 export type FollowStateType = "follow" | "unfollow" | null;
 
@@ -15,10 +15,10 @@ export type UseFollowReturnType = {
   handleFollow: HandleFollowType;
 };
 
-type UseFollowProps = {
+type UseFollowPropsType = {
   userId: string | undefined;
 };
 
-export type UseFollowType = (props: UseFollowProps) => UseFollowReturnType;
+export type UseFollowType = (props: UseFollowPropsType) => UseFollowReturnType;
 
 export type GetFollowingUserExistenceType = (id: string) => boolean;
