@@ -41,9 +41,9 @@ Signup.getLayout = (page, props): JSX.Element => {
 
   if (initialLocale) {
     if (initialLocale === "ja") {
-      title = "登録 • Instagram";
+      title = "登録 • Instagram Clone";
     } else if (initialLocale === "en") {
-      title = "Sign up • Instagram";
+      title = "Sign up • Instagram Clone";
     }
   }
 

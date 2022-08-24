@@ -87,9 +87,9 @@ Post.getLayout = (page, props): JSX.Element => {
 
   if (userName && initialLocale) {
     if (initialLocale === "ja") {
-      title = `${userName}はInstagramを利用しています`;
+      title = `${userName}はInstagram Cloneを利用しています`;
     } else if (initialLocale === "en") {
-      title = `${userName} on Instagram`;
+      title = `${userName} on Instagram Clone`;
     }
   }
 

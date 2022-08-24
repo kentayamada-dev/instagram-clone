@@ -52,10 +52,6 @@ export const HeaderTags: HeaderTagsType = () => (
     {/* Primary Meta Tags */}
     <meta content="Instagram Clone" name="title" />
     <meta content="This is an Instagram Clone Site." name="description" />
-    <meta
-      content="Instagram, instagram, Instagram Clone, instagram clone, Insta, insta, insta clone, Insta Clone"
-      name="keywords"
-    />
     <meta content="index, follow" name="robots" />
     <meta content="text/html; charset=utf-8" httpEquiv="Content-Type" />
     <meta content="English" name="language" />

@@ -80,10 +80,6 @@ module.exports = {
       <link href="/favicon/manifest.json" rel="manifest">
       <meta content="Instagram Clone Storybook" name="title">
       <meta content="This is an Instagram Clone Storybook." name="description">
-      <meta
-        content="Instagram, instagram, Instagram Clone Storybook, instagram clone storybook, Insta, insta, insta clone storybook, Insta Clone Storybook"
-        name="keywords"
-    >
       <meta content="index, follow" name="robots">
       <meta content="text/html; charset=utf-8" httpEquiv="Content-Type">
       <meta content="English" name="language">

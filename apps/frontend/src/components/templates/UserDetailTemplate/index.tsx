@@ -1,4 +1,17 @@
-import { VStack, HStack, Center, Text, Divider, useBreakpointValue, Spinner, Show, Heading } from "@chakra-ui/react";
+import {
+  VStack,
+  HStack,
+  Center,
+  Text,
+  Divider,
+  useBreakpointValue,
+  Spinner,
+  Show,
+  Heading,
+  Grid,
+  GridItem,
+  Box
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -23,7 +36,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   // eslint-disable-next-line no-undefined
   const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : undefined;
   const { user } = useUser({ fallbackData: data, userId });
-  const avatarSize = useBreakpointValue({ base: 90, md: 150 });
+  const avatarSize = useBreakpointValue({ base: 80, md: 150 });
   const marginTop = useBreakpointValue({ base: 10, md: 50 });
   const { userPosts, handleMoreUserPosts, mutateUserPosts } = useUserPosts({ userId });
   const { handleFollow, getFollowState } = useFollow({ userId });
@@ -48,37 +61,37 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
       spacing={10}
       w={{
         base: "100%",
-        lg: "900px"
+        lg: "1000px"
       }}
     >
-      <HStack align="flex-start" spacing="10" w="100%">
-        <Center
-          p={{
-            base: "3",
-            lg: "8"
-          }}
-        >
-          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 90} src={user?.imageUrl} />
-        </Center>
-        <VStack align="flex-start" spacing="8" w="100%">
-          <HStack
-            spacing={{
-              base: 5,
-              md: 10
+      <HStack align="flex-start" p="12px" w="100%">
+        <Box pl={{ base: "0", md: "16", sm: "10" }} pr={{ base: "10", md: "16" }}>
+          <StyledAvatar alt="Avatar Image" size={avatarSize ?? 80} src={user?.imageUrl} />
+        </Box>
+        <VStack align="flex-start" spacing="8">
+          <Grid
+            gap="5"
+            templateColumns={{
+              base: "repeat(1, 1fr)",
+              md: "repeat(5, 1fr)"
             }}
           >
-            <Heading as="h2" fontWeight="normal" size="lg">
-              {user?.id}
-            </Heading>
+            <GridItem colSpan={4}>
+              <Heading as="h2" fontWeight="normal" noOfLines={1} size="lg">
+                {user?.id}
+              </Heading>
+            </GridItem>
             {isNotCurrentUser ? (
-              <FollowButton
-                buttonSize="sm"
-                followState={getFollowState(userId)}
-                handleFollow={handleFollow}
-                userId={userId}
-              />
+              <GridItem alignItems="center" colSpan={1} display="flex" justifyContent="center">
+                <FollowButton
+                  buttonSize="sm"
+                  followState={getFollowState(userId)}
+                  handleFollow={handleFollow}
+                  userId={userId}
+                />
+              </GridItem>
             ) : null}
-          </HStack>
+          </Grid>
           <Show above="md">
             <Stats
               followersNumber={user?.follower.totalCount ?? null}
@@ -88,7 +101,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
               width="350px"
             />
           </Show>
-          <Text fontSize="md" fontWeight="bold" w="50%">
+          <Text fontSize="md" fontWeight="bold" noOfLines={3} w="100%">
             {user?.name}
           </Text>
         </VStack>

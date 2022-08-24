@@ -131,6 +131,19 @@ const TEST_USER: Prisma.UserCreateInput = {
   email: "testuser@gmail.com",
   password: "Test@12345"
 };
+const LONG_USER_ID_NAME: Prisma.UserCreateInput = {
+  id: "_the_longest_user_id_for_test_",
+  imageUrl: `https://picsum.photos/id/777/1000/1000`,
+  name: faker.lorem.paragraph(30),
+  email: "longuser@gmail.com",
+  password: "Longuser@12345",
+  posts: {
+    create: {
+      caption: faker.lorem.paragraph(),
+      imageUrl: `https://picsum.photos/id/666/1000/1000`
+    }
+  }
+};
 const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
 
 const prisma = new PrismaClient();
@@ -149,7 +162,7 @@ const getRandomElements = (array: string[], num: number) => {
 const generatePosts = (numberOfPosts: number): Prisma.PostCreateWithoutUserInput[] =>
   [...Array(numberOfPosts)].map((_, index): Prisma.PostCreateWithoutUserInput => {
     const randomBoolean = !getRandomInt(2);
-    const caption = randomBoolean && faker.lorem.words();
+    const caption = randomBoolean && faker.lorem.paragraph();
 
     return {
       ...(caption ? { caption: caption } : {}),
@@ -240,7 +253,11 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
     ...TEST_USER,
     password: await hash(TEST_USER.password, SALT_ROUNDS)
   };
-  const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested];
+  const longUser: Prisma.UserCreateInput = {
+    ...LONG_USER_ID_NAME,
+    password: await hash(LONG_USER_ID_NAME.password, SALT_ROUNDS)
+  };
+  const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested, longUser];
 
   try {
     await initDB();
