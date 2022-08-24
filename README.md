@@ -6,11 +6,11 @@
 
 ## 🔗 Links
 
-### 🥳 [Website is here!](https://app.instagram-clone.net/)
+### 🥳 [Website](https://app.instagram-clone.net/)
 
-### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
+### 📓 [Storybook](https://app.instagram-clone.net/storybook/)
 
-### 🚀 [API is here!](https://api.instagram-clone.net/)
+### 🚀 [API](https://api.instagram-clone.net/)
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
