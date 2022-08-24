@@ -12,7 +12,7 @@
 
 ### 🚀 [API is here!](https://api.instagram-clone.net/)
 
-### 📧 <a href="mailto:user@support@instagram-clone.net">Ask me anything!</a>
+### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
 ## ⚡ Playgrounds
 
