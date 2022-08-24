@@ -6,7 +6,7 @@ import { initialize, mswDecorator } from "msw-storybook-addon";
 import { SWRConfig } from "swr";
 import { request } from "graphql-request";
 import { graphql } from "msw";
-import { generateUsersData } from "../src/libs/faker";
+import { userNodes } from "../src/libs/faker";
 import "@fontsource/noto-sans-jp";
 
 const fetcher = (query) => request("/", query);
@@ -66,7 +66,7 @@ export const parameters = {
         graphql.query("UsersFilter", (_req, res, ctx) =>
           res(
             ctx.data({
-              users: { nodes: generateUsersData }
+              users: { nodes: userNodes }
             })
           )
         )
