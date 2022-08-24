@@ -6,19 +6,18 @@
 
 ## 🔗 Links
 
-### 🥳 [Website is here!](https://app.instagram-clone.net/)
+### 🥳 [Website](https://app.instagram-clone.net/)
 
-### 📓 [Storybook is here!](https://app.instagram-clone.net/storybook/)
+### 📓 [Storybook](https://app.instagram-clone.net/storybook/)
 
-### 🚀 [API is here!](https://api.instagram-clone.net/)
+### 🚀 [API](https://api.instagram-clone.net/)
 
-### 📧 <a href="mailto:user@support@instagram-clone.net">Ask me anything!</a>
+### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
 ## ⚡ Playgrounds
 
-[![Open in Gitpod](https://user-images.githubusercontent.com/83388735/176985020-ae46023b-27da-4e1b-9bc2-546be5cfef16.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
-[![Open in VS Code](https://user-images.githubusercontent.com/83388735/176984885-805a0a4d-41ea-43ef-b258-b522c1cc2846.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
-
+[![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186300755-062f9256-aeaa-42d1-b42c-50bdb7b728ed.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
+[![Open in VS Code](https://user-images.githubusercontent.com/83388735/186300430-2a29e2aa-6bcb-42f2-a8d4-2a3b61aa3c67.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
 ## 🛠️ Tech Stack
 
 - Frontend
