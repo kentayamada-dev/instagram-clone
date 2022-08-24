@@ -16,7 +16,7 @@
 
 ## ⚡ Playgrounds
 
-[![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186298790-70d763b5-c8ac-450c-a7f0-f439464de0b5.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
+[![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186299974-25eed847-b875-4f1a-82f1-c60238d9a9b9.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 [![Open in VS Code](https://user-images.githubusercontent.com/83388735/186299067-fb474142-8d9f-43aa-8731-7f135b4bbdab.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
 ## 🛠️ Tech Stack
 
