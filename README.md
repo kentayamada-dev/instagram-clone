@@ -67,9 +67,9 @@
   - GraphQL Code Generator
   - Prettier
   - CSpell
-  - GitHub Actions
-  - Cloudflare
+  - CI/CD (GitHub Actions)
   
+## 💾 ERD
 ```mermaid
 %%{init:{'theme':'neutral'}}%%
 erDiagram
