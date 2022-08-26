@@ -26,6 +26,8 @@ export type CurrentUserModel = {
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
+  /** Get Related Likes */
+  likes: PaginatedLikeModel;
   /** Name */
   name: Scalars["String"];
   /** Password */
@@ -42,6 +44,11 @@ export type CurrentUserModelFollowerArgs = {
 };
 
 export type CurrentUserModelFollowingArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
+};
+
+export type CurrentUserModelLikesArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
 };
@@ -110,6 +117,42 @@ export type FollowingModelPageInfo = {
   hasNextPage: Scalars["Boolean"];
 };
 
+export type LikeInput = {
+  /** Post ID */
+  postId: Scalars["String"];
+};
+
+export type LikeModel = {
+  /** Created Date */
+  createdAt: Scalars["DateTime"];
+  /** ID */
+  id: Scalars["String"];
+  /** Liked Post */
+  post: PostModelBase;
+  /** Liked Post ID */
+  postId: Scalars["String"];
+  /** Updated Date */
+  updatedAt: Scalars["DateTime"];
+  /** Liked User */
+  user: UserModelBase;
+  /** Liked User ID */
+  userId: Scalars["String"];
+};
+
+export type LikeModelEdge = {
+  /** Cursor */
+  cursor: Scalars["String"];
+  /** Node */
+  node: LikeModel;
+};
+
+export type LikeModelPageInfo = {
+  /** End Cursor */
+  endCursor?: Maybe<Scalars["String"]>;
+  /** Boolean value of whether next page exists */
+  hasNextPage: Scalars["Boolean"];
+};
+
 export type LoginInput = {
   /** Email */
   email: Scalars["String"];
@@ -125,6 +168,8 @@ export type MessageModel = {
 export type Mutation = {
   /** Follow User */
   follow: FollowingModel;
+  /** Like Post */
+  like: LikeModel;
   /** Login */
   login: MessageModel;
   /** Logout */
@@ -133,12 +178,18 @@ export type Mutation = {
   signup: UserModelBase;
   /** Unfollow User */
   unfollow: FollowingModel;
+  /** Unlike Post */
+  unlike: LikeModel;
   /** Upload Post */
   upload: PostModel;
 };
 
 export type MutationFollowArgs = {
   followInput: FollowInput;
+};
+
+export type MutationLikeArgs = {
+  likeInput: LikeInput;
 };
 
 export type MutationLoginArgs = {
@@ -151,6 +202,10 @@ export type MutationSignupArgs = {
 
 export type MutationUnfollowArgs = {
   followInput: FollowInput;
+};
+
+export type MutationUnlikeArgs = {
+  likeInput: LikeInput;
 };
 
 export type MutationUploadArgs = {
@@ -175,6 +230,17 @@ export type PaginatedFollowingModel = {
   nodes: Array<FollowingModel>;
   /** Page Info */
   pageInfo: FollowingModelPageInfo;
+  /** Total Count */
+  totalCount: Scalars["Float"];
+};
+
+export type PaginatedLikeModel = {
+  /** Edges */
+  edges: Array<LikeModelEdge>;
+  /** Nodes */
+  nodes: Array<LikeModel>;
+  /** Page Info */
+  pageInfo: LikeModelPageInfo;
   /** Total Count */
   totalCount: Scalars["Float"];
 };
@@ -221,12 +287,19 @@ export type PostModel = {
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
+  /** Get Related Likes */
+  likes: PaginatedLikeModel;
   /** Updated Date */
   updatedAt: Scalars["DateTime"];
   /** Related User */
   user: UserModelBase;
   /** Related User ID */
   userId: Scalars["String"];
+};
+
+export type PostModelLikesArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
 };
 
 export type PostModelBase = {
@@ -277,6 +350,8 @@ export type Query = {
   follower: PaginatedFollowerModel;
   /** Get Following */
   following: PaginatedFollowingModel;
+  /** Get Likes */
+  likes: PaginatedLikeModel;
   /** Get Post */
   post: PostModel;
   /** Get Posts */
@@ -297,6 +372,13 @@ export type QueryFollowingArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
   userId: Scalars["String"];
+};
+
+export type QueryLikesArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
+  postId?: InputMaybe<Scalars["String"]>;
+  userId?: InputMaybe<Scalars["String"]>;
 };
 
 export type QueryPostArgs = {
@@ -350,6 +432,8 @@ export type UserModelBase = {
   id: Scalars["String"];
   /** Image URL */
   imageUrl: Scalars["String"];
+  /** Get Related Likes */
+  likes: PaginatedLikeModel;
   /** Name */
   name: Scalars["String"];
   /** Get Related Posts */
@@ -364,6 +448,11 @@ export type UserModelBaseFollowerArgs = {
 };
 
 export type UserModelBaseFollowingArgs = {
+  after?: InputMaybe<Scalars["String"]>;
+  first?: InputMaybe<Scalars["Float"]>;
+};
+
+export type UserModelBaseLikesArgs = {
   after?: InputMaybe<Scalars["String"]>;
   first?: InputMaybe<Scalars["Float"]>;
 };
@@ -391,7 +480,13 @@ export type UserModelBasePageInfo = {
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type CurrentUserQuery = {
-  currentUser: { id: string; name: string; imageUrl: string; following: { nodes: Array<{ followingUserId: string }> } };
+  currentUser: {
+    id: string;
+    name: string;
+    imageUrl: string;
+    likes: { nodes: Array<{ postId: string }> };
+    following: { nodes: Array<{ followingUserId: string }> };
+  };
 };
 
 export type FollowMutationVariables = Exact<{
@@ -444,6 +539,31 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = { signup: { id: string } };
 
+export type UnlikeMutationVariables = Exact<{
+  likeInput: LikeInput;
+}>;
+
+export type UnlikeMutation = { unlike: { id: string } };
+
+export type LikeMutationVariables = Exact<{
+  likeInput: LikeInput;
+}>;
+
+export type LikeMutation = { like: { id: string } };
+
+export type LikesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Float"]>;
+  after?: InputMaybe<Scalars["String"]>;
+  postId?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type LikesQuery = {
+  likes: {
+    nodes: Array<{ user: { id: string; name: string; imageUrl: string } }>;
+    pageInfo: { hasNextPage: boolean; endCursor?: string | null };
+  };
+};
+
 export type PostQueryVariables = Exact<{
   first?: InputMaybe<Scalars["Float"]>;
   postId: Scalars["String"];
@@ -456,6 +576,7 @@ export type PostQuery = {
     caption?: string | null;
     createdAt: string;
     imageUrl: string;
+    likes: { totalCount: number };
     user: { id: string; name: string; imageUrl: string; posts: { nodes: Array<{ id: string; imageUrl: string }> } };
   };
 };

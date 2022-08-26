@@ -18,5 +18,7 @@ export const postDetailTemplate: ComponentStory<typeof PostDetailTemplate> = (ar
 );
 
 postDetailTemplate.args = {
-  data: post(1)
+  data: {
+    post: post(1)
+  }
 };

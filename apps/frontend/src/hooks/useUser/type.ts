@@ -3,7 +3,7 @@ import type { KeyedMutator } from "swr";
 
 type UseUserReturnType = {
   mutateUser: KeyedMutator<UserQuery>;
-  user: UserQuery["user"] | null;
+  user: UserQuery["user"] | undefined;
 };
 
 type UseUserProps = {

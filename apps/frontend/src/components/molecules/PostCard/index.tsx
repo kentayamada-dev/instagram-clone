@@ -39,8 +39,9 @@ export const PostCard: PostCardType = ({ userId, src, userName, imageUrl, captio
       <Box p="3" w="100%">
         {userId ? (
           <Text fontSize="md" noOfLines={3}>
-            <Text fontSize="md" fontWeight="bold">
+            <Text as="span" fontWeight="bold">
               {userId}
+              &nbsp;
             </Text>
             {caption ? caption : ""}
           </Text>

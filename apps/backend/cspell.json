@@ -17,7 +17,10 @@
     "Nodesfollowing",
     "Unfollow",
     "camelcase",
-    "Unfollowed"
+    "Unfollowed",
+    "Unliked",
+    "Nodelikes",
+    "Nodeslikes"
   ],
   "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js", "seed.ts"]
 }

@@ -1,5 +1,8 @@
 {
   "noComments": "コメントはまだありません。",
   "startConversation": "コメントを追加しよう。",
-  "morePostsFrom": "の他の投稿"
+  "morePostsFrom": "の他の投稿",
+  "likeCount": "いいね！{{count, number}}件",
+  "likeMessage": "「いいね！」した人はまだいません",
+  "likes": "いいね！"
 }

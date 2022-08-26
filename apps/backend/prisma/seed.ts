@@ -205,25 +205,31 @@ const initDB = async () => {
 };
 
 const seedData = async (userData: Prisma.UserCreateInput[]) => {
+  const postIds: string[] = [];
+  const usersId: string[] = [];
+
   for (const user of userData) {
     const randomBoolean = !getRandomInt(2);
     await sleep(0.1);
     const createdUser = await prisma.user.create({
       data: user
     });
+    usersId.push(createdUser.id);
     if (randomBoolean) {
       const generatedPosts = generatePosts(getRandomInt(MAX_NUM_POSTS));
       for (const post of generatedPosts) {
         await sleep(0.1);
-        await prisma.post.create({
+        const createdPost = await prisma.post.create({
           data: {
             userId: createdUser.id,
             ...post
           }
         });
+        postIds.push(createdPost.id);
       }
     }
   }
+
   for (const user of userData) {
     const randomNumber = getRandomInt(3);
     const randomBoolean = !!randomNumber;
@@ -240,6 +246,23 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
           data: {
             followedUserId: user.id,
             followingUserId: userId
+          }
+        });
+      }
+    }
+  }
+
+  for (const postId of postIds) {
+    const randomLikeBoolean = !getRandomInt(2);
+    if (randomLikeBoolean) {
+      const cloned = Array.from(usersId);
+      const randomUsersId = getRandomElements(cloned, getRandomInt(cloned.length));
+      for (const userId of randomUsersId) {
+        await sleep(0.1);
+        await prisma.like.create({
+          data: {
+            postId,
+            userId
           }
         });
       }

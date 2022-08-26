@@ -6,6 +6,11 @@ export const CURRENT_USER_QUERY = gql`
       id
       name
       imageUrl
+      likes {
+        nodes {
+          postId
+        }
+      }
       following {
         nodes {
           followingUserId

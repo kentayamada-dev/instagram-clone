@@ -14,6 +14,7 @@ model User {
   imageUrl   String
   password   String
   posts      Post[]
+  likes      Like[]
   followedBy Follow[] @relation("following")
   following  Follow[] @relation("follower")
   createdAt  DateTime @default(now())
@@ -26,6 +27,7 @@ model Post {
   imageUrl  String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  likes     Like[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -40,4 +42,17 @@ model Follow {
   updatedAt       DateTime @updatedAt
 
   @@unique([followedUserId, followingUserId])
+}
+
+
+model Like {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, postId])
 }

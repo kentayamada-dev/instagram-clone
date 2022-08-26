@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus, UseGuards } from "@nestjs/common";
-import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
+import { Resolver, Query, Args, Mutation, Parent, ResolveField } from "@nestjs/graphql";
 import { Prisma } from "@prisma/client";
 import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { LikeCommon } from "../like/like.common";
+import { PaginatedLikeModel } from "../like/models/paginatedLike.model";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { isObjectEmpty } from "../utils/helper";
 import { UploadInput } from "./dto/post.input";
@@ -16,14 +18,14 @@ import type { MapObjectPropertyToBoolean } from "../types";
 
 @Resolver(PostModel)
 export class PostResolver {
-  public constructor(private readonly postService: PostService) {}
+  public constructor(private readonly postService: PostService, private readonly likeCommon: LikeCommon) {}
 
   @Query(() => PostModel, { description: "Get Post" })
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   protected async post(@Args("postId") postId: string, @FieldMap() fieldMap: any): Promise<PostModel> {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-    const { user, ...postProperties } = fieldMap ?? {};
-    const { posts: _userPosts, ...userProperties } = user ?? {};
+    const { user, likes: _likes, ...postProperties } = fieldMap ?? {};
+    const { posts: _userPosts, follower: _follower, following: _following, ...userProperties } = user ?? {};
     /* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
@@ -54,6 +56,17 @@ export class PostResolver {
     }
 
     return foundPost;
+  }
+
+  @ResolveField(() => PaginatedLikeModel, { description: "Get Related Likes" })
+  // eslint-disable-next-line max-statements
+  protected async likes(
+    @Parent() post: PostModel,
+    @Args() paginationArgs: PaginationArgs,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+    @FieldMap() fieldMap: any
+  ): Promise<PaginatedLikeModel> {
+    return this.likeCommon.getPaginatedLikes(post.id, post.userId, paginationArgs, fieldMap);
   }
 
   @Query(() => PaginatedPostsModel, { description: "Get Posts" })

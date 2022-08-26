@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import React from "react";
+import useSWR from "swr";
 import { fetcher } from "../../libs/graphql_request";
 import { useLocale } from "../../libs/next_router";
 import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
@@ -9,11 +10,20 @@ import { useCurrentUser } from "../useCurrentUser";
 import { usePosts } from "../usePosts";
 import { useUser } from "../useUser";
 import { useUserPosts } from "../useUserPosts";
-import { UPLOAD_MUTATION } from "./schema";
-import type { UploadMutation, UploadMutationVariables } from "../../generated";
+import { POST_QUERY, UPLOAD_MUTATION } from "./schema";
+import type { PostQuery, PostQueryVariables, UploadMutation, UploadMutationVariables } from "../../generated";
 import type { UsePostReturnType, UsePostType } from "./type";
 
-export const usePost: UsePostType = ({ handleClosePostModal }) => {
+export const usePost: UsePostType = ({ postId = "", fallbackData }) => {
+  const args: PostQueryVariables = {
+    first: 6,
+    postId,
+    postIdExcluded: postId
+  };
+  const { data, mutate } = useSWR<PostQuery, Error>([POST_QUERY, args], {
+    ...(fallbackData && { fallbackData })
+  });
+  const post = data?.post;
   const [postImageFile, setPostImageFile] = React.useState<Blob>();
   const { currentUser } = useCurrentUser();
   const { mutatePosts } = usePosts();
@@ -33,7 +43,6 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
   const handleCancelPost = (): void => {
     setImageSrc("");
     setCaption("");
-    handleClosePostModal();
   };
   const handleChangeCaption = (event: React.ChangeEvent<HTMLTextAreaElement>): void => setCaption(event.target.value);
 
@@ -113,6 +122,8 @@ export const usePost: UsePostType = ({ handleClosePostModal }) => {
     handleChangeImage,
     handleSubmitPost,
     imageSrc,
-    isPostLoading: isLoading
+    isPostLoading: isLoading,
+    mutatePost: mutate,
+    post
   };
 };

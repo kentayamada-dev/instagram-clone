@@ -39,6 +39,9 @@ export const post = (index: number): PostQuery["post"] => ({
   createdAt: faker.date.past().toDateString(),
   id: faker.datatype.uuid(),
   imageUrl: `https://picsum.photos/id/${index}/1000/1000`,
+  likes: {
+    totalCount: 8
+  },
   user: {
     ...userCommon(),
     posts: {
@@ -69,6 +72,19 @@ export const currentUser: CurrentUserQuery["currentUser"] = {
   ...userCommon(),
   following: {
     nodes: followingNodes
+  },
+  likes: {
+    nodes: [
+      {
+        postId: "like01"
+      },
+      {
+        postId: "like02"
+      },
+      {
+        postId: "like03"
+      }
+    ]
   }
 };
 

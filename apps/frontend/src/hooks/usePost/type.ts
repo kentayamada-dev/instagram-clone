@@ -1,17 +1,22 @@
+import type { PostQuery } from "../../generated";
 import type { ButtonProps, InputProps } from "@chakra-ui/react";
+import type { KeyedMutator } from "swr";
 
 export type UsePostReturnType = {
   caption: string;
-  handleCancelPost: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleCancelPost: () => void;
   handleChangeCaption: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleChangeImage: InputProps["onChange"];
   handleSubmitPost: ButtonProps["onClick"];
   imageSrc: string;
   isPostLoading: boolean;
+  mutatePost: KeyedMutator<PostQuery>;
+  post: PostQuery["post"] | undefined;
 };
 
 type UsePostProps = {
-  handleClosePostModal: () => void;
+  fallbackData?: PostQuery;
+  postId?: string | undefined;
 };
 
 export type UsePostType = (props: UsePostProps) => UsePostReturnType;

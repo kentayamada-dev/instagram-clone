@@ -62,7 +62,7 @@ export const getStaticProps: GetPostStaticProps = async ({ params, locale, defau
 
   return {
     props: {
-      data: data.post,
+      data,
       ...(await serverSideTranslations(initialLocale, ["footer", "common", "postDetail"]))
     },
     revalidate: 1
@@ -81,7 +81,7 @@ const Post: NextPostPageWithLayoutType = ({ data }) => {
 
 Post.getLayout = (page, props): JSX.Element => {
   let title = "Instagram Clone";
-  const userName = props.data?.user.name;
+  const userName = props.data?.post.user.name;
   // eslint-disable-next-line no-underscore-dangle
   const initialLocale = props._nextI18Next?.initialLocale;
 

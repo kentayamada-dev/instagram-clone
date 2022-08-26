@@ -9,6 +9,7 @@ import { FollowModule } from "./follow/follow.module";
 // @ts-expect-error
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { LoggingPlugin } from "./libs/apollo/logging";
+import { LikeModule } from "./like/like.module";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { UserModule } from "./user/user.module";
@@ -26,6 +27,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
     UserModule,
     PostModule,
     FollowModule,
+    LikeModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ConfigModule],

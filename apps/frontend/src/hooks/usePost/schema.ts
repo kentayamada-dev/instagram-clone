@@ -7,6 +7,9 @@ export const POST_QUERY = gql`
       caption
       createdAt
       imageUrl
+      likes {
+        totalCount
+      }
       user {
         id
         name

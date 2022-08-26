@@ -10,7 +10,7 @@ export const useUser: UseUserType = ({ userId = "", fallbackData }) => {
   const { data, mutate } = useSWR<UserQuery, Error>([USER_QUERY, args], {
     ...(fallbackData && { fallbackData })
   });
-  const user = data?.user ?? null;
+  const user = data?.user;
 
   return {
     mutateUser: mutate,

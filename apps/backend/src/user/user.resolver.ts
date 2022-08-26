@@ -8,6 +8,8 @@ import { AuthService } from "../auth/auth.service";
 import { PaginatedFollowerModel } from "../follow/models/paginatedFollower.model";
 import { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.model";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { LikeCommon } from "../like/like.common";
+import { PaginatedLikeModel } from "../like/models/paginatedLike.model";
 import { MessageModel } from "../message/message.model";
 import { PaginationArgs } from "../pagination/pagination.args";
 import { PostsArgs } from "../post/dto/posts.args";
@@ -35,6 +37,7 @@ export class UserResolver {
   // eslint-disable-next-line max-params
   public constructor(
     private readonly userCommon: UserCommon,
+    private readonly likeCommon: LikeCommon,
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly configService: ConfigService<ConfigSchema>
@@ -51,6 +54,32 @@ export class UserResolver {
     };
   }
 
+  @Query(() => UserModelBase, { description: "Get User" })
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  protected async user(@Args("userId") userId: string, @FieldMap() fieldMap: any): Promise<UserModelBase> {
+    /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const {
+      likes: _likes,
+      posts: _posts,
+      follower: _follower,
+      following: _following,
+      ...userProperties
+    } = fieldMap ?? {};
+    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
+    const select = Prisma.validator<Prisma.UserSelect>()({
+      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
+      id: true
+    });
+    const foundUser = await this.userService.readUser<UserModelBase | null>({ select, where: { id: userId } });
+
+    if (!foundUser) {
+      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
+    }
+
+    return foundUser;
+  }
+
   @Query(() => PaginatedUserModel, { description: "Get Users" })
   protected async users(
     @Args() usersArgs: UsersArgs,
@@ -62,30 +91,22 @@ export class UserResolver {
       posts: _edgesNodePosts,
       follower: _edgesNodefollower,
       following: _edgesNodefollowing,
+      likes: _edgesNodelikes,
       ...edgesNodeProperties
-    }: {
-      edgesNodeProperties: MapObjectPropertyToBoolean<UserModelBase>;
-      follower: any;
-      following: any;
-      posts: any;
     } = fieldMap?.edges?.node ?? {};
 
     const {
       posts: _userNodesPosts,
       follower: _userNodesfollower,
       following: _userNodesfollowing,
+      likes: _userNodeslikes,
       ...nodesProperties
-    }: {
-      follower: any;
-      following: any;
-      nodesProperties: MapObjectPropertyToBoolean<UserModelBase>;
-      posts: any;
     } = fieldMap?.nodes ?? {};
     /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const select = Prisma.validator<Prisma.UserSelect>()({
-      ...edgesNodeProperties,
-      ...nodesProperties,
+      ...(edgesNodeProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
+      ...(nodesProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
       id: true
     });
 
@@ -127,6 +148,16 @@ export class UserResolver {
     @FieldMap() fieldMap: Record<string, unknown>
   ): Promise<PaginatedFollowerModel> {
     return this.userCommon.getPaginatedFollower(user.id, paginationArgs, fieldMap);
+  }
+
+  @ResolveField(() => PaginatedLikeModel, { description: "Get Related Likes" })
+  protected async likes(
+    @Parent() user: UserModelBase,
+    @Args() paginationArgs: PaginationArgs,
+    @FieldMap() fieldMap: Record<string, unknown>
+  ): Promise<PaginatedLikeModel> {
+    // eslint-disable-next-line no-undefined
+    return this.likeCommon.getPaginatedLikes(undefined, user.id, paginationArgs, fieldMap);
   }
 
   @ResolveField(() => PaginatedPostModel, { description: "Get Related Posts" })
@@ -218,35 +249,5 @@ export class UserResolver {
     });
 
     return { message: "Cookie has been deleted successfully" };
-  }
-
-  @Query(() => UserModelBase, { description: "Get User" })
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-  protected async user(@Args("userId") userId: string, @FieldMap() fieldMap: any): Promise<UserModelBase> {
-    /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-    const {
-      posts: _posts,
-      follower: _follower,
-      following: _following,
-      ...userProperties
-    }: {
-      follower: any;
-      following: any;
-      posts: any;
-      userProperties: MapObjectPropertyToBoolean<UserModelBase>;
-    } = fieldMap ?? {};
-    /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-
-    const select = Prisma.validator<Prisma.UserSelect>()({
-      ...userProperties,
-      id: true
-    });
-    const foundUser = await this.userService.readUser<UserModelBase | null>({ select, where: { id: userId } });
-
-    if (!foundUser) {
-      throw new HttpException("User not found", HttpStatus.NOT_FOUND);
-    }
-
-    return foundUser;
   }
 }

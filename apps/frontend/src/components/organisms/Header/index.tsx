@@ -33,7 +33,11 @@ export const Header: HeaderType = () => {
     handleLogout
   } = useHeader();
 
-  const { ...usePostValues } = usePost({ handleClosePostModal });
+  const { handleCancelPost: handleCancelPostFunction, ...usePostValues } = usePost({});
+  const handleCancelPost = (): void => {
+    handleCancelPostFunction();
+    handleClosePostModal();
+  };
   const { currentUser } = useCurrentUser();
   const isAuthenticated = Boolean(currentUser);
   const bgColor = useColorModeValue(WHITE, EBONY);
@@ -167,6 +171,7 @@ export const Header: HeaderType = () => {
         {...usePostValues}
         currentUserAvatarUrl={currentUser?.imageUrl}
         currentUserName={currentUser?.name}
+        handleCancelPost={handleCancelPost}
         handleClosePostModal={handleClosePostModal}
         isPostModalOpen={isPostModalOpen}
       />

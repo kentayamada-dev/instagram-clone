@@ -38,6 +38,21 @@ const Modal: ComponentStyleConfig = {
 
 const Button: ComponentSingleStyleConfig = {
   variants: {
+    text: {
+      padding: 0,
+      margin: "0 !important"
+    },
+    icon: {
+      bgColor: "transparent",
+      padding: 0,
+      _hover: {
+        bgColor: "transparent",
+        opacity: 0.5
+      },
+      _active: {
+        bgColor: "transparent"
+      }
+    },
     primary: {
       _hover: {
         _disabled: {
