@@ -22,5 +22,5 @@
     "Nodelikes",
     "Nodeslikes"
   ],
-  "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js", "seed.ts"]
+  "ignorePaths": ["*.tsbuildinfo", "dist", "prisma/migrations", "cspell.json", ".eslintrc.js", "seed.ts", "*.svg"]
 }
