@@ -67,5 +67,49 @@
   - GraphQL Code Generator
   - Prettier
   - CSpell
-  - GitHub Actions
-  - Cloudflare
+  - CI/CD (GitHub Actions)
+  
+## 💾 ERD
+```mermaid
+%%{init:{'theme':'neutral'}}%%
+erDiagram
+
+  User {
+    String id  
+    String name  
+    String email  
+    String imageUrl  
+    String password  
+    DateTime createdAt  
+    DateTime updatedAt  
+    }
+  
+
+  Post {
+    String id PK 
+    String caption  "nullable"
+    String imageUrl  
+    DateTime createdAt  
+    DateTime updatedAt  
+    }
+  
+
+  Follow {
+    String id PK 
+    DateTime createdAt  
+    DateTime updatedAt  
+    }
+  
+
+  Like {
+    String id PK 
+    DateTime createdAt  
+    DateTime updatedAt  
+    }
+  
+    Post o{--|| User : "user"
+    Follow o{--|| User : "followedUser"
+    Follow o{--|| User : "followingUser"
+    Like o{--|| User : "user"
+    Like o{--|| Post : "post"
+```
