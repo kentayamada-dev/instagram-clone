@@ -1,6 +1,6 @@
 import { Flex, VStack, Text, Divider, Link } from "@chakra-ui/react";
-import { useTranslation } from "next-i18next";
 import { constants } from "../../../constants";
+import { useLocale } from "../../../libs/next_router";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import type { FooterType } from "./index.types";
@@ -10,7 +10,9 @@ const {
 } = constants;
 
 export const Footer: FooterType = () => {
-  const { t } = useTranslation("footer");
+  const support = useLocale("Support", "サポート");
+  const reference = useLocale("Reference", "参考");
+  const hosting = useLocale("Hosting", "ホスティング");
   const darkImg = {
     alt: "Vercel Logo Dark",
     src: "/static/vercel/logo_dark.png"
@@ -26,7 +28,7 @@ export const Footer: FooterType = () => {
       <Divider borderColor={SUVA_GREY} w="80%" />
       <Flex justify="space-around" w="100%">
         <VStack spacing={1}>
-          <Text fontSize="xs">{t("support")}</Text>
+          <Text fontSize="xs">{support}</Text>
           <Link
             _hover={{
               textDecoration: "none"
@@ -40,7 +42,7 @@ export const Footer: FooterType = () => {
           </Link>
         </VStack>
         <VStack spacing={1}>
-          <Text fontSize="xs">{t("reference")}</Text>
+          <Text fontSize="xs">{reference}</Text>
           <ImageLink
             alt="Instagram Text"
             height={23}
@@ -51,7 +53,7 @@ export const Footer: FooterType = () => {
           />
         </VStack>
         <VStack spacing={1}>
-          <Text fontSize="xs">{t("hosting")}</Text>
+          <Text fontSize="xs">{hosting}</Text>
           <ImageLinkColorMode
             darkImg={darkImg}
             height={23}

@@ -1,6 +1,5 @@
 import { Box, Center, Input, List, ListItem, Spinner, useColorModeValue } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
-import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
 // eslint-disable-next-line camelcase
@@ -9,6 +8,7 @@ import { constants } from "../../../../../constants";
 import { useDebounce } from "../../../../../hooks/useDebounce";
 import { USERS_FILTER_QUERY } from "../../../../../hooks/useUsers/schema";
 import { fetcher } from "../../../../../libs/graphql_request";
+import { useLocale } from "../../../../../libs/next_router";
 import { wait } from "../../../../../utils/wait";
 import { UserCard } from "../../../../molecules/userCard";
 import type { UsersFilterQuery } from "../../../../../generated";
@@ -24,7 +24,8 @@ export const Combobox: ComboboxType = () => {
   const selectedColor = useColorModeValue(SNOW, `${WHITE}0a`);
   const { cache } = useSWRConfig();
   const router = useRouter();
-  const { t } = useTranslation("common");
+  const search = useLocale("Search", "検索");
+  const noResultsFound = useLocale("No results found.", "一致する結果はありませんでした。");
   const [filteredUsers, setFilteredUsers] = React.useState<UsersFilterQuery["users"]["nodes"]>([]);
   const [isFetching, setIsFetching] = React.useState(false);
   const ref = React.useRef<HTMLInputElement | null>(null);
@@ -113,7 +114,7 @@ export const Combobox: ComboboxType = () => {
     <>
       <Box {...getComboboxProps()}>
         <Input
-          placeholder={t("search")}
+          placeholder={search}
           {...getInputProps({
             onFocus: openMenu,
             onKeyDown: handleKeyDown,
@@ -167,13 +168,13 @@ export const Combobox: ComboboxType = () => {
                     </ListItem>
                   ))
                 ) : (
-                  <Center h="100%">{t("noResultsFound")}</Center>
+                  <Center h="100%">{noResultsFound}</Center>
                 )}
               </>
             )}
           </>
         ) : (
-          <Center h="100%">{t("noResultsFound")}</Center>
+          <Center h="100%">{noResultsFound}</Center>
         )}
       </List>
     </>

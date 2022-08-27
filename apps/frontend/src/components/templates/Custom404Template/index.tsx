@@ -18,10 +18,17 @@ export const Custom404Template: Custom404TemplateType = () => {
       <Heading as="h2" size="lg">
         {t("pageNotFound")}
       </Heading>
-      <Text fontSize="md" mt="10">
-        {t("pageNotFoundDescription")}
-        <TextLink fontSize="md" href="/" text={t("goBack")} textColor={DODGER_BLUE} />
-      </Text>
+      <Flex
+        direction={{
+          base: "column",
+          md: "row"
+        }}
+        fontSize="md"
+        mt="10"
+      >
+        <Text>{t("pageNotFoundDescription")}</Text>
+        <TextLink href="/" text={t("goBack")} textColor={DODGER_BLUE} />
+      </Flex>
       <Box mt="10" w="80">
         <Lottie animationData={Custom404Animation} loop />
       </Box>

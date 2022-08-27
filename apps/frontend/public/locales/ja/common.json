@@ -12,8 +12,6 @@
   "recommend": "おすすめ",
   "email": "メール",
   "noPostsYet": "投稿はまだありません",
-  "noResultsFound": "一致する結果はありませんでした。",
-  "search": "検索",
   "followersCount": "フォロワー{{count, number}}人",
   "followingCount": "フォロー中{{count, number}}人",
   "followers": "フォロワー",
