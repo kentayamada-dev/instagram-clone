@@ -71,7 +71,7 @@
   
 ## 💾 ERD
 ```mermaid
-%%{init:{'theme':'neutral'}}%%
+%%{init: {'themeVariables': { 'textColor': '#11999E'}}}%%
 erDiagram
 
   User {
