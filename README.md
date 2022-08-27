@@ -72,4 +72,54 @@
 
 ## 💾 ERD
 
-![ERD](apps/backend/prisma/ERD.svg)
+| Diagram                                                                     | Notation                                                                      |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| <img src="apps/backend/prisma/erd/diagram.svg" width="500px" alt="diagram"> | <img src="apps/backend/prisma/erd/notation.png" width="500px" alt="notation"> |
+
+<details>
+
+```
+%%{init: {'theme':'neutral', 'themeVariables': { 'textColor': '#11999E', 'nodeTextColor':'#AA96DA', 'tertiaryColor':'transparent'}}}%%
+erDiagram
+
+  User {
+    String id
+    String name
+    String email
+    String imageUrl
+    String password
+    DateTime createdAt
+    DateTime updatedAt
+    }
+
+
+  Post {
+    String id PK
+    String caption  "nullable"
+    String imageUrl
+    DateTime createdAt
+    DateTime updatedAt
+    }
+
+
+  Follow {
+    String id PK
+    DateTime createdAt
+    DateTime updatedAt
+    }
+
+
+  Like {
+    String id PK
+    DateTime createdAt
+    DateTime updatedAt
+    }
+
+    Post o{--|| User : "user"
+    Follow o{--|| User : "followedUser"
+    Follow o{--|| User : "followingUser"
+    Like o{--|| User : "user"
+    Like o{--|| Post : "post"
+```
+
+</details>
