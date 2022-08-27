@@ -18,6 +18,7 @@
 
 [![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186300755-062f9256-aeaa-42d1-b42c-50bdb7b728ed.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 [![Open in VS Code](https://user-images.githubusercontent.com/83388735/186300430-2a29e2aa-6bcb-42f2-a8d4-2a3b61aa3c67.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
+
 ## 🛠️ Tech Stack
 
 - Frontend
@@ -68,48 +69,7 @@
   - Prettier
   - CSpell
   - CI/CD (GitHub Actions)
-  
+
 ## 💾 ERD
-```mermaid
-%%{init: {'themeVariables': { 'textColor': '#11999E'}}}%%
-erDiagram
 
-  User {
-    String id  
-    String name  
-    String email  
-    String imageUrl  
-    String password  
-    DateTime createdAt  
-    DateTime updatedAt  
-    }
-  
-
-  Post {
-    String id PK 
-    String caption  "nullable"
-    String imageUrl  
-    DateTime createdAt  
-    DateTime updatedAt  
-    }
-  
-
-  Follow {
-    String id PK 
-    DateTime createdAt  
-    DateTime updatedAt  
-    }
-  
-
-  Like {
-    String id PK 
-    DateTime createdAt  
-    DateTime updatedAt  
-    }
-  
-    Post o{--|| User : "user"
-    Follow o{--|| User : "followedUser"
-    Follow o{--|| User : "followingUser"
-    Like o{--|| User : "user"
-    Like o{--|| Post : "post"
-```
+![ERD](apps/backend/prisma/ERD.svg)

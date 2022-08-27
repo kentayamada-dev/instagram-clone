@@ -7,11 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output = "ERD.md"
-}
-
 model User {
   id         String @unique
   name       String
