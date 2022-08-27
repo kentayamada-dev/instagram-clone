@@ -175,7 +175,7 @@ export class UserResolver {
     @Args("signupInput") signupInput: SignupInput,
     @Context("res") res: Response
   ): Promise<UserModelBase> {
-    const RESERVED_WORDS = ["signup", "404"];
+    const RESERVED_WORDS = ["signup", "404", "ja", "en"];
     if (RESERVED_WORDS.includes(signupInput.id)) {
       throw new HttpException("User ID Is Taken", HttpStatus.CONFLICT);
     }

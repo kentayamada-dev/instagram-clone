@@ -14,7 +14,14 @@ export const Custom404Template: Custom404TemplateType = () => {
   const { t } = useTranslation("notFound");
 
   return (
-    <Flex alignItems="center" flexDir="column" m="10">
+    <Flex
+      alignItems="center"
+      flexDir="column"
+      m={{
+        base: 5,
+        sm: 10
+      }}
+    >
       <Heading as="h2" size="lg">
         {t("pageNotFound")}
       </Heading>
@@ -24,6 +31,10 @@ export const Custom404Template: Custom404TemplateType = () => {
           md: "row"
         }}
         fontSize="md"
+        gap={{
+          base: 0,
+          md: 1
+        }}
         mt="10"
       >
         <Text>{t("pageNotFoundDescription")}</Text>
