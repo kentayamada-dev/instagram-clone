@@ -175,6 +175,10 @@ export class UserResolver {
     @Args("signupInput") signupInput: SignupInput,
     @Context("res") res: Response
   ): Promise<UserModelBase> {
+    const RESERVED_WORDS = ["signup", "404"];
+    if (RESERVED_WORDS.includes(signupInput.id)) {
+      throw new HttpException("User ID Is Taken", HttpStatus.CONFLICT);
+    }
     let createdUser: UserModelBase | null = null;
     const { password, ...rest } = signupInput;
     const hashedPassword = await hash(password, this.saltRounds);
