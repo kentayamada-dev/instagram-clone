@@ -19,7 +19,7 @@
     "kill-port:nest": "kill-port 5001",
     "lint": "run-p eslint cspell type-check find-deadcode",
     "postlint": "run-p format",
-    "prisma:generate": "DISABLE_ERD=true prisma generate",
+    "prisma:generate": "prisma generate",
     "prisma:init": "run-s prisma:generate prisma:migrate:dev prisma:seed",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:prod": "prisma migrate deploy",
