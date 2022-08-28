@@ -8,7 +8,7 @@ import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
 import { LikeCommon } from "../like/like.common";
 import { PaginatedLikeModel } from "../like/models/paginatedLike.model";
 import { PaginationArgs } from "../pagination/pagination.args";
-import { isObjectEmpty } from "../utils/helper";
+import { extractUserProperties, isObjectEmpty } from "../utils/helper";
 import { UploadInput } from "./dto/post.input";
 import { PaginatedPostsModel } from "./models/paginatedPosts.model";
 import { PostModel } from "./models/post.model";
@@ -23,9 +23,9 @@ export class PostResolver {
   @Query(() => PostModel, { description: "Get Post" })
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   protected async post(@Args("postId") postId: string, @FieldMap() fieldMap: any): Promise<PostModel> {
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
     const { user, likes: _likes, ...postProperties } = fieldMap ?? {};
-    const { posts: _userPosts, follower: _follower, following: _following, ...userProperties } = user ?? {};
+    const userProperties = extractUserProperties(user);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
@@ -33,9 +33,7 @@ export class PostResolver {
       id: true
     });
 
-    const userSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
-    });
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({ ...userProperties });
 
     const select: Prisma.PostSelect = {
       ...postSelect,
@@ -76,12 +74,12 @@ export class PostResolver {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<PaginatedPostsModel> {
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/
     const { user: edgesNodeUser, ...edgesNodeProperties } = fieldMap?.edges?.node ?? {};
-    const { posts: _edgesNodeUserPosts, ...edgesNodeUserProperties } = edgesNodeUser ?? {};
+    const edgesNodeUserProperties = extractUserProperties(edgesNodeUser);
     const { user: nodesUser, ...nodesProperties } = fieldMap?.nodes ?? {};
-    const { posts: _nodesUserPosts, ...nodesUserProperties } = nodesUser ?? {};
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const nodesUserProperties = extractUserProperties(nodesUser);
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access*/
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...(edgesNodeProperties as MapObjectPropertyToBoolean<Prisma.PostSelect>),
@@ -90,8 +88,8 @@ export class PostResolver {
     });
 
     const userSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(edgesNodeUserProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
-      ...(nodesUserProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...edgesNodeUserProperties,
+      ...nodesUserProperties
     });
 
     const select: Prisma.PostSelect = {
@@ -136,9 +134,9 @@ export class PostResolver {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
     @FieldMap() fieldMap: any
   ): Promise<PostModel> {
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
     const { user, ...postProperties } = fieldMap ?? {};
-    const { posts: _edgesNodeUserPosts, ...userProperties } = user ?? {};
+    const userProperties = extractUserProperties(user);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment */
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
@@ -147,7 +145,7 @@ export class PostResolver {
     });
 
     const userSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...userProperties
     });
 
     const select: Prisma.PostSelect = {

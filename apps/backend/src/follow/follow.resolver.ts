@@ -5,7 +5,7 @@ import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
-import { isObjectEmpty } from "../utils/helper";
+import { extractUserProperties, isObjectEmpty } from "../utils/helper";
 import { FollowArgs } from "./dto/follow.args";
 import { FollowInput } from "./dto/follow.input";
 import { FollowService } from "./follow.service";
@@ -30,19 +30,9 @@ export class FollowResolver {
   ): Promise<PaginatedFollowingModel> {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { followingUser: edgesNodeFollowingUser, ...edgesNodeProperties } = fieldMap?.edges?.node ?? {};
-    const {
-      posts: _edgesNodeFollowingPosts,
-      following: _edgesNodeFollowingUserFollowing,
-      follower: _edgesNodeFollowingUserFollower,
-      ...edgesNodeFollowingProperties
-    } = edgesNodeFollowingUser ?? {};
+    const edgesNodeFollowingProperties = extractUserProperties(edgesNodeFollowingUser);
     const { followingUser: nodesFollowingUser, ...nodesProperties } = fieldMap?.nodes ?? {};
-    const {
-      posts: _nodesFollowingPosts,
-      following: _nodesFollowingUserFollowing,
-      follower: _nodesFollowingUserFollower,
-      ...nodesFollowingProperties
-    } = nodesFollowingUser ?? {};
+    const nodesFollowingProperties = extractUserProperties(nodesFollowingUser);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const followSelect = Prisma.validator<Prisma.FollowSelect>()({
@@ -52,8 +42,8 @@ export class FollowResolver {
     });
 
     const followingSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(edgesNodeFollowingProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
-      ...(nodesFollowingProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...edgesNodeFollowingProperties,
+      ...nodesFollowingProperties
     });
 
     const select: Prisma.FollowSelect = {
@@ -101,19 +91,9 @@ export class FollowResolver {
   ): Promise<PaginatedFollowerModel> {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { followedUser: edgesNodeFollowedUser, ...edgesNodeProperties } = fieldMap?.edges?.node ?? {};
-    const {
-      posts: _edgesNodeFollowedUserPosts,
-      follower: _edgesNodeFollowedUserFollower,
-      following: _edgesNodeFollowedUserFollowing,
-      ...edgesNodeFollowerProperties
-    } = edgesNodeFollowedUser ?? {};
+    const edgesNodeFollowerProperties = extractUserProperties(edgesNodeFollowedUser);
     const { followedUser: nodesFollowedUser, ...nodesProperties } = fieldMap?.nodes ?? {};
-    const {
-      posts: _nodesFollowedUserPosts,
-      follower: _nodesFollowedUserFollower,
-      following: _nodesFollowedUserFollowing,
-      ...nodesFollowerProperties
-    } = nodesFollowedUser ?? {};
+    const nodesFollowerProperties = extractUserProperties(nodesFollowedUser);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const followSelect = Prisma.validator<Prisma.FollowSelect>()({
@@ -123,8 +103,8 @@ export class FollowResolver {
     });
 
     const followerSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(edgesNodeFollowerProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>),
-      ...(nodesFollowerProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...edgesNodeFollowerProperties,
+      ...nodesFollowerProperties
     });
 
     const select: Prisma.FollowSelect = {
@@ -173,15 +153,10 @@ export class FollowResolver {
     @FieldMap() fieldMap: any
   ): Promise<FollowingModel> {
     let followData: FollowingModel | null = null;
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { followingUser, ...followProperties } = fieldMap ?? {};
-    const {
-      posts: _followingUserPosts,
-      following: _followingUserFollowing,
-      follower: _followingUserFollower,
-      ...followingUserProperties
-    } = followingUser ?? {};
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
+    const followingUserProperties = extractUserProperties(followingUser);
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const followSelect = Prisma.validator<Prisma.FollowSelect>()({
       ...(followProperties as MapObjectPropertyToBoolean<Prisma.FollowSelect>),
@@ -189,7 +164,7 @@ export class FollowResolver {
     });
 
     const followingUserSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(followingUserProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...followingUserProperties
     });
 
     const select: Prisma.FollowSelect = {
@@ -231,15 +206,10 @@ export class FollowResolver {
     @FieldMap() fieldMap: any
   ): Promise<FollowingModel> {
     let followData: FollowingModel | null = null;
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { followingUser, ...followProperties } = fieldMap ?? {};
-    const {
-      posts: _followingUserPosts,
-      following: _followingUserFollowing,
-      follower: _followingUserFollower,
-      ...followingUserProperties
-    } = followingUser ?? {};
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
+    const followingUserProperties = extractUserProperties(followingUser);
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 
     const followSelect = Prisma.validator<Prisma.FollowSelect>()({
       ...(followProperties as MapObjectPropertyToBoolean<Prisma.FollowSelect>),
@@ -247,7 +217,7 @@ export class FollowResolver {
     });
 
     const followingUserSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(followingUserProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
+      ...followingUserProperties
     });
 
     const select: Prisma.FollowSelect = {

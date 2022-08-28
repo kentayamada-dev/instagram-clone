@@ -5,7 +5,7 @@ import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
 import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
-import { isObjectEmpty } from "../utils/helper";
+import { extractUserProperties, isObjectEmpty } from "../utils/helper";
 import { LikeArgs } from "./dto/like.args";
 import { LikeInput } from "./dto/like.input";
 import { LikeCommon } from "./like.common";
@@ -19,7 +19,6 @@ export class LikeResolver {
   public constructor(private readonly likeService: LikeService, private readonly likeCommon: LikeCommon) {}
 
   @Query(() => PaginatedLikeModel, { description: "Get Likes" })
-  // eslint-disable-next-line max-statements
   protected async likes(
     @Args() likeArgs: LikeArgs,
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -42,16 +41,15 @@ export class LikeResolver {
     let likeData: LikeModel | null = null;
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { post, user, ...likeProperties } = fieldMap ?? {};
-    const { posts: _userPosts, following: _userFollowing, follower: _userFollower, ...userProperties } = user ?? {};
+    const userProperties = extractUserProperties(user);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
     const likeSelect = Prisma.validator<Prisma.LikeSelect>()({
       ...(likeProperties as MapObjectPropertyToBoolean<Prisma.LikeSelect>),
       id: true
     });
 
-    const userSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
-    });
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({ ...userProperties });
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...(post as MapObjectPropertyToBoolean<Prisma.PostSelect>)
@@ -106,16 +104,15 @@ export class LikeResolver {
     let likeData: LikeModel | null = null;
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
     const { post, user, ...likeProperties } = fieldMap ?? {};
-    const { posts: _userPosts, following: _userFollowing, follower: _userFollower, ...userProperties } = user ?? {};
+    const userProperties = extractUserProperties(user);
     /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
     const likeSelect = Prisma.validator<Prisma.LikeSelect>()({
       ...(likeProperties as MapObjectPropertyToBoolean<Prisma.LikeSelect>),
       id: true
     });
 
-    const userSelect = Prisma.validator<Prisma.UserSelect>()({
-      ...(userProperties as MapObjectPropertyToBoolean<Prisma.UserSelect>)
-    });
+    const userSelect = Prisma.validator<Prisma.UserSelect>()({ ...userProperties });
 
     const postSelect = Prisma.validator<Prisma.PostSelect>()({
       ...(post as MapObjectPropertyToBoolean<Prisma.PostSelect>)
