@@ -40,6 +40,6 @@ export const lighthouse = async (core) => {
       } ${getContent(pwaDiff)} |`;
     })
     .join("");
-  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA |\n|---|---|---|---|---|---|---|${tds}\n<details><summary>Show Detail</summary>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA |\n|---|---|---|---|---|---|---|${tds}\n<details>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
   await core.summary.addRaw(result).write();
 };
