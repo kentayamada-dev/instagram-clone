@@ -360,6 +360,49 @@ jobs:
           name: Lighthouse Reports
           path: lighthouseOutput
 
+  GitHub-Pages:
+    needs: [Lighthouse, Visual-Test, E2E-Test]
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Check bundle analysis report existence
+        uses: xSAVIKx/artifact-exists-action@v0
+        id: artifact-exists-action
+        with:
+          name: "Bundle Analysis Report"
+
+      - name: Download bundle analysis report
+        uses: actions/download-artifact@v3
+        if: steps.artifact-exists-action.outputs.exists == 'true'
+        with:
+          name: Bundle Analysis Report
+          path: .github/pages
+
+      - name: Download VRT report
+        uses: actions/download-artifact@v3
+        with:
+          name: VRT Report
+          path: .github/pages
+
+      - name: Upload github pages artifact
+        uses: actions/upload-pages-artifact@v1.0.3
+        with:
+          path: .github/pages
+
+      - name: Deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@v1.0.10
+
   Line-Notify:
     if: failure()
     needs: [E2E-Test, Visual-Test, Lighthouse]
