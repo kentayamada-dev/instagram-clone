@@ -386,18 +386,24 @@ jobs:
         if: steps.artifact-exists-action.outputs.exists == 'true'
         with:
           name: Bundle Analysis Report
-          path: .github/pages
+          path: apps/gh-pages/public
 
       - name: Download VRT report
         uses: actions/download-artifact@v3
         with:
           name: VRT Report
-          path: .github/pages
+          path: apps/gh-pages/public
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build github pages
+        run: yarn turbo run build --scope=gh-pages --include-dependencies --no-deps
 
       - name: Upload github pages artifact
         uses: actions/upload-pages-artifact@v1.0.3
         with:
-          path: .github/pages
+          path: apps/gh-pages/dist
 
       - name: Deploy to github pages
         id: deployment

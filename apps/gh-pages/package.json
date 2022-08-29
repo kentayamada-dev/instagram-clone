@@ -1,0 +1,19 @@
+{
+  "name": "gh-pages",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "astro build",
+    "cspell": "cspell --gitignore --cache --config cspell.json '**'",
+    "dev": "astro dev",
+    "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^1.1.1"
+  },
+  "devDependencies": {
+    "prettier-plugin-astro": "^0.5.3"
+  }
+}

@@ -11,6 +11,7 @@ services:
       - ..:/workspace:cached
       - extensions:/root/.vscode-server/extensions
       - frontend-node_modules:/workspace/apps/frontend/node_modules
+      - gh-pages-node_modules:/workspace/apps/gh-pages/node_modules
       - backend-node_modules:/workspace/apps/backend/node_modules
       - common-node_modules:/workspace/node_modules
       - ~/.ssh:/root/.ssh
@@ -63,5 +64,6 @@ volumes:
   postgres-data:
   common-node_modules:
   frontend-node_modules:
+  gh-pages-node_modules:
   backend-node_modules:
   extensions:

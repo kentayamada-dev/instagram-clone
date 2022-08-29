@@ -46,6 +46,7 @@
     "Gruntfuggly.activitusbar",
     "formulahendry.auto-rename-tag",
     "apollographql.vscode-apollo",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "astro-build.astro-vscode"
   ]
 }
