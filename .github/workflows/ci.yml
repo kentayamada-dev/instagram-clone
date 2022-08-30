@@ -361,6 +361,7 @@ jobs:
           path: lighthouseOutput
 
   GitHub-Pages:
+    if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
     needs: [Lighthouse, Visual-Test, E2E-Test]
     permissions:
       pages: write
