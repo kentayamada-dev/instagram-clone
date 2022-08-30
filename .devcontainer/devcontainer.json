@@ -47,6 +47,7 @@
     "formulahendry.auto-rename-tag",
     "apollographql.vscode-apollo",
     "eamodio.gitlens",
-    "astro-build.astro-vscode"
+    "astro-build.astro-vscode",
+    "bradlc.vscode-tailwindcss"
   ]
 }

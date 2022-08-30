@@ -1,10 +1,41 @@
 ---
-console.log("This runs in your terminal, not the browser!");
+import { readdirSync } from "fs";
+
+const lighthouseResults = readdirSync("public/lighthouse");
+const videos = readdirSync("public/cypress");
 ---
 
 <html>
+  <head>
+    <title>Instagram Clone Analytics</title>
+  </head>
   <body>
-    <a href="./client">go to client</a>
-    <a href="./report">go to report</a>
+    <main>
+      <h2>Bundle Analysis Report</h2>
+      <a href="./client">Check the report</a>
+      <h2>VRT Report</h2>
+      <a href="./report">Check the report</a>
+      <h2>Cypress Report</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        {
+          videos.map((video) => (
+            <div class="max-w-full">
+              <div>{video}</div>
+              <video class="max-w-full" src={`cypress/${video}`} controls />
+            </div>
+          ))
+        }
+      </div>
+      <h2>Lighthouse Report</h2>
+      <ul>
+        {
+          lighthouseResults.map((result) => (
+            <li>
+              <a href={`./lighthouse/${result}`}>{result}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
   </body>
 </html>

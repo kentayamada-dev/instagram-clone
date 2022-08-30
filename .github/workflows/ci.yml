@@ -369,7 +369,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: Check out repository code
@@ -393,6 +393,24 @@ jobs:
         with:
           name: VRT Report
           path: apps/gh-pages/public
+
+      - name: Create direcotry for store cypress videos
+        run: mkdir apps/gh-pages/public/cypress
+
+      - name: Download cypress videos
+        uses: actions/download-artifact@v3
+        with:
+          name: Cypress Videos
+          path: apps/gh-pages/public/cypress
+
+      - name: Create direcotry for store lighthouse reports
+        run: mkdir apps/gh-pages/public/lighthouse
+
+      - name: Download lighthouse reports
+        uses: actions/download-artifact@v3
+        with:
+          name: Lighthouse Reports
+          path: apps/gh-pages/public/lighthouse
 
       - name: Install dependencies
         run: yarn install
