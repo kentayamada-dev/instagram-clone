@@ -1,8 +1,7 @@
-import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 
-export default defineConfig({
+export default /** @type {import('astro').AstroUserConfig} */ ({
   site: "https://kentayamada-dev.github.io",
-  base: "/instagram-clone",
+  base: process.env["GH_PAGES_BASE"],
   integrations: [tailwind()]
 });

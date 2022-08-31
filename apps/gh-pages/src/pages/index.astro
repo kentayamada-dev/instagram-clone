@@ -1,8 +1,15 @@
 ---
 import { readdirSync } from "fs";
 
-const lighthouseResults = readdirSync("public/lighthouse");
-const videos = readdirSync("public/cypress");
+let lighthouseResults: string[] = [];
+let videos: string[] = [];
+
+try {
+  lighthouseResults = readdirSync("public/lighthouse");
+  videos = readdirSync("public/cypress");
+} catch (error) {
+  console.log(error);
+}
 ---
 
 <html>

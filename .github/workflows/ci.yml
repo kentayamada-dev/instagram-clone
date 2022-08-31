@@ -217,8 +217,6 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           browser: chrome
-        env:
-          E2E_BASE_URL: ${{ secrets.E2E_BASE_URL }}
 
       - name: Upload test videos
         uses: actions/upload-artifact@v3
@@ -418,6 +416,8 @@ jobs:
 
       - name: Build github pages
         run: yarn turbo run build --scope=gh-pages --include-dependencies --no-deps
+        env:
+          GH_PAGES_BASE: /instagram-clone
 
       - name: Upload github pages artifact
         uses: actions/upload-pages-artifact@v1.0.3
