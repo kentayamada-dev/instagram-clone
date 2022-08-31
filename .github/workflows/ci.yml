@@ -411,7 +411,17 @@ jobs:
           name: Lighthouse Reports
           path: apps/gh-pages/public/lighthouse
 
-      - name: Install dependencies
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: node_modules_cache_id
+        env:
+          cache-name: node_modules_cache
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-yarn-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install packages
+        if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         run: yarn install
 
       - name: Build github pages
