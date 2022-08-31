@@ -234,7 +234,7 @@ jobs:
 
       - name: Print see more link
         run: |
-          echo "[See more](https://kentayamada-dev.github.io/instagram-clone/cypress/)" >> $GITHUB_STEP_SUMMARY
+          echo "[See more...](https://kentayamada-dev.github.io/instagram-clone/cypress/)" >> $GITHUB_STEP_SUMMARY
 
   Visual-Test:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
