@@ -17,7 +17,8 @@ export const lighthouse = async (core) => {
       const modifiedPathname = pathname.replace(/\//g, "");
       const fileName = modifiedPathname === "" ? "root" : modifiedPathname;
       const filePath = basename(output.localReport);
-      const renamedFilePath = `lighthouseOutput/${fileName}_${emulatedFormFactor}.html`;
+      const fileNameWithExtension = `${fileName}_${emulatedFormFactor}.html`;
+      const renamedFilePath = `lighthouseOutput/${fileNameWithExtension}`;
       renameSync(`lighthouseOutput/${filePath}`, renamedFilePath);
       output.localReport = renamedFilePath;
       const outputScores = output.scores;
@@ -49,11 +50,9 @@ export const lighthouse = async (core) => {
         outputScores.progressiveWebApp
       } ${getContent(
         pwaDiff
-      )} | <a href=https://kentayamada-dev.github.io/instagram-clone/${renamedFilePath}>see more</a> |`;
+      )} | <a href=https://kentayamada-dev.github.io/instagram-clone/lighthouse/${fileNameWithExtension}>See more...</a> |`;
     })
     .join("");
-  const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
-  console.log(stringifiedOutputObj);
   const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA | Detail |\n|---|---|---|---|---|---|---|---|${tds}\n`;
   await core.summary.addRaw(result).write();
 };

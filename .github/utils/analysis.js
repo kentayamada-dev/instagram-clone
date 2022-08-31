@@ -52,12 +52,10 @@ export const analysis = async (core) => {
       )} |\n`;
     }
   }
-  const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
-  console.log(stringifiedOutputObj);
   const globalSize = outputObj["__global"]["gzip"];
   const prevGlobalSize = prevOutputObj["__global"]["gzip"];
   const globalSizeDiff = prevGlobalSize - globalSize;
   const global = `| \`global\` | ${getFileSize(globalSize)} ${getContent(globalSizeDiff)} |`;
-  const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n\n<a href=https://kentayamada-dev.github.io/instagram-clone/client>see more</a>`;
+  const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n\n<a href=https://kentayamada-dev.github.io/instagram-clone/client>See more...</a>`;
   await core.summary.addRaw(result).write();
 };
