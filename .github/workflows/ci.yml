@@ -101,11 +101,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
       - name: Cache node_modules
         uses: actions/cache@v3
         id: node_modules_cache_id
@@ -441,6 +436,31 @@ jobs:
       - name: Deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v1.0.10
+
+  README:
+    if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
+    needs: [Lighthouse, Visual-Test, E2E-Test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install packages
+        run: yarn install
+        working-directory: .github/utils
+
+      - name: Generate README
+        run: node index.cjs
+        working-directory: .github/utils/generateReadMe
+        env:
+          GITHUB_ACTION_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Commit updated readme
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          file_pattern: README.md
 
   Line-Notify:
     if: failure()
