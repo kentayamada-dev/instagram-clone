@@ -47,10 +47,13 @@ export const lighthouse = async (core) => {
         outputScores.bestPractices
       } ${getContent(bestPracticesDiff)} | ${outputScores.seo} ${getContent(seoDiff)} | ${
         outputScores.progressiveWebApp
-      } ${getContent(pwaDiff)} |`;
+      } ${getContent(
+        pwaDiff
+      )} | <a href=https://kentayamada-dev.github.io/instagram-clone/${renamedFilePath}>see more</a> |`;
     })
     .join("");
   const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
-  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA |\n|---|---|---|---|---|---|---|${tds}\n<details>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  console.log(stringifiedOutputObj);
+  const result = `## Lighthouse Results\n\nPath | Device | Performance | Accessibility | Best Practices | SEO | PWA | Detail |\n|---|---|---|---|---|---|---|---|${tds}\n`;
   await core.summary.addRaw(result).write();
 };

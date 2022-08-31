@@ -26,7 +26,6 @@ export const analysis = async (core) => {
   const prevOutputObj = convertFileContent("bundle/__bundle_analysis.json") ?? {
     __global: { raw: 0, gzip: 0 }
   };
-  const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
   const unionOfKeys = [
     ...new Set([{ ...outputObj, ...prevOutputObj }].reduce((r, e) => [...r, ...Object.keys(e)], []))
   ];
@@ -53,10 +52,12 @@ export const analysis = async (core) => {
       )} |\n`;
     }
   }
+  const stringifiedOutputObj = JSON.stringify(outputObj, null, 2);
+  console.log(stringifiedOutputObj);
   const globalSize = outputObj["__global"]["gzip"];
   const prevGlobalSize = prevOutputObj["__global"]["gzip"];
   const globalSizeDiff = prevGlobalSize - globalSize;
   const global = `| \`global\` | ${getFileSize(globalSize)} ${getContent(globalSizeDiff)} |`;
-  const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n<details>\n\n\`\`\`json\n${stringifiedOutputObj}\n\`\`\`\n\n</details>`;
+  const result = `## Next.js Bundle Analysis Results\n\nPage | Size (compressed) | First Load |\n|---|---|---|\n${global}\n${tds}\n\n<a href=https://kentayamada-dev.github.io/instagram-clone/client>see more</a>`;
   await core.summary.addRaw(result).write();
 };
