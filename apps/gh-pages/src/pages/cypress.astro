@@ -17,7 +17,7 @@ try {
       videos.map((video) => (
         <div class="max-w-full">
           <div>{video}</div>
-          <video class="max-w-full" src={`cypress/${video}`} controls />
+          <video class="max-w-full" src={video} controls />
         </div>
       ))
     }
