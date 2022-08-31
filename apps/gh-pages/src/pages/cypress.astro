@@ -1,0 +1,25 @@
+---
+import { readdirSync } from "fs";
+import Layout from "../components/Layout.astro";
+
+let videos: string[] = [];
+
+try {
+  videos = readdirSync("public/cypress");
+} catch (error) {
+  console.log(error);
+}
+---
+
+<Layout>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+    {
+      videos.map((video) => (
+        <div class="max-w-full">
+          <div>{video}</div>
+          <video class="max-w-full" src={`cypress/${video}`} controls />
+        </div>
+      ))
+    }
+  </div>
+</Layout>

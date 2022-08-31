@@ -1,3 +1,4 @@
 dist
 .prettierignore
 public/robots.txt
+*.svg
