@@ -12,6 +12,8 @@
 
 ### 🚀 [API](https://api.instagram-clone.net/)
 
+### 📈 [Build Analytics](https:&#x2F;&#x2F;github.com&#x2F;kentayamada-dev&#x2F;instagram-clone&#x2F;actions&#x2F;runs&#x2F;2965285412)
+
 ### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
 ## ⚡ Playgrounds
