@@ -7,13 +7,6 @@ const DATA = {
   GITHUB_ACTION_URL: process.env["GITHUB_ACTION_URL"]
 };
 
-console.log(
-  "🎉🎉🎉🎉🎉",
-  DATA.GITHUB_ACTION_URL,
-  decodeURIComponent(DATA.GITHUB_ACTION_URL),
-  decodeURI(DATA.GITHUB_ACTION_URL)
-);
-
 const generateReadMe = () => {
   fs.readFile(MUSTACHE_MAIN_DIR, (err, data) => {
     if (err) throw err;
