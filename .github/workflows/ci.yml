@@ -349,7 +349,6 @@ jobs:
       - name: Download bundle analysis report
         uses: actions/download-artifact@v3
         with:
-          if_no_artifact_found: warn
           name: Bundle Analysis Report
           path: apps/gh-pages/public
 
