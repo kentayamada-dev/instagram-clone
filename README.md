@@ -12,7 +12,7 @@
 
 ### 🚀 [API](https://api.instagram-clone.net/)
 
-### 📈 [Build Analytics](https:&#x2F;&#x2F;github.com&#x2F;kentayamada-dev&#x2F;instagram-clone&#x2F;actions&#x2F;runs&#x2F;2965285412)
+### 📈 [Build Analytics](https:&#x2F;&#x2F;github.com&#x2F;kentayamada-dev&#x2F;instagram-clone&#x2F;actions&#x2F;runs&#x2F;2968552586#:~:text=Next.js%20Bundle%20Analysis%20Results)
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
@@ -78,9 +78,8 @@
 | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | <img src="apps/backend/prisma/erd/diagram.svg" width="500px" alt="diagram"> | <img src="apps/backend/prisma/erd/notation.png" width="500px" alt="notation"> |
 
-<details>
-
-```
+<!--
+```mermaid
 %%{init: {'theme':'neutral', 'themeVariables': { 'textColor': '#11999E', 'nodeTextColor':'#AA96DA', 'tertiaryColor':'transparent'}}}%%
 erDiagram
 
@@ -123,5 +122,4 @@ erDiagram
     Like o{--|| User : "user"
     Like o{--|| Post : "post"
 ```
-
-</details>
+-->
