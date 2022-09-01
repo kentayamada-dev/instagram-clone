@@ -153,19 +153,10 @@ jobs:
           name: Bundle Analysis Report
           path: apps/frontend/dist/analyze/client.html
 
-      - name: Check previous bundle analysis exsistance
-        uses: dawidd6/action-download-artifact@v2
-        id: download_artifact
-        continue-on-error: true
-        with:
-          workflow: ci.yml
-          name: bundle
-          dry_run: true
-
       - name: Download previous bundle analysis report
         uses: dawidd6/action-download-artifact@v2
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         with:
+          if_no_artifact_found: warn
           workflow: ci.yml
           path: bundle
           name: bundle
@@ -253,19 +244,10 @@ jobs:
       - name: Create direcotry for store expected screenshots
         run: mkdir expectedDir
 
-      - name: Check expected screenshots exsistance
-        uses: dawidd6/action-download-artifact@v2
-        id: download_artifact
-        continue-on-error: true
-        with:
-          workflow: ci.yml
-          name: screenshots
-          dry_run: true
-
       - name: Download expected screenshots
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: dawidd6/action-download-artifact@v2
         with:
+          if_no_artifact_found: warn
           workflow: ci.yml
           path: expectedDir
           name: screenshots
@@ -321,19 +303,10 @@ jobs:
       - name: Move results.json to root
         run: mv lighthouseOutput/results.json results.json
 
-      - name: Check previous Lighthouse results exsistance
-        uses: dawidd6/action-download-artifact@v2
-        id: download_artifact
-        continue-on-error: true
-        with:
-          workflow: ci.yml
-          name: lighthouse
-          dry_run: true
-
       - name: Download previous Lighthouse results
-        if: success() && steps.download_artifact.outputs.dry_run == 'true'
         uses: dawidd6/action-download-artifact@v2
         with:
+          if_no_artifact_found: warn
           workflow: ci.yml
           path: lighthouse
           name: lighthouse
@@ -373,16 +346,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Check bundle analysis report existence
-        uses: xSAVIKx/artifact-exists-action@v0
-        id: artifact-exists-action
-        with:
-          name: "Bundle Analysis Report"
-
       - name: Download bundle analysis report
         uses: actions/download-artifact@v3
-        if: steps.artifact-exists-action.outputs.exists == 'true'
         with:
+          if_no_artifact_found: warn
           name: Bundle Analysis Report
           path: apps/gh-pages/public
 
