@@ -12,7 +12,7 @@
 
 ### 🚀 [API](https://api.instagram-clone.net/)
 
-### 📈 [Build Analytics](https://github.com/kentayamada-dev/instagram-clone/actions/runs/2968773489#:~:text=Next.js%20Bundle%20Analysis%20Results)
+### 📈 [Build Analytics](/actions/runs/2968773489#:~:text=Next.js%20Bundle%20Analysis%20Results)
 
 ### 📧 <a href="mailto:user@support@instagram-clone.net">support@instagram-clone.net</a>
 
