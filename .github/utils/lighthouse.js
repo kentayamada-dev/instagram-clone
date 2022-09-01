@@ -29,19 +29,26 @@ export const lighthouse = async (core) => {
         seo: 0,
         progressiveWebApp: 0
       };
-      if (prevOutputObj) {
-        const foundPrevOutputObj = prevOutputObj.find(
-          (x) => x.url === urlString && x.emulatedFormFactor === emulatedFormFactor
-        ).scores;
-        if (foundPrevOutputObj) {
-          prevOutputScores = foundPrevOutputObj;
-        }
+      const foundPrevOutputObj = prevOutputObj.find(
+        (x) => x.url === urlString && x.emulatedFormFactor === emulatedFormFactor
+      )?.scores;
+      let prevPerformance = 0;
+      let prevAccessibility = 0;
+      let prevBestPractices = 0;
+      let prevSeo = 0;
+      let prevProgressiveWebApp = 0;
+      if (foundPrevOutputObj) {
+        prevPerformance = foundPrevOutputObj.performance;
+        prevAccessibility = foundPrevOutputObj.accessibility;
+        prevBestPractices = foundPrevOutputObj.bestPractices;
+        prevSeo = foundPrevOutputObj.seo;
+        prevProgressiveWebApp = foundPrevOutputObj.progressiveWebApp;
       }
-      const performanceDiff = diff(prevOutputScores.performance, outputScores.performance);
-      const accessibilityDiff = diff(prevOutputScores.accessibility, outputScores.accessibility);
-      const bestPracticesDiff = diff(prevOutputScores.bestPractices, outputScores.bestPractices);
-      const seoDiff = diff(prevOutputScores.seo, outputScores.seo);
-      const pwaDiff = diff(prevOutputScores.progressiveWebApp, outputScores.progressiveWebApp);
+      const performanceDiff = diff(prevPerformance, outputScores.performance);
+      const accessibilityDiff = diff(prevAccessibility, outputScores.accessibility);
+      const bestPracticesDiff = diff(prevBestPractices, outputScores.bestPractices);
+      const seoDiff = diff(prevSeo, outputScores.seo);
+      const pwaDiff = diff(prevProgressiveWebApp, outputScores.progressiveWebApp);
       return `\n| <a href=${urlString}>${pathname}</a> | ${emulatedFormFactor} | ${
         outputScores.performance
       } ${getContent(performanceDiff)} | ${outputScores.accessibility} ${getContent(accessibilityDiff)} | ${

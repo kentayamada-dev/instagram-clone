@@ -1,4 +1,4 @@
-dist
 .prettierignore
 .env.sample
 public/storybook
+dist

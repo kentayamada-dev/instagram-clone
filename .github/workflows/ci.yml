@@ -297,7 +297,7 @@ jobs:
         uses: foo-software/lighthouse-check-action@master
         with:
           outputDirectory: lighthouseOutput
-          urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/"
+          urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/,https://app.instagram-clone.net/test_user/"
           device: all
 
       - name: Move results.json to root
