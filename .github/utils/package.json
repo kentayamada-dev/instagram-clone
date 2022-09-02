@@ -1,7 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "filesize": "^9.0.11",
-    "mustache": "^4.2.0"
+    "filesize": "^9.0.11"
   }
 }
