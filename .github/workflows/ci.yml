@@ -170,7 +170,12 @@ jobs:
         with:
           script: |
             const { analysis } = await import('${{ github.workspace }}/.github/utils/analysis.js')
-            await analysis(core)
+            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}')
+
+      - name: Commit updated apps/gh-pages/assets/bundle.json
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          file_pattern: apps/gh-pages/assets/bundle.json
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'

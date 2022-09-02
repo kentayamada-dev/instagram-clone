@@ -22,14 +22,7 @@ export const lighthouse = async (core) => {
       renameSync(`lighthouseOutput/${filePath}`, renamedFilePath);
       output.localReport = renamedFilePath;
       const outputScores = output.scores;
-      let prevOutputScores = {
-        performance: 0,
-        accessibility: 0,
-        bestPractices: 0,
-        seo: 0,
-        progressiveWebApp: 0
-      };
-      const foundPrevOutputObj = prevOutputObj.find(
+      const foundPrevOutputObj = prevOutputObj?.find(
         (x) => x.url === urlString && x.emulatedFormFactor === emulatedFormFactor
       )?.scores;
       let prevPerformance = 0;

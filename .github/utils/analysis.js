@@ -1,10 +1,13 @@
 import { convertFileContent } from "./common.js";
 import filesize from "filesize";
+import { readFileSync, writeFileSync } from "fs";
 
 const hasProperty = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
 const getFileSize = filesize.partial({ base: 2, standard: "jedec" });
 const getContent = (val) =>
   val < 0 ? `(🔴 +${getFileSize(Math.abs(val))})` : val > 0 ? `(🟢 -${getFileSize(Math.abs(val))})` : "";
+
+const BUNDLE_PATH = "apps/gh-pages/assets/bundle.json";
 
 const fillObject = (from, to) => {
   for (var key in from) {
@@ -21,8 +24,11 @@ const fillObject = (from, to) => {
   }
 };
 
-export const analysis = async (core) => {
+export const analysis = async (core, url) => {
   const outputObj = convertFileContent("apps/frontend/dist/analyze/__bundle_analysis.json");
+  const bundleData = JSON.parse(readFileSync(BUNDLE_PATH));
+  bundleData.push({ actionUrl: url, date: new Date(), data: outputObj });
+  writeFileSync(BUNDLE_PATH, JSON.stringify(bundleData, null, 2));
   const prevOutputObj = convertFileContent("bundle/__bundle_analysis.json") ?? {
     __global: { raw: 0, gzip: 0 }
   };
