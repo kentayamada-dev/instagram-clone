@@ -215,7 +215,20 @@ jobs:
         with:
           browser: chrome
 
-      - run: ls -a
+      - name: Generate cypress report
+        run: |
+          mkdir cypress/report
+          yarn --silent mochawesome-merge > cypress/report/mochawesome.json
+          yarn marge cypress/report/mochawesome.json -o cypress/report
+
+      - name: Upload cypress report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report
+          path: |
+            cypress/report
+            cypress/videos
+            cypress/screenshots
 
       - name: Upload test videos
         uses: actions/upload-artifact@v3
