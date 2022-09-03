@@ -215,6 +215,8 @@ jobs:
         with:
           browser: chrome
 
+      - run: ls -a
+
       - name: Upload test videos
         uses: actions/upload-artifact@v3
         if: always()
