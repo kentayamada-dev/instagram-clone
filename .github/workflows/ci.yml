@@ -212,6 +212,7 @@ jobs:
 
       - name: Test on chrome
         uses: cypress-io/github-action@v4
+        continue-on-error: true
         with:
           browser: chrome
 
