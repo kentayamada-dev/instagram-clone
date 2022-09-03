@@ -2,8 +2,10 @@
 import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
 import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
+import moment from "moment";
 
 let lighthouseResults: string[] = [];
+const updatedDate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
 try {
   lighthouseResults = readdirSync("public/lighthouse");
@@ -13,7 +15,10 @@ try {
 ---
 
 <Layout>
-  <h2>Next.js Bundle Analysis Stats</h2>
+  <h1 class="text-center">
+    Instagram Clone Analytics <p class="text-sm text-neutral-500">Last Updated on {updatedDate}</p>
+  </h1>
+  <h2>Next.js Bundle Analysis</h2>
   <div class="flex items-center max-w-5xl">
     <div
       style={{
@@ -34,12 +39,12 @@ try {
       <div class="text-center relative right-10 sm:right-16 text-xs sm:text-lg">Date</div>
     </div>
   </div>
-  <a href="./client">Check the report</a>
+  <a href="./client">See more</a>
   <h2>VRT Report</h2>
   <a href="./report">Check the report</a>
   <h2>Cypress Report</h2>
   <a href="./cypress/report/mochawesome">Check the report</a>
-  <h2>Lighthouse Report</h2>
+  <h2>Lighthouse Reports</h2>
   <ul>
     {
       lighthouseResults.map((result) => (

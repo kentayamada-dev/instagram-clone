@@ -4,13 +4,32 @@ import React from "react";
 import bundleData from "../../assets/bundle.json";
 import moment from "moment";
 import { faker } from "@faker-js/faker";
+import zoomPlugin from "chartjs-plugin-zoom";
 
 faker.seed(123);
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(zoomPlugin, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const options = {
   plugins: {
+    zoom: {
+      pan: {
+        enabled: true
+      },
+      limits: {
+        y: { min: 0, max: 300, minRange: 50 },
+        x: { min: 0, max: 300, minRange: 2 }
+      },
+      zoom: {
+        wheel: {
+          enabled: true
+        },
+        pinch: {
+          enabled: true
+        },
+        mode: "xy"
+      }
+    },
     legend: {
       position: "right"
     }
