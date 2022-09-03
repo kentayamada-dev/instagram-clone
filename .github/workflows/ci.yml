@@ -358,7 +358,10 @@ jobs:
           name: Bundle Analysis Report
           path: apps/gh-pages/public
 
-      - name: Download updated assets/bundle.json
+      - name: Remove old assets/bundle.json
+        run: rm apps/gh-pages/assets/bundle.json
+
+      - name: Download latest assets/bundle.json
         uses: actions/download-artifact@v3
         with:
           name: assets_bundle
@@ -415,7 +418,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1.0.10
 
-      - name: Commit updated apps/gh-pages/assets/bundle.json
+      - name: Commit latest apps/gh-pages/assets/bundle.json
         uses: stefanzweifel/git-auto-commit-action@v4.14.1
         with:
           file_pattern: apps/gh-pages/assets/bundle.json
