@@ -365,7 +365,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: assets_bundle
-          path: apps/gh-pages/assets/bundle.json
+          path: apps/gh-pages/assets
 
       - name: Download VRT report
         uses: actions/download-artifact@v3
