@@ -20,7 +20,6 @@ const options = {
 const bytesToKb = (value) => Math.ceil((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
 
 export default function BundleAnalysisStats() {
-  console.log("🎉🎉🎉🎉", bundleData);
   const labels = bundleData.map((data) => moment(data.date).format("YYYY-MM-DD HH:mm:ss"));
   const actionUrls = bundleData.map((data) => data.actionUrl);
   const buildData = bundleData.map((data) => data.data);
