@@ -1,6 +1,7 @@
 ---
 import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
+import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
 
 let lighthouseResults: string[] = [];
 
@@ -12,7 +13,27 @@ try {
 ---
 
 <Layout>
-  <h2>Bundle Analysis Report</h2>
+  <h2>Next.js Bundle Analysis Stats</h2>
+  <div class="flex items-center max-w-5xl">
+    <div
+      style={{
+        position: "relative",
+        width: "2%"
+      }}
+    >
+      <div class="text-xs sm:text-lg absolute w-max -bottom-20 sm:-bottom-28 -rotate-90 origin-[0_0]">
+        Compressed Bundle Size (KB)
+      </div>
+    </div>
+    <div
+      style={{
+        width: "98%"
+      }}
+    >
+      <BundleAnalysisStats client:only="react" />
+      <div class="text-center relative right-10 sm:right-16 text-xs sm:text-lg">Date</div>
+    </div>
+  </div>
   <a href="./client">Check the report</a>
   <h2>VRT Report</h2>
   <a href="./report">Check the report</a>

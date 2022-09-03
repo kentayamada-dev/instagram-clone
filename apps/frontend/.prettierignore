@@ -1,4 +1,4 @@
-.env.sample
 public/storybook
 dist
 .prettierignore
+.env.sample
