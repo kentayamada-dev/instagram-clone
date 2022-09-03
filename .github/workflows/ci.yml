@@ -230,24 +230,6 @@ jobs:
             cypress/videos
             cypress/screenshots
 
-      - name: Upload test videos
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: Cypress Videos
-          path: cypress/videos
-
-      - name: Upload test screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: Cypress Screenshots
-          path: cypress/screenshots
-
-      - name: Print see more link
-        run: |
-          echo "[See more...](https://kentayamada-dev.github.io/instagram-clone/cypress/)" >> $GITHUB_STEP_SUMMARY
-
   Visual-Test:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
     needs: [Purge-Cloudflare-Cache]
@@ -396,12 +378,6 @@ jobs:
       - name: Create direcotry for store cypress videos
         run: mkdir apps/gh-pages/public/cypress
 
-      - name: Download cypress videos
-        uses: actions/download-artifact@v3
-        with:
-          name: Cypress Videos
-          path: apps/gh-pages/public/cypress
-
       - name: Create direcotry for store lighthouse reports
         run: mkdir apps/gh-pages/public/lighthouse
 
@@ -410,6 +386,12 @@ jobs:
         with:
           name: Lighthouse Reports
           path: apps/gh-pages/public/lighthouse
+
+      - name: Download cypress reports
+        uses: actions/download-artifact@v3
+        with:
+          name: cypress-report
+          path: apps/gh-pages/public/cypress
 
       - name: Cache node_modules
         uses: actions/cache@v3
