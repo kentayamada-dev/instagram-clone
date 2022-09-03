@@ -178,6 +178,11 @@ jobs:
           name: assets_bundle
           path: apps/gh-pages/assets/bundle.json
 
+      - name: Commit updated assets/bundle.json
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          file_pattern: apps/gh-pages/assets/bundle.json
+
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
     needs: [Build-Frontend]
@@ -417,11 +422,6 @@ jobs:
       - name: Deploy to github pages
         id: deployment
         uses: actions/deploy-pages@v1.0.10
-
-      - name: Commit latest apps/gh-pages/assets/bundle.json
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
-        with:
-          file_pattern: apps/gh-pages/assets/bundle.json
 
   Line-Notify:
     if: failure()
