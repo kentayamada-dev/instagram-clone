@@ -250,5 +250,47 @@
         "gzip": 248354
       }
     }
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/2983692947",
+    "date": "2022-09-03T08:11:25.760Z",
+    "data": {
+      "/": {
+        "raw": 726663,
+        "gzip": 206656
+      },
+      "/404": {
+        "raw": 864760,
+        "gzip": 202593
+      },
+      "/[userId]": {
+        "raw": 361413,
+        "gzip": 110688
+      },
+      "/[userId]/[postId]": {
+        "raw": 398412,
+        "gzip": 120066
+      },
+      "/_app": {
+        "raw": 0,
+        "gzip": 0
+      },
+      "/_error": {
+        "raw": 265,
+        "gzip": 194
+      },
+      "/server-sitemap.xml": {
+        "raw": 412,
+        "gzip": 261
+      },
+      "/signup": {
+        "raw": 667803,
+        "gzip": 190898
+      },
+      "__global": {
+        "raw": 827510,
+        "gzip": 248354
+      }
+    }
   }
 ]
