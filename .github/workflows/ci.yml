@@ -54,7 +54,7 @@ jobs:
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
-    needs: [Detect-Changes, Cancel-Previous-Runs]
+    needs: [Detect-Changes, Cancel-Previous-Runs, Get-Date]
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -190,9 +190,10 @@ jobs:
           path: apps/gh-pages/assets/bundle.json
 
       - name: Commit updated assets/bundle.json
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        uses: EndBug/add-and-commit@v9.1.0
         with:
-          file_pattern: apps/gh-pages/assets/bundle.json
+          add: apps/gh-pages/assets/bundle.json
+          pull: --tags origin main
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
@@ -357,9 +358,10 @@ jobs:
           path: lighthouseOutput
 
       - name: Commit updated assets/lighthouse.json
-        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        uses: EndBug/add-and-commit@v9.1.0
         with:
-          file_pattern: apps/gh-pages/assets/lighthouse.json
+          add: apps/gh-pages/assets/lighthouse.json
+          pull: --tags origin main
 
   GitHub-Pages:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
