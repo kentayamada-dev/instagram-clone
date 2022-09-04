@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - id: get_date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S')"
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M')"
 
   Cancel-Previous-Runs:
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
 
   Build-Backend:
     if: needs.Detect-Changes.outputs.backend == 'true'
-    needs: [Detect-Changes, Cancel-Previous-Runs, Get-Date]
+    needs: [Detect-Changes, Cancel-Previous-Runs]
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -89,7 +89,7 @@ jobs:
 
   Analyze-Frontend-Bundle:
     if: needs.Detect-Changes.outputs.frontend == 'true' && !failure()
-    needs: [Build-Backend]
+    needs: [Get-Date, Build-Backend]
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -303,7 +303,7 @@ jobs:
 
   Lighthouse:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
-    needs: [Purge-Cloudflare-Cache]
+    needs: [Get-Date, Purge-Cloudflare-Cache]
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
