@@ -309,6 +309,12 @@ jobs:
           urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/,https://app.instagram-clone.net/test_user/"
           device: all
 
+      - name: Upload lighthouse report
+        uses: actions/upload-artifact@v3
+        with:
+          name: lighthouse-report
+          path: lighthouseOutput
+
       - name: Move results.json to root
         run: mv lighthouseOutput/results.json results.json
 

@@ -60,11 +60,12 @@ export default function BundleAnalysisStats() {
       if (foundObject) {
         foundObject.data = [...foundObject.data, fileSize];
       } else {
+        const color = faker.color.rgb({ format: "css" });
         datasets.push({
           label: key,
           data: [fileSize],
-          borderColor: faker.color.rgb({ format: "css" }),
-          backgroundColor: faker.color.rgb({ format: "css" })
+          borderColor: color,
+          backgroundColor: color
         });
       }
     }
