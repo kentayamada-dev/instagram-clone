@@ -1,12 +1,17 @@
 import { convertFileContent } from "./common.js";
-import { renameSync } from "fs";
+import { renameSync, writeFileSync } from "fs";
 import { basename } from "path";
 
 const getContent = (val) => (val < 0 ? `(🟢 +${Math.abs(val)})` : val > 0 ? `(🔴 -${Math.abs(val)})` : "");
 const diff = (prev, current) => Number(prev) - Number(current);
 
-export const lighthouse = async (core) => {
+const LIGHTHOUSE_PATH = "apps/gh-pages/assets/lighthouse.json";
+
+export const lighthouse = async (core, url, date) => {
   const outputObj = convertFileContent("./results.json");
+  const lighthouseData = convertFileContent(LIGHTHOUSE_PATH);
+  lighthouseData.push({ actionUrl: url, date, data: outputObj });
+  writeFileSync(LIGHTHOUSE_PATH, JSON.stringify(lighthouseData, null, 2));
   const prevOutputObj = convertFileContent("lighthouse/results.json");
   const tds = outputObj
     .map((output) => {

@@ -6,6 +6,17 @@ on:
       - main
 
 jobs:
+  Get-Date:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    outputs:
+      date: ${{ steps.get_date.outputs.date }}
+
+    steps:
+      - id: get_date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d %H:%M:%S')"
+
   Cancel-Previous-Runs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
@@ -170,7 +181,7 @@ jobs:
         with:
           script: |
             const { analysis } = await import('${{ github.workspace }}/.github/utils/analysis.js')
-            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}')
+            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', `${{needs.Get-Date.outputs.date}}`)
 
       - name: Upload updated assets/bundle.json
         uses: actions/upload-artifact@v3
@@ -331,7 +342,7 @@ jobs:
         with:
           script: |
             const { lighthouse } = await import('${{ github.workspace }}/.github/utils/lighthouse.js')
-            await lighthouse(core)
+            await lighthouse(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', `${{needs.Get-Date.outputs.date}}`)
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v3

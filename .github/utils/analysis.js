@@ -1,6 +1,6 @@
 import { convertFileContent } from "./common.js";
 import filesize from "filesize";
-import { readFileSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 
 const hasProperty = (obj, key) => !!obj && Object.prototype.hasOwnProperty.call(obj, key);
 const getFileSize = filesize.partial({ base: 2, standard: "jedec" });
@@ -24,10 +24,10 @@ const fillObject = (from, to) => {
   }
 };
 
-export const analysis = async (core, url) => {
+export const analysis = async (core, url, date) => {
   const outputObj = convertFileContent("apps/frontend/dist/analyze/__bundle_analysis.json");
-  const bundleData = JSON.parse(readFileSync(BUNDLE_PATH));
-  bundleData.push({ actionUrl: url, date: new Date(), data: outputObj });
+  const bundleData = convertFileContent(BUNDLE_PATH);
+  bundleData.push({ actionUrl: url, date, data: outputObj });
   writeFileSync(BUNDLE_PATH, JSON.stringify(bundleData, null, 2));
   const prevOutputObj = convertFileContent("bundle/__bundle_analysis.json") ?? {
     __global: { raw: 0, gzip: 0 }
