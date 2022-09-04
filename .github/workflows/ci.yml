@@ -365,7 +365,7 @@ jobs:
 
   GitHub-Pages:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
-    needs: [Lighthouse, Visual-Test, E2E-Test]
+    needs: [Get-Date, Lighthouse, Visual-Test, E2E-Test]
     permissions:
       pages: write
       id-token: write
@@ -435,6 +435,7 @@ jobs:
         run: yarn turbo run build --scope=gh-pages --include-dependencies --no-deps
         env:
           GH_PAGES_BASE: /instagram-clone
+          DATE: ${{needs.Get-Date.outputs.date}}
 
       - name: Upload github pages artifact
         uses: actions/upload-pages-artifact@v1.0.3

@@ -2,7 +2,6 @@ import { Chart as ChartJS, LinearScale, CategoryScale, PointElement, LineElement
 import { Line, getElementAtEvent } from "react-chartjs-2";
 import React from "react";
 import bundleData from "../../assets/bundle.json";
-import moment from "moment";
 import { faker } from "@faker-js/faker";
 import zoomPlugin from "chartjs-plugin-zoom";
 
@@ -39,7 +38,7 @@ const options = {
 const bytesToKb = (value) => Math.ceil((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
 
 export default function BundleAnalysisStats() {
-  const labels = bundleData.map((data) => moment(data.date).format("YYYY-MM-DD HH:mm:ss"));
+  const labels = bundleData.map((data) => data.date);
   const actionUrls = bundleData.map((data) => data.actionUrl);
   const buildData = bundleData.map((data) => data.data);
   const obj = buildData.reduce((res, item) => ({ ...res, ...item }));

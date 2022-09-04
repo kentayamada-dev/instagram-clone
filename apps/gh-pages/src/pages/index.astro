@@ -2,10 +2,9 @@
 import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
 import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
-import moment from "moment";
 
 let lighthouseResults: string[] = [];
-const updatedDate = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+const updatedDate = process.env["DATE"] ?? "1970-01-01 00:00";
 
 try {
   lighthouseResults = readdirSync("public/lighthouse");
