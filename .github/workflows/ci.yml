@@ -181,7 +181,7 @@ jobs:
         with:
           script: |
             const { analysis } = await import('${{ github.workspace }}/.github/utils/analysis.js')
-            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', `${{needs.Get-Date.outputs.date}}`)
+            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
 
       - name: Upload updated assets/bundle.json
         uses: actions/upload-artifact@v3
@@ -342,7 +342,7 @@ jobs:
         with:
           script: |
             const { lighthouse } = await import('${{ github.workspace }}/.github/utils/lighthouse.js')
-            await lighthouse(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', `${{needs.Get-Date.outputs.date}}`)
+            await lighthouse(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v3
@@ -355,6 +355,11 @@ jobs:
         with:
           name: Lighthouse Reports
           path: lighthouseOutput
+
+      - name: Commit updated assets/lighthouse.json
+        uses: stefanzweifel/git-auto-commit-action@v4.14.1
+        with:
+          file_pattern: apps/gh-pages/assets/lighthouse.json
 
   GitHub-Pages:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
