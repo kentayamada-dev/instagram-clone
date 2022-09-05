@@ -2,55 +2,149 @@
 import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
 import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
+import bundleData from "../../assets/bundle.json";
+import lighthouseData from "../../assets/lighthouse.json";
+import Accordion from "../components/Accordion.astro";
+import Link from "../components/Link.astro";
 
 let lighthouseResults: string[] = [];
 const updatedDate = process.env["DATE"] ?? "1970-01-01 00:00";
+const bytesToKb = (value) => Math.round((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
+const GLOBAL_BUILD_KEY = "__global";
+const latestBundleData = bundleData.slice(-1)[0]["data"];
+const latestLighthouseData = lighthouseData.slice(-1)[0]["data"];
+const globalBundleSize = latestBundleData[GLOBAL_BUILD_KEY]["gzip"];
+let bundleTds = [];
+let lighthouseTds = [];
 
 try {
   lighthouseResults = readdirSync("public/lighthouse");
 } catch (error) {
   console.log(error);
 }
+
+for (const { emulatedFormFactor, localReport, scores, url: rawUrl } of latestLighthouseData) {
+  const url = new URL(rawUrl);
+  lighthouseTds.push({
+    localReport,
+    url,
+    path: url.pathname,
+    emulatedFormFactor,
+    ...scores
+  });
+}
+
+for (const [key, value] of Object.entries(latestBundleData)) {
+  if (key !== GLOBAL_BUILD_KEY) {
+    bundleTds.push({ page: key, size: bytesToKb(value.gzip), firstLoad: bytesToKb(value.gzip + globalBundleSize) });
+  }
+}
 ---
 
 <Layout>
-  <h1 class="text-center">
-    Instagram Clone Analytics <p class="text-sm text-neutral-500">Last Updated on {updatedDate}</p>
-  </h1>
-  <h2>Next.js Bundle Analysis</h2>
-  <div class="flex items-center max-w-5xl">
-    <div
-      style={{
-        position: "relative",
-        width: "2%"
-      }}
-    >
-      <div class="text-xs sm:text-lg absolute w-max -bottom-20 sm:-bottom-28 -rotate-90 origin-[0_0]">
-        Compressed Bundle Size (KB)
+  <article class="prose min-w-full p-5">
+    <div class="text-center">
+      <h1 class="!mb-0">Instagram Clone Analytics</h1>
+      <p class="!mt-0">Last Updated on {updatedDate}</p>
+    </div>
+    <div class="max-w-6xl">
+      <h2>Next.js Bundle Analysis</h2>
+      <div class="flex flex-col space-y-4">
+        <Accordion title="Latest Bundle Size">
+          <div class="overflow-x-auto">
+            <table class="table w-full my-0">
+              <thead>
+                <tr class="text-center">
+                  <th class="rounded-none !static">Route</th>
+                  <th>Gzip Size (KB)</th>
+                  <th class="rounded-none">First Load (KB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="hover text-center">
+                  <td>__global</td>
+                  <td>{bytesToKb(globalBundleSize)}</td>
+                </tr>
+                {
+                  bundleTds.map((td) => (
+                    <tr class="hover text-center">
+                      <td class="rounded-none">{td.page}</td>
+                      <td>{td.size}</td>
+                      <td class="rounded-none">{td.firstLoad}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </Accordion>
+        <Accordion title="Bundle Size History"><BundleAnalysisStats client:only="react" /></Accordion>
+        <Link title="Bundle Details" href="./client" />
       </div>
+      <h2>VRT Report</h2>
+      <Link title="Check the report" href="./report" />
+      <h2>Cypress Report</h2>
+      <Link title="Check the report" href="./cypress/report/mochawesome" />
+      <h2>Lighthouse Reports</h2>
+      <Accordion title="Latest Lighthouse Scores">
+        <div class="overflow-x-auto">
+          <table class="table w-full my-0">
+            <thead>
+              <tr class="text-center">
+                <th class="rounded-none !static">Path</th>
+                <th>Device</th>
+                <th>Performance</th>
+                <th>Accessibility</th>
+                <th>Best Practices</th>
+                <th>SEO</th>
+                <th>PWA</th>
+                <th class="rounded-none">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                lighthouseTds.map(
+                  ({
+                    path,
+                    emulatedFormFactor,
+                    performance,
+                    accessibility,
+                    bestPractices,
+                    seo,
+                    progressiveWebApp,
+                    url,
+                    localReport
+                  }) => (
+                    <tr class="hover text-center">
+                      <td class="rounded-none">
+                        <a target="_blank" rel="noopener noreferrer" href={url} class="link link-primary no-underline">
+                          {path}
+                        </a>
+                      </td>
+                      <td>{emulatedFormFactor}</td>
+                      <td>{performance}</td>
+                      <td>{accessibility}</td>
+                      <td>{bestPractices}</td>
+                      <td>{seo}</td>
+                      <td>{progressiveWebApp}</td>
+                      <td class="rounded-none">
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href={localReport}
+                          class="link link-primary no-underline"
+                        >
+                          See More...
+                        </a>
+                      </td>
+                    </tr>
+                  )
+                )
+              }
+            </tbody>
+          </table>
+        </div>
+      </Accordion>
     </div>
-    <div
-      style={{
-        width: "98%"
-      }}
-    >
-      <BundleAnalysisStats client:only="react" />
-      <div class="text-center relative right-10 sm:right-16 text-xs sm:text-lg">Date</div>
-    </div>
-  </div>
-  <a href="./client">See more</a>
-  <h2>VRT Report</h2>
-  <a href="./report">Check the report</a>
-  <h2>Cypress Report</h2>
-  <a href="./cypress/report/mochawesome">Check the report</a>
-  <h2>Lighthouse Reports</h2>
-  <ul>
-    {
-      lighthouseResults.map((result) => (
-        <li>
-          <a href={`./lighthouse/${result}`}>{result}</a>
-        </li>
-      ))
-    }
-  </ul>
+  </article>
 </Layout>

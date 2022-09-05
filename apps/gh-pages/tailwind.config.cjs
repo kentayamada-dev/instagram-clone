@@ -1,11 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.astro"],
+  content: ["./src/**/*.{astro,jsx}"],
   theme: {
     extend: {}
   },
-  plugins: [],
-  corePlugins: {
-    preflight: false
-  }
+  plugins: [require("@tailwindcss/typography"), require("daisyui")]
 };

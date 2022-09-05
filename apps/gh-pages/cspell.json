@@ -1,6 +1,20 @@
 {
   "language": "en",
   "version": "0.2",
-  "words": ["astro", "astrojs", "readdir", "tailwindcss", "chartjs", "mochawesome"],
+  "words": [
+    "astro",
+    "astrojs",
+    "readdir",
+    "tailwindcss",
+    "chartjs",
+    "mochawesome",
+    "cmyk",
+    "evenodd",
+    "thead",
+    "tbody",
+    "noopener",
+    "noreferrer",
+    "daisyui"
+  ],
   "ignorePaths": ["assets"]
 }

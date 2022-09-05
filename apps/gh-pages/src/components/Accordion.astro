@@ -1,0 +1,15 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="collapse collapse-arrow border">
+  <input type="checkbox" class="peer" />
+  <div class="text-xl collapse-title text-gray-500 peer-checked:text-primary-content font-medium">{title}</div>
+  <div class="collapse-content text-primary-content !p-0">
+    <slot />
+  </div>
+</div>
