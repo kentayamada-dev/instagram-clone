@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/2991489382",
+    "date": "2022-09-05 07:36",
+    "data": [
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662363678960.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 92,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662363689362.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 60,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662363699942.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 94,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662363710498.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 55,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662363721964.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 85,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662363732625.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 55,
+          "progressiveWebApp": 60,
+          "seo": 100
+        }
+      }
+    ]
+  }
+]
