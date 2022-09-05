@@ -152,48 +152,28 @@ jobs:
         run: npx -p nextjs-bundle-analysis report
         working-directory: apps/frontend
 
-      - name: Upload bundle analysis report for future comparison
-        uses: actions/upload-artifact@v3
-        with:
-          name: bundle
-          path: apps/frontend/dist/analyze/__bundle_analysis.json
-
       - name: Upload bundle analysis report
         uses: actions/upload-artifact@v3
         with:
           name: Bundle Analysis Report
           path: apps/frontend/dist/analyze/client.html
 
-      - name: Download previous bundle analysis report
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          if_no_artifact_found: warn
-          workflow: ci.yml
-          path: bundle
-          name: bundle
-
       - name: Install packages
         run: yarn install
         working-directory: .github/utils
 
-      - name: Print bundle analysis report
+      - name: Store latest bundle data to assets/bundle.json
         uses: actions/github-script@v6
         with:
           script: |
             const { analysis } = await import('${{ github.workspace }}/.github/utils/analysis.js')
-            await analysis(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
-
-      - name: Upload updated assets/bundle.json
-        uses: actions/upload-artifact@v3
-        with:
-          name: assets_bundle
-          path: apps/gh-pages/assets/bundle.json
+            await analysis('${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
 
       - name: Commit updated assets/bundle.json
         uses: EndBug/add-and-commit@v9.1.0
         with:
           add: apps/gh-pages/assets/bundle.json
-          pull: --tags origin main
+          pull: origin main
 
   Purge-Cloudflare-Cache:
     if: always() && needs.Build-Frontend.result == 'success'
@@ -237,7 +217,7 @@ jobs:
       - name: Upload cypress report
         uses: actions/upload-artifact@v3
         with:
-          name: cypress-report
+          name: Cypress Report
           path: |
             cypress/report
             cypress/videos
@@ -271,7 +251,7 @@ jobs:
           if_no_artifact_found: warn
           workflow: ci.yml
           path: expectedDir
-          name: screenshots
+          name: vrt_screenshots
 
       - name: Generate test report
         run: reg-cli actualDir expectedDir diffDir --report ./report.html --enableAntialias --json ./reg.json --ignoreChange
@@ -298,7 +278,7 @@ jobs:
       - name: Upload expected screenshots
         uses: actions/upload-artifact@v3
         with:
-          name: screenshots
+          name: vrt_screenshots
           path: expectedDir
 
   Lighthouse:
@@ -321,35 +301,15 @@ jobs:
           urls: "https://app.instagram-clone.net/,https://app.instagram-clone.net/signup/,https://app.instagram-clone.net/test_user/"
           device: all
 
-      - name: Upload lighthouse report
-        uses: actions/upload-artifact@v3
-        with:
-          name: lighthouse-report
-          path: lighthouseOutput
-
       - name: Move results.json to root
         run: mv lighthouseOutput/results.json results.json
-
-      - name: Download previous Lighthouse results
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          if_no_artifact_found: warn
-          workflow: ci.yml
-          path: lighthouse
-          name: lighthouse
 
       - name: Print Lighthouse result
         uses: actions/github-script@v6
         with:
           script: |
             const { lighthouse } = await import('${{ github.workspace }}/.github/utils/lighthouse.js')
-            await lighthouse(core, '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
-
-      - name: Upload Lighthouse results
-        uses: actions/upload-artifact@v3
-        with:
-          name: lighthouse
-          path: results.json
+            await lighthouse('${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}', '${{needs.Get-Date.outputs.date}}')
 
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v3
@@ -361,7 +321,7 @@ jobs:
         uses: EndBug/add-and-commit@v9.1.0
         with:
           add: apps/gh-pages/assets/lighthouse.json
-          pull: --tags origin main
+          pull: origin main
 
   GitHub-Pages:
     if: always() && (needs.Detect-Changes.outputs.backend == 'true' || needs.Detect-Changes.outputs.frontend == 'true' || needs.Detect-Changes.outputs.cypress == 'true')
@@ -379,20 +339,14 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: Update local repository code
+        run: git pull origin main
+
       - name: Download bundle analysis report
         uses: actions/download-artifact@v3
         with:
           name: Bundle Analysis Report
           path: apps/gh-pages/public
-
-      - name: Remove old assets/bundle.json
-        run: rm apps/gh-pages/assets/bundle.json
-
-      - name: Download latest assets/bundle.json
-        uses: actions/download-artifact@v3
-        with:
-          name: assets_bundle
-          path: apps/gh-pages/assets
 
       - name: Download VRT report
         uses: actions/download-artifact@v3
@@ -415,7 +369,7 @@ jobs:
       - name: Download cypress reports
         uses: actions/download-artifact@v3
         with:
-          name: cypress-report
+          name: Cypress Report
           path: apps/gh-pages/public/cypress
 
       - name: Cache node_modules
