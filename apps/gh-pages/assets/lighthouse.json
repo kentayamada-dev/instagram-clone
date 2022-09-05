@@ -154,5 +154,83 @@
         }
       }
     ]
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/2991116307",
+    "date": "2022-09-05 06:15",
+    "data": [
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358928356.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 83,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358938773.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 59,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358949365.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 94,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358959830.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 56,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358971367.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 82,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "/home/runner/work/instagram-clone/instagram-clone/lighthouseOutput/report-1662358984742.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 100,
+          "performance": 51,
+          "progressiveWebApp": 60,
+          "seo": 100
+        }
+      }
+    ]
   }
 ]
