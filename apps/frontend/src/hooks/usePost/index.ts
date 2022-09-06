@@ -1,8 +1,8 @@
 import { useToast } from "@chakra-ui/react";
 import React from "react";
 import useSWR from "swr";
-import { fetcher } from "../../libs/graphql_request";
-import { useLocale } from "../../libs/next_router";
+import { fetcher } from "../../lib/graphql_request";
+import { useLocale } from "../../lib/next_router";
 import { getBlobUrlAndFile } from "../../utils/getBlobUrl";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { wait } from "../../utils/wait";

@@ -16,10 +16,10 @@ import {
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { constants } from "../../../constants";
-import { changeLocale } from "../../../libs/next_router";
+import { changeLocale } from "../../../lib/next_router";
 import { ButtonLink } from "../ButtonLink";
 import { ButtonLinkColorMode } from "../ButtonLinkColorMode";
-import type { LocaleType } from "../../../libs/next/types";
+import type { LocaleType } from "../../../lib/next/types";
 import type { HeaderDrawerType } from "./index.types";
 import type { SelectProps } from "@chakra-ui/react";
 

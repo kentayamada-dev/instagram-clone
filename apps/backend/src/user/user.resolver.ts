@@ -7,7 +7,7 @@ import { Response } from "express";
 import { AuthService } from "../auth/auth.service";
 import { PaginatedFollowerModel } from "../follow/models/paginatedFollower.model";
 import { PaginatedFollowingModel } from "../follow/models/paginatedFollowing.model";
-import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { FieldMap } from "../lib/nestjs/fieldMap.decorator";
 import { LikeCommon } from "../like/like.common";
 import { PaginatedLikeModel } from "../like/models/paginatedLike.model";
 import { MessageModel } from "../message/message.model";

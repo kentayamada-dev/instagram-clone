@@ -4,7 +4,7 @@ import { LoadingAnimation } from "../components/atoms/LoadingAnimation";
 import { AuthTemplate } from "../components/templates/AuthTemplate";
 import { LayoutTemplate } from "../components/templates/LayoutTemplate";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import type { NextPageWithLayout } from "../libs/next/types";
+import type { NextPageWithLayout } from "../lib/next/types";
 import type { GetStaticProps } from "next";
 
 export const getStaticProps: GetStaticProps = async ({ locale, defaultLocale = "en" }) => {

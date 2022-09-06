@@ -1,5 +1,5 @@
 import { graphql } from "msw";
-import { posts, users, currentUser, user } from "../../../libs/faker";
+import { posts, users, currentUser, user } from "../../../lib/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { HomeTemplate } from ".";
 import type { PostsQuery, UsersQuery, UserQuery } from "../../../generated";

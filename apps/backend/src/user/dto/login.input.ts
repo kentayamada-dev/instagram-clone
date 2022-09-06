@@ -1,7 +1,7 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { Transform } from "class-transformer";
 import { IsEmail, Validate } from "class-validator";
-import { PasswordValidator } from "../../libs/classValidator/passwordValidator";
+import { PasswordValidator } from "../../lib/classValidator/passwordValidator";
 import { toLowerCase } from "../../utils/helper";
 
 @InputType()

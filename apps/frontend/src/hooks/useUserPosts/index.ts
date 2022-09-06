@@ -3,7 +3,7 @@ import useSWRInfinite from "swr/infinite";
 import { wait } from "../../utils/wait";
 import { USER_POSTS_QUERY } from "./schema";
 import type { UserPostsQuery, UserPostsQueryVariables } from "../../generated";
-import type { GetKeyType } from "../../libs/swr/types";
+import type { GetKeyType } from "../../lib/swr/types";
 import type { LoadMoreUserPostsType, UseUserPostsReturnType, UseUserPostsType } from "./type";
 
 export const useUserPosts: UseUserPostsType = ({ userId = "" }) => {

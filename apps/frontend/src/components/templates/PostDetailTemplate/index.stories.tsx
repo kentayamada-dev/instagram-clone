@@ -1,4 +1,4 @@
-import { post } from "../../../libs/faker";
+import { post } from "../../../lib/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { PostDetailTemplate } from ".";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";

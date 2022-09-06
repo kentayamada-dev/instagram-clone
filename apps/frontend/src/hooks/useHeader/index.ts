@@ -1,8 +1,8 @@
 import { useColorMode, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import { fetcher } from "../../libs/graphql_request";
-import { changeLocale, useLocale } from "../../libs/next_router";
+import { fetcher } from "../../lib/graphql_request";
+import { changeLocale, useLocale } from "../../lib/next_router";
 import { LOGOUT_MUTATION } from "../useUser/schema";
 import type { LogoutMutation } from "../../generated";
 import type { UseHeaderReturnType, UseHeaderType } from "./type";

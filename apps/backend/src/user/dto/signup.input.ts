@@ -1,6 +1,6 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { IsUrl, IsNotEmpty, Validate } from "class-validator";
-import { UserIdValidator } from "../../libs/classValidator/userIdValidator";
+import { UserIdValidator } from "../../lib/classValidator/userIdValidator";
 import { LoginInput } from "./login.input";
 
 @InputType()

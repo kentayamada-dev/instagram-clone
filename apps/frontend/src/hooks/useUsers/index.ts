@@ -1,7 +1,7 @@
 import useSWRInfinite from "swr/infinite";
 import { USERS_QUERY } from "./schema";
 import type { UsersQuery, UsersQueryVariables } from "../../generated";
-import type { GetKeyType } from "../../libs/swr/types";
+import type { GetKeyType } from "../../lib/swr/types";
 import type { UseUsersReturnType, UseUsersType } from "./type";
 
 export const useUsers: UseUsersType = ({ currentUserId }) => {

@@ -1,4 +1,4 @@
-import { theme } from "../src/libs/chakra";
+import { theme } from "../src/lib/chakra";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";
 import i18n from "./i18next.js";
@@ -6,7 +6,7 @@ import { initialize, mswDecorator } from "msw-storybook-addon";
 import { SWRConfig } from "swr";
 import { request } from "graphql-request";
 import { graphql } from "msw";
-import { userNodes } from "../src/libs/faker";
+import { userNodes } from "../src/lib/faker";
 import "@fontsource/noto-sans-jp";
 
 const fetcher = (query) => request("/", query);

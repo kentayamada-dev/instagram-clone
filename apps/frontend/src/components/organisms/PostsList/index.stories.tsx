@@ -1,4 +1,4 @@
-import { userPostNodes } from "../../../libs/faker";
+import { userPostNodes } from "../../../lib/faker";
 import { PostsList } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 

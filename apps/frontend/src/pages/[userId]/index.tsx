@@ -4,14 +4,14 @@ import { LayoutTemplate } from "../../components/templates/LayoutTemplate";
 import { UserDetailTemplate } from "../../components/templates/UserDetailTemplate";
 import { USER_QUERY } from "../../hooks/useUser/schema";
 import { USERS_ID_QUERY } from "../../hooks/useUsers/schema";
-import { fetcher } from "../../libs/graphql_request";
+import { fetcher } from "../../lib/graphql_request";
 import type { UserQuery, UserQueryVariables, UsersIdQuery } from "../../generated";
 import type {
   GetUserStaticPathsType,
   GetUserStaticProps,
   NextUserPageWithLayoutType,
   UserPathsType
-} from "../../libs/next/pages/user";
+} from "../../lib/next/pages/user";
 
 export const getStaticPaths: GetUserStaticPathsType = async () => {
   const data = await fetcher<UsersIdQuery>(USERS_ID_QUERY);

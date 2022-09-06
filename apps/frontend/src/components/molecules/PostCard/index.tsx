@@ -2,7 +2,7 @@ import { VStack, Box, useColorModeValue, Text, Skeleton } from "@chakra-ui/react
 import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { constants } from "../../../constants";
-import { getDateTime } from "../../../libs/date_fns";
+import { getDateTime } from "../../../lib/date_fns";
 import { UserCard } from "../userCard";
 import type { PostCardType } from "./index.types";
 

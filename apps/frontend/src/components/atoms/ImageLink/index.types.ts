@@ -1,4 +1,4 @@
-import type { NextImageAltSrc } from "../../../libs/next/types";
+import type { NextImageAltSrc } from "../../../lib/next/types";
 import type { LinkProps } from "@chakra-ui/react";
 
 export type ImageLinkProps = NextImageAltSrc &

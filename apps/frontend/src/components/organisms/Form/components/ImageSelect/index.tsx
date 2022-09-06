@@ -2,7 +2,7 @@ import { Avatar, AvatarBadge, FormControl, FormErrorMessage, Input, InputGroup }
 import React from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import { constants } from "../../../../../constants";
-import { useLocale } from "../../../../../libs/next_router";
+import { useLocale } from "../../../../../lib/next_router";
 import { getBlobUrlAndFile } from "../../../../../utils/getBlobUrl";
 import type { ImageSelectType } from "./index.types";
 import type { InputProps } from "@chakra-ui/react";

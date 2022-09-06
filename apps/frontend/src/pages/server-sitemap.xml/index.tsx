@@ -1,7 +1,7 @@
 import { getServerSideSitemap } from "next-sitemap";
 import { constants } from "../../constants";
 import { POSTS_ID_AND_USERS_ID_AND_UPDATED_AT_QUERY } from "../../hooks/usePosts/schema";
-import { fetcher } from "../../libs/graphql_request";
+import { fetcher } from "../../lib/graphql_request";
 import type { PostsIdAndUsersIdUpdatedAtQuery } from "../../generated";
 import type { GetServerSideProps } from "next";
 import type { ISitemapField } from "next-sitemap";

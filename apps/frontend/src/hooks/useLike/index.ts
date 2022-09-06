@@ -1,4 +1,4 @@
-import { fetcher } from "../../libs/graphql_request";
+import { fetcher } from "../../lib/graphql_request";
 import { useCurrentUser } from "../useCurrentUser";
 import { usePost } from "../usePost";
 import { LIKE_MUTATION, UNLIKE_MUTATION } from "./schema";

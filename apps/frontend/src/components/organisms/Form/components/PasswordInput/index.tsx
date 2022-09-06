@@ -12,7 +12,7 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { constants } from "../../../../../constants";
-import { useLocale } from "../../../../../libs/next_router";
+import { useLocale } from "../../../../../lib/next_router";
 import type { PasswordInputType } from "./index.types";
 
 const {

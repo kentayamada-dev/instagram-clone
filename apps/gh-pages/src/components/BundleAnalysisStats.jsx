@@ -1,12 +1,11 @@
-import { Chart as ChartJS, LinearScale, CategoryScale, PointElement, LineElement, Legend, Tooltip } from "chart.js";
-import { Line, getElementAtEvent } from "react-chartjs-2";
+import { Chart as ChartJS, LinearScale, CategoryScale, BarElement, Legend, Tooltip } from "chart.js";
+import { Bar, getElementAtEvent } from "react-chartjs-2";
 import React from "react";
 import bundleData from "../../assets/bundle.json";
 import zoomPlugin from "chartjs-plugin-zoom";
+import { getColor } from "../utils";
 
-const getColor = (seed) => "#" + Math.floor(((seed * 0.123 - 0) / (1 - 0)) * 16777215).toString(16);
-
-ChartJS.register(zoomPlugin, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(zoomPlugin, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const options = {
   scales: {
@@ -19,8 +18,7 @@ const options = {
         enabled: true
       },
       limits: {
-        y: { min: 0, max: 300, minRange: 50 },
-        x: { min: 0, max: 300, minRange: 2 }
+        y: { min: 0, max: 300, minRange: 50 }
       },
       zoom: {
         wheel: {
@@ -38,27 +36,20 @@ const options = {
   }
 };
 
-const bytesToKb = (value) => Math.ceil((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
+const bytesToKb = (value) => Math.round((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
 
 export default function BundleAnalysisStats() {
   const labels = bundleData.map((data) => data.date);
   const actionUrls = bundleData.map((data) => data.actionUrl);
-  const buildData = bundleData.map((data) => data.data);
-  const obj = buildData.reduce((res, item) => ({ ...res, ...item }));
-  const keys = Object.keys(obj);
-  const def = keys.reduce((result, key) => {
-    result[key] = {
-      raw: 0,
-      gzip: 0
-    };
-    return result;
-  }, {});
-  let datasets = [];
-  const result = buildData.map((item) => ({ ...def, ...item }));
-  result.forEach((result) => {
-    Object.entries(result).map(([key, value], index) => {
-      const fileSize = bytesToKb(value.gzip);
+  const latestBuild = bundleData.slice(-1)[0];
+  const keys = Object.keys(latestBuild.data);
+  const datasets = [];
+
+  bundleData.forEach(({ data }) => {
+    for (const [index, key] of keys.entries()) {
+      const foundData = data[key];
       const foundObject = datasets.find((dataset) => dataset.label === key);
+      const fileSize = foundData ? bytesToKb(foundData.gzip) : 0;
       if (foundObject) {
         foundObject.data = [...foundObject.data, fileSize];
       } else {
@@ -70,8 +61,9 @@ export default function BundleAnalysisStats() {
           backgroundColor: color
         });
       }
-    });
+    }
   });
+
   const data = {
     labels,
     datasets
@@ -121,18 +113,20 @@ export default function BundleAnalysisStats() {
 
   return (
     <div>
-      <div className="form-control mb-3">
-        <label className="label cursor-pointer flex w-56 ml-5">
-          <input
-            type="checkbox"
-            className="toggle toggle-primary"
-            checked={isInteractiveMode}
-            onChange={onClickHandler}
-          />
-          <span className="label-text">Toggle interactive mode</span>
-        </label>
+      <label className="label cursor-pointer flex w-60 pl-5 pt-0 pb-5 gap-3">
+        <input
+          type="checkbox"
+          className="toggle toggle-primary"
+          checked={isInteractiveMode}
+          onChange={onClickHandler}
+        />
+        <span className="label-text">Toggle interactive mode</span>
+      </label>
+      <div className="overflow-x-auto">
+        <div className="relative min-w-[50rem]">
+          <Bar options={options} data={data} ref={chartRef} onClick={onClick} />
+        </div>
       </div>
-      <Line options={options} data={data} ref={chartRef} onClick={onClick} />
     </div>
   );
 }

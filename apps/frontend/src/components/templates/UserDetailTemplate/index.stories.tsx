@@ -1,5 +1,5 @@
 import { graphql } from "msw";
-import { follower, following, user, userPosts } from "../../../libs/faker";
+import { follower, following, user, userPosts } from "../../../lib/faker";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { UserDetailTemplate } from ".";
 import type { FollowersQuery, FollowingQuery, UserPostsQuery } from "../../../generated";

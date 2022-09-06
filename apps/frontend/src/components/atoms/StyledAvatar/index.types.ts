@@ -1,4 +1,4 @@
-import type { NextImageAltSrc } from "../../../libs/next/types";
+import type { NextImageAltSrc } from "../../../lib/next/types";
 
 export type StyledAvatarProps = Pick<NextImageAltSrc, "alt"> & {
   size: number;

@@ -1,7 +1,7 @@
 import { FormControl, FormErrorMessage, FormLabel, Input, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { constants } from "../../../../../constants";
-import { useLocale } from "../../../../../libs/next_router";
+import { useLocale } from "../../../../../lib/next_router";
 import type { EmailInputType } from "./index.types";
 
 const {

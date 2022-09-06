@@ -1,4 +1,4 @@
-import { postNodes } from "../../../libs/faker";
+import { postNodes } from "../../../lib/faker";
 import { Feed } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 

@@ -7,7 +7,7 @@ import { constants } from "../../../constants";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import { useHeader } from "../../../hooks/useHeader";
 import { usePost } from "../../../hooks/usePost";
-import { useLocale } from "../../../libs/next_router";
+import { useLocale } from "../../../lib/next_router";
 import { AvatarLogoutPopover } from "../../molecules/AvatarLogoutPopover";
 import { HeaderDrawer } from "../../molecules/HeaderDrawer";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";

@@ -1,4 +1,4 @@
-import { fetcher } from "../../libs/graphql_request";
+import { fetcher } from "../../lib/graphql_request";
 import { wait } from "../../utils/wait";
 import { useCurrentUser } from "../useCurrentUser";
 import { useFollowers } from "../useFollowers";

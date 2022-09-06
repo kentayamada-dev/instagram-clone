@@ -6,9 +6,9 @@ import i18nextConfig from "../../next-i18next.config";
 import { GaTags } from "../components/misc/GaTags";
 import { constants } from "../constants";
 import { useCurrentUser } from "../hooks/useCurrentUser";
-import { theme } from "../libs/chakra";
-import { SWRProvider } from "../libs/swr";
-import type { MyAppType } from "../libs/next/types";
+import { theme } from "../lib/chakra";
+import { SWRProvider } from "../lib/swr";
+import type { MyAppType } from "../lib/next/types";
 import "@fontsource/noto-sans-jp";
 
 const { GA_TRACKING_ID } = constants;

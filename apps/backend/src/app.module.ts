@@ -8,7 +8,7 @@ import { FollowModule } from "./follow/follow.module";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { LoggingPlugin } from "./libs/apollo/logging";
+import { LoggingPlugin } from "./lib/apollo/logging";
 import { LikeModule } from "./like/like.module";
 import { PostModule } from "./post/post.module";
 import { PrismaModule } from "./prisma/prisma.module";

@@ -251,7 +251,7 @@ jobs:
           if_no_artifact_found: warn
           workflow: ci.yml
           path: expectedDir
-          name: vrt_screenshots
+          name: vrt-screenshots
 
       - name: Generate test report
         run: reg-cli actualDir expectedDir diffDir --report ./report.html --enableAntialias --json ./reg.json --ignoreChange
@@ -278,7 +278,7 @@ jobs:
       - name: Upload expected screenshots
         uses: actions/upload-artifact@v3
         with:
-          name: vrt_screenshots
+          name: vrt-screenshots
           path: expectedDir
 
   Lighthouse:

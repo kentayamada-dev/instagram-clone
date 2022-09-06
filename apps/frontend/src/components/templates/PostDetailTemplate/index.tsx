@@ -33,7 +33,7 @@ import { useFollow } from "../../../hooks/useFollow";
 import { useLike } from "../../../hooks/useLike";
 import { useLikes } from "../../../hooks/useLikes";
 import { usePost } from "../../../hooks/usePost";
-import { getDateTime } from "../../../libs/date_fns";
+import { getDateTime } from "../../../lib/date_fns";
 import { TextLink } from "../../atoms/TextLink";
 import { CommentCard } from "../../molecules/CommentCard";
 import { UserCard } from "../../molecules/userCard";

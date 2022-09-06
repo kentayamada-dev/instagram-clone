@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { CurrentUser } from "../auth/auth.decorator";
 import { JwtPayload } from "../auth/auth.types";
 import { GqlAuthGuard } from "../auth/gqlAuth.guard";
-import { FieldMap } from "../libs/nestjs/fieldMap.decorator";
+import { FieldMap } from "../lib/nestjs/fieldMap.decorator";
 import { extractUserProperties, isObjectEmpty } from "../utils/helper";
 import { FollowArgs } from "./dto/follow.args";
 import { FollowInput } from "./dto/follow.input";

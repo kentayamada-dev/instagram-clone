@@ -4,14 +4,14 @@ import { LayoutTemplate } from "../../components/templates/LayoutTemplate";
 import { PostDetailTemplate } from "../../components/templates/PostDetailTemplate";
 import { POST_QUERY } from "../../hooks/usePost/schema";
 import { POSTS_ID_AND_USERS_ID_QUERY } from "../../hooks/usePosts/schema";
-import { fetcher } from "../../libs/graphql_request";
+import { fetcher } from "../../lib/graphql_request";
 import type { PostQuery, PostQueryVariables, PostsIdAndUsersIdQuery } from "../../generated";
 import type {
   PostPathsType,
   GetPostStaticPathsType,
   GetPostStaticProps,
   NextPostPageWithLayoutType
-} from "../../libs/next/pages/post";
+} from "../../lib/next/pages/post";
 
 export const getStaticPaths: GetPostStaticPathsType = async () => {
   const data = await fetcher<PostsIdAndUsersIdQuery>(POSTS_ID_AND_USERS_ID_QUERY);

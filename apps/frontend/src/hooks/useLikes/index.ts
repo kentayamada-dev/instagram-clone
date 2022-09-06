@@ -3,7 +3,7 @@ import useSWRInfinite from "swr/infinite";
 import { wait } from "../../utils/wait";
 import { LIKES_QUERY } from "./schema";
 import type { LikesQuery, LikesQueryVariables } from "../../generated";
-import type { GetKeyType } from "../../libs/swr/types";
+import type { GetKeyType } from "../../lib/swr/types";
 import type { LoadMoreLikesType, UseLikesReturnType, UseLikesType } from "./type";
 
 export const useLikes: UseLikesType = ({ postId = "" }) => {

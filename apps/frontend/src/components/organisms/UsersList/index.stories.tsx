@@ -1,4 +1,4 @@
-import { userNodes } from "../../../libs/faker";
+import { userNodes } from "../../../lib/faker";
 import { UsersList } from ".";
 import type { ComponentStoryObj, ComponentMeta } from "@storybook/react";
 

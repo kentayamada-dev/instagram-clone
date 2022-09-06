@@ -2,6 +2,7 @@
 import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
 import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
+import LighthouseAnalysisStatsList from "../components/LighthouseAnalysisStats.jsx";
 import bundleData from "../../assets/bundle.json";
 import lighthouseData from "../../assets/lighthouse.json";
 import Accordion from "../components/Accordion.astro";
@@ -82,69 +83,77 @@ for (const [key, value] of Object.entries(latestBundleData)) {
         <Link title="Bundle Details" href="./client" />
       </div>
       <h2>VRT Report</h2>
-      <Link title="Check the report" href="./report" />
+      <Link title="Latest VRT Report" href="./report" />
       <h2>Cypress Report</h2>
-      <Link title="Check the report" href="./cypress/report/mochawesome" />
+      <Link title="Latest Cypress Report" href="./cypress/report/mochawesome" />
       <h2>Lighthouse Reports</h2>
-      <Accordion title="Latest Lighthouse Scores">
-        <div class="overflow-x-auto">
-          <table class="table w-full my-0">
-            <thead>
-              <tr class="text-center">
-                <th class="rounded-none !static">Path</th>
-                <th>Device</th>
-                <th>Performance</th>
-                <th>Accessibility</th>
-                <th>Best Practices</th>
-                <th>SEO</th>
-                <th>PWA</th>
-                <th class="rounded-none">Detail</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                lighthouseTds.map(
-                  ({
-                    path,
-                    emulatedFormFactor,
-                    performance,
-                    accessibility,
-                    bestPractices,
-                    seo,
-                    progressiveWebApp,
-                    url,
-                    localReport
-                  }) => (
-                    <tr class="hover text-center">
-                      <td class="rounded-none">
-                        <a target="_blank" rel="noopener noreferrer" href={url} class="link link-primary no-underline">
-                          {path}
-                        </a>
-                      </td>
-                      <td>{emulatedFormFactor}</td>
-                      <td>{performance}</td>
-                      <td>{accessibility}</td>
-                      <td>{bestPractices}</td>
-                      <td>{seo}</td>
-                      <td>{progressiveWebApp}</td>
-                      <td class="rounded-none">
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={`./lighthouse/${localReport}`}
-                          class="link link-primary no-underline"
-                        >
-                          See More...
-                        </a>
-                      </td>
-                    </tr>
+      <div class="flex flex-col space-y-4">
+        <Accordion title="Latest Lighthouse Scores">
+          <div class="overflow-x-auto">
+            <table class="table w-full my-0">
+              <thead>
+                <tr class="text-center">
+                  <th class="rounded-none !static">Path</th>
+                  <th>Device</th>
+                  <th>Performance</th>
+                  <th>Accessibility</th>
+                  <th>Best Practices</th>
+                  <th>SEO</th>
+                  <th>PWA</th>
+                  <th class="rounded-none">Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  lighthouseTds.map(
+                    ({
+                      path,
+                      emulatedFormFactor,
+                      performance,
+                      accessibility,
+                      bestPractices,
+                      seo,
+                      progressiveWebApp,
+                      url,
+                      localReport
+                    }) => (
+                      <tr class="hover text-center">
+                        <td class="rounded-none">
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={url}
+                            class="link link-primary no-underline"
+                          >
+                            {path}
+                          </a>
+                        </td>
+                        <td>{emulatedFormFactor}</td>
+                        <td>{performance}</td>
+                        <td>{accessibility}</td>
+                        <td>{bestPractices}</td>
+                        <td>{seo}</td>
+                        <td>{progressiveWebApp}</td>
+                        <td class="rounded-none">
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={`./lighthouse/${localReport}`}
+                            class="link link-primary no-underline"
+                          >
+                            See More...
+                          </a>
+                        </td>
+                      </tr>
+                    )
                   )
-                )
-              }
-            </tbody>
-          </table>
-        </div>
-      </Accordion>
+                }
+              </tbody>
+            </table>
+          </div>
+        </Accordion>
+        <Accordion title="Lighthouse Score History"><LighthouseAnalysisStatsList client:only="react" /></Accordion>
+      </div>
     </div>
   </article>
 </Layout>

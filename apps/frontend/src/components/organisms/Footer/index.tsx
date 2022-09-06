@@ -1,6 +1,6 @@
 import { Flex, VStack, Text, Divider, Link } from "@chakra-ui/react";
 import { constants } from "../../../constants";
-import { useLocale } from "../../../libs/next_router";
+import { useLocale } from "../../../lib/next_router";
 import { ImageLink } from "../../atoms/ImageLink";
 import { ImageLinkColorMode } from "../../molecules/ImageLinkColorMode";
 import type { FooterType } from "./index.types";
