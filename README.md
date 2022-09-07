@@ -39,6 +39,8 @@
             <th align="center">Cypress</th>
             <th align="center">reg-suit</th>
             <th align="center">Faker</th>
+            <th align="center">LottieFiles</th>
+            <th align="center">Emotion</th>
             <th align="center">Light/Dark Modes</th>
             <th align="center">Responsive</th>
         </tr>
@@ -51,10 +53,12 @@
             <td align="center"><img width=50 src="https://user-images.githubusercontent.com/83388735/188774891-6a932350-d30f-4b63-9dc6-e0d0e830b8cd.svg#gh-dark-mode-only" alt="SWR-Light-Logo"><img width=50 src="https://user-images.githubusercontent.com/83388735/188774743-41eafc07-65ad-4cc0-8c2b-6105a2badc8c.svg#gh-light-mode-only" alt="SWR-Dark-Logo"></td>
             <td align="center"><img src="https://ico.now.sh/reacthookform/EC5990" width=50 alt="ReactHookForm-Logo"/></td>
             <td align="center"><img src="https://ico.now.sh/typescript/3178C6" width=50 alt="TypeScript-Logo"/></td>
-            <td align="center"><img src="https://ico.now.sh/i18next/26A69A" width=50 alt="i18next-Logo"/></td>
-            <td align="center"><img src="https://ico.now.sh/cypress/24528f" width=50 alt="Cypress-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188814780-901edb98-fc74-4344-b30b-c6b5913cea13.svg" width=50 alt="i18next-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188815804-2ec09981-9d01-42eb-8e93-a1eb32a9424a.svg" width=50 alt="Cypress-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188776078-285817f2-166c-4702-8dcf-77a87ea8521e.svg" width=50 alt="RegSuit-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188792063-18dd5fa8-5f20-4e70-9424-f1682497e251.svg" width=50 alt="Faker-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188816450-a333927b-7b2b-4ce4-99c5-07047040991a.svg" width=50 alt="LottieFiles-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188817479-ef37e456-6360-4bb4-a66d-f1d47cdd89d3.svg" width=50 alt="Emotion-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188780871-4cf9ab75-7639-45a9-868f-50be81d009fe.svg" width=50 alt="LightDark-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188781297-bd86e1ab-3a77-4637-a1a0-2b1aac4d50eb.svg" width=50 alt="Responsive-Logo"/></td>
         </tr>
