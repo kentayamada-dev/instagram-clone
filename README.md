@@ -24,54 +24,138 @@
 
 ## 🛠️ Tech Stack
 
-- Frontend
+### Frontend
 
-  - React (Next.js)
-  - Storybook
-  - Atomic Design
-  - Fully Responsive
-  - Chakra UI
-  - SWR
-  - TypeScript
-  - Light/Dark Modes
-  - Internationalized Routing
-  - Cypress
-  - reg-suit
+<table>
+    <thead>
+        <tr>
+            <th align="center">React (Next.js)</th>
+            <th align="center">Storybook</th>
+            <th align="center">Chakra UI</th>
+            <th align="center">SWR</th>
+            <th align="center">React Hook Form</th>
+            <th align="center">TypeScript</th>
+            <th align="center">i18next</th>
+            <th align="center">Cypress</th>
+            <th align="center">reg-suit</th>
+            <th align="center">Faker</th>
+            <th align="center">Light/Dark Modes</th>
+            <th align="center">Responsive</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img width=50 src="https://user-images.githubusercontent.com/83388735/188771957-f65f7875-36f5-4331-9386-e834adad2919.svg#gh-dark-mode-only" alt="Next-Light-Logo"><img width=50 src="https://user-images.githubusercontent.com/83388735/188772091-fdc3705f-c936-4fdd-a040-4c329845dee4.svg#gh-light-mode-only" alt="Next-Dark-Logo"></td>
+            <td align="center"><img src="https://ico.now.sh/storybook/FF4785" width=50 alt="Storybook-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/chakraui/319795" width=50 alt="ChakraUI-Logo"/></td>
+            <td align="center"><img width=50 src="https://user-images.githubusercontent.com/83388735/188774891-6a932350-d30f-4b63-9dc6-e0d0e830b8cd.svg#gh-dark-mode-only" alt="SWR-Light-Logo"><img width=50 src="https://user-images.githubusercontent.com/83388735/188774743-41eafc07-65ad-4cc0-8c2b-6105a2badc8c.svg#gh-light-mode-only" alt="SWR-Dark-Logo"></td>
+            <td align="center"><img src="https://ico.now.sh/reacthookform/EC5990" width=50 alt="ReactHookForm-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/typescript/3178C6" width=50 alt="TypeScript-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/i18next/26A69A" width=50 alt="i18next-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/cypress/24528f" width=50 alt="Cypress-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188776078-285817f2-166c-4702-8dcf-77a87ea8521e.svg" width=50 alt="RegSuit-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188792063-18dd5fa8-5f20-4e70-9424-f1682497e251.svg" width=50 alt="Faker-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188780871-4cf9ab75-7639-45a9-868f-50be81d009fe.svg" width=50 alt="LightDark-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188781297-bd86e1ab-3a77-4637-a1a0-2b1aac4d50eb.svg" width=50 alt="Responsive-Logo"/></td>
+        </tr>
+    </tbody>
+</table>
 
-- Backend
+### Backend
 
-  - Node.js (NestJS)
-  - Apollo
-  - Prisma
-  - TypeScript
-  - GraphQL
-  - Helmet
-  - CORS
-  - Rate Limiting
-  - Jest
+<table>
+    <thead>
+        <tr>
+            <th align="center">Node.js (NestJS)</th>
+            <th align="center">Apollo GraphQL</th>
+            <th align="center">Prisma</th>
+            <th align="center">TypeScript</th>
+            <th align="center">GraphQL</th>
+            <th align="center">Jest</th>
+            <th align="center">Joi</th>
+            <th align="center">Faker</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img src="https://ico.now.sh/nestjs/E0234E" width=50 alt="NestJS-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/apollographql/311C87" width=50 alt="ApolloGraphQL-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/prisma/5A67D8" width=50 alt="Prisma-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/typescript/3178C6" width=50 alt="TypeScript-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/graphql/E10098" width=50 alt="GraphQL-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/jest/C21325" width=50 alt="Jest-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188789144-771beb68-140b-4af4-9166-63b55da60db7.png" width=50 alt="Joi-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188792063-18dd5fa8-5f20-4e70-9424-f1682497e251.svg" width=50 alt="Faker-Logo"/></td>
+        </tr>
+    </tbody>
+</table>
 
-- Auth
+### Auth
 
-  - Cookie
-  - Passport
-  - JWT
-  - Password hashing (bcrypt)
+<table>
+    <thead>
+        <tr>
+            <th align="center">JWT</th>
+            <th align="center">Passport</th>
+            <th align="center">Cookie</th>
+            <th align="center">bcrypt</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188787294-d381912f-e863-4ce8-8592-763558f4f5a2.svg" width=60 alt="JWT-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/passport/34E27A" width=50 alt="Passport-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188790368-bba37285-8bfa-4bbd-8d4b-a7d067709669.svg" width=50 alt="Cookie-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188790866-4c4eef89-04bc-410b-8660-23e2c8a8a55f.svg" width=50 alt="bcrypt-Logo"/></td>
+        </tr>
+    </tbody>
+</table>
 
-- DB
+### DB
 
-  - PostgreSQL
-  - Cloudinary
-  - Relational Database
+<table>
+    <thead>
+        <tr>
+            <th align="center">PostgreSQL</th>
+            <th align="center">Cloudinary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img src="https://ico.now.sh/postgresql/4169E1" width=50 alt="PostgreSQL-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188791369-23350304-ff43-41fb-a895-70d077af45ac.svg" width=50 alt="Cloudinary-Logo"/></td>
+        </tr>
+    </tbody>
+</table>
 
-- Misc
-  - Monorepo (Turborepo)
-  - husky
-  - lint-staged
-  - ESLint
-  - GraphQL Code Generator
-  - Prettier
-  - CSpell
-  - CI/CD (GitHub Actions)
+### Misc
+
+<table>
+    <thead>
+        <tr>
+            <th align="center">Turborepo</th>
+            <th align="center">Husky</th>
+            <th align="center">lint-staged</th>
+            <th align="center">ESLint</th>
+            <th align="center">GraphQL Code Generator</th>
+            <th align="center">Prettier</th>
+            <th align="center">CSpell</th>
+            <th align="center">GitHub Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188793732-de48c65d-1f46-412b-97fe-4e2497427861.svg" width=50 alt="Turborepo-Logo"/></td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188795423-67733560-8263-4abb-9ff9-618c29d2d3e2.svg"width=50 alt="Husky-logo"</td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188796031-6f5ed441-1c0e-4190-afa6-535ad7ed37a2.svg"width=50 alt="lintStaged-logo"</td>
+           <td align="center"><img src="https://ico.now.sh/eslint/4B32C3" width=50 alt="ESLint-Logo"/></td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188797324-3c47f52c-3009-4add-9199-a5cb33dc39c1.svg"width=50 alt="GraphQLCodeGenerator-logo"</td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188797905-79574cac-5b22-4e8e-8d0a-1c21c48ff386.svg"width=50 alt="Prettier-logo"</td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188798447-b49ecbe4-0620-48f4-afe1-bbdef80cc6ba.svg"width=50 alt="CSpell-logo"</td>
+           <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188798716-9989bfa4-ef70-491e-8bbd-f69a774d7e18.svg"width=50 alt="GitHubActions-logo"</td>
+        </tr>
+    </tbody>
+</table>
 
 ## 💾 ERD
 
