@@ -1,7 +1,7 @@
 import { convertFileContent } from "./common.js";
 import { writeFileSync } from "fs";
 
-const BUNDLE_PATH = "apps/gh-pages/assets/bundle.json";
+const BUNDLE_PATH = "apps/gh-pages/src/assets/bundle.json";
 
 export const analysis = async (url, date) => {
   const outputObj = convertFileContent("apps/frontend/dist/analyze/__bundle_analysis.json");

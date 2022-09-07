@@ -14,7 +14,8 @@
     "tbody",
     "noopener",
     "noreferrer",
-    "daisyui"
+    "daisyui",
+    "kentayamada"
   ],
-  "ignorePaths": ["assets"]
+  "ignorePaths": ["src/assets"]
 }

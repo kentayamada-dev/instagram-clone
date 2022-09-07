@@ -17,7 +17,7 @@
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.workingDirectories": [{ "mode": "auto" }],
-    "files.associations": { ".json": "jsonc" },
+    "files.associations": { "*.json": "jsonc" },
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
     "gitlens.statusBar.enabled": false,

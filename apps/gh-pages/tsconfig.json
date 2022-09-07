@@ -1,0 +1,17 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    // Modules
+    "module": "esnext",
+    // Emit
+    "importsNotUsedAsValues": "error",
+    "noEmit": true,
+    // JavaScript Support
+    "allowJs": true,
+    // Language and Environment
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

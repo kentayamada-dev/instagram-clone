@@ -2,7 +2,7 @@ import { convertFileContent } from "./common.js";
 import { writeFileSync } from "fs";
 import { basename } from "path";
 
-const LIGHTHOUSE_PATH = "apps/gh-pages/assets/lighthouse.json";
+const LIGHTHOUSE_PATH = "apps/gh-pages/src/assets/lighthouse.json";
 
 export const lighthouse = async (url, date) => {
   const outputObj = convertFileContent("./results.json");

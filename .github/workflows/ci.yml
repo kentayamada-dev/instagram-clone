@@ -172,7 +172,7 @@ jobs:
       - name: Commit updated assets/bundle.json
         uses: EndBug/add-and-commit@v9.1.0
         with:
-          add: apps/gh-pages/assets/bundle.json
+          add: apps/gh-pages/src/assets/bundle.json
           pull: origin main
 
   Purge-Cloudflare-Cache:
@@ -320,7 +320,7 @@ jobs:
       - name: Commit updated assets/lighthouse.json
         uses: EndBug/add-and-commit@v9.1.0
         with:
-          add: apps/gh-pages/assets/lighthouse.json
+          add: apps/gh-pages/src/assets/lighthouse.json
           pull: origin main
 
   GitHub-Pages:

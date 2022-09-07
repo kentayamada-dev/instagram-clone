@@ -1,28 +1,20 @@
 ---
-import { readdirSync } from "fs";
 import Layout from "../components/Layout.astro";
-import BundleAnalysisStats from "../components/BundleAnalysisStats.jsx";
-import LighthouseAnalysisStatsList from "../components/LighthouseAnalysisStats.jsx";
-import bundleData from "../../assets/bundle.json";
-import lighthouseData from "../../assets/lighthouse.json";
+import bundleData from "../assets/bundle.json";
+import lighthouseData from "../assets/lighthouse.json";
 import Accordion from "../components/Accordion.astro";
 import Link from "../components/Link.astro";
+import { bytesToKb } from "../utils/bytesToKb";
+import { LighthouseAnalysisStatsList } from "../components/LighthouseAnalysisStatsList";
+import { BundleAnalysisStats } from "../components/BundleAnalysisStats";
 
-let lighthouseResults: string[] = [];
 const updatedDate = process.env["DATE"] ?? "1970-01-01 00:00";
-const bytesToKb = (value) => Math.round((value / 1024) * Math.pow(10, 2)) / Math.pow(10, 2);
 const GLOBAL_BUILD_KEY = "__global";
-const latestBundleData = bundleData.slice(-1)[0]["data"];
-const latestLighthouseData = lighthouseData.slice(-1)[0]["data"];
-const globalBundleSize = latestBundleData[GLOBAL_BUILD_KEY]["gzip"];
+const latestBundleData = bundleData.slice(-1)[0]?.data;
+const latestLighthouseData = lighthouseData.slice(-1)[0]?.data ?? [];
+const globalBundleSize = latestBundleData ? latestBundleData[GLOBAL_BUILD_KEY]["gzip"] : 0;
 let bundleTds = [];
 let lighthouseTds = [];
-
-try {
-  lighthouseResults = readdirSync("public/lighthouse");
-} catch (error) {
-  console.log(error);
-}
 
 for (const { emulatedFormFactor, localReport, scores, url: rawUrl } of latestLighthouseData) {
   const url = new URL(rawUrl);
@@ -35,9 +27,11 @@ for (const { emulatedFormFactor, localReport, scores, url: rawUrl } of latestLig
   });
 }
 
-for (const [key, value] of Object.entries(latestBundleData)) {
-  if (key !== GLOBAL_BUILD_KEY) {
-    bundleTds.push({ page: key, size: bytesToKb(value.gzip), firstLoad: bytesToKb(value.gzip + globalBundleSize) });
+if (latestBundleData) {
+  for (const [key, value] of Object.entries(latestBundleData)) {
+    if (key !== GLOBAL_BUILD_KEY) {
+      bundleTds.push({ page: key, size: bytesToKb(value.gzip), firstLoad: bytesToKb(value.gzip + globalBundleSize) });
+    }
   }
 }
 ---
