@@ -22,7 +22,7 @@
 [![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186300755-062f9256-aeaa-42d1-b42c-50bdb7b728ed.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
 [![Open in VS Code](https://user-images.githubusercontent.com/83388735/186300430-2a29e2aa-6bcb-42f2-a8d4-2a3b61aa3c67.svg)](https://vscode.dev/github/kentayamada-dev/instagram-clone)
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stacks
 
 ### Frontend
 
