@@ -126,7 +126,7 @@
     </thead>
     <tbody>
         <tr>
-            <td align="center"><img src="https://ico.now.sh/postgresql/4169E1" width=50 alt="PostgreSQL-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188818213-3432099a-dba0-41cb-96d1-01cc34617e6c.svg" width=50 alt="PostgreSQL-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188791369-23350304-ff43-41fb-a895-70d077af45ac.svg" width=50 alt="Cloudinary-Logo"/></td>
         </tr>
     </tbody>
