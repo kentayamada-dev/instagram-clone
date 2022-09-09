@@ -24,7 +24,7 @@
 
 ## 🛠️ Tech Stacks
 
-### Frontend
+### Website
 
 <table>
     <thead>
@@ -65,7 +65,7 @@
     </tbody>
 </table>
 
-### Backend
+### API
 
 <table>
     <thead>
@@ -128,6 +128,28 @@
         <tr>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188818213-3432099a-dba0-41cb-96d1-01cc34617e6c.svg" width=50 alt="PostgreSQL-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188791369-23350304-ff43-41fb-a895-70d077af45ac.svg" width=50 alt="Cloudinary-Logo"/></td>
+        </tr>
+    </tbody>
+</table>
+
+### App Analytics
+
+<table>
+    <thead>
+        <tr>
+            <th align="center">Astro</th>
+            <th align="center">React</th>
+            <th align="center">Tailwind CSS</th>
+            <th align="center">ChartJS</th>
+            <th align="center">daisyUI</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center"><img width=50 src="https://user-images.githubusercontent.com/83388735/189289011-f951f18a-c64c-4d92-88dc-ea01316c2b5d.svg#gh-dark-mode-only" alt="Astro-Light-Logo"><img width=50 src="https://user-images.githubusercontent.com/83388735/189288840-9b0cf449-70a1-42fe-b52d-d52b24a098c0.svg#gh-light-mode-only" alt="Astro-Dark-Logo"></td>
+            <td align="center"><img src="https://ico.now.sh/react/61DAFB" width=50 alt="React-Logo"/></td>
+            <td align="center"><img src="https://ico.now.sh/tailwindcss/06B6D4" width=50 alt="TailwindCss-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/189290395-e6e2309d-6040-4b83-b0b3-eeffdcad81f2.svg" width=50 alt="ChartJs-Logo"/></td><td align="center"><img src="https://user-images.githubusercontent.com/83388735/189292024-342fc5ba-38de-4002-8504-d1aeeaf737b9.svg" width=50 alt="daisyUI-Logo"/></td>
         </tr>
     </tbody>
 </table>
