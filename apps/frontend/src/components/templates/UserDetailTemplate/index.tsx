@@ -13,7 +13,7 @@ import {
   Box
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { constants } from "../../../constants";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
@@ -32,7 +32,7 @@ const {
 
 export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const router = useRouter();
-  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
+  const [isInitialDataFetched, setIsInitialDataFetched] = useState(false);
   // eslint-disable-next-line no-undefined
   const userId = typeof router.query["userId"] === "string" ? router.query["userId"] : undefined;
   const { user } = useUser({ fallbackData: data, userId });
@@ -43,7 +43,7 @@ export const UserDetailTemplate: UserDetailTemplateType = ({ data }) => {
   const { currentUser } = useCurrentUser();
   const isNotCurrentUser = currentUser !== null && currentUser.id !== userId;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (userId && !userPosts && !isInitialDataFetched) {
       setIsInitialDataFetched(true);
       void (async (): Promise<void> => {

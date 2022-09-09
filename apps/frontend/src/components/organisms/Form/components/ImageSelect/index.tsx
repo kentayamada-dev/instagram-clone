@@ -1,5 +1,5 @@
 import { Avatar, AvatarBadge, FormControl, FormErrorMessage, Input, InputGroup } from "@chakra-ui/react";
-import React from "react";
+import { useRef, useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../lib/next_router";
@@ -12,7 +12,7 @@ const {
 } = constants;
 
 export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, setError, setValue }) => {
-  const [imagePreviewSrc, setImagePreviewSrc] = React.useState("");
+  const [imagePreviewSrc, setImagePreviewSrc] = useState("");
   const fileSizeExceededErrorMessage = useLocale(
     "File size should be less than 10MB.",
     "ファイルサイズは10MB以下にしてください。"
@@ -22,7 +22,7 @@ export const ImageSelect: ImageSelectType = ({ errors, register, clearErrors, se
     "予期せぬエラーが発生しました。お時間をおいて再度お試しください。"
   );
 
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { ref, onChange, ...rest } = register("file");
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleImageChange: InputProps["onChange"] = async (event) => {

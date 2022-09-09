@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import Script from "next/script";
-import React from "react";
+import { useEffect } from "react";
 import type { GaTagsType } from "./index.types";
 
 export const GaTags: GaTagsType = ({ gaTrackingId }) => {
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!gaTrackingId) {
       return;
     }

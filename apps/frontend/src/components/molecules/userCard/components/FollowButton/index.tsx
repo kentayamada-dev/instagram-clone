@@ -1,11 +1,11 @@
 import { type ThemingProps, Button } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import React from "react";
+import { useState } from "react";
 import type { FollowButtonType } from "./index.types";
 
 export const FollowButton: FollowButtonType = ({ followState, handleFollow, userId = "", buttonSize = "md" }) => {
   const { t } = useTranslation("common");
-  const [isFollowLoading, setIsFollowLoading] = React.useState(false);
+  const [isFollowLoading, setIsFollowLoading] = useState(false);
   const isFollow = followState === "follow";
   const colorScheme: ThemingProps["variant"] = isFollow ? "primary" : "secondary";
   const text = isFollow ? t("follow") : t("unfollow");

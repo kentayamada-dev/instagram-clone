@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import React from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useCurrentUser } from "../../../../../hooks/useCurrentUser";
@@ -37,9 +37,9 @@ export const Stats: StatsType = ({
   const { currentUser } = useCurrentUser();
   const { handleFollow, getFollowState } = useFollow({ userId });
   const { t } = useTranslation("common");
-  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
+  const [isInitialDataFetched, setIsInitialDataFetched] = useState(false);
   const { isOpen, onOpen, onClose: handleClose } = useDisclosure();
-  const [isFollowingState, setIsFollowingState] = React.useState(true);
+  const [isFollowingState, setIsFollowingState] = useState(true);
   const useFollowState = <FollowersValueType, FollowingValueType>(
     followersValue: FollowersValueType,
     followingValue: FollowingValueType
@@ -54,7 +54,7 @@ export const Stats: StatsType = ({
   const next = useFollowState(handleMoreFollowers, handleMoreFollowing);
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleRouteChange = (): void => {
       if (isOpen) {
         handleClose();
@@ -76,7 +76,7 @@ export const Stats: StatsType = ({
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isInitialDataFetched && userId) {
       setIsInitialDataFetched(true);
       void (async (): Promise<void> => {

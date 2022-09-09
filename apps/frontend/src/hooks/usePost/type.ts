@@ -1,11 +1,12 @@
 import type { PostQuery } from "../../generated";
 import type { ButtonProps, InputProps } from "@chakra-ui/react";
+import type { ChangeEvent } from "react";
 import type { KeyedMutator } from "swr";
 
 export type UsePostReturnType = {
   caption: string;
   handleCancelPost: () => void;
-  handleChangeCaption: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChangeCaption: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   handleChangeImage: InputProps["onChange"];
   handleSubmitPost: ButtonProps["onClick"];
   imageSrc: string;

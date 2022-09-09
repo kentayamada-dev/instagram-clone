@@ -16,7 +16,7 @@ import {
   IconButton
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import React from "react";
+import { useRef } from "react";
 import { ImCross } from "react-icons/im";
 import { StyledAvatar } from "../../atoms/StyledAvatar";
 import type { PostModalType } from "./index.types";
@@ -34,7 +34,7 @@ export const PostModal: PostModalType = ({
   isPostLoading,
   caption
 }) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleClick = (): void => {
     inputRef.current?.click();
   };

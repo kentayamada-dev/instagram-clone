@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { fetcher } from "../../lib/graphql_request";
 import { useLocale } from "../../lib/next_router";
@@ -33,7 +33,7 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
     "予期せぬエラーが発生しました。お時間をおいて再度お試しください。"
   );
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const imageBlankErrorMessage = useLocale("Please select a photo.", "写真を選択してください。");
   const { setError, ...rest } = useForm<MyFormType>({ mode: "onSubmit" });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

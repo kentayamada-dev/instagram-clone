@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { appWithTranslation } from "next-i18next";
 import NextNProgress from "nextjs-progressbar";
-import React from "react";
+import { useEffect } from "react";
 import i18nextConfig from "../../next-i18next.config";
 import { GaTags } from "../components/misc/GaTags";
 import { constants } from "../constants";
@@ -18,7 +18,7 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
   const { currentUser, mutateCurrentUser } = useCurrentUser();
   const getLayout = Component.getLayout ?? ((page): JSX.Element => page);
 
-  React.useEffect(() => {
+  useEffect(() => {
     void (async (): Promise<void> => {
       if (currentUser === null) {
         await mutateCurrentUser();

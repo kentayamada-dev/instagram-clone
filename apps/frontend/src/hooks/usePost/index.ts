@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import React from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "../../lib/graphql_request";
 import { useLocale } from "../../lib/next_router";
@@ -13,6 +13,7 @@ import { useUserPosts } from "../useUserPosts";
 import { POST_QUERY, UPLOAD_MUTATION } from "./schema";
 import type { PostQuery, PostQueryVariables, UploadMutation, UploadMutationVariables } from "../../generated";
 import type { UsePostReturnType, UsePostType } from "./type";
+import type { ChangeEvent } from "react";
 
 export const usePost: UsePostType = ({ postId = "", fallbackData }) => {
   const args: PostQueryVariables = {
@@ -24,14 +25,14 @@ export const usePost: UsePostType = ({ postId = "", fallbackData }) => {
     ...(fallbackData && { fallbackData })
   });
   const post = data?.post;
-  const [postImageFile, setPostImageFile] = React.useState<Blob>();
+  const [postImageFile, setPostImageFile] = useState<Blob>();
   const { currentUser } = useCurrentUser();
   const { mutatePosts } = usePosts();
   const { mutateUserPosts } = useUserPosts({ userId: currentUser?.id });
   const { mutateUser } = useUser({ userId: currentUser?.id });
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [imageSrc, setImageSrc] = React.useState("");
-  const [caption, setCaption] = React.useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageSrc, setImageSrc] = useState("");
+  const [caption, setCaption] = useState("");
   const fileSizeExceededErrorMessage = useLocale(
     "File size should be less than 10MB",
     "ファイルサイズは10MB以下にしてください"
@@ -44,7 +45,7 @@ export const usePost: UsePostType = ({ postId = "", fallbackData }) => {
     setImageSrc("");
     setCaption("");
   };
-  const handleChangeCaption = (event: React.ChangeEvent<HTMLTextAreaElement>): void => setCaption(event.target.value);
+  const handleChangeCaption = (event: ChangeEvent<HTMLTextAreaElement>): void => setCaption(event.target.value);
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleSubmitPost: UsePostReturnType["handleSubmitPost"] = async () => {

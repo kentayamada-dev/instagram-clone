@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import useSWRInfinite from "swr/infinite";
 import { wait } from "../../utils/wait";
 import { FOLLOWING_QUERY } from "./schema";
@@ -26,7 +26,7 @@ export const useFollowing: UseFollowingType = ({ userId = "" }) => {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite<FollowingQuery, Error>(getKey);
   let following: UseFollowingReturnType["following"] = null;
-  const [isThresholdLoading, setIsThresholdLoading] = React.useState(false);
+  const [isThresholdLoading, setIsThresholdLoading] = useState(false);
 
   if (data) {
     const lastElement = data[data.length - 1];

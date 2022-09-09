@@ -1,7 +1,7 @@
 import { Box, Center, Input, List, ListItem, Spinner, useColorModeValue } from "@chakra-ui/react";
 import { useCombobox } from "downshift";
 import { useRouter } from "next/router";
-import React from "react";
+import { useRef, useState } from "react";
 // eslint-disable-next-line camelcase
 import { unstable_serialize, useSWRConfig } from "swr";
 import { constants } from "../../../../../constants";
@@ -13,6 +13,7 @@ import { wait } from "../../../../../utils/wait";
 import { UserCard } from "../../../../molecules/userCard";
 import type { UsersFilterQuery } from "../../../../../generated";
 import type { ComboboxType } from "./index.types";
+import type { KeyboardEvent } from "react";
 
 const {
   COLORS: { EBONY, WHITE, SNOW }
@@ -26,9 +27,9 @@ export const Combobox: ComboboxType = () => {
   const router = useRouter();
   const search = useLocale("Search", "検索");
   const noResultsFound = useLocale("No results found.", "一致する結果はありませんでした。");
-  const [filteredUsers, setFilteredUsers] = React.useState<UsersFilterQuery["users"]["nodes"]>([]);
-  const [isFetching, setIsFetching] = React.useState(false);
-  const ref = React.useRef<HTMLInputElement | null>(null);
+  const [filteredUsers, setFilteredUsers] = useState<UsersFilterQuery["users"]["nodes"]>([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const ref = useRef<HTMLInputElement | null>(null);
   const {
     isOpen,
     getMenuProps,
@@ -104,7 +105,7 @@ export const Combobox: ComboboxType = () => {
     }
   });
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Enter" && filteredUsers.length && highlightedIndex === -1) {
       setHighlightedIndex(0);
     }

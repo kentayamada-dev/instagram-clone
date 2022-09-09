@@ -1,6 +1,6 @@
 import { Center, Spinner, Box, Text, HStack } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import React from "react";
+import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useFollow } from "../../../hooks/useFollow";
 import { usePosts } from "../../../hooks/usePosts";
@@ -12,14 +12,14 @@ import type { HomeTemplateType } from "./index.types";
 
 export const HomeTemplate: HomeTemplateType = ({ currentUser }) => {
   const { t } = useTranslation("common");
-  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
+  const [isInitialDataFetched, setIsInitialDataFetched] = useState(false);
   const { posts, mutatePosts, handleMorePosts } = usePosts();
   const { users, mutateUsers } = useUsers({
     currentUserId: currentUser.id
   });
   const { handleFollow, getFollowState } = useFollow({ userId: currentUser.id });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isInitialDataFetched) {
       setIsInitialDataFetched(true);
       void (async (): Promise<void> => {

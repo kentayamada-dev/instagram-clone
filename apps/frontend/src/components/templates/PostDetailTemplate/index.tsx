@@ -24,7 +24,7 @@ import {
 import { useTranslation } from "next-i18next";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { constants } from "../../../constants";
@@ -54,12 +54,12 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
     fallbackData: data,
     postId
   });
-  const [isInitialDataFetched, setIsInitialDataFetched] = React.useState(false);
+  const [isInitialDataFetched, setIsInitialDataFetched] = useState(false);
   const { currentUser } = useCurrentUser();
   const { handleFollow, getFollowState } = useFollow({ userId: post?.user.id });
   const { likes, handleMoreLikes, mutateLikes } = useLikes({ postId });
   const { isOpen, onOpen, onClose: handleClose } = useDisclosure();
-  const [isLikeLoading, setIsLikeLoading] = React.useState(false);
+  const [isLikeLoading, setIsLikeLoading] = useState(false);
   const borderColor = useColorModeValue(GAINSBORO, BLACK_PEARL);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const { locale } = router;
@@ -85,7 +85,7 @@ export const PostDetailTemplate: PostDetailTemplateType = ({ data }) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isInitialDataFetched && postId) {
       setIsInitialDataFetched(true);
       void (async (): Promise<void> => {

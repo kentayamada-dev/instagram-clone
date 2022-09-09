@@ -1,6 +1,6 @@
 import { useColorMode, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
+import { useCallback } from "react";
 import { fetcher } from "../../lib/graphql_request";
 import { changeLocale, useLocale } from "../../lib/next_router";
 import { LOGOUT_MUTATION } from "../useUser/schema";
@@ -14,7 +14,7 @@ export const useHeader: UseHeaderType = () => {
   const { toggleColorMode } = useColorMode();
   const { isOpen: isDrawerOpen, onOpen, onClose } = useDisclosure();
   const handleOpenDrawer = (): void => onOpen();
-  const handleCloseDrawer = React.useCallback(() => onClose(), [onClose]);
+  const handleCloseDrawer = useCallback(() => onClose(), [onClose]);
   const handleColorMode = (): void => toggleColorMode();
   const handleChangeLocale: UseHeaderReturnType["handleChangeLocale"] = () => changeLocale(router, localeEn);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises

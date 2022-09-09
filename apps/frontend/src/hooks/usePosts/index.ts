@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import useSWRInfinite from "swr/infinite";
 import { wait } from "../../utils/wait";
 import { POSTS_QUERY } from "./schema";
@@ -25,7 +25,7 @@ export const usePosts: UsePostsType = () => {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite<PostsQuery, Error>(getKey);
   let posts: UsePostsReturnType["posts"] = null;
-  const [isThresholdLoading, setIsThresholdLoading] = React.useState(false);
+  const [isThresholdLoading, setIsThresholdLoading] = useState(false);
 
   if (data) {
     const lastElement = data[data.length - 1];

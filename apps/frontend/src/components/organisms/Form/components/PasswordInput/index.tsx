@@ -9,7 +9,7 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
-import React from "react";
+import { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { constants } from "../../../../../constants";
 import { useLocale } from "../../../../../lib/next_router";
@@ -26,7 +26,7 @@ export const PasswordInput: PasswordInputType = ({ errors, register }) => {
     "Password must be more than 10 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.",
     "パスワードは10文字以上で、少なくとも大文字1つ、小文字1つ、数字1つ、特殊文字1つを含んでいる必要があります。"
   );
-  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const getPasswordVisibleIcon = (): JSX.Element => (isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />);
   const handleShowPassword = (): void => setIsPasswordVisible(!isPasswordVisible);
   const inputBgColor = useColorModeValue(SNOW, BUNKER);
