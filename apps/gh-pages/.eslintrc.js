@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ["astro.config.mjs", "tailwind.config.cjs", "env.d.ts", , "**/*.js"],
+  ignorePatterns: ["env.d.ts", "**/*.*js"],
   parserOptions: { tsconfigRootDir: __dirname, project: ["./tsconfig.json"] },
   settings: { react: { version: "detect" } },
   extends: [
