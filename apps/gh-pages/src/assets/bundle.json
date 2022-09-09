@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/3019965301",
+    "date": "2022-09-09 04:26",
+    "data": {
+      "/": {
+        "raw": 726667,
+        "gzip": 206662
+      },
+      "/404": {
+        "raw": 864762,
+        "gzip": 202594
+      },
+      "/[userId]": {
+        "raw": 361416,
+        "gzip": 110692
+      },
+      "/[userId]/[postId]": {
+        "raw": 398416,
+        "gzip": 120072
+      },
+      "/_app": {
+        "raw": 0,
+        "gzip": 0
+      },
+      "/_error": {
+        "raw": 265,
+        "gzip": 194
+      },
+      "/server-sitemap.xml": {
+        "raw": 412,
+        "gzip": 261
+      },
+      "/signup": {
+        "raw": 667806,
+        "gzip": 190901
+      },
+      "__global": {
+        "raw": 827512,
+        "gzip": 248358
+      }
+    }
+  }
+]
