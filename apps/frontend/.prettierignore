@@ -1,4 +1,4 @@
-.env.development
 public/storybook
 dist
 .prettierignore
+.env.development

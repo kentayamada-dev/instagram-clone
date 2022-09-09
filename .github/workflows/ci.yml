@@ -56,7 +56,7 @@ jobs:
     if: needs.Detect-Changes.outputs.backend == 'true'
     needs: [Detect-Changes, Cancel-Previous-Runs]
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository code
