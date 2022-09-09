@@ -23,9 +23,11 @@
     "chart.js": "^3.9.1",
     "chartjs-plugin-zoom": "^1.2.1",
     "daisyui": "^2.24.0",
-    "prettier-plugin-astro": "^0.5.3",
     "react": "^18.0.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "prettier-plugin-astro": "^0.5.4"
   }
 }

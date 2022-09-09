@@ -108,6 +108,7 @@ export const LighthouseAnalysisStatsList: LighthouseAnalysisStatsListType = () =
     const foundMobileObj = data.find(
       (obj) => new URL(obj.url).pathname === mobileSelectOption && obj.emulatedFormFactor === "mobile"
     );
+
     scoreKeys.forEach((value, index) => {
       const foundDesktopData = desktopDatasets.find((dataset) => dataset.label === value);
       const foundMobileData = mobileDatasets.find((dataset) => dataset.label === value);
@@ -133,6 +134,7 @@ export const LighthouseAnalysisStatsList: LighthouseAnalysisStatsListType = () =
       }
     });
   }
+
   const handleMobileSelectChange: LighthouseAnalysisStatsProps["handleSelectChange"] = (event) =>
     setMobileSelectOption(event.target.value);
   const handleDesktopSelectChange: LighthouseAnalysisStatsProps["handleSelectChange"] = (event) =>
@@ -142,34 +144,25 @@ export const LighthouseAnalysisStatsList: LighthouseAnalysisStatsListType = () =
     datasets: mobileDatasets,
     labels
   };
-
   const desktopData = {
     datasets: desktopDatasets,
     labels
   };
 
-  const openUrl: LighthouseAnalysisStatsProps["openUrl"] = (element) => {
-    if (!element.length) {
-      return;
-    }
-    const index = element[0]?.index ?? 0;
-    window.open(actionUrls[index], "_blank");
-  };
-
   return (
     <>
       <LighthouseAnalysisStats
+        actionUrls={actionUrls}
         data={mobileData}
         handleSelectChange={handleMobileSelectChange}
-        openUrl={openUrl}
         options={mobileOptions}
         selectOptions={selectOptions}
         title="Mobile Mode"
       />
       <LighthouseAnalysisStats
+        actionUrls={actionUrls}
         data={desktopData}
         handleSelectChange={handleDesktopSelectChange}
-        openUrl={openUrl}
         options={desktopOptions}
         selectOptions={selectOptions}
         title="Desktop Mode"

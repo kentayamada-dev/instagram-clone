@@ -1,13 +1,12 @@
 import { Chart, LinearScale, CategoryScale, BarElement, Legend, Tooltip } from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
-import { useRef, useState, useEffect } from "react";
-import { Bar, getElementAtEvent } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import bundleData from "../../assets/bundle.json";
+import { useChart } from "../../hooks/useChart";
 import { bytesToKb } from "../../utils/bytesToKb";
 import { getColor } from "../../utils/getColor";
 import type { BundleAnalysisStatsType } from "./types";
 import type { ChartOptions, ChartData } from "chart.js";
-import type { ComponentProps } from "react";
 
 Chart.register(zoomPlugin, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -58,6 +57,7 @@ export const BundleAnalysisStats: BundleAnalysisStatsType = () => {
   const latestBuild = bundleData.slice(-1)[0];
   const keys = Object.keys(latestBuild?.data ?? {});
   const datasets: ChartData<"bar">["datasets"] = [];
+  const { isInteractiveMode, handleChartChange, handleInputChange, chartRef } = useChart({ actionUrls });
 
   bundleData.forEach(({ data }) => {
     for (const [index, key] of keys.entries()) {
@@ -83,63 +83,6 @@ export const BundleAnalysisStats: BundleAnalysisStatsType = () => {
     labels
   };
 
-  const chartRef = useRef<Chart>(null);
-  const [isInteractiveMode, setIsInteractiveMode] = useState(false);
-
-  const printElementAtEvent = (element: ReturnType<typeof getElementAtEvent>): void => {
-    if (!element.length) {
-      return;
-    }
-    const index = element[0]?.index ?? 0;
-    window.open(actionUrls[index], "_blank");
-  };
-
-  const handleBarChange: React.MouseEventHandler<HTMLCanvasElement> = (event) => {
-    const { current: chart } = chartRef;
-    if (!chart) {
-      return;
-    }
-    printElementAtEvent(getElementAtEvent(chart, event));
-  };
-
-  const handleInputChange: ComponentProps<"input">["onChange"] = () => {
-    const { current: chart } = chartRef;
-    if (
-      !chart ||
-      !chart.options.plugins?.zoom?.zoom?.wheel ||
-      !chart.options.plugins.zoom.pan ||
-      !chart.options.plugins.zoom.zoom.pinch
-    ) {
-      return;
-    }
-    setIsInteractiveMode((prev) => !prev);
-    if (isInteractiveMode) {
-      chart.resetZoom();
-    }
-    /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-    chart.options.plugins.zoom.zoom.wheel.enabled = !chart.options.plugins.zoom.zoom.wheel.enabled;
-    chart.options.plugins.zoom.pan.enabled = !chart.options.plugins.zoom.pan.enabled;
-    chart.options.plugins.zoom.zoom.pinch.enabled = !chart.options.plugins.zoom.zoom.pinch.enabled;
-    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
-    chart.update();
-  };
-
-  useEffect(() => {
-    const { current: chart } = chartRef;
-    if (
-      !chart ||
-      !chart.options.plugins?.zoom?.zoom?.wheel ||
-      !chart.options.plugins.zoom.pan ||
-      !chart.options.plugins.zoom.zoom.pinch
-    ) {
-      return;
-    }
-    chart.options.plugins.zoom.zoom.wheel.enabled = false;
-    chart.options.plugins.zoom.pan.enabled = false;
-    chart.options.plugins.zoom.zoom.pinch.enabled = false;
-    chart.update();
-  }, []);
-
   return (
     <div>
       <label className="label cursor-pointer flex w-60 pl-5 pt-0 pb-5 gap-3">
@@ -154,9 +97,7 @@ export const BundleAnalysisStats: BundleAnalysisStatsType = () => {
       </label>
       <div className="overflow-x-auto">
         <div className="relative min-w-[50rem]">
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/* @ts-expect-error */}
-          <Bar data={data} onClick={handleBarChange} options={options} ref={chartRef} />
+          <Bar data={data} onClick={handleChartChange} options={options} ref={chartRef} />
         </div>
       </div>
     </div>

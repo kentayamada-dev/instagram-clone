@@ -1,65 +1,16 @@
-import { useRef, useState, useEffect } from "react";
-import { getElementAtEvent, Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+import { useChart } from "../../hooks/useChart";
 import type { LighthouseAnalysisStatsType } from "./types";
-import type { Chart } from "chart.js";
-import type { ComponentProps } from "react";
 
 export const LighthouseAnalysisStats: LighthouseAnalysisStatsType = ({
   title,
-  openUrl,
   handleSelectChange,
   options,
   data,
+  actionUrls,
   selectOptions
 }) => {
-  const chartRef = useRef<Chart>(null);
-  const [isInteractiveMode, setIsInteractiveMode] = useState(false);
-
-  const handleBarChange: React.MouseEventHandler<HTMLCanvasElement> = (event) => {
-    const { current: chart } = chartRef;
-    if (!chart) {
-      return;
-    }
-    openUrl(getElementAtEvent(chart, event));
-  };
-
-  const handleInputChange: ComponentProps<"input">["onChange"] = () => {
-    const { current: chart } = chartRef;
-    if (
-      !chart ||
-      !chart.options.plugins?.zoom?.zoom?.wheel ||
-      !chart.options.plugins.zoom.pan ||
-      !chart.options.plugins.zoom.zoom.pinch
-    ) {
-      return;
-    }
-    setIsInteractiveMode((prev) => !prev);
-    if (isInteractiveMode) {
-      chart.resetZoom();
-    }
-    /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-    chart.options.plugins.zoom.zoom.wheel.enabled = !chart.options.plugins.zoom.zoom.wheel.enabled;
-    chart.options.plugins.zoom.pan.enabled = !chart.options.plugins.zoom.pan.enabled;
-    chart.options.plugins.zoom.zoom.pinch.enabled = !chart.options.plugins.zoom.zoom.pinch.enabled;
-    /* eslint-enable @typescript-eslint/strict-boolean-expressions */
-    chart.update();
-  };
-
-  useEffect(() => {
-    const { current: chart } = chartRef;
-    if (
-      !chart ||
-      !chart.options.plugins?.zoom?.zoom?.wheel ||
-      !chart.options.plugins.zoom.pan ||
-      !chart.options.plugins.zoom.zoom.pinch
-    ) {
-      return;
-    }
-    chart.options.plugins.zoom.zoom.wheel.enabled = false;
-    chart.options.plugins.zoom.pan.enabled = false;
-    chart.options.plugins.zoom.zoom.pinch.enabled = false;
-    chart.update();
-  }, []);
+  const { isInteractiveMode, handleChartChange, handleInputChange, chartRef } = useChart({ actionUrls });
 
   return (
     <>
@@ -87,9 +38,7 @@ export const LighthouseAnalysisStats: LighthouseAnalysisStatsType = ({
       </div>
       <div className="overflow-x-auto">
         <div className="relative min-w-[45rem]">
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/* @ts-expect-error */}
-          <Bar data={data} onClick={handleBarChange} options={options} ref={chartRef} />
+          <Bar data={data} onClick={handleChartChange} options={options} ref={chartRef} />
         </div>
       </div>
     </>

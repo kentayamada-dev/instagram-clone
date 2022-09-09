@@ -1,6 +1,5 @@
 {
   "trailingComma": "none",
   "quoteProps": "consistent",
-  "printWidth": 120,
-  "astroAllowShorthand": true
+  "printWidth": 120
 }
