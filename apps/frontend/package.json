@@ -6,7 +6,7 @@
   "scripts": {
     "build": "run-p build:*",
     "postbuild": "run-s generate:sitemap",
-    "prebuild:next": "run-p clean:next eslint type-check validateI18nJsonFiles",
+    "prebuild:next": "run-p clean:next lint",
     "build:next": "next build",
     "prebuild:storybook": "run-s clean:storybook",
     "build:storybook": "build-storybook -o ./public/storybook",
@@ -30,8 +30,8 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "kill-port:next": "kill-port 3002",
     "kill-port:storybook": "kill-port 6006",
-    "lint": "run-p eslint cspell type-check find-deadcode",
-    "postlint": "run-p format",
+    "lint": "run-p eslint cspell type-check find-deadcode validateI18nJsonFiles",
+    "postlint": "run-s format",
     "prod": "next start",
     "type-check": "tsc --noEmit --project tsconfig.json",
     "validateI18nJsonFiles": "node scripts/validateI18nJsonFiles"

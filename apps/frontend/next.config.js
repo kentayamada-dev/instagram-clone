@@ -1,7 +1,7 @@
 const { i18n } = require("./next-i18next.config");
 
 const withBundleAnalyzer =
-  process.env.ANALYZE === "true" ? require("@next/bundle-analyzer")({ enabled: true }) : (config) => config;
+  process.env["ANALYZE"] === "true" ? require("@next/bundle-analyzer")({ enabled: true }) : (config) => config;
 
 module.exports = withBundleAnalyzer({
   i18n,

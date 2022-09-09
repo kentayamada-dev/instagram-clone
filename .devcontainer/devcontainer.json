@@ -17,7 +17,7 @@
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "eslint.workingDirectories": [{ "mode": "auto" }],
-    "files.associations": { "*.json": "jsonc" },
+    "files.associations": { "*.json": "jsonc", "*.env.development": "env" },
     "gitlens.codeLens.enabled": false,
     "gitlens.currentLine.enabled": false,
     "gitlens.statusBar.enabled": false,
@@ -48,6 +48,7 @@
     "apollographql.vscode-apollo",
     "eamodio.gitlens",
     "astro-build.astro-vscode",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "IronGeek.vscode-env"
   ]
 }

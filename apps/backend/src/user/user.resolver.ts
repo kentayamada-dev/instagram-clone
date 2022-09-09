@@ -40,9 +40,9 @@ export class UserResolver {
     private readonly likeCommon: LikeCommon,
     private readonly userService: UserService,
     private readonly authService: AuthService,
-    private readonly configService: ConfigService<ConfigSchema>
+    private readonly configService: ConfigService<ConfigSchema, true>
   ) {
-    const urlObject = new URL(this.configService.get("FRONTEND_ORIGIN") ?? "");
+    const urlObject = new URL(this.configService.get("FRONTEND_ORIGIN"));
     const hostName = urlObject.hostname;
     const domainName = hostName.replace(/^[^.]+\./gu, "");
     const isDevelopment = process.env["NODE_ENV"] === "development";

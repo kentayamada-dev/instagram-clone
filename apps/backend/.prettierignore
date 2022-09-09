@@ -1,3 +1,4 @@
 .prettierignore
 prisma
 dist
+.env.development

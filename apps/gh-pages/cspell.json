@@ -15,7 +15,9 @@
     "noopener",
     "noreferrer",
     "daisyui",
-    "kentayamada"
+    "kentayamada",
+    "deadcode",
+    "postlint"
   ],
   "ignorePaths": ["src/assets"]
 }

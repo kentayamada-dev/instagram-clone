@@ -19,13 +19,17 @@ module.exports = {
     ];
   },
   "!(package.json)*.!(*ts?(x))": (absolutePaths) => {
-    console.log("apps/frontend > *.!(*ts?(x))", absolutePaths);
+    console.log("apps/frontend > !(package.json)*.!(*ts?(x))", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
     return [`prettier ${prettierOptions} ${joinedAbsolutePaths}`, `cspell ${cspellOptions} ${joinedAbsolutePaths}`];
   },
   "package.json": (absolutePaths) => {
     console.log("apps/frontend > package.json", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [`sort-package-json ${joinedAbsolutePaths}`, `prettier ${prettierOptions} ${joinedAbsolutePaths}`];
+    return [
+      `sort-package-json ${joinedAbsolutePaths}`,
+      `prettier ${prettierOptions} ${joinedAbsolutePaths}`,
+      `cspell ${cspellOptions} ${joinedAbsolutePaths}`
+    ];
   }
 };

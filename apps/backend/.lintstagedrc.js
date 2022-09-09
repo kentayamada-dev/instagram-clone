@@ -22,6 +22,10 @@ module.exports = {
   "package.json": (absolutePaths) => {
     console.log("apps/backend > package.json", absolutePaths);
     const joinedAbsolutePaths = absolutePaths.join(" ");
-    return [`sort-package-json ${joinedAbsolutePaths}`, `prettier ${prettierOptions} ${joinedAbsolutePaths}`];
+    return [
+      `sort-package-json ${joinedAbsolutePaths}`,
+      `prettier ${prettierOptions} ${joinedAbsolutePaths}`,
+      `cspell ${cspellOptions} ${joinedAbsolutePaths}`
+    ];
   }
 };

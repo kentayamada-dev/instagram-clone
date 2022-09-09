@@ -21,6 +21,8 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
   imports: [
     ConfigModule.forRoot({
       cache: true,
+      envFilePath: ".env.development",
+      ignoreEnvFile: process.env["NODE_ENV"] === "production",
       validationSchema: configSchema
     }),
     PrismaModule,
@@ -32,7 +34,7 @@ import type { ApolloDriverConfig } from "@nestjs/apollo";
       driver: ApolloDriver,
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService<ConfigSchema>) => ({
+      useFactory: (configService: ConfigService<ConfigSchema, true>) => ({
         autoSchemaFile: true,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/explicit-function-return-type
         context: ({ req, res }) => ({ req, res }),

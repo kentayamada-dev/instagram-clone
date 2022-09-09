@@ -4,11 +4,16 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "prebuild": "run-s lint",
     "build": "astro build",
     "cspell": "cspell --gitignore --cache --config cspell.json '**'",
     "dev": "astro dev",
+    "eslint": "eslint --fix --config .eslintrc.js --cache .",
     "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
-    "preview": "astro preview"
+    "lint": "run-p eslint cspell type-check",
+    "postlint": "run-s format",
+    "preview": "astro preview",
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@astrojs/react": "^1.1.1",

@@ -16,8 +16,8 @@ import type { ConfigSchema } from "../utils/config";
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService<ConfigSchema>) => ({
-        secret: configService.get("JWT_SECRET") ?? "",
+      useFactory: (configService: ConfigService<ConfigSchema, true>) => ({
+        secret: configService.get("JWT_SECRET"),
         signOptions: { expiresIn: "1d" }
       })
     })

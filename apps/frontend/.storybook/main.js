@@ -1,4 +1,4 @@
-const isDevelopment = process.env.NODE_ENV === "development";
+const isDevelopment = process.env["NODE_ENV"] === "development";
 const SITE_URL = "https://app.instagram-clone.net";
 
 module.exports = {

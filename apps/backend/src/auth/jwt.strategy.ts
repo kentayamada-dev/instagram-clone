@@ -10,7 +10,7 @@ import type { Request } from "express";
 export class JwtStrategy extends PassportStrategy(Strategy) {
   public constructor(
     // eslint-disable-next-line @typescript-eslint/no-parameter-properties, @typescript-eslint/prefer-readonly-parameter-types
-    protected readonly configService: ConfigService<ConfigSchema>
+    protected readonly configService: ConfigService<ConfigSchema, true>
   ) {
     super({
       ignoreExpiration: false,

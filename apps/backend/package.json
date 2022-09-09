@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "run-p build:*",
-    "prebuild:nest": "run-s clean:nest prisma:generate",
+    "prebuild:nest": "run-s clean:nest prisma:generate lint",
     "build:nest": "nest build",
     "clean:nest": "rimraf dist",
     "cspell": "cspell --gitignore --cache --config cspell.json '**'",
@@ -18,7 +18,7 @@
     "format": "prettier --ignore-path .prettierignore --config .prettierrc.json --cache --write .",
     "kill-port:nest": "kill-port 5001",
     "lint": "run-p eslint cspell type-check find-deadcode",
-    "postlint": "run-p format",
+    "postlint": "run-s format",
     "prisma:generate": "prisma generate",
     "prisma:init": "run-s prisma:generate prisma:migrate:dev prisma:seed",
     "prisma:migrate:dev": "prisma migrate dev",

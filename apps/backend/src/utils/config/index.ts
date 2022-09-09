@@ -3,11 +3,13 @@
 import Joi from "joi";
 
 export interface ConfigSchema {
-  readonly FRONTEND_ORIGIN: string;
-  readonly JWT_SECRET: string;
+  DATABASE_URL: string;
+  FRONTEND_ORIGIN: string;
+  JWT_SECRET: string;
 }
 
 export const configSchema = Joi.object<ConfigSchema>({
+  DATABASE_URL: Joi.string().required(),
   FRONTEND_ORIGIN: Joi.string().required(),
   JWT_SECRET: Joi.string().required()
 });
