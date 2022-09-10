@@ -6,10 +6,14 @@ import {
   VStack,
   Text,
   useColorModeValue,
-  FormErrorMessage
+  FormErrorMessage,
+  Grid,
+  GridItem,
+  Divider
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useTranslation } from "next-i18next";
+import { AiFillLock } from "react-icons/ai";
 import { constants } from "../../../constants";
 import { useMyForm } from "../../../hooks/useForm";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
@@ -19,14 +23,16 @@ import { ImageSelect } from "./components/ImageSelect";
 import { NameInput } from "./components/NameInput";
 import { PasswordInput } from "./components/PasswordInput";
 import { UserIdInput } from "./components/UserIdInput";
-import type { FormType } from "./index.types";
+import type { FormType, GetValueByAuthModeType } from "./index.types";
+import type { ButtonProps } from "@chakra-ui/react";
 
 const StyledForm = styled.form`
   width: 100%;
+  padding-top: 30px;
 `;
 
 const {
-  COLORS: { WHITE, EBONY, BLACK_PEARL, DODGER_BLUE }
+  COLORS: { WHITE, EBONY, BLACK_PEARL, DODGER_BLUE, SUVA_GREY }
 } = constants;
 
 export const Form: FormType = ({ isSignup }) => {
@@ -36,17 +42,18 @@ export const Form: FormType = ({ isSignup }) => {
     setError,
     setValue,
     errorMessage,
-    submitHandler,
+    loginHandler,
+    signupHandler,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useMyForm({ isSignup });
+  } = useMyForm();
   const { t } = useTranslation("form");
-  const getValueByAuthMode = <SignupValueType, LoginValueType>(
-    signupValue: SignupValueType,
-    loginValue: LoginValueType
-  ): LoginValueType | SignupValueType => (isSignup ? signupValue : loginValue);
+  const getValueByAuthMode: GetValueByAuthModeType = (signupValue, loginValue) => (isSignup ? signupValue : loginValue);
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
+  const handleAnonymousLogin: ButtonProps["onClick"] = () => {
+    loginHandler({ email: "anonymoususer@gmail.com", password: "Anonymoususer@12345" });
+  };
   const darkImg = {
     alt: "Instagram Text Dark",
     src: "/static/instagram/text_dark.svg"
@@ -58,7 +65,7 @@ export const Form: FormType = ({ isSignup }) => {
   };
 
   return (
-    <VStack pb="20px" pt="20px" spacing={4}>
+    <VStack pb="20px" pt="20px">
       <Stack
         align="center"
         bgColor={{
@@ -71,12 +78,12 @@ export const Form: FormType = ({ isSignup }) => {
           sm: "1px"
         }}
         p="30px"
-        spacing={10}
+        spacing="0"
         width="350px"
       >
         <ImageColorMode darkImg={darkImg} height={51} lightImg={lightImg} width={175} />
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-        <StyledForm onSubmit={handleSubmit(submitHandler)}>
+        <StyledForm onSubmit={handleSubmit(isSignup ? signupHandler : loginHandler)}>
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
               {isSignup ? (
@@ -99,6 +106,31 @@ export const Form: FormType = ({ isSignup }) => {
               </Button>
             </VStack>
             <FormErrorMessage justifyContent="center">{errorMessage}</FormErrorMessage>
+            {getValueByAuthMode(
+              null,
+              <VStack>
+                <Grid gap={0} templateColumns="repeat(5, 1fr)" templateRows="repeat(1, 1fr)" w="full">
+                  <GridItem alignItems="center" colSpan={2} display="flex" justifyContent="center">
+                    <Divider borderColor={SUVA_GREY} />
+                  </GridItem>
+                  <GridItem colSpan={1} fontSize="small" textAlign="center" textColor={SUVA_GREY}>
+                    {t("or")}
+                  </GridItem>
+                  <GridItem alignItems="center" colSpan={2} display="flex" justifyContent="center">
+                    <Divider borderColor={SUVA_GREY} />
+                  </GridItem>
+                </Grid>
+                <Button
+                  colorScheme="tertiary"
+                  leftIcon={<AiFillLock size={25} />}
+                  onClick={handleAnonymousLogin}
+                  textDecoration="none !important"
+                  variant="link"
+                >
+                  {t("anonymousLogin")}
+                </Button>
+              </VStack>
+            )}
           </FormControl>
         </StyledForm>
       </Stack>

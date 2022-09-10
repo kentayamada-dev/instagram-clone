@@ -5,16 +5,15 @@ export type MyFormType = Omit<SignupInput, "imageUrl"> & {
   file: Blob | FileList;
 };
 
-type UseMyFormProps = {
-  isSignup: boolean;
-};
+export type LoginFormType = Pick<MyFormType, "email" | "password">;
 
 type UseMyFormReturnType = UseFormReturn<MyFormType> & {
   errorMessage: string;
-  submitHandler: SubmitHandler<MyFormType>;
+  loginHandler: SubmitHandler<LoginFormType>;
+  signupHandler: SubmitHandler<MyFormType>;
 };
 
-export type UseMyFormType = (props: UseMyFormProps) => UseMyFormReturnType;
+export type UseMyFormType = () => UseMyFormReturnType;
 
 export type FormInputProps = {
   errors: FieldErrors<MyFormType>;

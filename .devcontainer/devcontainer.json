@@ -12,7 +12,8 @@
     "activitusbar.views": [
       { "codicon": "debug-restart", "name": "command.eslint.restart", "tooltip": "Restart ESlint Server" },
       { "codicon": "debug-restart", "name": "command.typescript.restartTsServer", "tooltip": "Restart TS Server" },
-      { "codicon": "debug-restart", "name": "command.apollographql/reloadService", "tooltip": "Restart Apollo Server" }
+      { "codicon": "debug-restart", "name": "command.apollographql/reloadService", "tooltip": "Restart Apollo Server" },
+      { "codicon": "warning", "name": "command.errorLens.toggle", "tooltip": "Toggle Error Lens" }
     ],
     "colorize.languages": ["typescript"],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -33,17 +34,12 @@
   },
   "extensions": [
     "esbenp.prettier-vscode",
-    "Exelord.git-commits",
-    "albert.TabOut",
-    "Fooxly.themeswitch",
-    "richie5um2.vscode-sort-json",
     "dbaeumer.vscode-eslint",
     "Prisma.prisma",
     "pflannery.vscode-versionlens",
     "kamikillerto.vscode-colorize",
     "styled-components.vscode-styled-components",
     "ms-vscode.live-server",
-    "Gruntfuggly.activitusbar",
     "formulahendry.auto-rename-tag",
     "apollographql.vscode-apollo",
     "eamodio.gitlens",

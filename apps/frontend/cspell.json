@@ -45,7 +45,8 @@
     "Combobox",
     "outerdiv",
     "unfollow",
-    "Usergroup"
+    "Usergroup",
+    "Anonymoususer"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

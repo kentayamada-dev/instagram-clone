@@ -80,6 +80,20 @@ const Button: ComponentSingleStyleConfig = {
 
 const theme = extendTheme({
   // https://tailwind.simeongriggs.dev/
+  colors: {
+    tertiary: {
+      "50": "#F5F5F5",
+      "100": "#E8E8E8",
+      "200": "#D1D1D1",
+      "300": "#BABABA",
+      "400": "#A6A6A6",
+      "500": "#8E8E8E",
+      "600": "#737373",
+      "700": "#545454",
+      "800": "#383838",
+      "900": "#1C1C1C"
+    }
+  },
   components: {
     Button,
     Modal

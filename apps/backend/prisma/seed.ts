@@ -122,14 +122,30 @@ const USERS = [
     name: "Ellen DeGeneres"
   }
 ];
-const MAX_NUM_POSTS = 20;
-const SALT_ROUNDS = 10;
 const TEST_USER: Prisma.UserCreateInput = {
   id: "test_user",
   imageUrl: `https://picsum.photos/id/1000/1000/1000`,
   name: "Test User",
   email: "testuser@gmail.com",
   password: "Test@12345"
+};
+const ANONYMOUS_USER: Prisma.UserCreateInput = {
+  id: "anonymous_user",
+  imageUrl: `https://picsum.photos/id/997/1000/1000`,
+  name: "Anonymous User",
+  email: "anonymoususer@gmail.com",
+  password: "Anonymoususer@12345",
+  posts: {
+    createMany: {
+      data: [
+        { imageUrl: `https://picsum.photos/id/997/1000/1000`, caption: faker.lorem.paragraph() },
+        { imageUrl: `https://picsum.photos/id/998/1000/1000`, caption: faker.lorem.paragraph() },
+        { imageUrl: `https://picsum.photos/id/996/1000/1000`, caption: faker.lorem.paragraph() },
+        { imageUrl: `https://picsum.photos/id/995/1000/1000`, caption: faker.lorem.paragraph() },
+        { imageUrl: `https://picsum.photos/id/994/1000/1000`, caption: faker.lorem.paragraph() }
+      ]
+    }
+  }
 };
 const LONG_USER_ID_NAME: Prisma.UserCreateInput = {
   id: "_the_longest_user_id_for_test_",
@@ -144,11 +160,14 @@ const LONG_USER_ID_NAME: Prisma.UserCreateInput = {
     }
   }
 };
+
 const sleep = (msec: number) => new Promise((resolve) => setTimeout(resolve, msec));
+const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
 const prisma = new PrismaClient();
+const MAX_NUM_POSTS = 20;
+const SALT_ROUNDS = 10;
 
-const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 const getRandomElements = (array: string[], num: number) => {
   const output = [];
   for (let i = 0; i < num; i++) {
@@ -276,11 +295,15 @@ const seedData = async (userData: Prisma.UserCreateInput[]) => {
     ...TEST_USER,
     password: await hash(TEST_USER.password, SALT_ROUNDS)
   };
+  const anonymousUser: Prisma.UserCreateInput = {
+    ...ANONYMOUS_USER,
+    password: await hash(ANONYMOUS_USER.password, SALT_ROUNDS)
+  };
   const longUser: Prisma.UserCreateInput = {
     ...LONG_USER_ID_NAME,
     password: await hash(LONG_USER_ID_NAME.password, SALT_ROUNDS)
   };
-  const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested, longUser];
+  const userData: Prisma.UserCreateInput[] = [...generatedUsers, userToBeTested, longUser, anonymousUser];
 
   try {
     await initDB();

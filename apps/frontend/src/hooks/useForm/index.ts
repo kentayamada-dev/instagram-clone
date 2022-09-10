@@ -6,7 +6,7 @@ import { useLocale } from "../../lib/next_router";
 import { getImageUrl } from "../../utils/getImageUrl";
 import { LOGIN_MUTATION, SIGNUP_MUTATION } from "./schema";
 import type { LoginMutation, LoginMutationVariables, SignupMutation, SignupMutationVariables } from "../../generated";
-import type { MyFormType, UseMyFormType } from "./type";
+import type { LoginFormType, MyFormType, UseMyFormType } from "./type";
 import type { SubmitHandler } from "react-hook-form";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,7 +18,7 @@ const isGraphQLErrors = (error: any): error is { response: any } => {
   return false;
 };
 
-export const useMyForm: UseMyFormType = ({ isSignup }) => {
+export const useMyForm: UseMyFormType = () => {
   const emailAlreadyExistsErrorMessage = useLocale(
     "Another account is using the same email.",
     "同じメールアドレスが他のアカウントで利用されています。"
@@ -56,28 +56,32 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
       });
     }
   };
-  const submitHandler: SubmitHandler<MyFormType> = async (data) => {
+  const signupHandler: SubmitHandler<MyFormType> = async (data) => {
     setErrorMessage("");
     const { file, ...signUpProps } = data;
-    const { name, ...loginProps } = signUpProps;
     try {
-      if (isSignup) {
-        if (file instanceof Blob) {
-          const imageUrl = await getImageUrl({ file });
-          await fetcher<SignupMutation, SignupMutationVariables>(SIGNUP_MUTATION, {
-            signupInput: {
-              ...signUpProps,
-              imageUrl
-            }
-          });
-          router.reload();
-        } else {
-          throw new Error("image is not selected");
-        }
-      } else {
-        await fetcher<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, { loginInput: loginProps });
+      if (file instanceof Blob) {
+        const imageUrl = await getImageUrl({ file });
+        await fetcher<SignupMutation, SignupMutationVariables>(SIGNUP_MUTATION, {
+          signupInput: {
+            ...signUpProps,
+            imageUrl
+          }
+        });
         router.reload();
+      } else {
+        throw new Error("image is not selected");
       }
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const loginHandler: SubmitHandler<LoginFormType> = async (data) => {
+    setErrorMessage("");
+    try {
+      await fetcher<LoginMutation, LoginMutationVariables>(LOGIN_MUTATION, { loginInput: data });
+      router.reload();
     } catch (error) {
       handleError(error);
     }
@@ -86,7 +90,8 @@ export const useMyForm: UseMyFormType = ({ isSignup }) => {
   return {
     ...rest,
     errorMessage,
+    loginHandler,
     setError,
-    submitHandler
+    signupHandler
   };
 };

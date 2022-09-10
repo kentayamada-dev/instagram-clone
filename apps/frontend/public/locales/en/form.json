@@ -10,5 +10,7 @@
   "fullName": "Full Name",
   "fullNamePlaceholder": "Please enter your full name",
   "username": "Username",
-  "usernamePlaceholder": "Please enter your username"
+  "usernamePlaceholder": "Please enter your username",
+  "anonymousLogin": "Log in Anonymously",
+  "or": "OR"
 }

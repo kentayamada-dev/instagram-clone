@@ -10,5 +10,7 @@
   "fullName": "フルネーム",
   "fullNamePlaceholder": "フルネームを入力してください",
   "username": "ユーザーネーム",
-  "usernamePlaceholder": "ユーザーネームを入力してください"
+  "usernamePlaceholder": "ユーザーネームを入力してください",
+  "anonymousLogin": "匿名ログイン",
+  "or": "または"
 }
