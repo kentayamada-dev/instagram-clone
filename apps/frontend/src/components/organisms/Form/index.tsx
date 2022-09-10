@@ -108,7 +108,7 @@ export const Form: FormType = ({ isSignup }) => {
             <FormErrorMessage justifyContent="center">{errorMessage}</FormErrorMessage>
             {getValueByAuthMode(
               null,
-              <VStack>
+              <VStack marginTop="5">
                 <Grid gap={0} templateColumns="repeat(5, 1fr)" templateRows="repeat(1, 1fr)" w="full">
                   <GridItem alignItems="center" colSpan={2} display="flex" justifyContent="center">
                     <Divider borderColor={SUVA_GREY} />
@@ -122,6 +122,7 @@ export const Form: FormType = ({ isSignup }) => {
                 </Grid>
                 <Button
                   colorScheme="tertiary"
+                  isLoading={isSubmitting}
                   leftIcon={<AiFillLock size={25} />}
                   onClick={handleAnonymousLogin}
                   textDecoration="none !important"
