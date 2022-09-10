@@ -85,11 +85,10 @@ export const BundleAnalysisStats: BundleAnalysisStatsType = () => {
 
   return (
     <div>
-      <label className="label cursor-pointer flex w-60 pl-5 pt-0 pb-5 gap-3">
+      <label className="label cursor-pointer flex w-60 pl-5 pt-5 pb-5 gap-3">
         <input
           checked={isInteractiveMode}
           className="toggle toggle-primary"
-          // eslint-disable-next-line react/jsx-handler-names
           onChange={handleInputChange}
           type="checkbox"
         />

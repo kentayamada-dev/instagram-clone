@@ -14,7 +14,7 @@ export const LighthouseAnalysisStats: LighthouseAnalysisStatsType = ({
 
   return (
     <>
-      <p className="text-lg font-bold my-0 ml-5">{title}</p>
+      <p className="text-lg font-bold my-0 ml-5 mt-5">{title}</p>
       <div className="flex gap-3 sm:gap-5 ml-5">
         <label className="label cursor-pointer flex flex-col p-0">
           <span className="label-text">Toggle interactive mode</span>

@@ -13,7 +13,9 @@ const GLOBAL_BUILD_KEY = "__global";
 const latestBundleData = bundleData.slice(-1)[0]?.data;
 const latestLighthouseData = lighthouseData.slice(-1)[0]?.data ?? [];
 const globalBundleSize = latestBundleData ? latestBundleData[GLOBAL_BUILD_KEY]["gzip"] : 0;
-let bundleTds = [];
+let bundleTds: { page: string; size: number; firstLoad: string | number }[] = [
+  { page: "__global", size: bytesToKb(globalBundleSize), firstLoad: "" }
+];
 let lighthouseTds = [];
 
 for (const { emulatedFormFactor, localReport, scores, url: rawUrl } of latestLighthouseData) {
@@ -56,10 +58,6 @@ if (latestBundleData) {
                 </tr>
               </thead>
               <tbody>
-                <tr class="hover text-center">
-                  <td>__global</td>
-                  <td>{bytesToKb(globalBundleSize)}</td>
-                </tr>
                 {
                   bundleTds.map((td) => (
                     <tr class="hover text-center">
