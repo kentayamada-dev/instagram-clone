@@ -45,6 +45,9 @@
     "eamodio.gitlens",
     "astro-build.astro-vscode",
     "bradlc.vscode-tailwindcss",
-    "IronGeek.vscode-env"
+    "IronGeek.vscode-env",
+    "richie5um2.vscode-sort-json",
+    "albert.TabOut",
+    "Fooxly.themeswitch"
   ]
 }

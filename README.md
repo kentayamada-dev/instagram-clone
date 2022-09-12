@@ -36,8 +36,6 @@
             <th align="center">React Hook Form</th>
             <th align="center">TypeScript</th>
             <th align="center">i18next</th>
-            <th align="center">Cypress</th>
-            <th align="center">reg-suit</th>
             <th align="center">Faker</th>
             <th align="center">LottieFiles</th>
             <th align="center">Emotion</th>
@@ -54,8 +52,6 @@
             <td align="center"><img src="https://ico.now.sh/reacthookform/EC5990" width=50 alt="ReactHookForm-Logo"/></td>
             <td align="center"><img src="https://ico.now.sh/typescript/3178C6" width=50 alt="TypeScript-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188814780-901edb98-fc74-4344-b30b-c6b5913cea13.svg" width=50 alt="i18next-Logo"/></td>
-            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188815804-2ec09981-9d01-42eb-8e93-a1eb32a9424a.svg" width=50 alt="Cypress-Logo"/></td>
-            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188776078-285817f2-166c-4702-8dcf-77a87ea8521e.svg" width=50 alt="RegSuit-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188792063-18dd5fa8-5f20-4e70-9424-f1682497e251.svg" width=50 alt="Faker-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188816450-a333927b-7b2b-4ce4-99c5-07047040991a.svg" width=50 alt="LottieFiles-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188817479-ef37e456-6360-4bb4-a66d-f1d47cdd89d3.svg" width=50 alt="Emotion-Logo"/></td>
@@ -142,6 +138,11 @@
             <th align="center">Tailwind CSS</th>
             <th align="center">ChartJS</th>
             <th align="center">daisyUI</th>
+            <th align="center">Cypress</th>
+            <th align="center">reg-suit</th>
+            <th align="center">Google Analytics</th>
+            <th align="center">Next.js Bundle Analyzer</th>
+            <th align="center">Lighthouse</th>
         </tr>
     </thead>
     <tbody>
@@ -150,6 +151,11 @@
             <td align="center"><img src="https://ico.now.sh/react/61DAFB" width=50 alt="React-Logo"/></td>
             <td align="center"><img src="https://ico.now.sh/tailwindcss/06B6D4" width=50 alt="TailwindCss-Logo"/></td>
             <td align="center"><img src="https://user-images.githubusercontent.com/83388735/189290395-e6e2309d-6040-4b83-b0b3-eeffdcad81f2.svg" width=50 alt="ChartJs-Logo"/></td><td align="center"><img src="https://user-images.githubusercontent.com/83388735/189292024-342fc5ba-38de-4002-8504-d1aeeaf737b9.svg" width=50 alt="daisyUI-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188815804-2ec09981-9d01-42eb-8e93-a1eb32a9424a.svg" width=50 alt="Cypress-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/188776078-285817f2-166c-4702-8dcf-77a87ea8521e.svg" width=50 alt="RegSuit-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/189570289-82b9c752-9e1b-41f7-8784-14d2535c1a8e.svg" width=50 alt="GoogleAnalytics-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/189572630-9a317d40-fac0-4a80-a2fd-ecfc3248ef3f.svg" width=100 alt="NextJsBundleAnalyzer-Logo"/></td>
+            <td align="center"><img src="https://user-images.githubusercontent.com/83388735/189572955-8defca65-0384-43ef-b32d-4d24d1b0dc79.svg" width=50 alt="Lighthouse-Logo"/></td>
         </tr>
     </tbody>
 </table>

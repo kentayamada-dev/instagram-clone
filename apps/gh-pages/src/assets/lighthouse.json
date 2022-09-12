@@ -310,5 +310,161 @@
         }
       }
     ]
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/3034513450",
+    "date": "2022-09-12 03:41",
+    "data": [
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662954386043.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 63,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662954396185.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 62,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662954406321.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 96,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662954416283.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 57,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662954427341.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 86,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662954435834.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 62,
+          "progressiveWebApp": 60,
+          "seo": 100
+        }
+      }
+    ]
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/3034564843",
+    "date": "2022-09-12 03:57",
+    "data": [
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662955376505.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 92,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1662955387220.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 56,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662955398081.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 93,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1662955408769.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 55,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662955419934.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 94,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1662955430813.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 92,
+          "performance": 52,
+          "progressiveWebApp": 60,
+          "seo": 100
+        }
+      }
+    ]
   }
 ]

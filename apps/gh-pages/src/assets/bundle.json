@@ -166,5 +166,89 @@
         "gzip": 248449
       }
     }
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/3034513450",
+    "date": "2022-09-12 03:41",
+    "data": {
+      "/": {
+        "raw": 718308,
+        "gzip": 205841
+      },
+      "/404": {
+        "raw": 859966,
+        "gzip": 202049
+      },
+      "/[userId]": {
+        "raw": 353177,
+        "gzip": 109934
+      },
+      "/[userId]/[postId]": {
+        "raw": 390158,
+        "gzip": 119299
+      },
+      "/_app": {
+        "raw": 0,
+        "gzip": 0
+      },
+      "/_error": {
+        "raw": 265,
+        "gzip": 194
+      },
+      "/server-sitemap.xml": {
+        "raw": 412,
+        "gzip": 261
+      },
+      "/signup": {
+        "raw": 662369,
+        "gzip": 190450
+      },
+      "__global": {
+        "raw": 828430,
+        "gzip": 248555
+      }
+    }
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/3034564843",
+    "date": "2022-09-12 03:57",
+    "data": {
+      "/": {
+        "raw": 718482,
+        "gzip": 205860
+      },
+      "/404": {
+        "raw": 859966,
+        "gzip": 202049
+      },
+      "/[userId]": {
+        "raw": 353177,
+        "gzip": 109934
+      },
+      "/[userId]/[postId]": {
+        "raw": 390158,
+        "gzip": 119299
+      },
+      "/_app": {
+        "raw": 0,
+        "gzip": 0
+      },
+      "/_error": {
+        "raw": 265,
+        "gzip": 194
+      },
+      "/server-sitemap.xml": {
+        "raw": 412,
+        "gzip": 261
+      },
+      "/signup": {
+        "raw": 662543,
+        "gzip": 190469
+      },
+      "__global": {
+        "raw": 828430,
+        "gzip": 248555
+      }
+    }
   }
 ]

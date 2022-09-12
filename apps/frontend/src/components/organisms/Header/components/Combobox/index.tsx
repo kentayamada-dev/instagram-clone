@@ -8,6 +8,7 @@ import { constants } from "../../../../../constants";
 import { useDebounce } from "../../../../../hooks/useDebounce";
 import { USERS_FILTER_QUERY } from "../../../../../hooks/useUsers/schema";
 import { fetcher } from "../../../../../lib/graphql_request";
+import { gaEvent } from "../../../../../lib/gtag";
 import { useLocale } from "../../../../../lib/next_router";
 import { wait } from "../../../../../utils/wait";
 import { UserCard } from "../../../../molecules/userCard";
@@ -59,6 +60,11 @@ export const Combobox: ComboboxType = () => {
           cachedValue = cache.get(cacheKey) ?? null;
 
           if (!cachedValue) {
+            gaEvent({
+              action: "search",
+              category: "engagement",
+              label: lowerCasedValue
+            });
             // eslint-disable-next-line require-atomic-updates
             cachedValue = await fetcher<UsersFilterQuery>(USERS_FILTER_QUERY, {
               first: 10,

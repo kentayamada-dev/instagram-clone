@@ -20,7 +20,7 @@ export const constants = {
     SUVA_GREY: "#8E8E8E",
     WHITE: "#FFFFFF"
   },
-  GA_TRACKING_ID: process.env["NEXT_PUBLIC_GOOGLE_ANALYTICS_ID"],
+  GA_TRACKING_ID: process.env["NEXT_PUBLIC_GOOGLE_ANALYTICS_ID"] ?? "",
   LINKS: {
     APOLLO_LINK: "https://studio.apollographql.com/public/Instagram-Clone-b7jzle?variant=current",
     GITHUB_LINK: "https://github.com/kentayamada-dev/instagram-clone",

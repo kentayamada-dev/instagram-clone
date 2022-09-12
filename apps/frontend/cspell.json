@@ -46,7 +46,8 @@
     "outerdiv",
     "unfollow",
     "Usergroup",
-    "Anonymoususer"
+    "Anonymoususer",
+    "Pageview"
   ],
   "ignorePaths": [
     "*.tsbuildinfo",

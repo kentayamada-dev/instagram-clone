@@ -1,21 +1,17 @@
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
+import { constants } from "../../../constants";
+import { gaPageview } from "../../../lib/gtag";
 import type { GaTagsType } from "./index.types";
 
-export const GaTags: GaTagsType = ({ gaTrackingId }) => {
+const { GA_TRACKING_ID } = constants;
+
+export const GaTags: GaTagsType = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!gaTrackingId) {
-      return;
-    }
-    const handleRouteChange = (url: string): void => {
-      window.gtag("config", gaTrackingId, {
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-        page_path: url
-      });
-    };
+    const handleRouteChange = (url: string): void => gaPageview(url);
     router.events.on("routeChangeComplete", handleRouteChange);
     router.events.on("hashChangeComplete", handleRouteChange);
 
@@ -24,15 +20,11 @@ export const GaTags: GaTagsType = ({ gaTrackingId }) => {
       router.events.off("routeChangeComplete", handleRouteChange);
       router.events.off("hashChangeComplete", handleRouteChange);
     };
-  }, [gaTrackingId, router.events]);
-
-  if (!gaTrackingId) {
-    return null;
-  }
+  }, [router.events]);
 
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`} strategy="afterInteractive" />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} strategy="afterInteractive" />
       <Script
         dangerouslySetInnerHTML={{
           // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -40,7 +32,7 @@ export const GaTags: GaTagsType = ({ gaTrackingId }) => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${gaTrackingId}', {
+          gtag('config', '${GA_TRACKING_ID}', {
             page_path: window.location.pathname,
           });
         `

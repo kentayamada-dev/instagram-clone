@@ -4,14 +4,11 @@ import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 import i18nextConfig from "../../next-i18next.config";
 import { GaTags } from "../components/misc/GaTags";
-import { constants } from "../constants";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { theme } from "../lib/chakra";
 import { SWRProvider } from "../lib/swr";
 import type { MyAppType } from "../lib/next/types";
 import "@fontsource/noto-sans-jp";
-
-const { GA_TRACKING_ID } = constants;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const MyApp: MyAppType = ({ Component, pageProps }) => {
@@ -29,7 +26,7 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
   return (
     <>
       {/* Google Analytics */}
-      <GaTags gaTrackingId={GA_TRACKING_ID} />
+      <GaTags />
       <NextNProgress
         color="linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)"
         options={{ showSpinner: false }}

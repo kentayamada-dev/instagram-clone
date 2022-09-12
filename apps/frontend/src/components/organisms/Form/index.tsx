@@ -16,6 +16,7 @@ import { useTranslation } from "next-i18next";
 import { AiFillLock } from "react-icons/ai";
 import { constants } from "../../../constants";
 import { useMyForm } from "../../../hooks/useForm";
+import { gaEvent } from "../../../lib/gtag";
 import { ImageColorMode } from "../../atoms/ImageColorMode";
 import { TextLink } from "../../atoms/TextLink";
 import { EmailInput } from "./components/EmailInput";
@@ -25,6 +26,7 @@ import { PasswordInput } from "./components/PasswordInput";
 import { UserIdInput } from "./components/UserIdInput";
 import type { FormType, GetValueByAuthModeType } from "./index.types";
 import type { ButtonProps } from "@chakra-ui/react";
+import type { FormEvent } from "react";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -52,6 +54,11 @@ export const Form: FormType = ({ isSignup }) => {
   const bgColor = useColorModeValue(WHITE, EBONY);
   const borderColor = useColorModeValue("", BLACK_PEARL);
   const handleAnonymousLogin: ButtonProps["onClick"] = () => {
+    gaEvent({
+      action: "anonymous_login",
+      category: "engagement",
+      label: "form"
+    });
     loginHandler({ email: "anonymoususer@gmail.com", password: "Anonymoususer@12345" });
   };
   const darkImg = {
@@ -62,6 +69,24 @@ export const Form: FormType = ({ isSignup }) => {
   const lightImg = {
     alt: "Instagram Text Light",
     src: "/static/instagram/text_light.svg"
+  };
+
+  const handleSubmitForm = (event: FormEvent<HTMLFormElement>): void => {
+    if (isSignup) {
+      gaEvent({
+        action: "signup",
+        category: "engagement",
+        label: "form"
+      });
+      void handleSubmit(signupHandler)(event);
+    } else {
+      gaEvent({
+        action: "login",
+        category: "engagement",
+        label: "form"
+      });
+      void handleSubmit(loginHandler)(event);
+    }
   };
 
   return (
@@ -82,8 +107,7 @@ export const Form: FormType = ({ isSignup }) => {
         width="350px"
       >
         <ImageColorMode darkImg={darkImg} height={51} lightImg={lightImg} width={175} />
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-        <StyledForm onSubmit={handleSubmit(isSignup ? signupHandler : loginHandler)}>
+        <StyledForm onSubmit={handleSubmitForm}>
           <FormControl isInvalid={Boolean(errorMessage)}>
             <VStack spacing={5} w="100%">
               {isSignup ? (
@@ -122,7 +146,7 @@ export const Form: FormType = ({ isSignup }) => {
                 </Grid>
                 <Button
                   colorScheme="tertiary"
-                  isLoading={isSubmitting}
+                  isDisabled={isSubmitting}
                   leftIcon={<AiFillLock size={25} />}
                   onClick={handleAnonymousLogin}
                   textDecoration="none !important"
