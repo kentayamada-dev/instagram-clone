@@ -59,7 +59,7 @@
     "i18next-http-backend": "^1.4.1",
     "js-cookie": "^3.0.1",
     "lottie-react": "^2.3.1",
-    "next": "^12.1.6",
+    "next": "^12.2.0",
     "next-i18next": "^11.0.0",
     "next-sitemap": "^3.1.16",
     "nextjs-progressbar": "^0.0.14",
