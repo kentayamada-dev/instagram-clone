@@ -12,7 +12,8 @@ module.exports = withBundleAnalyzer({
   images: {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     dangerouslyAllowSVG: true,
-    domains: ["picsum.photos", "res.cloudinary.com"]
+    domains: ["picsum.photos", "res.cloudinary.com"],
+    unoptimized: true
   },
   async rewrites() {
     return [
