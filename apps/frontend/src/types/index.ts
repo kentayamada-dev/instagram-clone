@@ -1,3 +1,3 @@
-export type NeverType<T> = {
-  [P in keyof T]?: never;
+export type NeverType<Type> = {
+  [P in keyof Type]?: never;
 };
