@@ -544,5 +544,83 @@
         }
       }
     ]
+  },
+  {
+    "actionUrl": "https://github.com/kentayamada-dev/instagram-clone/actions/runs/4124869856",
+    "date": "2023-02-08 14:00",
+    "data": [
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1675865292054.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 83,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/",
+        "localReport": "report-1675865302108.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 66,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1675865313502.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 94,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/signup/",
+        "localReport": "report-1675865323064.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 60,
+          "progressiveWebApp": 60,
+          "seo": 98
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1675865334942.html",
+        "emulatedFormFactor": "desktop",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 89,
+          "progressiveWebApp": 56,
+          "seo": 100
+        }
+      },
+      {
+        "url": "https://app.instagram-clone.net/test_user/",
+        "localReport": "report-1675865344784.html",
+        "emulatedFormFactor": "mobile",
+        "scores": {
+          "accessibility": 98,
+          "bestPractices": 83,
+          "performance": 56,
+          "progressiveWebApp": 60,
+          "seo": 100
+        }
+      }
+    ]
   }
 ]
