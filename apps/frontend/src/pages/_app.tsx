@@ -32,6 +32,7 @@ const MyApp: MyAppType = ({ Component, pageProps }) => {
         options={{ showSpinner: false }}
       />
       <SWRProvider>
+        {/* @ts-expect-error unknown type error */}
         <ChakraProvider theme={theme}>{getLayout(<Component {...pageProps} />, pageProps)}</ChakraProvider>
       </SWRProvider>
     </>
