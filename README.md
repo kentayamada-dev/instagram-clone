@@ -1,5 +1,5 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/83388735/187939371-9396b890-6f10-4bae-b52e-e38c5a17d49e.gif" width="300"></p>
-<h1 align="center">Instagram Clone</h1>
+<h1 align="center">Instagram Clone App</h1>
 
 [![CI](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/website?label=Website&logo=Vercel&url=https%3A%2F%2Fapp.instagram-clone.net)](https://app.instagram-clone.net/)
