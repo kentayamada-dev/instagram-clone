@@ -3,7 +3,7 @@
 <p align="center">  
   <strong>🚨 Announcement: Instagram Clone App is now closed ⚠️</strong>
   <br>
-  As of january 1, 2024, the web application and API have been permanently shut down. Thank you for your support.
+  As of January 1, 2024, the web application and API have been permanently shut down. Thank you for your support.
 </p>
 
 [![CI](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
