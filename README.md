@@ -1,7 +1,7 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/83388735/187939371-9396b890-6f10-4bae-b52e-e38c5a17d49e.gif" width="300"></p>
 <h1 align="center">Instagram Clone App</h1>
 <p align="center">  
-  <strong>🚨 Announcement: Instagram Clone App is now closed ⚠️</strong>
+  <strong>🚨 Instagram Clone App is now closed ⚠️</strong>
   <br>
   As of January 1, 2024, the web application and API have been permanently shut down. Thank you for your support.
 </p>
