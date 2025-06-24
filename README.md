@@ -20,8 +20,6 @@
 
 ### 📈 [App Analytics](https://kentayamada-dev.github.io/instagram-clone/)
 
-### 📧 <a href="mailto:contact@kentayamada.dev">contact@kentayamada.dev</a>
-
 ## ⚡ Playgrounds
 
 [![Open in Gitpod](https://user-images.githubusercontent.com/83388735/186300755-062f9256-aeaa-42d1-b42c-50bdb7b728ed.svg)](https://gitpod.io/#https://github.com/kentayamada-dev/instagram-clone)
