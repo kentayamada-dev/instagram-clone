@@ -1,10 +1,8 @@
 <p align="center"><img src="https://user-images.githubusercontent.com/83388735/187939371-9396b890-6f10-4bae-b52e-e38c5a17d49e.gif" width="300"></p>
 <h1 align="center">Instagram Clone App</h1>
-<p align="center">  
-  <strong>⚠️ Instagram Clone App is now closed ⚠️</strong>
-  <br>
-  As of January 1, 2024, the web application and API have been permanently shut down. Thank you for your support.
-</p>
+
+> [!IMPORTANT]
+> **As of January 1, 2024, the web application and API have been permanently shut down. Thank you for your support.**
 
 [![CI](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml/badge.svg)](https://github.com/kentayamada-dev/instagram-clone/actions/workflows/ci.yml)
 [![Website](https://img.shields.io/website?label=Website&logo=Vercel&url=https%3A%2F%2Fapp.instagram-clone.net)](https://app.instagram-clone.net/)
